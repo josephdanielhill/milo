@@ -26,9 +26,10 @@ two independent builds that never run together:
   unused (see "Known gaps" below).
 - `build/sites-vite-plugin.ts` (the `sites()` plugin) runs after the build and
   copies `.openai/hosting.json` into `dist/.openai/` — packaging for whatever
-  hosting/deploy tooling consumes `dist/` (the package name
-  `site-creator-vinext-starter` suggests this template originates from an
-  OpenAI "site creator" / Apps SDK starter, deploying to Cloudflare Workers).
+  hosting/deploy tooling consumes `dist/` (`package.json`'s name was
+  originally `site-creator-vinext-starter` before being renamed to `milo`,
+  suggesting this template originates from an OpenAI "site creator" / Apps
+  SDK starter, deploying to Cloudflare Workers).
 - Output: `dist/` (`dist/client`, `dist/server`, `dist/.openai`).
 
 ### 2. Static SPA / GitHub Pages (`vite.pages.config.ts`)
