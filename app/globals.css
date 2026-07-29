@@ -451,6 +451,11 @@ button:disabled {
   padding: 28px 0 40px;
 }
 
+.hero-split-content .page-top {
+  border-bottom: 0;
+  padding: 28px 0 40px;
+}
+
 .hero {
   align-items: flex-end;
   display: flex;
