@@ -150,9 +150,24 @@ button:disabled {
   gap: 32px;
 }
 
+/* Full lockup (sidebar): split the row into equal halves so the divider
+   between MILO and the tagline lands on the sidebar's centre line. */
+.brand-mark:not(.brand-mark--compact) .brand-text {
+  flex: 1;
+  gap: 0;
+  min-width: 0;
+}
+
+.brand-mark:not(.brand-mark--compact) .brand-text > strong {
+  flex: 0 0 50%;
+  min-width: 0;
+}
+
 .brand-tagline {
   border-left: 1px solid var(--brand-line);
+  flex: 0 0 50%;
   line-height: 1.3;
+  min-width: 0;
   padding-left: 12px;
 }
 
