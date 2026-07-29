@@ -60,6 +60,15 @@ import type { Resource, ResourceDraft, ResourceType } from "./types";
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
 
+type FolderStatus = "idle" | "connecting" | "connected" | "permission" | "unsupported" | "error";
+
+function folderConnectLabel(status: FolderStatus, folderName: string | null) {
+  if (status === "connecting") return "Opening…";
+  if (folderName) return "Change folder";
+  if (status === "permission") return "Reconnect";
+  return "Choose folder";
+}
+
 const typeLabels: Record<ResourceType, string> = {
   prompt: "Prompt",
   skill: "Skill",
@@ -219,9 +228,7 @@ export default function ToolshelfApp({
   const [path, setPath] = useState(initialPath);
   const [localResources, setLocalResources] = useState<Resource[]>([]);
   const [folderName, setFolderName] = useState<string | null>(null);
-  const [folderStatus, setFolderStatus] = useState<
-    "idle" | "connecting" | "connected" | "permission" | "unsupported" | "error"
-  >("idle");
+  const [folderStatus, setFolderStatus] = useState<FolderStatus>("idle");
   const [folderMessage, setFolderMessage] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toast, setToast] = useState("");
@@ -324,6 +331,9 @@ export default function ToolshelfApp({
         search={search}
         setSearch={setSearch}
         navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
       />
     );
   } else if (route.kind === "library") {
@@ -333,10 +343,20 @@ export default function ToolshelfApp({
         resources={resources}
         initialType={route.type}
         navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
       />
     );
   } else if (route.kind === "guide") {
-    content = <ContributionGuide navigate={navigate} />;
+    content = (
+      <ContributionGuide
+        navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
+      />
+    );
   } else if (route.kind === "import") {
     content = (
       <ImportPage
@@ -370,7 +390,7 @@ export default function ToolshelfApp({
       <NotFound navigate={navigate} />
     );
   } else if (route.kind === "create") {
-    content = (
+    content = folderName ? (
       <Editor
         initial={emptyDraft(route.type)}
         folderConnected={Boolean(folderName)}
@@ -383,6 +403,8 @@ export default function ToolshelfApp({
           return saved;
         }}
       />
+    ) : (
+      <ConnectFolderPrompt folderStatus={folderStatus} connectFolder={connectFolder} navigate={navigate} />
     );
   } else if (route.kind === "edit") {
     const resource = resources.find(
@@ -506,7 +528,7 @@ function Sidebar({
   path: string;
   mobileOpen: boolean;
   folderName: string | null;
-  folderStatus: string;
+  folderStatus: FolderStatus;
   folderMessage: string;
   localCount: number;
   navigate: (path: string) => void;
@@ -594,13 +616,7 @@ function Sidebar({
             onClick={() => connectFolder(folderStatus === "permission")}
           >
             <FolderOpen size={14} />
-            {folderStatus === "connecting"
-              ? "Opening…"
-              : folderName
-                ? "Change folder"
-                : folderStatus === "permission"
-                  ? "Reconnect"
-                  : "Choose folder"}
+            {folderConnectLabel(folderStatus, folderName)}
           </button>
         )}
         {folderName && (
@@ -636,16 +652,82 @@ function FolderStatusDot({ status }: { status: string }) {
   );
 }
 
+function CreateAction({
+  label,
+  folderName,
+  folderStatus,
+  connectFolder,
+  onCreate,
+}: {
+  label: string;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+  onCreate: () => void;
+}) {
+  if (folderName) {
+    return (
+      <button className="primary-button" onClick={onCreate}>
+        <Plus size={17} />
+        {label}
+      </button>
+    );
+  }
+  if (folderStatus === "unsupported") {
+    return <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>;
+  }
+  return (
+    <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
+      <FolderOpen size={17} />
+      {folderConnectLabel(folderStatus, folderName)}
+    </button>
+  );
+}
+
+function ConnectFolderPrompt({
+  folderStatus,
+  connectFolder,
+  navigate,
+}: {
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+  navigate: (path: string) => void;
+}) {
+  return (
+    <div className="page connect-prompt">
+      <h1>Connect a local folder to create resources</h1>
+      <p>MILO saves new resources straight into a folder on your machine. Connect one to continue.</p>
+      {folderStatus === "unsupported" ? (
+        <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>
+      ) : (
+        <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
+          <FolderOpen size={17} />
+          {folderConnectLabel(folderStatus, null)}
+        </button>
+      )}
+      <button className="text-button" onClick={() => navigate("/library")}>
+        Back to the library
+      </button>
+    </div>
+  );
+}
+
 function Dashboard({
   resources,
   search,
   setSearch,
   navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
 }: {
   resources: Resource[];
   search: string;
   setSearch: (value: string) => void;
   navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -677,10 +759,13 @@ function Dashboard({
                   sharper, beautifully organised and stored right on your machine.
                 </p>
                 <div className="hero-actions">
-                  <button className="primary-button" onClick={() => navigate("/create")}>
-                    <Plus size={17} />
-                    Create a resource
-                  </button>
+                  <CreateAction
+                    label="Create a resource"
+                    folderName={folderName}
+                    folderStatus={folderStatus}
+                    connectFolder={connectFolder}
+                    onCreate={() => navigate("/create")}
+                  />
                   <button className="secondary-button" onClick={() => navigate("/library")}>
                     Browse the library
                     <ChevronRight size={17} />
@@ -756,7 +841,17 @@ function Dashboard({
   );
 }
 
-function ContributionGuide({ navigate }: { navigate: (path: string) => void }) {
+function ContributionGuide({
+  navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
+}: {
+  navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+}) {
   const steps = [
     {
       number: "01",
@@ -809,10 +904,13 @@ function ContributionGuide({ navigate }: { navigate: (path: string) => void }) {
         title="From your idea to the shared shelf"
         description="MILO updates the local content files. GitHub Desktop handles the review and publishing steps. No command line required."
         action={
-          <button className="primary-button" onClick={() => navigate("/create")}>
-            <Plus size={17} />
-            Create a resource
-          </button>
+          <CreateAction
+            label="Create a resource"
+            folderName={folderName}
+            folderStatus={folderStatus}
+            connectFolder={connectFolder}
+            onCreate={() => navigate("/create")}
+          />
         }
       />
 
@@ -1076,10 +1174,16 @@ function LibraryView({
   resources,
   initialType,
   navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
 }: {
   resources: Resource[];
   initialType: ResourceType | "all";
   navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
 }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<ResourceType | "all">(initialType);
@@ -1099,9 +1203,13 @@ function LibraryView({
             : typeDescriptions[type]
         }
         action={
-          <button className="primary-button" onClick={() => navigate(`/create?type=${type === "all" ? "prompt" : type}`)}>
-            <Plus size={17} /> Create new
-          </button>
+          <CreateAction
+            label="Create new"
+            folderName={folderName}
+            folderStatus={folderStatus}
+            connectFolder={connectFolder}
+            onCreate={() => navigate(`/create?type=${type === "all" ? "prompt" : type}`)}
+          />
         }
       />
       {(type === "prompt" || type === "skill") && <LibraryUsageTldr type={type} />}
