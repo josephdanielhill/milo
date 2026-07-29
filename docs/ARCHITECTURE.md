@@ -20,15 +20,14 @@ two independent builds that never run together:
   (the catch-all handles all in-app routes since routing is client-side, done
   by `parseRoute`/`pathFromLocation` inside `toolshelf-app.tsx`).
 - Deployed via the `@cloudflare/vite-plugin`, with `worker/index.ts` as the
-  Worker entry (see below). Binding names (D1/R2) come from
-  `./.openai/hosting.json`, gitignored since it's per-environment. `d1`/`r2`
-  are optional binding-name strings; an empty `{}` is enough while D1/R2 stay
+  Worker entry (see below). The R2 binding name comes from
+  `./.openai/hosting.json`, gitignored since it's per-environment — `r2` is
+  an optional binding-name string; an empty `{}` is enough while it stays
   unused (see "Known gaps" below).
 - `build/sites-vite-plugin.ts` (the `sites()` plugin) runs after the build and
-  copies `.openai/hosting.json` and the `drizzle/` migrations folder into
-  `dist/.openai/` — packaging for whatever hosting/deploy tooling consumes
-  `dist/` (the `SITE_CREATOR_PLACEHOLDER_DATABASE_ID` constant and package
-  name `site-creator-vinext-starter` suggest this template originates from an
+  copies `.openai/hosting.json` into `dist/.openai/` — packaging for whatever
+  hosting/deploy tooling consumes `dist/` (the package name
+  `site-creator-vinext-starter` suggests this template originates from an
   OpenAI "site creator" / Apps SDK starter, deploying to Cloudflare Workers).
 - Output: `dist/` (`dist/client`, `dist/server`, `dist/.openai`).
 
@@ -38,7 +37,7 @@ two independent builds that never run together:
   which mounts the *same* `ToolshelfApp` component but computes
   `initialPath`/`basePath` from `window.location` and an optional
   `<meta name="milo-base-path">` tag (for serving under a sub-path).
-  There's no server here — no Worker, no D1, no auth headers.
+  There's no server here — no Worker, no auth headers.
   Output: `pages-dist/`.
 - A custom `pagesFallback()` plugin copies `index.html` to `404.html` and
   writes `.nojekyll`, so GitHub Pages serves the SPA for any deep link
@@ -63,7 +62,6 @@ Single-file Cloudflare Worker, comment-labeled "vinext-starter template".
 ```ts
 interface Env {
   ASSETS: Fetcher;    // static asset serving
-  DB: D1Database;      // Cloudflare D1 binding (see Storage below — unused today)
   IMAGES: { ... };      // Cloudflare Images transform binding
 }
 ```
@@ -137,21 +135,13 @@ System Access API (`showDirectoryPicker`):
 Desktop Chrome/Edge only — `supportsLocalFolders()` gates this, and the app
 falls back to `example`/`published` resources elsewhere.
 
-## Database (D1 / Drizzle) — scaffolded, unused
-
-- `db/schema.ts` is intentionally empty (`export {}`) with a comment pointing
-  to `examples/d1/db/schema.ts` as the opt-in pattern.
-- `db/index.ts` exports `getDb()`, wiring `drizzle-orm/d1` to `env.DB` (throws
-  a clear error if the D1 binding isn't configured).
-- `drizzle/meta/_journal.json` has no entries — no migrations have ever been
-  generated.
-- `examples/d1/` is a reference-only example: a `notes` table + a Next-style
-  `GET`/`POST` route handler (`examples/d1/app/api/notes/route.ts`) showing
-  how to wire up a real table via `getDb()` and `npm run db:generate`.
-
-In short: D1 is available to the Worker, but nothing in the live app reads or
-writes it today. All persistence is either the user's local folder or the
-build-time "published" manifest.
+There is no database. The D1/Drizzle scaffold this repo started with (`db/`,
+`drizzle/`, an unused `DB` binding on the Worker, `examples/d1/`) was removed
+as a deliberate decision — nothing in the app used it, and MILO's actual
+model is local-first (the user's folder) plus the build-time "published"
+manifest, not a server-side database. If a real need for server-side storage
+shows up later, `examples/d1/` in git history (pre-removal) shows the intended
+opt-in pattern for wiring up a D1 table from scratch.
 
 ## Known gaps in this checkout
 
@@ -161,9 +151,9 @@ build-time "published" manifest.
 
 `.openai/hosting.json` was also missing initially — resolved by adding an
 empty `{}` (gitignored; see `.gitignore` and
-[BLD-347](https://linear.app/josephhill/issue/BLD-347)) since D1/R2 aren't
-used yet. The deploy workflow gap is almost certainly an artifact that simply
-wasn't copied over from the other machine, not an intentional removal.
+[BLD-347](https://linear.app/josephhill/issue/BLD-347)) since R2 isn't used
+yet either. The deploy workflow gap is almost certainly an artifact that
+simply wasn't copied over from the other machine, not an intentional removal.
 
 ## `app/toolshelf-app.tsx` component map
 
