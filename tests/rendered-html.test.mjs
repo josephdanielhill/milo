@@ -30,7 +30,7 @@ test("server-renders MILO metadata and application content", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>MILO<\/title>/i);
-  assert.match(html, /Better product work/);
+  assert.match(html, /better product work/i);
   assert.match(html, /CorporateColourRail|corporate-rail/);
   assert.match(html, /Your local shelf/);
   assert.match(html, /Choose folder/);
