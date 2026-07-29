@@ -569,10 +569,6 @@ function Sidebar({
           );
         })}
       </nav>
-      <button className="create-button" onClick={() => navigate("/create")}>
-        <Plus size={18} />
-        Create new
-      </button>
       <div className={`folder-mini folder-mini--${folderStatus}`}>
         <span className="folder-mini__eyebrow">Your local shelf</span>
         <div className="folder-mini__heading">
