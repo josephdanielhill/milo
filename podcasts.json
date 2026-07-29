@@ -1,24 +1,4 @@
 {
   "version": 1,
-  "items": [
-    {
-      "title": "Lenny's Podcast",
-      "slug": "lenny-s-podcast",
-      "type": "podcast",
-      "summary": "Lenny’s Podcast is a practical interview series where experienced product, growth, design, and technology leaders share actionable lessons for building products and leading teams.",
-      "author": "Joseph Hill",
-      "tags": [
-        "product management",
-        "product strategy",
-        "product leadership",
-        "growth",
-        "technology"
-      ],
-      "createdAt": "2026-07-28",
-      "updatedAt": "2026-07-28",
-      "body": "## Why it is worth listening\n\nThe conversations turn real-world experience from leaders at companies such as Anthropic, Netflix, Notion, Instagram, and OpenAI into practical guidance on product strategy, customer discovery, growth, influence, hiring, team design, and AI-era product development.\n\n## Best for\n\nProduct managers, product leaders, founders, growth professionals, and designers who want candid examples, repeatable frameworks, and insight into how high-performing technology teams make decisions.\n\n## Key takeaway\n\nAs AI makes products faster and cheaper to build, a PM’s advantage increasingly comes from judgment—knowing which problems matter, developing strong product taste, and aligning people around the right decisions.",
-      "toolUrl": "https://www.lennysnewsletter.com/podcast",
-      "creator": "Lenny's Podcast"
-    }
-  ]
+  "items": []
 }

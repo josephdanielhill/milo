@@ -1,21 +1,4 @@
 {
   "version": 1,
-  "items": [
-    {
-      "title": "Future Product Days",
-      "slug": "future-product-days",
-      "type": "conference",
-      "summary": "Future Product Days is a three-day conference in Copenhagen for professionals working in digital product design, UX, engineering, leadership and AI. The event features more than 100 international speakers, 30+ workshops and masterclasses, networking, exhibitions and multiple specialist tracks. The 2026 conference takes place from 22–24 September",
-      "author": "Joseph Hill",
-      "tags": [],
-      "createdAt": "2026-07-28",
-      "updatedAt": "2026-07-28",
-      "body": "## Why it is worth attending\n\nFuture Product Days is worth attending for Product Managers who want to stay ahead of developments in product strategy, UX, technology and AI. The conference offers practical insights from experienced industry leaders, hands-on workshops and opportunities to learn how other organisations approach product challenges. It is also a valuable place to expand your professional network, exchange ideas with peers and return with new methods that can be applied directly to your products and teams.\n\n## Best for\n\nBest suited to Product Managers, Product Owners, UX and design professionals, engineering leaders and product executives working on digital products. It will be especially valuable for those looking to strengthen their product strategy, explore practical uses of AI, improve cross-functional collaboration and learn from peers facing similar challenges.\n\n## What to expect\n\nExpect a mix of inspiring talks, practical workshops and discussions covering product strategy, UX, leadership, engineering and AI. The most valuable takeaway is likely to be a clearer understanding of how strong product teams turn customer needs, emerging technology and business goals into better product decisions.",
-      "attended": "no",
-      "toolUrl": "https://www.futureproductdays.com/",
-      "creator": "Famna",
-      "eventDate": "2026-09-22",
-      "location": "Copenhagen, Denmark"
-    }
-  ]
+  "items": []
 }
