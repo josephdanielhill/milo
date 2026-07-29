@@ -931,20 +931,25 @@ function ContributionGuide({
             />
           </div>
           <div className="hero-split-content">
-            <PageTop
-              eyebrow="Getting started"
-              title="Add a resource to your shelf"
-              description="Connect a folder — your own, or a shared drive everyone already uses — and start adding resources directly. No review step, no pull request."
-              action={
-                <CreateAction
-                  label="Create a resource"
-                  folderName={folderName}
-                  folderStatus={folderStatus}
-                  connectFolder={connectFolder}
-                  onCreate={() => navigate("/create")}
-                />
-              }
-            />
+            <header className="page-top">
+              <div>
+                <span className="eyebrow">Getting started</span>
+                <h1>Add a resource to your shelf</h1>
+                <p>
+                  Connect a folder — your own, or a shared drive everyone already uses — and
+                  start adding resources directly. No review step, no pull request.
+                </p>
+                <div className="hero-actions">
+                  <CreateAction
+                    label="Create a resource"
+                    folderName={folderName}
+                    folderStatus={folderStatus}
+                    connectFolder={connectFolder}
+                    onCreate={() => navigate("/create")}
+                  />
+                </div>
+              </div>
+            </header>
           </div>
         </div>
       </div>
