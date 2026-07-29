@@ -134,6 +134,22 @@ button:disabled {
   margin-top: 2px;
 }
 
+.brand-text {
+  align-items: center;
+  display: flex;
+  gap: 32px;
+}
+
+.brand-tagline {
+  border-left: 1px solid var(--brand-line);
+  line-height: 1.3;
+  padding-left: 12px;
+}
+
+.brand-tagline span {
+  display: block;
+}
+
 .brand-glyph {
   display: flex;
   height: 32px;

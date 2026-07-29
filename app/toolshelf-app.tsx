@@ -521,9 +521,16 @@ function BrandMark({
           <span />
         </div>
       )}
-      <div>
+      <div className="brand-text">
         <strong>MILO</strong>
-        {!compact && <small>Methods, Instructions, Learning &amp; Operations</small>}
+        {!compact && (
+          <small className="brand-tagline">
+            <span>Methods,</span>
+            <span>Instructions,</span>
+            <span>Learning &amp;</span>
+            <span>Operations</span>
+          </small>
+        )}
       </div>
     </div>
   );
