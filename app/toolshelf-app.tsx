@@ -773,7 +773,7 @@ function Dashboard({
             <section className="hero">
               <div className="hero-copy">
                 <span className="eyebrow">The product team&apos;s working library</span>
-                <h1>Better product work,<br /><em>ready to reuse.</em></h1>
+                <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                 <p>
                   Keep the prompts, skills, tools, and learning resources that make your work
                   sharper, beautifully organised and stored right on your machine.
