@@ -166,7 +166,7 @@ re-reading it top to bottom, use this map to jump to the relevant function:
 | `ToolshelfApp` (default export) | Top-level state: current `path`, `localResources`, folder connect status, search, toast, mobile nav — and dispatches to the views below based on `parseRoute(path)`. |
 | `Sidebar` | Left nav: resource-type links, folder connect/status. |
 | `Dashboard` | Home view — recent/featured resources across sources. |
-| `ContributionGuide` | Renders the "how to contribute" flow (mirrors `README.md`'s PR instructions) at `/guide`. |
+| `ContributionGuide` | Renders the "getting started" flow (connect a folder, create a resource, share via synced drive or bundle URL — mirrors `README.md`'s "Adding resources" section) at `/guide`. |
 | `ImportPage` | `/import` — pick a second read-only folder (`pickImportSource`) and selectively bring resources into the connected folder. |
 | `LibraryView` | `/library` and per-type list views — search/filter by `query`, `type`, `source`. |
 | `LibraryUsageTldr` | Short usage tips shown for `prompt`/`skill` library views. |

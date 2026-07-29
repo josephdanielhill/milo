@@ -4,8 +4,10 @@ MILO ("Methods, Instructions, Learning & Operations") is a local-first resource
 hub for product managers: prompts, skills, tools, books, videos, conferences,
 training, articles, and podcasts. Content lives as Markdown/JSON files that
 users edit directly in a folder on their own machine (via the File System
-Access API) or contribute upstream via PR. See [README.md](README.md) for the
-end-user pitch and contribution flow.
+Access API) — their own, or one synced by a shared drive — and share via that
+sync or a bundle-URL export/import, or contribute upstream via PR to the
+default library that ships with the app. See [README.md](README.md) for the
+end-user pitch and getting-started flow.
 
 For deeper detail, see:
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — build targets, the Worker, the publish pipeline, storage

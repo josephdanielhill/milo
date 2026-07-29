@@ -16,15 +16,12 @@ import {
   FolderCheck,
   FolderOpen,
   FolderX,
-  GitBranch,
-  GitPullRequest,
   GraduationCap,
   Home,
   Headphones,
   Library,
   Link2,
   Menu,
-  MonitorUp,
   Newspaper,
   Pencil,
   Plus,
@@ -591,7 +588,7 @@ function Sidebar({
           aria-current={path === "/guide" ? "page" : undefined}
         >
           <CircleHelp size={18} aria-hidden="true" />
-          How to contribute
+          Getting started
           {path === "/guide" && <span className="nav-active-dot" />}
         </button>
         <span className="nav-eyebrow">Library</span>
@@ -665,7 +662,7 @@ function Sidebar({
           </button>
         )}
         <button className="folder-mini__guide" onClick={() => navigate("/guide")}>
-          How publishing works
+          Getting started
         </button>
       </div>
       <p className="privacy-note">
@@ -888,54 +885,40 @@ function ContributionGuide({
   const steps = [
     {
       number: "01",
-      icon: MonitorUp,
-      title: "Clone the repository",
-      copy: "Open GitHub Desktop, choose Clone a repository, and save the MILO project somewhere easy to find.",
-      note: "You only need to do this once on each computer.",
+      icon: FolderOpen,
+      title: "Connect a folder",
+      copy: "Choose Connect folder and select any folder on your machine — including one kept in sync by OneDrive, Google Drive, Dropbox, or similar.",
+      note: "MILO reads and writes resource files there directly. No special integration needed.",
     },
     {
       number: "02",
-      icon: GitBranch,
-      title: "Create a new branch",
-      copy: "In GitHub Desktop, select Current Branch → New Branch. Use a clear name such as add-interview-summary-prompt.",
-      note: "Always branch from an up-to-date main branch.",
+      icon: FileText,
+      title: "Create or edit a resource",
+      copy: "Choose Create new, select the resource type, add the details and recommendation, preview it, then save.",
+      note: "Prompts, skills, and tools save as .md files. Other resources update their dedicated JSON collection.",
     },
     {
       number: "03",
-      icon: FolderOpen,
-      title: "Connect the cloned repository",
-      copy: "Return to MILO, choose your local folder, and select the main milo folder that you cloned with GitHub Desktop.",
-      note: "MILO creates or updates the resource folders and JSON files inside this repository folder.",
+      icon: RefreshCw,
+      title: "It's shared automatically",
+      copy: "If your folder lives on a shared drive, anyone else connected to it sees the new resource as soon as their drive client syncs.",
+      note: "No review step, no merge — just Refresh files in MILO to pick up changes from others.",
     },
     {
       number: "04",
-      icon: FileText,
-      title: "Create your resource",
-      copy: "Choose Create new, select the resource type, add the details and recommendation, preview it, then save.",
-      note: "Prompts, skills, and tools create .md files. Other resources update their dedicated JSON collection.",
-    },
-    {
-      number: "05",
-      icon: UploadCloud,
-      title: "Commit and publish the branch",
-      copy: "Review the change in GitHub Desktop, add a short summary, commit it to your branch, then choose Publish branch or Push origin.",
-      note: "The file has not joined the shared library yet.",
-    },
-    {
-      number: "06",
-      icon: GitPullRequest,
-      title: "Open a pull request",
-      copy: "Choose Preview Pull Request in GitHub Desktop, describe what the resource is for, and submit it for review.",
-      note: "Once it is merged, the shared MILO library rebuilds automatically.",
+      icon: Link2,
+      title: "Sharing outside your shared drive?",
+      copy: "Use Share resources to export selected items as a bundle link. The recipient opens Import → From URL and picks what to bring in.",
+      note: "Handy for one-off shares or teams that don't use the same shared drive.",
     },
   ];
 
   return (
     <div className="page guide-page">
       <PageTop
-        eyebrow="A simple contribution workflow"
-        title="From your idea to the shared shelf"
-        description="MILO updates the local content files. GitHub Desktop handles the review and publishing steps. No command line required."
+        eyebrow="Getting started"
+        title="Add a resource to your shelf"
+        description="Connect a folder — your own, or a shared drive everyone already uses — and start adding resources directly. No review step, no pull request."
         action={
           <CreateAction
             label="Create a resource"
@@ -948,26 +931,26 @@ function ContributionGuide({
       />
 
       <section className="guide-intro">
-        <div className="guide-intro__number">6</div>
+        <div className="guide-intro__number">4</div>
         <div>
           <span className="eyebrow">Before you begin</span>
-          <h2>Two tools, one straightforward flow.</h2>
+          <h2>One folder, no gatekeeping.</h2>
           <p>
-            Keep MILO open in Chrome or Edge and GitHub Desktop open beside it.
-            You will move between them as you create, review, and submit your resource.
+            Point MILO at a folder on your machine — your own, or one kept in sync by a
+            shared drive — and start adding resources straight away.
           </p>
         </div>
         <div className="guide-apps" aria-label="Applications used">
           <span><BookOpen size={18} /> MILO</span>
           <ChevronRight size={16} aria-hidden="true" />
-          <span><MonitorUp size={18} /> GitHub Desktop</span>
+          <span><Folder size={18} /> Your folder</span>
         </div>
       </section>
 
       <section className="guide-steps" aria-labelledby="guide-steps-title">
         <div className="guide-section-heading">
           <span className="eyebrow">Step by step</span>
-          <h2 id="guide-steps-title">Upload a new resource</h2>
+          <h2 id="guide-steps-title">Add a new resource</h2>
         </div>
         <div className="guide-step-list">
           {steps.map(({ number, icon: Icon, title, copy, note }) => (
@@ -986,7 +969,7 @@ function ContributionGuide({
 
       <section className="guide-checklist">
         <div>
-          <span className="eyebrow">Ready to submit?</span>
+          <span className="eyebrow">Before you save</span>
           <h2>A quick quality check</h2>
         </div>
         <ul>
@@ -1002,8 +985,8 @@ function ContributionGuide({
         <div>
           <h2>Something not showing up?</h2>
           <p>
-            In GitHub Desktop, confirm that you are viewing the correct repository and
-            branch. In MILO, use Refresh files after pulling changes made by someone else.
+            If you&apos;re using a shared drive, make sure it has finished syncing on your
+            machine. Then use Refresh files in MILO to pick up changes made by others.
           </p>
         </div>
       </section>
