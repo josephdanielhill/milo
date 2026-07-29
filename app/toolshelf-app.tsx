@@ -921,83 +921,97 @@ function ContributionGuide({
   ];
 
   return (
-    <div className="page guide-page">
-      <PageTop
-        eyebrow="Getting started"
-        title="Add a resource to your shelf"
-        description="Connect a folder — your own, or a shared drive everyone already uses — and start adding resources directly. No review step, no pull request."
-        action={
-          <CreateAction
-            label="Create a resource"
-            folderName={folderName}
-            folderStatus={folderStatus}
-            connectFolder={connectFolder}
-            onCreate={() => navigate("/create")}
-          />
-        }
-      />
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img
+              src={`${import.meta.env.BASE_URL}milo-getting-started-hero.png`}
+              alt="Milo the black Labrador ready to get started"
+            />
+          </div>
+          <div className="hero-split-content">
+            <PageTop
+              eyebrow="Getting started"
+              title="Add a resource to your shelf"
+              description="Connect a folder — your own, or a shared drive everyone already uses — and start adding resources directly. No review step, no pull request."
+              action={
+                <CreateAction
+                  label="Create a resource"
+                  folderName={folderName}
+                  folderStatus={folderStatus}
+                  connectFolder={connectFolder}
+                  onCreate={() => navigate("/create")}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
 
-      <section className="guide-intro">
-        <div className="guide-intro__number">4</div>
-        <div>
-          <span className="eyebrow">Before you begin</span>
-          <h2>One folder, no gatekeeping.</h2>
-          <p>
-            Point MILO at a folder on your machine — your own, or one kept in sync by a
-            shared drive — and start adding resources straight away.
-          </p>
-        </div>
-        <div className="guide-apps" aria-label="Applications used">
-          <span><BookOpen size={18} /> MILO</span>
-          <ChevronRight size={16} aria-hidden="true" />
-          <span><Folder size={18} /> Your folder</span>
-        </div>
-      </section>
+      <div className="page guide-page">
+        <section className="guide-intro">
+          <div className="guide-intro__number">4</div>
+          <div>
+            <span className="eyebrow">Before you begin</span>
+            <h2>One folder, no gatekeeping.</h2>
+            <p>
+              Point MILO at a folder on your machine — your own, or one kept in sync by a
+              shared drive — and start adding resources straight away.
+            </p>
+          </div>
+          <div className="guide-apps" aria-label="Applications used">
+            <span><BookOpen size={18} /> MILO</span>
+            <ChevronRight size={16} aria-hidden="true" />
+            <span><Folder size={18} /> Your folder</span>
+          </div>
+        </section>
 
-      <section className="guide-steps" aria-labelledby="guide-steps-title">
-        <div className="guide-section-heading">
-          <span className="eyebrow">Step by step</span>
-          <h2 id="guide-steps-title">Add a new resource</h2>
-        </div>
-        <div className="guide-step-list">
-          {steps.map(({ number, icon: Icon, title, copy, note }) => (
-            <article className="guide-step" key={number}>
-              <div className="guide-step__number">{number}</div>
-              <div className="guide-step__icon"><Icon size={22} aria-hidden="true" /></div>
-              <div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <small><Check size={13} aria-hidden="true" /> {note}</small>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section className="guide-steps" aria-labelledby="guide-steps-title">
+          <div className="guide-section-heading">
+            <span className="eyebrow">Step by step</span>
+            <h2 id="guide-steps-title">Add a new resource</h2>
+          </div>
+          <div className="guide-step-list">
+            {steps.map(({ number, icon: Icon, title, copy, note }) => (
+              <article className="guide-step" key={number}>
+                <div className="guide-step__number">{number}</div>
+                <div className="guide-step__icon"><Icon size={22} aria-hidden="true" /></div>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                  <small><Check size={13} aria-hidden="true" /> {note}</small>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="guide-checklist">
-        <div>
-          <span className="eyebrow">Before you save</span>
-          <h2>A quick quality check</h2>
-        </div>
-        <ul>
-          <li><Check size={16} /> The title clearly says what the resource does.</li>
-          <li><Check size={16} /> The summary explains when someone should use it.</li>
-          <li><Check size={16} /> No customer data or confidential information is included.</li>
-          <li><Check size={16} /> The preview is easy to scan and the filename is meaningful.</li>
-        </ul>
-      </section>
+        <section className="guide-checklist">
+          <div>
+            <span className="eyebrow">Before you save</span>
+            <h2>A quick quality check</h2>
+          </div>
+          <ul>
+            <li><Check size={16} /> The title clearly says what the resource does.</li>
+            <li><Check size={16} /> The summary explains when someone should use it.</li>
+            <li><Check size={16} /> No customer data or confidential information is included.</li>
+            <li><Check size={16} /> The preview is easy to scan and the filename is meaningful.</li>
+          </ul>
+        </section>
 
-      <section className="guide-help">
-        <CircleHelp size={24} />
-        <div>
-          <h2>Something not showing up?</h2>
-          <p>
-            If you&apos;re using a shared drive, make sure it has finished syncing on your
-            machine. Then use Refresh files in MILO to pick up changes made by others.
-          </p>
-        </div>
-      </section>
-    </div>
+        <section className="guide-help">
+          <CircleHelp size={24} />
+          <div>
+            <h2>Something not showing up?</h2>
+            <p>
+              If you&apos;re using a shared drive, make sure it has finished syncing on your
+              machine. Then use Refresh files in MILO to pick up changes made by others.
+            </p>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 
