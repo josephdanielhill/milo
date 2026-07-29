@@ -51,6 +51,17 @@ async function loadHandle() {
   return handle;
 }
 
+async function clearHandle() {
+  const db = await openDb();
+  await new Promise<void>((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).delete(HANDLE_KEY);
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  db.close();
+}
+
 function folderFor(type: ResourceType) {
   return `${type}s`;
 }
@@ -252,6 +263,11 @@ export class LocalFolderStorage implements StorageProvider {
     if (!this.root) return null;
     const permission = await this.root.requestPermission({ mode: "readwrite" });
     return permission === "granted" ? this.root.name : null;
+  }
+
+  async disconnect() {
+    this.root = null;
+    await clearHandle();
   }
 
   async listResources() {

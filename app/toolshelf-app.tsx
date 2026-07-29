@@ -15,6 +15,7 @@ import {
   Folder,
   FolderCheck,
   FolderOpen,
+  FolderX,
   GitBranch,
   GitPullRequest,
   GraduationCap,
@@ -321,6 +322,16 @@ export default function ToolshelfApp({
     }
   }
 
+  async function disconnectFolder() {
+    if (!window.confirm("Disconnect this folder? You can reconnect it later.")) return;
+    await storage.disconnect();
+    setFolderName(null);
+    setFolderStatus("idle");
+    setFolderMessage("");
+    setLocalResources([]);
+    notify("Folder disconnected");
+  }
+
   const route = parseRoute(path);
   let content: ReactNode;
 
@@ -457,6 +468,7 @@ export default function ToolshelfApp({
         close={() => setMobileOpen(false)}
         refresh={refreshResources}
         connectFolder={connectFolder}
+        disconnectFolder={disconnectFolder}
       />
       {mobileOpen && (
         <button
@@ -524,6 +536,7 @@ function Sidebar({
   close,
   refresh,
   connectFolder,
+  disconnectFolder,
 }: {
   path: string;
   mobileOpen: boolean;
@@ -535,6 +548,7 @@ function Sidebar({
   close: () => void;
   refresh: () => void;
   connectFolder: (reconnect?: boolean) => void;
+  disconnectFolder: () => void;
 }) {
   const items = [
     { label: "All resources", href: "/library", icon: Library },
@@ -629,6 +643,12 @@ function Sidebar({
           <button className="text-button" onClick={() => navigate("/import")}>
             <UploadCloud size={14} />
             Import from another folder
+          </button>
+        )}
+        {folderName && (
+          <button className="text-button" onClick={disconnectFolder}>
+            <FolderX size={14} />
+            Disconnect folder
           </button>
         )}
         <button className="folder-mini__guide" onClick={() => navigate("/guide")}>
