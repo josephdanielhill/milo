@@ -22,6 +22,7 @@ import {
   Home,
   Headphones,
   Library,
+  Link2,
   Menu,
   MonitorUp,
   Newspaper,
@@ -50,7 +51,9 @@ import { exampleResources } from "./data";
 import { publishedResources } from "./lib/published";
 import { renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
 import {
+  downloadBundle,
   downloadMarkdown,
+  fetchImportSource,
   LocalFolderStorage,
   pickImportSource,
   supportsLocalFolders,
@@ -377,6 +380,10 @@ export default function ToolshelfApp({
         refresh={refreshResources}
       />
     );
+  } else if (route.kind === "share") {
+    content = (
+      <SharePage localResources={localResources} folderConnected={Boolean(folderName)} notify={notify} />
+    );
   } else if (route.kind === "resource") {
     const resource = resources.find(
       (item) =>
@@ -643,6 +650,12 @@ function Sidebar({
           <button className="text-button" onClick={() => navigate("/import")}>
             <UploadCloud size={14} />
             Import from another folder
+          </button>
+        )}
+        {folderName && localCount > 0 && (
+          <button className="text-button" onClick={() => navigate("/share")}>
+            <Link2 size={14} />
+            Share resources
           </button>
         )}
         {folderName && (
@@ -1016,10 +1029,13 @@ function ImportPage({
   notify: (message: string) => void;
   refresh: () => Promise<void>;
 }) {
+  const [tab, setTab] = useState<"folder" | "url">("folder");
   const [source, setSource] = useState<ImportSource | null>(null);
   const [picking, setPicking] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const [importing, setImporting] = useState(false);
   const [error, setError] = useState("");
+  const [url, setUrl] = useState("");
   // Candidates are selected by default; this tracks explicit opt-outs instead of mirroring
   // `candidates` in state, so there's no need to sync selection via an effect.
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
@@ -1043,6 +1059,15 @@ function ImportPage({
 
   const selectedCount = candidates.filter((candidate) => !deselected.has(candidate.key)).length;
 
+  function switchTab(next: "folder" | "url") {
+    if (next === tab) return;
+    setTab(next);
+    setSource(null);
+    setError("");
+    setDeselected(new Set());
+    setUrl("");
+  }
+
   async function choose() {
     setError("");
     setPicking(true);
@@ -1056,6 +1081,21 @@ function ImportPage({
       }
     } finally {
       setPicking(false);
+    }
+  }
+
+  async function loadFromUrl() {
+    if (!url.trim()) return;
+    setError("");
+    setFetching(true);
+    try {
+      const picked = await fetchImportSource(url.trim());
+      setSource(picked);
+      setDeselected(new Set());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not load that URL.");
+    } finally {
+      setFetching(false);
     }
   }
 
@@ -1102,17 +1142,52 @@ function ImportPage({
     <div className="page import-page">
       <PageTop
         eyebrow="Bring resources over"
-        title="Import from another folder"
-        description="Pick a second folder (for example one you worked in before connecting the shared folder) and bring its new or changed resources into the folder you have connected now. Nothing already there is removed, and identical items are skipped automatically."
+        title="Import resources"
+        description="Bring in new or changed resources from another folder, or from a bundle URL someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
       />
       {!folderConnected ? (
         <p className="import-page__notice">Connect a folder first, then come back here to import into it.</p>
       ) : (
         <>
-          <button className="secondary-button" disabled={picking} onClick={choose}>
-            <FolderOpen size={16} />
-            {picking ? "Opening…" : "Choose folder to import from"}
-          </button>
+          <div className="editor-tabs">
+            <button
+              type="button"
+              className={tab === "folder" ? "is-active" : ""}
+              onClick={() => switchTab("folder")}
+            >
+              <FolderOpen size={15} /> From folder
+            </button>
+            <button type="button" className={tab === "url" ? "is-active" : ""} onClick={() => switchTab("url")}>
+              <Link2 size={15} /> From URL
+            </button>
+          </div>
+          {tab === "folder" ? (
+            <button
+              className="secondary-button import-page__primary-action"
+              disabled={picking}
+              onClick={choose}
+            >
+              <FolderOpen size={16} />
+              {picking ? "Opening…" : "Choose folder to import from"}
+            </button>
+          ) : (
+            <div className="import-url-row">
+              <input
+                type="url"
+                value={url}
+                onChange={(event) => setUrl(event.target.value)}
+                placeholder="https://example.com/bundle.json"
+              />
+              <button
+                className="secondary-button import-page__primary-action"
+                disabled={fetching || !url.trim()}
+                onClick={loadFromUrl}
+              >
+                <UploadCloud size={16} />
+                {fetching ? "Loading…" : "Load bundle"}
+              </button>
+            </div>
+          )}
           {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
           {source && (
             <section className="section-block">
@@ -1125,6 +1200,12 @@ function ImportPage({
                 }
                 aside="Items identical to what's already in your connected folder are left out automatically."
               />
+              {source.skipped && source.skipped.length > 0 && (
+                <p className="import-page__notice import-page__notice--warning">
+                  Skipped {source.skipped.length} {source.skipped.length === 1 ? "item" : "items"} that could
+                  not be read: {source.skipped.map((item) => item.error).join(" ")}
+                </p>
+              )}
               {candidates.length > 0 && (
                 <>
                   <ul className="import-candidate-list">
@@ -1164,6 +1245,90 @@ function ImportPage({
               )}
             </section>
           )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function SharePage({
+  localResources,
+  folderConnected,
+  notify,
+}: {
+  localResources: Resource[];
+  folderConnected: boolean;
+  notify: (message: string) => void;
+}) {
+  const [deselected, setDeselected] = useState<Set<string>>(new Set());
+  const [bundleName, setBundleName] = useState("");
+
+  const selected = useMemo(
+    () => localResources.filter((item) => !deselected.has(`${item.meta.type}:${item.meta.slug}`)),
+    [localResources, deselected],
+  );
+
+  function toggle(key: string) {
+    setDeselected((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
+
+  function download() {
+    downloadBundle(selected, bundleName.trim() || undefined);
+    notify(`Downloaded a bundle with ${selected.length} ${selected.length === 1 ? "resource" : "resources"}.`);
+  }
+
+  return (
+    <div className="page import-page">
+      <PageTop
+        eyebrow="Share a curated set"
+        title="Share resources"
+        description="Pick resources from your folder and download them as a bundle file. Host that file somewhere with open cross-origin access (a raw GitHub file or a public gist's raw URL both work), then share the URL — the recipient can load it under Import → From URL and choose what to bring into their own collection."
+      />
+      {!folderConnected || localResources.length === 0 ? (
+        <p className="import-page__notice">Connect a folder with at least one resource first.</p>
+      ) : (
+        <>
+          <label className="share-page__name-field">
+            Bundle name (optional)
+            <input
+              value={bundleName}
+              onChange={(event) => setBundleName(event.target.value)}
+              placeholder="e.g. Onboarding starter pack"
+            />
+          </label>
+          <ul className="import-candidate-list">
+            {localResources.map((item) => {
+              const key = `${item.meta.type}:${item.meta.slug}`;
+              return (
+                <li key={key}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={!deselected.has(key)}
+                      onChange={() => toggle(key)}
+                    />
+                    <span className="type-pill">
+                      {typeIcon(item.meta.type, 14)} {typeLabels[item.meta.type]}
+                    </span>
+                    <strong>{item.meta.title}</strong>
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+          <button
+            className="primary-button import-page__primary-action"
+            disabled={selected.length === 0}
+            onClick={download}
+          >
+            <Download size={16} />
+            {`Download bundle (${selected.length})`}
+          </button>
         </>
       )}
     </div>
@@ -2135,6 +2300,7 @@ function parseRoute(path: string):
   | { kind: "home" }
   | { kind: "guide" }
   | { kind: "import" }
+  | { kind: "share" }
   | { kind: "library"; type: ResourceType | "all" }
   | { kind: "resource"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
   | { kind: "edit"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
@@ -2145,6 +2311,7 @@ function parseRoute(path: string):
   if (cleanPath === "/") return { kind: "home" };
   if (cleanPath === "/guide") return { kind: "guide" };
   if (cleanPath === "/import") return { kind: "import" };
+  if (cleanPath === "/share") return { kind: "share" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
   if (cleanPath === "/prompts") return { kind: "library", type: "prompt" };
   if (cleanPath === "/skills") return { kind: "library", type: "skill" };
