@@ -789,7 +789,7 @@ function Dashboard({
           <div className="hero-split-content">
             <section className="hero">
               <div className="hero-copy">
-                <span className="eyebrow">The product team&apos;s working library</span>
+                <span className="eyebrow">Your Knowledge Library</span>
                 <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                 <p>
                   Keep the prompts, skills, tools, and learning resources that make your work
