@@ -44,13 +44,12 @@ Every push to `main` runs `.github/workflows/deploy-pages.yml`. The workflow:
 The generated `404.html` allows application routes to reopen correctly when
 someone refreshes a resource or library page.
 
-## Contributing resources
+## Adding resources
 
-Use a branch and pull request:
-
-1. Update your local `main`.
-2. Create a clearly named branch.
-3. Connect MILO to the repository folder.
-4. Create or edit the resource.
-5. Commit the changed Markdown or JSON file in GitHub Desktop.
-6. Open a pull request targeting `main`.
+1. Connect MILO to a folder — your own, or one kept in sync by a shared
+   drive (OneDrive, Google Drive, Dropbox, etc.).
+2. Create or edit the resource.
+3. Anyone else connected to the same shared folder sees it once their drive
+   client syncs — no branch or pull request required.
+4. To share outside a shared drive, export a bundle from Share resources and
+   have the recipient import it via Import → From URL.
