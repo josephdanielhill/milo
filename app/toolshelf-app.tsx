@@ -1129,115 +1129,126 @@ function ImportPage({
   }
 
   return (
-    <div className="page import-page">
-      <PageTop
-        eyebrow="Bring resources over"
-        title="Import resources"
-        description="Bring in new or changed resources from another folder, or from a bundle URL someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
-      />
-      {!folderConnected ? (
-        <p className="import-page__notice">Connect a folder first, then come back here to import into it.</p>
-      ) : (
-        <>
-          <div className="editor-tabs">
-            <button
-              type="button"
-              className={tab === "folder" ? "is-active" : ""}
-              onClick={() => switchTab("folder")}
-            >
-              <FolderOpen size={15} /> From folder
-            </button>
-            <button type="button" className={tab === "url" ? "is-active" : ""} onClick={() => switchTab("url")}>
-              <Link2 size={15} /> From URL
-            </button>
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img src={`${import.meta.env.BASE_URL}milo-import-hero.png`} alt="Milo the black Labrador sniffing out new resources" />
           </div>
-          {tab === "folder" ? (
-            <button
-              className="secondary-button import-page__primary-action"
-              disabled={picking}
-              onClick={choose}
-            >
-              <FolderOpen size={16} />
-              {picking ? "Opening…" : "Choose folder to import from"}
-            </button>
-          ) : (
-            <div className="import-url-row">
-              <input
-                type="url"
-                value={url}
-                onChange={(event) => setUrl(event.target.value)}
-                placeholder="https://example.com/bundle.json"
-              />
+          <div className="hero-split-content">
+            <PageTop
+              eyebrow="Bring resources over"
+              title="Import resources"
+              description="Bring in new or changed resources from another folder, or from a bundle URL someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
+            />
+          </div>
+        </div>
+      </div>
+      <div className="page import-page">
+        {!folderConnected ? (
+          <p className="import-page__notice">Connect a folder first, then come back here to import into it.</p>
+        ) : (
+          <>
+            <div className="editor-tabs">
               <button
-                className="secondary-button import-page__primary-action"
-                disabled={fetching || !url.trim()}
-                onClick={loadFromUrl}
+                type="button"
+                className={tab === "folder" ? "is-active" : ""}
+                onClick={() => switchTab("folder")}
               >
-                <UploadCloud size={16} />
-                {fetching ? "Loading…" : "Load bundle"}
+                <FolderOpen size={15} /> From folder
+              </button>
+              <button type="button" className={tab === "url" ? "is-active" : ""} onClick={() => switchTab("url")}>
+                <Link2 size={15} /> From URL
               </button>
             </div>
-          )}
-          {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
-          {source && (
-            <section className="section-block">
-              <SectionHeading
-                eyebrow={`From “${source.name}”`}
-                title={
-                  candidates.length
-                    ? `${candidates.length} ${candidates.length === 1 ? "resource" : "resources"} to review`
-                    : "Nothing new to import"
-                }
-                aside="Items identical to what's already in your connected folder are left out automatically."
-              />
-              {source.skipped && source.skipped.length > 0 && (
-                <p className="import-page__notice import-page__notice--warning">
-                  Skipped {source.skipped.length} {source.skipped.length === 1 ? "item" : "items"} that could
-                  not be read: {source.skipped.map((item) => item.error).join(" ")}
-                </p>
-              )}
-              {candidates.length > 0 && (
-                <>
-                  <ul className="import-candidate-list">
-                    {candidates.map((candidate) => (
-                      <li key={candidate.key}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            checked={!deselected.has(candidate.key)}
-                            onChange={() => toggle(candidate.key)}
-                          />
-                          <span className="type-pill">
-                            {typeIcon(candidate.resource.meta.type, 14)}{" "}
-                            {typeLabels[candidate.resource.meta.type]}
-                          </span>
-                          <strong>{candidate.resource.meta.title}</strong>
-                          <span
-                            className={`source-pill source-pill--${
-                              candidate.status === "new" ? "local" : "published"
-                            }`}
-                          >
-                            {candidate.status === "new" ? "New" : "Changed"}
-                          </span>
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    className="primary-button"
-                    disabled={importing || selectedCount === 0}
-                    onClick={confirmImport}
-                  >
-                    <UploadCloud size={16} />
-                    {importing ? "Importing…" : `Import ${selectedCount} selected`}
-                  </button>
-                </>
-              )}
-            </section>
-          )}
-        </>
-      )}
-    </div>
+            {tab === "folder" ? (
+              <button
+                className="secondary-button import-page__primary-action"
+                disabled={picking}
+                onClick={choose}
+              >
+                <FolderOpen size={16} />
+                {picking ? "Opening…" : "Choose folder to import from"}
+              </button>
+            ) : (
+              <div className="import-url-row">
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(event) => setUrl(event.target.value)}
+                  placeholder="https://example.com/bundle.json"
+                />
+                <button
+                  className="secondary-button import-page__primary-action"
+                  disabled={fetching || !url.trim()}
+                  onClick={loadFromUrl}
+                >
+                  <UploadCloud size={16} />
+                  {fetching ? "Loading…" : "Load bundle"}
+                </button>
+              </div>
+            )}
+            {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
+            {source && (
+              <section className="section-block">
+                <SectionHeading
+                  eyebrow={`From “${source.name}”`}
+                  title={
+                    candidates.length
+                      ? `${candidates.length} ${candidates.length === 1 ? "resource" : "resources"} to review`
+                      : "Nothing new to import"
+                  }
+                  aside="Items identical to what's already in your connected folder are left out automatically."
+                />
+                {source.skipped && source.skipped.length > 0 && (
+                  <p className="import-page__notice import-page__notice--warning">
+                    Skipped {source.skipped.length} {source.skipped.length === 1 ? "item" : "items"} that could
+                    not be read: {source.skipped.map((item) => item.error).join(" ")}
+                  </p>
+                )}
+                {candidates.length > 0 && (
+                  <>
+                    <ul className="import-candidate-list">
+                      {candidates.map((candidate) => (
+                        <li key={candidate.key}>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={!deselected.has(candidate.key)}
+                              onChange={() => toggle(candidate.key)}
+                            />
+                            <span className="type-pill">
+                              {typeIcon(candidate.resource.meta.type, 14)}{" "}
+                              {typeLabels[candidate.resource.meta.type]}
+                            </span>
+                            <strong>{candidate.resource.meta.title}</strong>
+                            <span
+                              className={`source-pill source-pill--${
+                                candidate.status === "new" ? "local" : "published"
+                              }`}
+                            >
+                              {candidate.status === "new" ? "New" : "Changed"}
+                            </span>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      className="primary-button"
+                      disabled={importing || selectedCount === 0}
+                      onClick={confirmImport}
+                    >
+                      <UploadCloud size={16} />
+                      {importing ? "Importing…" : `Import ${selectedCount} selected`}
+                    </button>
+                  </>
+                )}
+              </section>
+            )}
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
