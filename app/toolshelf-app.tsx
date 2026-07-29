@@ -60,6 +60,7 @@ import type { Resource, ResourceDraft, ResourceType } from "./types";
 
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
+const HAS_CONNECTED_KEY = "milo:has-connected";
 
 type FolderStatus = "idle" | "connecting" | "connected" | "permission" | "unsupported" | "error";
 
@@ -231,6 +232,7 @@ export default function ToolshelfApp({
   const [folderName, setFolderName] = useState<string | null>(null);
   const [folderStatus, setFolderStatus] = useState<FolderStatus>("idle");
   const [folderMessage, setFolderMessage] = useState("");
+  const [hasConnectedBefore, setHasConnectedBefore] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toast, setToast] = useState("");
   const [search, setSearch] = useState("");
@@ -276,6 +278,12 @@ export default function ToolshelfApp({
   }, [folderName, notify]);
 
   useEffect(() => {
+    queueMicrotask(() => {
+      if (window.localStorage.getItem(HAS_CONNECTED_KEY) === "1") setHasConnectedBefore(true);
+    });
+  }, []);
+
+  useEffect(() => {
     const onPop = () => setPath(pathFromLocation(basePath));
     window.addEventListener("popstate", onPop);
     if (!supportsLocalFolders()) {
@@ -289,6 +297,8 @@ export default function ToolshelfApp({
           setFolderName(name);
           setFolderStatus("connected");
           setLocalResources(await storage.listResources());
+          setHasConnectedBefore(true);
+          window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
         } else if (storage.folderName) {
           setFolderStatus("permission");
           setFolderMessage("Reconnect your folder to continue editing.");
@@ -311,6 +321,8 @@ export default function ToolshelfApp({
       setLocalResources(await storage.listResources());
       setFolderStatus("connected");
       setFolderMessage("");
+      setHasConnectedBefore(true);
+      window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
       notify(`Connected to ${name}`);
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
@@ -329,10 +341,14 @@ export default function ToolshelfApp({
     setFolderStatus("idle");
     setFolderMessage("");
     setLocalResources([]);
+    setHasConnectedBefore(false);
+    window.localStorage.removeItem(HAS_CONNECTED_KEY);
     notify("Folder disconnected");
   }
 
   const route = parseRoute(path);
+  const showFullHero =
+    route.kind === "home" && !hasConnectedBefore && !folderName && folderStatus !== "connecting";
   let content: ReactNode;
 
   if (route.kind === "home") {
@@ -345,6 +361,7 @@ export default function ToolshelfApp({
         folderName={folderName}
         folderStatus={folderStatus}
         connectFolder={connectFolder}
+        showFullHero={showFullHero}
       />
     );
   } else if (route.kind === "library") {
@@ -453,7 +470,7 @@ export default function ToolshelfApp({
   }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell${showFullHero ? " app-shell--pre-connect" : ""}`}>
       <div className="corporate-rail" aria-hidden="true">
         <i />
         <i />
@@ -760,6 +777,7 @@ function Dashboard({
   folderName,
   folderStatus,
   connectFolder,
+  showFullHero,
 }: {
   resources: Resource[];
   search: string;
@@ -768,6 +786,7 @@ function Dashboard({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
+  showFullHero: boolean;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -791,50 +810,78 @@ function Dashboard({
   }, [resources]);
   return (
     <>
-      <div className="hero-split">
-        <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
-          </div>
-
-          <div className="hero-split-content">
-            <section className="hero">
-              <div className="hero-copy">
-                <span className="eyebrow">Your Knowledge Library</span>
-                <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
-                <p>
-                  Connect a folder — your own, or one already kept in sync by a shared drive — to
-                  build a real library of prompts, skills, tools, and learning resources, stored
-                  right on your machine. Just browsing shows only a handful of examples until you do.
-                </p>
-                <div className="hero-actions">
-                  <CreateAction
-                    label="Create a resource"
-                    folderName={folderName}
-                    folderStatus={folderStatus}
-                    connectFolder={connectFolder}
-                    onCreate={() => navigate("/create")}
-                  />
-                  <button className="secondary-button" onClick={() => navigate("/library")}>
-                    Browse the library
-                    <ChevronRight size={17} />
-                  </button>
+      <div className={`hero-split${showFullHero ? " hero-split--full" : ""}`}>
+        {showFullHero ? (
+          <div className="hero-split-inner hero-split-inner--full">
+            <div className="hero-split-content">
+              <section className="hero hero--full">
+                <div className="hero-copy">
+                  <span className="eyebrow">What is MILO?</span>
+                  <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
+                  <p>
+                    MILO is a local-first library of prompts, skills, tools, and learning
+                    resources for product people — no account, no cloud database. Everything
+                    lives as files in a folder you connect, yours alone or one your team already
+                    keeps in sync.
+                  </p>
+                  <div className="hero-actions">
+                    <CreateAction
+                      label="Create a resource"
+                      folderName={folderName}
+                      folderStatus={folderStatus}
+                      connectFolder={connectFolder}
+                      onCreate={() => navigate("/create")}
+                    />
+                  </div>
                 </div>
-              </div>
-            </section>
-
-            <section className="search-band" aria-label="Search resources">
-              <Search size={22} aria-hidden="true" />
-              <input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search MILO…"
-                aria-label="Search MILO"
-              />
-              <span>{search ? `${results.length} found` : `${resources.length} resources`}</span>
-            </section>
+              </section>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="hero-split-inner">
+            <div className="hero-split-media">
+              <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
+            </div>
+
+            <div className="hero-split-content">
+              <section className="hero">
+                <div className="hero-copy">
+                  <span className="eyebrow">Your Knowledge Library</span>
+                  <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
+                  <p>
+                    Connect a folder — your own, or one already kept in sync by a shared drive — to
+                    build a real library of prompts, skills, tools, and learning resources, stored
+                    right on your machine. Just browsing shows only a handful of examples until you do.
+                  </p>
+                  <div className="hero-actions">
+                    <CreateAction
+                      label="Create a resource"
+                      folderName={folderName}
+                      folderStatus={folderStatus}
+                      connectFolder={connectFolder}
+                      onCreate={() => navigate("/create")}
+                    />
+                    <button className="secondary-button" onClick={() => navigate("/library")}>
+                      Browse the library
+                      <ChevronRight size={17} />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section className="search-band" aria-label="Search resources">
+                <Search size={22} aria-hidden="true" />
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Search MILO…"
+                  aria-label="Search MILO"
+                />
+                <span>{search ? `${results.length} found` : `${resources.length} resources`}</span>
+              </section>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="page dashboard-page">
