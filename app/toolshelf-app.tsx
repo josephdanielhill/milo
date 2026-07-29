@@ -829,7 +829,7 @@ function Dashboard({
                   <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                   <p>
                     MILO is a local-first library of prompts, skills, tools, and learning
-                    resources for product people — no account, no cloud database. Everything
+                    resources for product people: no account, no cloud database. Everything
                     lives as files in a folder you connect, yours alone or one your team already
                     keeps in sync.
                   </p>
@@ -858,7 +858,7 @@ function Dashboard({
                   <span className="eyebrow">Your Knowledge Library</span>
                   <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                   <p>
-                    Connect a folder — your own, or one already kept in sync by a shared drive — to
+                    Connect a folder (your own, or one already kept in sync by a shared drive) to
                     build a real library of prompts, skills, tools, and learning resources, stored
                     right on your machine. Just browsing shows only a handful of examples until you do.
                   </p>
@@ -977,7 +977,7 @@ function GetStartedPanel({
         <div className="intro-panel__step">
           <Link2 size={20} />
           <strong>Subscribe to shared bundles</strong>
-          <p>Once connected, bring in resources someone else is sharing via Import → From URL — straight into your folder.</p>
+          <p>Once connected, bring in resources someone else is sharing via Import → From URL, straight into your folder.</p>
         </div>
         <div className="intro-panel__step">
           <FolderCheck size={20} />
@@ -1014,7 +1014,7 @@ function ContributionGuide({
       number: "01",
       icon: FolderOpen,
       title: "Connect a folder",
-      copy: "Choose Connect folder and select any folder on your machine — including one kept in sync by OneDrive, Google Drive, Dropbox, or similar.",
+      copy: "Choose Connect folder and select any folder on your machine, including one kept in sync by OneDrive, Google Drive, Dropbox, or similar.",
       note: "MILO reads and writes resource files there directly. No special integration needed.",
     },
     {
@@ -1029,7 +1029,7 @@ function ContributionGuide({
       icon: RefreshCw,
       title: "It's shared automatically",
       copy: "If your folder lives on a shared drive, anyone else connected to it sees the new resource as soon as their drive client syncs.",
-      note: "No review step, no merge — just Refresh files in MILO to pick up changes from others.",
+      note: "No review step, no merge: just Refresh files in MILO to pick up changes from others.",
     },
     {
       number: "04",
@@ -1054,7 +1054,7 @@ function ContributionGuide({
             <PageTop
               eyebrow="Getting started"
               title="Add a resource to your shelf"
-              description="Connect a folder — your own, or a shared drive everyone already uses — and start adding resources directly. No review step, no pull request."
+              description="Connect a folder (your own, or a shared drive everyone already uses) and start adding resources directly. No review step, no pull request."
               action={
                 <CreateAction
                   label="Create a resource"
@@ -1076,8 +1076,8 @@ function ContributionGuide({
             <span className="eyebrow">Before you begin</span>
             <h2>One folder, no gatekeeping.</h2>
             <p>
-              Point MILO at a folder on your machine — your own, or one kept in sync by a
-              shared drive — and start adding resources straight away.
+              Point MILO at a folder on your machine (your own, or one kept in sync by a
+              shared drive) and start adding resources straight away.
             </p>
           </div>
           <div className="guide-apps" aria-label="Applications used">
@@ -1305,7 +1305,7 @@ function ImportPage({
               <div>
                 <strong>Only import from sources you trust</strong>
                 <p>
-                  Anything you bring in — titles, summaries, links, and prompt or skill instructions — is
+                  Anything you bring in (titles, summaries, links, and prompt or skill instructions) is
                   added to your library as-is and shown to anyone who opens this folder. Skim what you&apos;re
                   about to import before you confirm, especially from a URL you weren&apos;t expecting.
                 </p>
@@ -1471,7 +1471,7 @@ function SharePage({
       <PageTop
         eyebrow="Share a curated set"
         title="Share resources"
-        description="Pick resources from your folder and download them as a bundle file. Host that file somewhere with open cross-origin access (a raw GitHub file or a public gist's raw URL both work), then share the URL — the recipient can load it under Import → From URL and choose what to bring into their own collection."
+        description="Pick resources from your folder and download them as a bundle file. Host that file somewhere with open cross-origin access (a raw GitHub file or a public gist's raw URL both work), then share the URL: the recipient can load it under Import → From URL and choose what to bring into their own collection."
       />
       {!folderConnected || localResources.length === 0 ? (
         <p className="import-page__notice">Connect a folder with at least one resource first.</p>
