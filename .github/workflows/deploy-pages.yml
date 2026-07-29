@@ -24,9 +24,17 @@ jobs:
           node-version: 22.13.0
           cache: npm
       - run: npm ci
+      - name: Determine base path
+        id: base-path
+        run: |
+          if [ -f public/CNAME ]; then
+            echo "value=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
       - run: npm run build:pages
         env:
-          PAGES_BASE_PATH: /${{ github.event.repository.name }}/
+          PAGES_BASE_PATH: ${{ steps.base-path.outputs.value }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: pages-dist
