@@ -60,7 +60,6 @@ import type { Resource, ResourceDraft, ResourceType } from "./types";
 
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
-const INTRO_DISMISSED_KEY = "milo:intro-dismissed";
 
 type FolderStatus = "idle" | "connecting" | "connected" | "permission" | "unsupported" | "error";
 
@@ -790,16 +789,6 @@ function Dashboard({
     for (const resource of resources) counts[resource.meta.type] += 1;
     return counts;
   }, [resources]);
-  const [introDismissed, setIntroDismissed] = useState(true);
-  useEffect(() => {
-    queueMicrotask(() => {
-      setIntroDismissed(window.localStorage.getItem(INTRO_DISMISSED_KEY) === "1");
-    });
-  }, []);
-  const dismissIntro = useCallback(() => {
-    window.localStorage.setItem(INTRO_DISMISSED_KEY, "1");
-    setIntroDismissed(true);
-  }, []);
   return (
     <>
       <div className="hero-split">
@@ -814,23 +803,22 @@ function Dashboard({
                 <span className="eyebrow">Your Knowledge Library</span>
                 <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                 <p>
-                  Browse prompts, skills, tools, and learning resources right away — no account
-                  and no folder required. Connect a folder when you want to add your own,
-                  stored right on your machine.
+                  Connect a folder — your own, or one already kept in sync by a shared drive — to
+                  build a real library of prompts, skills, tools, and learning resources, stored
+                  right on your machine. Just browsing shows only a handful of examples until you do.
                 </p>
                 <div className="hero-actions">
-                  <button className="primary-button" onClick={() => navigate("/library")}>
-                    Browse the library
-                    <ChevronRight size={17} />
-                  </button>
                   <CreateAction
                     label="Create a resource"
                     folderName={folderName}
                     folderStatus={folderStatus}
                     connectFolder={connectFolder}
                     onCreate={() => navigate("/create")}
-                    variant="secondary"
                   />
+                  <button className="secondary-button" onClick={() => navigate("/library")}>
+                    Browse the library
+                    <ChevronRight size={17} />
+                  </button>
                 </div>
               </div>
             </section>
@@ -850,118 +838,105 @@ function Dashboard({
       </div>
 
       <div className="page dashboard-page">
-        {!search && !introDismissed && <IntroPanel onDismiss={dismissIntro} />}
-
         {search ? (
           <section className="section-block">
             <SectionHeading eyebrow="Search results" title={`Matching “${search}”`} />
             <ResourceGrid resources={results} navigate={navigate} />
           </section>
+        ) : folderName ? (
+          <>
+            <section className="section-block">
+              <SectionHeading
+                eyebrow="Choose your starting point"
+                title="What are you looking for?"
+                aside="A practical collection, shaped by the people doing the work."
+              />
+              <div className="category-grid">
+                {resourceTypes.map((type, index) => (
+                  <button
+                    key={type}
+                    className={`category-card category-card--${type}`}
+                    onClick={() => navigate(routeForType(type))}
+                  >
+                    <span className="category-number">0{index + 1}</span>
+                    <span className="category-icon">{typeIcon(type, 24)}</span>
+                    <strong>{pluralTypeLabel(type)}</strong>
+                    <span className="category-count">
+                      {typeCounts[type]} {typeCounts[type] === 1 ? "resource" : "resources"}
+                    </span>
+                    <p>{typeDescriptions[type]}</p>
+                    <span className="category-link">
+                      Explore {pluralTypeLabel(type).toLowerCase()} <ChevronRight size={16} />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="section-block">
+              <SectionHeading
+                eyebrow="Recently added"
+                title="Latest resources"
+                aside="The newest additions across your local library, published content, and bundled examples."
+              />
+              <ResourceGrid
+                resources={latestResources}
+                navigate={navigate}
+                compact
+                showCreatedDate
+              />
+            </section>
+          </>
         ) : (
-          <section className="section-block">
-            <SectionHeading
-              eyebrow="Choose your starting point"
-              title="What are you looking for?"
-              aside="A practical collection, shaped by the people doing the work."
-            />
-            <div className="category-grid">
-              {resourceTypes.map((type, index) => (
-                <button
-                  key={type}
-                  className={`category-card category-card--${type}`}
-                  onClick={() => navigate(routeForType(type))}
-                >
-                  <span className="category-number">0{index + 1}</span>
-                  <span className="category-icon">{typeIcon(type, 24)}</span>
-                  <strong>{pluralTypeLabel(type)}</strong>
-                  <span className="category-count">
-                    {typeCounts[type]} {typeCounts[type] === 1 ? "resource" : "resources"}
-                  </span>
-                  <p>{typeDescriptions[type]}</p>
-                  <span className="category-link">
-                    Explore {pluralTypeLabel(type).toLowerCase()} <ChevronRight size={16} />
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {!search && (
-          <section className="section-block">
-            <SectionHeading
-              eyebrow="Why MILO"
-              title="Built for how product teams actually work"
-              aside="No account, no lock-in — just a library that stays yours."
-            />
-            <div className="value-grid">
-              <div className="value-card">
-                <FolderCheck size={22} />
-                <strong>Local-first &amp; private</strong>
-                <p>Your library lives on your machine. Nothing is uploaded, and no account is required.</p>
-              </div>
-              <div className="value-card">
-                <WandSparkles size={22} />
-                <strong>No setup, no login</strong>
-                <p>Open MILO and start browsing immediately. Connect a folder only when you want to add your own.</p>
-              </div>
-              <div className="value-card">
-                <Link2 size={22} />
-                <strong>Share your way</strong>
-                <p>Keep a folder in sync through a shared drive, or export a bundle URL for anyone to import.</p>
-              </div>
-              <div className="value-card">
-                <Library size={22} />
-                <strong>Grows with contributions</strong>
-                <p>Merge new resources upstream and they become part of the default library for everyone.</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {!search && (
-          <section className="section-block">
-            <SectionHeading
-              eyebrow="Preview"
-              title="Latest resources"
-              aside="A look at what's already in the library — bundled examples today, growing as more is published or connected."
-            />
-            <ResourceGrid
-              resources={latestResources}
-              navigate={navigate}
-              compact
-              showCreatedDate
-            />
-          </section>
+          <GetStartedPanel
+            folderName={folderName}
+            folderStatus={folderStatus}
+            connectFolder={connectFolder}
+          />
         )}
       </div>
     </>
   );
 }
 
-function IntroPanel({ onDismiss }: { onDismiss: () => void }) {
+function GetStartedPanel({
+  folderName,
+  folderStatus,
+  connectFolder,
+}: {
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+}) {
   return (
-    <section className="intro-panel section-block" aria-label="How MILO works">
-      <button className="intro-panel__dismiss" onClick={onDismiss} aria-label="Dismiss">
-        <X size={16} />
-      </button>
-      <span className="eyebrow">How MILO works</span>
+    <section className="intro-panel section-block" aria-label="Get started with MILO">
+      <span className="eyebrow">Get started</span>
+      <h2 className="intro-panel__title">Connect a folder to build your real library</h2>
       <div className="intro-panel__steps">
         <div className="intro-panel__step">
-          <Search size={20} />
-          <strong>Browse first</strong>
-          <p>Explore prompts, skills, tools, and learning resources right now — no account, no folder needed.</p>
-        </div>
-        <div className="intro-panel__step">
           <FolderOpen size={20} />
-          <strong>Connect a folder</strong>
-          <p>To add or edit your own resources, connect a folder on your machine. Nothing leaves your device.</p>
+          <strong>Connect a local folder</strong>
+          <p>Use your own, or one already kept in sync by a shared drive (OneDrive, Google Drive, Dropbox) your team uses.</p>
         </div>
         <div className="intro-panel__step">
           <Link2 size={20} />
-          <strong>Share your way</strong>
-          <p>Sync through a shared drive, or export a bundle URL for anyone to import.</p>
+          <strong>Subscribe to shared bundles</strong>
+          <p>Once connected, bring in resources someone else is sharing via Import → From URL — straight into your folder.</p>
         </div>
+        <div className="intro-panel__step">
+          <FolderCheck size={20} />
+          <strong>Nothing is uploaded</strong>
+          <p>Everything is saved as files on your device. MILO has no server storage of its own.</p>
+        </div>
+      </div>
+      <div className="intro-panel__cta">
+        <CreateAction
+          label="Create a resource"
+          folderName={folderName}
+          folderStatus={folderStatus}
+          connectFolder={connectFolder}
+          onCreate={() => {}}
+        />
       </div>
     </section>
   );
