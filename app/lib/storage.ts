@@ -1,5 +1,5 @@
 import type { Resource, ResourceDraft, ResourceType, StorageProvider } from "../types";
-import { parseResource, serializeResource, validateResource } from "./markdown";
+import { parseResource, serializeResource, validateResource } from "./markdown.ts";
 
 const DB_NAME = "pm-toolshelf";
 const STORE_NAME = "handles";

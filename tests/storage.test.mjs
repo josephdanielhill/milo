@@ -1,0 +1,227 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import {
+  LocalFolderStorage,
+  collectionTypeForFile,
+  parseCollectionItems,
+} from "../app/lib/storage.ts";
+
+// Minimal in-memory stand-in for the File System Access API's
+// FileSystemDirectoryHandle/FileSystemFileHandle, just enough of the surface
+// LocalFolderStorage actually calls, so its real CRUD logic (path validation,
+// collection insert/replace/remove merging) can run against something other
+// than a real browser folder.
+class MockFileHandle {
+  constructor(dir, name) {
+    this.dir = dir;
+    this.name = name;
+  }
+  async getFile() {
+    const text = this.dir.files.get(this.name);
+    return { text: async () => text };
+  }
+  async createWritable() {
+    let buffer = "";
+    return {
+      write: async (data) => {
+        buffer = data;
+      },
+      close: async () => {
+        this.dir.files.set(this.name, buffer);
+      },
+    };
+  }
+}
+
+class MockDirectoryHandle {
+  constructor(name = "root") {
+    this.name = name;
+    this.dirs = new Map();
+    this.files = new Map();
+  }
+  async getFileHandle(name, options = {}) {
+    if (!this.files.has(name)) {
+      if (!options.create) throw new DOMException("not found", "NotFoundError");
+      this.files.set(name, "");
+    }
+    return new MockFileHandle(this, name);
+  }
+  async getDirectoryHandle(name, options = {}) {
+    if (!this.dirs.has(name)) {
+      if (!options.create) throw new DOMException("not found", "NotFoundError");
+      this.dirs.set(name, new MockDirectoryHandle(name));
+    }
+    return this.dirs.get(name);
+  }
+  async removeEntry(name) {
+    if (this.files.delete(name)) return;
+    if (this.dirs.delete(name)) return;
+    throw new DOMException("not found", "NotFoundError");
+  }
+}
+
+function storageWithMockRoot() {
+  const storage = new LocalFolderStorage();
+  // `root` is a TypeScript-private field, but that's a compile-time-only
+  // restriction — at runtime it's a plain property, and there is no browser
+  // showDirectoryPicker() to call in a test environment, so this is the
+  // supported way to exercise the class's real public methods here.
+  storage.root = new MockDirectoryHandle();
+  return storage;
+}
+
+function bookDraft(overrides = {}) {
+  return {
+    title: "Test Book",
+    slug: "test-book",
+    type: "book",
+    summary: "A short summary.",
+    author: "Jane Doe",
+    creator: "Some Author",
+    tags: [],
+    createdAt: "2026-01-01",
+    updatedAt: "2026-01-01",
+    toolUrl: "https://example.com/book",
+    body: "## Why it is worth reading\n\nBecause.",
+    ...overrides,
+  };
+}
+
+function promptDraft(overrides = {}) {
+  return {
+    title: "Test Prompt",
+    slug: "test-prompt",
+    type: "prompt",
+    summary: "A short summary.",
+    author: "Jane Doe",
+    tags: [],
+    createdAt: "2026-01-01",
+    updatedAt: "2026-01-01",
+    body: "## Prompt\n\nDo the thing.",
+    ...overrides,
+  };
+}
+
+// -- Path validation (safePath), exercised through the public API --------
+
+test("createResource rejects a traversal attempt in the slug", async () => {
+  const storage = storageWithMockRoot();
+  await assert.rejects(
+    storage.createResource(promptDraft({ slug: "../../etc/passwd" })),
+    /Invalid resource path/,
+  );
+});
+
+test("createResource rejects an invalid slug format", async () => {
+  const storage = storageWithMockRoot();
+  await assert.rejects(
+    storage.createResource(promptDraft({ slug: "Not Valid!" })),
+    /Invalid resource path/,
+  );
+});
+
+test("createResource accepts a well-formed slug and round-trips it", async () => {
+  const storage = storageWithMockRoot();
+  const created = await storage.createResource(promptDraft());
+  assert.equal(created.path, "prompts/test-prompt.md");
+
+  const read = await storage.readResource("prompts/test-prompt.md");
+  assert.equal(read.meta.title, "Test Prompt");
+});
+
+test("createResource refuses to overwrite an existing Markdown file", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(promptDraft());
+  await assert.rejects(storage.createResource(promptDraft()), /already exists/);
+});
+
+// -- Collection insert/replace/remove (writeCollectionOp) -----------------
+
+test("createResource inserts a new item into an empty collection file", async () => {
+  const storage = storageWithMockRoot();
+  const created = await storage.createResource(bookDraft());
+  assert.equal(created.path, "books.json#test-book");
+
+  const raw = storage.root.files.get("books.json");
+  const parsed = JSON.parse(raw);
+  assert.equal(parsed.items.length, 1);
+  assert.equal(parsed.items[0].slug, "test-book");
+});
+
+test("createResource rejects a duplicate slug in a collection", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(bookDraft());
+  await assert.rejects(storage.createResource(bookDraft()), /already exists/);
+});
+
+test("updateResource replaces an existing collection item in place", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(bookDraft());
+  await storage.updateResource(
+    "books.json#test-book",
+    bookDraft({ summary: "An updated summary." }),
+  );
+
+  const parsed = JSON.parse(storage.root.files.get("books.json"));
+  assert.equal(parsed.items.length, 1);
+  assert.equal(parsed.items[0].summary, "An updated summary.");
+});
+
+test("deleteResource removes a collection item", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(bookDraft());
+  await storage.deleteResource("books.json#test-book");
+
+  const parsed = JSON.parse(storage.root.files.get("books.json"));
+  assert.equal(parsed.items.length, 0);
+});
+
+test("deleteResource on a missing collection item throws", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(bookDraft());
+  await assert.rejects(storage.deleteResource("books.json#no-such-slug"), /not found/i);
+});
+
+test("createResource keeps unrelated collection items untouched", async () => {
+  const storage = storageWithMockRoot();
+  await storage.createResource(bookDraft({ slug: "book-one" }));
+  await storage.createResource(bookDraft({ slug: "book-two" }));
+
+  const parsed = JSON.parse(storage.root.files.get("books.json"));
+  assert.deepEqual(
+    parsed.items.map((item) => item.slug).sort(),
+    ["book-one", "book-two"],
+  );
+});
+
+// -- Pure helper exports ----------------------------------------------------
+
+test("collectionTypeForFile maps known collection filenames", () => {
+  assert.equal(collectionTypeForFile("books.json"), "book");
+  assert.equal(collectionTypeForFile("podcasts.json"), "podcast");
+  assert.equal(collectionTypeForFile("unknown.json"), undefined);
+});
+
+test("parseCollectionItems parses a valid collection file", () => {
+  const raw = JSON.stringify({ version: 1, items: [bookDraft()] });
+  const resources = parseCollectionItems("book", raw, "published");
+  assert.equal(resources.length, 1);
+  assert.equal(resources[0].path, "books.json#test-book");
+  assert.equal(resources[0].source, "published");
+});
+
+test("parseCollectionItems rejects invalid JSON", () => {
+  assert.throws(() => parseCollectionItems("book", "{ not json", "local"), /invalid JSON/);
+});
+
+test("parseCollectionItems rejects a file without an items array", () => {
+  assert.throws(
+    () => parseCollectionItems("book", JSON.stringify({ version: 1 }), "local"),
+    /must contain an items array/,
+  );
+});
+
+test("parseCollectionItems surfaces validation errors for a bad item", () => {
+  const raw = JSON.stringify({ version: 1, items: [bookDraft({ title: "" })] });
+  assert.throws(() => parseCollectionItems("book", raw, "local"), /item 1/);
+});
