@@ -36,6 +36,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body:has(.app-shell--pre-connect) {
+  overflow: hidden;
+}
+
 button,
 input,
 textarea,
@@ -452,6 +456,14 @@ button:disabled {
 
 .hero-split-inner--full .hero-actions {
   justify-content: center;
+}
+
+.hero-full-media {
+  display: block;
+  height: auto;
+  margin: 0 auto 20px;
+  max-width: 220px;
+  width: 100%;
 }
 
 .hero-split-content .hero--full {

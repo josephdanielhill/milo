@@ -348,7 +348,11 @@ export default function ToolshelfApp({
 
   const route = parseRoute(path);
   const showFullHero =
-    route.kind === "home" && !hasConnectedBefore && !folderName && folderStatus !== "connecting";
+    route.kind === "home" &&
+    !hasConnectedBefore &&
+    !folderName &&
+    folderStatus !== "connecting" &&
+    folderStatus !== "unsupported";
   let content: ReactNode;
 
   if (route.kind === "home") {
@@ -816,6 +820,11 @@ function Dashboard({
             <div className="hero-split-content">
               <section className="hero hero--full">
                 <div className="hero-copy">
+                  <img
+                    className="hero-full-media"
+                    src={`${import.meta.env.BASE_URL}milo-hero.png`}
+                    alt="Milo the black Labrador holding a book"
+                  />
                   <span className="eyebrow">What is MILO?</span>
                   <h1>Sharing is caring,<br /><em>knowledge amplified.</em></h1>
                   <p>
