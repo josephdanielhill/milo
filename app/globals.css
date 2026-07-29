@@ -1888,10 +1888,129 @@ button:disabled {
   width: 18px;
 }
 
-.import-candidate-list strong {
+.import-candidate-list label {
+  align-items: flex-start;
+}
+
+.import-candidate-list input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.import-candidate-body {
+  display: grid;
+  flex: 1;
+  gap: 6px;
+}
+
+.import-candidate-row {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.import-candidate-row strong {
   flex: 1;
   font-weight: 600;
   padding: 0 4px;
+}
+
+.import-candidate-meta {
+  color: #7a7c75;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 4px;
+}
+
+.import-candidate-author {
+  color: #9b9c94;
+}
+
+.import-steps {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.import-steps li {
+  align-items: center;
+  color: #9b9c94;
+  display: flex;
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 700;
+  gap: 10px;
+}
+
+.import-steps li:not(:last-child)::after {
+  background: var(--brand-line);
+  content: "";
+  flex: 1;
+  height: 1px;
+  margin-left: 4px;
+}
+
+.import-steps__badge {
+  align-items: center;
+  border: 1.5px solid #cfcec7;
+  border-radius: 50%;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 11px;
+  height: 22px;
+  justify-content: center;
+  width: 22px;
+}
+
+.import-steps li.is-current {
+  color: var(--brand-ink);
+}
+
+.import-steps li.is-current .import-steps__badge {
+  background: #657d78;
+  border-color: #657d78;
+  color: #fff;
+}
+
+.import-steps li.is-done {
+  color: #62655f;
+}
+
+.import-steps li.is-done .import-steps__badge {
+  background: #e4f2e9;
+  border-color: #bcd9c8;
+  color: #2d6042;
+}
+
+.import-trust-notice {
+  align-items: flex-start;
+  background: #fbf0d5;
+  border: 1px solid #e6d39e;
+  border-radius: 11px;
+  color: #5d512f;
+  display: flex;
+  gap: 11px;
+  margin-top: 18px;
+  padding: 14px 18px;
+}
+
+.import-trust-notice svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.import-trust-notice strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.import-trust-notice p {
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .guide-help {

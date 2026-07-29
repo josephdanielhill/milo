@@ -1048,6 +1048,9 @@ function ImportPage({
   }, [source, localByKey]);
 
   const selectedCount = candidates.filter((candidate) => !deselected.has(candidate.key)).length;
+  const newCount = candidates.filter((candidate) => candidate.status === "new").length;
+  const changedCount = candidates.length - newCount;
+  const currentStep = !source ? 1 : importing ? 3 : 2;
 
   function switchTab(next: "folder" | "url") {
     if (next === tab) return;
@@ -1149,6 +1152,31 @@ function ImportPage({
           <p className="import-page__notice">Connect a folder first, then come back here to import into it.</p>
         ) : (
           <>
+            <ol className="import-steps">
+              <li className={currentStep === 1 ? "is-current" : "is-done"}>
+                <span className="import-steps__badge">{currentStep > 1 ? <Check size={12} /> : 1}</span>
+                <span>Choose a source</span>
+              </li>
+              <li className={currentStep === 2 ? "is-current" : currentStep > 2 ? "is-done" : ""}>
+                <span className="import-steps__badge">{currentStep > 2 ? <Check size={12} /> : 2}</span>
+                <span>Review &amp; select</span>
+              </li>
+              <li className={currentStep === 3 ? "is-current" : ""}>
+                <span className="import-steps__badge">3</span>
+                <span>Import</span>
+              </li>
+            </ol>
+            <div className="import-trust-notice">
+              <CircleAlert size={18} aria-hidden="true" />
+              <div>
+                <strong>Only import from sources you trust</strong>
+                <p>
+                  Anything you bring in — titles, summaries, links, and prompt or skill instructions — is
+                  added to your library as-is and shown to anyone who opens this folder. Skim what you&apos;re
+                  about to import before you confirm, especially from a URL you weren&apos;t expecting.
+                </p>
+              </div>
+            </div>
             <div className="editor-tabs">
               <button
                 type="button"
@@ -1198,7 +1226,13 @@ function ImportPage({
                       ? `${candidates.length} ${candidates.length === 1 ? "resource" : "resources"} to review`
                       : "Nothing new to import"
                   }
-                  aside="Items identical to what's already in your connected folder are left out automatically."
+                  aside={
+                    candidates.length
+                      ? `${[newCount && `${newCount} new`, changedCount && `${changedCount} changed`]
+                          .filter(Boolean)
+                          .join(", ")}. Items identical to what's already in your connected folder are left out automatically.`
+                      : "Items identical to what's already in your connected folder are left out automatically."
+                  }
                 />
                 {source.skipped && source.skipped.length > 0 && (
                   <p className="import-page__notice import-page__notice--warning">
@@ -1217,18 +1251,33 @@ function ImportPage({
                               checked={!deselected.has(candidate.key)}
                               onChange={() => toggle(candidate.key)}
                             />
-                            <span className="type-pill">
-                              {typeIcon(candidate.resource.meta.type, 14)}{" "}
-                              {typeLabels[candidate.resource.meta.type]}
-                            </span>
-                            <strong>{candidate.resource.meta.title}</strong>
-                            <span
-                              className={`source-pill source-pill--${
-                                candidate.status === "new" ? "local" : "published"
-                              }`}
-                            >
-                              {candidate.status === "new" ? "New" : "Changed"}
-                            </span>
+                            <div className="import-candidate-body">
+                              <div className="import-candidate-row">
+                                <span className="type-pill">
+                                  {typeIcon(candidate.resource.meta.type, 14)}{" "}
+                                  {typeLabels[candidate.resource.meta.type]}
+                                </span>
+                                <strong>{candidate.resource.meta.title}</strong>
+                                <span
+                                  className={`source-pill source-pill--${
+                                    candidate.status === "new" ? "local" : "published"
+                                  }`}
+                                >
+                                  {candidate.status === "new" ? "New" : "Changed"}
+                                </span>
+                              </div>
+                              {(candidate.resource.meta.summary || candidate.resource.meta.author) && (
+                                <p className="import-candidate-meta">
+                                  {candidate.resource.meta.summary}
+                                  {candidate.resource.meta.author && (
+                                    <span className="import-candidate-author">
+                                      {candidate.resource.meta.summary ? " · " : ""}
+                                      {candidate.resource.meta.author}
+                                    </span>
+                                  )}
+                                </p>
+                              )}
+                            </div>
                           </label>
                         </li>
                       ))}
