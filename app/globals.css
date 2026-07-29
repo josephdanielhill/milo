@@ -452,6 +452,7 @@ button:disabled {
 }
 
 .hero-split-content .page-top {
+  align-items: flex-start;
   border-bottom: 0;
   min-height: 623px;
   padding: 28px 0 40px;
