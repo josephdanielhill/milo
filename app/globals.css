@@ -1784,8 +1784,58 @@ button:disabled {
   color: #8b4b4f;
 }
 
-.import-page > .secondary-button {
-  margin-top: 28px;
+.import-page__notice--warning {
+  color: #8a6a2f;
+}
+
+.import-page .editor-tabs {
+  margin: 24px 0 0;
+}
+
+.import-page__primary-action {
+  margin-top: 20px;
+}
+
+.import-url-row {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.import-url-row input,
+.share-page__name-field input {
+  background: #fff;
+  border: 1px solid #cfcec7;
+  border-radius: 7px;
+  font-size: 13px;
+  line-height: 1.4;
+  outline: 0;
+  padding: 10px 11px;
+  width: 100%;
+}
+
+.import-url-row input:focus,
+.share-page__name-field input:focus {
+  border-color: #657d78;
+  box-shadow: 0 0 0 3px rgba(92, 127, 121, 0.12);
+}
+
+.import-url-row input {
+  flex: 1;
+}
+
+.share-page__name-field {
+  display: grid;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 7px;
+  margin: 24px 0 20px;
+  max-width: 360px;
+}
+
+.share-page__name-field input {
+  font-weight: 400;
 }
 
 .import-candidate-list {

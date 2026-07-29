@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   LocalFolderStorage,
+  buildBundle,
   collectionTypeForFile,
+  parseBundleItems,
   parseCollectionItems,
 } from "../app/lib/storage.ts";
 
@@ -224,4 +226,86 @@ test("parseCollectionItems rejects a file without an items array", () => {
 test("parseCollectionItems surfaces validation errors for a bad item", () => {
   const raw = JSON.stringify({ version: 1, items: [bookDraft({ title: "" })] });
   assert.throws(() => parseCollectionItems("book", raw, "local"), /item 1/);
+});
+
+// -- parseBundleItems / buildBundle (URL-shared bundles) --------------------
+
+test("parseBundleItems parses a valid mixed-type bundle", () => {
+  const raw = JSON.stringify({
+    version: 1,
+    name: "Starter pack",
+    items: [bookDraft(), promptDraft()],
+  });
+  const { name, resources, skipped } = parseBundleItems(raw, "local");
+  assert.equal(name, "Starter pack");
+  assert.equal(skipped.length, 0);
+  assert.equal(resources.length, 2);
+  const book = resources.find((r) => r.meta.type === "book");
+  const prompt = resources.find((r) => r.meta.type === "prompt");
+  assert.equal(book.path, "books.json#test-book");
+  assert.equal(prompt.path, "prompts/test-prompt.md");
+  // Markdown-backed types must serialize like they would on disk, not as JSON,
+  // so the Import dedup check (comparing .raw) can match an already-local copy.
+  assert.match(prompt.raw, /^---\ntitle: "Test Prompt"/);
+});
+
+test("parseBundleItems rejects invalid JSON", () => {
+  assert.throws(() => parseBundleItems("{ not json", "local"), /invalid JSON/);
+});
+
+test("parseBundleItems rejects a bundle without an items array", () => {
+  assert.throws(
+    () => parseBundleItems(JSON.stringify({ version: 1 }), "local"),
+    /must contain an items array/,
+  );
+});
+
+test("parseBundleItems skips a bad item but keeps the good ones", () => {
+  const raw = JSON.stringify({
+    version: 1,
+    items: [bookDraft({ title: "" }), promptDraft()],
+  });
+  const { resources, skipped } = parseBundleItems(raw, "local");
+  assert.equal(resources.length, 1);
+  assert.equal(resources[0].meta.type, "prompt");
+  assert.equal(skipped.length, 1);
+});
+
+test("parseBundleItems skips a duplicate slug within the same bundle", () => {
+  const raw = JSON.stringify({
+    version: 1,
+    items: [promptDraft(), promptDraft({ title: "Second copy" })],
+  });
+  const { resources, skipped } = parseBundleItems(raw, "local");
+  assert.equal(resources.length, 1);
+  assert.equal(resources[0].meta.title, "Test Prompt");
+  assert.equal(skipped.length, 1);
+  assert.match(skipped[0].error, /duplicate/);
+});
+
+test("parseBundleItems throws when every item is invalid", () => {
+  const raw = JSON.stringify({ version: 1, items: [bookDraft({ title: "" })] });
+  assert.throws(() => parseBundleItems(raw, "local"), /did not contain any valid resources/);
+});
+
+test("parseBundleItems accepts an empty bundle", () => {
+  const raw = JSON.stringify({ version: 1, items: [] });
+  const { resources, skipped } = parseBundleItems(raw, "local");
+  assert.equal(resources.length, 0);
+  assert.equal(skipped.length, 0);
+});
+
+test("buildBundle output round-trips through parseBundleItems", () => {
+  const resources = [
+    { meta: bookDraft(), body: bookDraft().body },
+    { meta: promptDraft(), body: promptDraft().body },
+  ];
+  const raw = buildBundle(resources, "My export");
+  const { name, resources: parsed, skipped } = parseBundleItems(raw, "local");
+  assert.equal(name, "My export");
+  assert.equal(skipped.length, 0);
+  assert.deepEqual(
+    parsed.map((r) => r.meta.slug).sort(),
+    ["test-book", "test-prompt"],
+  );
 });

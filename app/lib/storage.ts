@@ -108,16 +108,12 @@ function collectionFile(type: CollectionResourceType) {
   return collectionFiles[type];
 }
 
-export function parseCollectionItems(
-  type: CollectionResourceType,
-  raw: string,
-  source: Resource["source"],
-): Resource[] {
+function parseItemsEnvelope(raw: string, label: string): { name?: string; items: unknown[] } {
   let value: unknown;
   try {
     value = JSON.parse(raw);
   } catch {
-    throw new Error(`${collectionFile(type)} contains invalid JSON.`);
+    throw new Error(`${label} contains invalid JSON.`);
   }
   const items =
     typeof value === "object" &&
@@ -126,7 +122,20 @@ export function parseCollectionItems(
     Array.isArray((value as { items: unknown }).items)
       ? (value as { items: unknown[] }).items
       : null;
-  if (!items) throw new Error(`${collectionFile(type)} must contain an items array.`);
+  if (!items) throw new Error(`${label} must contain an items array.`);
+  const name =
+    typeof value === "object" && value !== null && typeof (value as { name?: unknown }).name === "string"
+      ? (value as { name: string }).name
+      : undefined;
+  return { name, items };
+}
+
+export function parseCollectionItems(
+  type: CollectionResourceType,
+  raw: string,
+  source: Resource["source"],
+): Resource[] {
+  const { items } = parseItemsEnvelope(raw, collectionFile(type));
   return items.map((item, index) => {
     if (typeof item !== "object" || item === null) {
       throw new Error(`${collectionFile(type)} item ${index + 1} is invalid.`);
@@ -150,6 +159,114 @@ function resourcePath(resource: ResourceDraft) {
   return isCollectionType(resource.type)
     ? `${collectionFile(resource.type)}#${resource.slug}`
     : `${folderFor(resource.type)}/${resource.slug}.md`;
+}
+
+const validResourceTypes = new Set<ResourceType>([
+  "prompt",
+  "skill",
+  "tool",
+  "book",
+  "video",
+  "conference",
+  "training",
+  "article",
+  "podcast",
+]);
+
+export interface BundleParseResult {
+  name?: string;
+  resources: Resource[];
+  skipped: { title?: string; error: string }[];
+}
+
+/**
+ * Parses a shared "bundle" file: like a collection file, but items can mix any resource type
+ * (each item names its own `type`). Bad items are skipped rather than failing the whole
+ * bundle, since this is meant to consume a stranger's export rather than a file you maintain.
+ */
+export function parseBundleItems(
+  raw: string,
+  source: Resource["source"],
+  label = "This bundle",
+): BundleParseResult {
+  const { name, items } = parseItemsEnvelope(raw, label);
+  const resources: Resource[] = [];
+  const skipped: { title?: string; error: string }[] = [];
+  const seen = new Set<string>();
+  for (const item of items) {
+    if (typeof item !== "object" || item === null) {
+      skipped.push({ error: "Item is not a valid resource." });
+      continue;
+    }
+    const draft = item as ResourceDraft;
+    if (!validResourceTypes.has(draft.type)) {
+      skipped.push({ title: draft.title, error: `“${draft.title || "Untitled"}” has an unknown type.` });
+      continue;
+    }
+    const errors = validateResource(draft);
+    if (errors.length) {
+      skipped.push({ title: draft.title, error: `“${draft.title || draft.slug}”: ${errors.join(" ")}` });
+      continue;
+    }
+    const key = `${draft.type}:${draft.slug}`;
+    if (seen.has(key)) {
+      skipped.push({ title: draft.title, error: `“${draft.title}” is a duplicate in this bundle.` });
+      continue;
+    }
+    seen.add(key);
+    resources.push({
+      meta: draft,
+      body: draft.body,
+      source,
+      path: resourcePath(draft),
+      raw: isCollectionType(draft.type) ? `${JSON.stringify(draft, null, 2)}\n` : serializeResource(draft),
+    });
+  }
+  if (items.length > 0 && resources.length === 0) {
+    throw new Error(`${label} did not contain any valid resources.`);
+  }
+  return { name, resources, skipped };
+}
+
+/** Fetches a shared bundle from a URL and parses it for review in the Import flow. */
+export async function fetchImportSource(url: string): Promise<ImportSource> {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error("Enter a valid URL.");
+  }
+  if (!["http:", "https:"].includes(parsed.protocol)) {
+    throw new Error("Use an http or https URL.");
+  }
+  let response: Response;
+  try {
+    response = await fetch(url);
+  } catch {
+    throw new Error(
+      "Could not reach that URL. Check the address and that the host allows cross-origin requests (CORS).",
+    );
+  }
+  if (!response.ok) {
+    throw new Error(`That URL returned an error (${response.status}).`);
+  }
+  const text = await response.text();
+  if (new Blob([text]).size > 10_000_000) {
+    throw new Error("This bundle is larger than 10 MB. Ask the sender to split it into smaller bundles.");
+  }
+  const { name, resources, skipped } = parseBundleItems(text, "local", "This bundle");
+  return { name: name || parsed.hostname, resources, skipped };
+}
+
+/** Serializes selected resources into a shareable bundle file, in the same shape as a collection file. */
+export function buildBundle(resources: Resource[], name?: string) {
+  const items: ResourceDraft[] = resources.map((resource) => ({ ...resource.meta, body: resource.body }));
+  return `${JSON.stringify({ version: 1, ...(name ? { name } : {}), items }, null, 2)}\n`;
+}
+
+export function downloadBundle(resources: Resource[], name?: string) {
+  const filename = `milo-bundle-${new Date().toISOString().slice(0, 10)}.json`;
+  downloadFile(buildBundle(resources, name), filename, "application/json;charset=utf-8");
 }
 
 export function supportsLocalFolders() {
@@ -212,6 +329,7 @@ async function listResourcesFrom(
 export interface ImportSource {
   name: string;
   resources: Resource[];
+  skipped?: { title?: string; error: string }[];
 }
 
 /** Opens a second, independent folder read-only so its resources can be reviewed for import without disturbing the currently-connected folder. */
