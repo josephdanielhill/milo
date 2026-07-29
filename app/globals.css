@@ -95,11 +95,7 @@ button:disabled {
   top: -16px;
 }
 
-.corporate-rail i:nth-child(1) { background: var(--brand-lime); }
-.corporate-rail i:nth-child(2) { background: var(--brand-red); }
-.corporate-rail i:nth-child(3) { background: var(--brand-coral); }
-.corporate-rail i:nth-child(4) { background: var(--brand-blue); }
-.corporate-rail i:nth-child(5) { background: var(--brand-mint); }
+.corporate-rail i { background: #e8f5f5; }
 
 .sidebar {
   background: #fdfcf8;
