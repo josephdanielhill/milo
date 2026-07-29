@@ -1776,7 +1776,8 @@ button:disabled {
   margin-top: 3px;
 }
 
-.import-page__notice {
+.import-page__notice,
+.folder-required-notice {
   color: #62655f;
   font-size: 14px;
   line-height: 1.5;
@@ -1855,7 +1856,8 @@ button:disabled {
 }
 
 .empty-state,
-.not-found {
+.not-found,
+.connect-prompt {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -1865,7 +1867,8 @@ button:disabled {
 }
 
 .empty-state h2,
-.not-found h1 {
+.not-found h1,
+.connect-prompt h1 {
   font-family: var(--font-editorial);
   font-size: 34px;
   font-weight: 400;
@@ -1873,7 +1876,8 @@ button:disabled {
 }
 
 .empty-state p,
-.not-found p {
+.not-found p,
+.connect-prompt p {
   color: #70736d;
   margin: 0 0 22px;
 }
@@ -1883,6 +1887,10 @@ button:disabled {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
+}
+
+.connect-prompt .primary-button {
+  margin-bottom: 14px;
 }
 
 .toast {
