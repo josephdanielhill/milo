@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build outputs (build/ itself is source, not output — see build/*.mjs, build/*.ts)
+dist/
+pages-dist/
+.next/
+out/
+
+# Generated at dev/build time by build/generate-published-resources.mjs
+app/generated/
+
+# Cloudflare / Wrangler local state
+.wrangler/
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Per-environment hosting config (D1/R2 binding names) — not shared across machines/deploys
+.openai/hosting.json
+
+# Environment / local secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
