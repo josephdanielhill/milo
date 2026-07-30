@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
+import { readBuildId } from "./build/read-build-id";
 
 const projectRoot = dirname(fileURLToPath(import.meta.url));
 
@@ -33,6 +34,10 @@ function pagesFallback(): Plugin {
 export default defineConfig({
   root: projectRoot,
   base,
+
+  define: {
+    __MILO_BUILD_ID__: JSON.stringify(readBuildId(projectRoot)),
+  },
 
   plugins: [react(), pagesFallback()],
 

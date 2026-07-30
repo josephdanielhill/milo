@@ -2345,6 +2345,46 @@ button:disabled {
   z-index: 200;
 }
 
+.update-banner {
+  align-items: center;
+  background: var(--brand-lime);
+  border-bottom: 1px solid var(--brand-line);
+  color: var(--brand-ink);
+  display: flex;
+  font-size: 13px;
+  font-weight: 650;
+  gap: 12px;
+  justify-content: center;
+  padding: 10px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 150;
+}
+
+.update-banner-actions {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.update-banner-refresh {
+  align-items: center;
+  background: var(--brand-ink);
+  border: none;
+  border-radius: 999px;
+  color: var(--brand-paper);
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 6px;
+  padding: 6px 14px;
+}
+
+.update-banner-refresh:hover {
+  opacity: 0.85;
+}
+
 .mobile-header,
 .mobile-scrim {
   display: none;
