@@ -1,0 +1,421 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "title": "Job Reflection",
+      "slug": "job-reflection",
+      "type": "prompt",
+      "summary": "A simple exercise to gain impulses about how you are doing currently at work",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Feedback"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## When to use this\n\nThe simple prompt guides you through some questions based on helping you reflect your work over a defined period of time, after the reflection a JSON is created which you can use to create a report on how your work is going or use https://reflectify.squarecircletriangle.co/ to paste in to get a pre-filled report\n\n## Prompt\n\nYou are guiding me through a structured reflection on my current job. Interview me one question at a time and wait for my answer before moving to the next question. Keep your tone warm and encouraging, and keep questions concise.\n\nStep 1: Ask what language I'd like to use for this reflection (e.g. English, German, Spanish, French). From that point on, ask every question in that language, and write every piece of prose in your final JSON output - headline, summary, analyses, quotes, conclusion, etc. - in that language too. Keep the JSON keys themselves in English exactly as specified below, regardless of the chosen language.\nStep 2: Ask how many months I want this reflection to cover (e.g. 3, 6, 12).\nStep 3: Ask my job title.\n\nThen run a guided interview covering, roughly in this order:\n1. Achievements & wins - what am I proud of in this period?\n2. Regrets or missed opportunities - what would I do differently?\n3. Challenges I faced and how I handled them\n4. Skills I grew - ask me to name 4-6 skills and rate my growth in each from 0-100\n5. Relationships & collaboration - who did I work well with, any friction worth noting?\n6. Energy & wellbeing - how has my energy/burnout trended? Ask for a 0-100 score and a short note\n7. Goals for the next period\n\nAsk thoughtful follow-up questions where it helps, but keep the whole interview reasonably tight - no more than a few questions per topic.\n\nWhen the interview is complete, respond with ONLY a single JSON code block (no other text before or after) that exactly matches this schema:\n\n{\n  \"jobTitle\": \"string\",\n  \"periodMonths\": number,\n  \"overallScore\": number, // 0-100, your holistic assessment of how the period went\n  \"headline\": \"string\", // one punchy sentence summing up the period\n  \"summary\": \"string\", // 2-4 sentence summary\n  \"achievements\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"achievementsAnalysis\": \"string\", // 2-3 sentences analyzing the pattern across my achievements - what they reveal about me\n  \"regrets\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"regretsAnalysis\": \"string\", // 2-3 sentences analyzing the pattern across my regrets\n  \"skills\": [{ \"name\": \"string\", \"level\": number }], // 0-100\n  \"skillsAnalysis\": \"string\", // 2-3 sentences on what my skill growth (or stagnation) suggests\n  \"timeline\": [{ \"label\": \"string\", \"detail\": \"string\" }], // chronological milestones across the period\n  \"quotes\": [\"string\"], // 2-4 short first-person quotes pulled from my answers, verbatim where possible\n  \"goals\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"goalsAnalysis\": \"string\", // 2-3 sentences on whether these goals address what came up in the interview\n  \"wellbeing\": { \"score\": number, \"note\": \"string\" }, // optional, include if we discussed it\n  \"sentiment\": {\n    \"label\": \"string\", // one or two words, e.g. \"Mostly positive\", \"Mixed\", \"Strained\"\n    \"score\": number, // -100 (very negative) to 100 (very positive), your read of my overall tone across all answers\n    \"note\": \"string\" // one sentence on what drives that read\n  },\n  \"conclusion\": \"string\" // 2-3 sentence closing reflection tying the period together and pointing forward\n}\n\nBase every analysis field on genuine patterns in my actual answers, not generic advice. Before writing the final JSON, review each analysis field (achievementsAnalysis, regretsAnalysis, skillsAnalysis, goalsAnalysis, sentiment.note, conclusion) and confirm it references a specific detail from my answers rather than a generic observation that could apply to anyone; rewrite any field that fails this check.\n\nSave that JSON as a .json file (for example reflection.json) so I can upload it to my reflection report tool."
+    },
+    {
+      "title": "Retrospective Builder for Miro",
+      "slug": "retrospective-builder-for-miro",
+      "type": "tool",
+      "summary": "Simple Miro Template for Quickly building Retrospectives",
+      "author": "Joseph Hill",
+      "tags": [
+        "Retrrospective",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/retrospective-builder/",
+      "body": "## What it helps with\n\nThe simple to use Miro template enables you to build out the stages of a retrospective with various pre-defined panels, so that you in a matter of minutes can piece together an effective retrospective\n\n## Suggested workflow\n\n1. Open the tool.\n2. Click on Use Template\n3. Go through each stage of the Retrospective and add the panels which match your needs\n4. Share the link with your team\n5. Execute the retrospective"
+    },
+    {
+      "title": "Self Impressions & Reflections",
+      "slug": "self-impressions-reflections",
+      "type": "tool",
+      "summary": "A simple method to engage in 1:1 feedback in a productive and effective manner",
+      "author": "Joseph Hill",
+      "tags": [
+        "Self Reflection",
+        "Impressions",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Self+Impressions+%26+Reflections",
+      "body": "## What it helps with\n\nOne interesting activity which should be done once every couple of years is the Self Reflection & Impressions activity. It is an intimate, honest and transparent approach to getting to know a fellow team member better and to have an understanding about them as a person.\n\nNOTE: Please do not force people to do this, but it should be something both parties are open to\n\n## Suggested workflow\n\n1. Find someone who wants to participate 2. Print 4x this page (One for you evaluate yourself One for you to evaluate the other person One for them to evaluate themselves One for them to evaluate you)\n2. Engage in a meeting and both evaluate yourselves 4. Evaluate each other (allow around 5 minutes)\n3. Decide which person should go first\n4. Discuss when you both have conflicting ranges\n5. Switch person and repeat"
+    },
+    {
+      "title": "Rapid LDJ for Miro",
+      "slug": "rapid-ldj",
+      "type": "tool",
+      "summary": "Simple yet effective approach to minimise big discussions and have an outcome at the end of a session",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Decision Making",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/rapid-ldj-template/",
+      "body": "## What it helps with\n\nThe Miro template creates a simple tool called Lightning Decision Jam which can be applied and utilised across a number of different contexts and is very helpful to reduce large group discussions which usually do not result in an outcome. \n\nI have used this in a 30min session in a previous company to define a backend teams full year roadmap\n\n## Suggested workflow\n\n1. Open the tool.\n2. Click on utilise the template\n3. Follow the moderation guide on the template"
+    },
+    {
+      "title": "Breadboarding for Miro",
+      "slug": "breadboarding-for-miro",
+      "type": "tool",
+      "summary": "Breadboarding is a overly simple way to look at your product offering and find gaps and issues",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Design",
+        "Product Management",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/breadboarding/?social=copy-link",
+      "body": "## What it helps with\n\nBreadboarding is a very simple process where you map all the user interactions on each screen and may the outcome. The approach is inspired my electrical breadboards, which are used to test out circuit designs before building them. \n\nYou will find gaps and UX improvements along the way of breadboarding your product or feature\n\n## Suggested workflow\n\n1. Open the tool.\n2. Follow the instructions in the template"
+    },
+    {
+      "title": "Mindset: The New Psychology of Success",
+      "slug": "mindset-the-new-psychology-of-success",
+      "type": "book",
+      "summary": "Understanding the two different mindsets and how to work with them",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book nicely explains how people fit into one of two mindsets and helps you to reflect what mindset you are and provides you the insight into how to work and handle people of the different mindsets\n\n## Best for\n\nAnyone in a leadership role\n\n## Key takeaway\n\nTBD",
+      "creator": "Carol S. Dweck",
+      "toolUrl": "https://www.goodreads.com/book/show/40745.Mindset"
+    },
+    {
+      "title": "Rethinking Agile",
+      "slug": "rethinking-agile",
+      "type": "book",
+      "summary": "Understanding how flight levels inform visibility and expectations ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Agile",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really helped me to understand the different flight levels in an organisation, how to connect the details to the high-level and really helped me to understand how to communicate as you can define which flight level someone is at. The book's design is really easy reading and serves as a nice pick up reference book. I would recommend for anyone managing a team or process as it enables you to gain different perspectives\n\n## Best for\n\nProduct Management and Leadership Roles\n\n## Key takeaway\n\nWhen you understanding different perspectives relating to different flight levels, you gain a better understanding on HOW and WHAT you can communicate with WHO and how to structure your working mode and practices for the different flight levels",
+      "creator": "Klaus Leopold",
+      "toolUrl": "https://www.goodreads.com/book/show/43291865-rethinking-agile"
+    },
+    {
+      "title": "Make Time",
+      "slug": "make-time",
+      "type": "book",
+      "summary": "Providing various tools and advice to find an improved pathway to your own time management ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nFrom the creators of the book \"Sprint\", Make Time is a really nice handbook for having ideas on how you can improve your day-to-day handling of topics and is full of practical advice and tips for making time in the day for the things you want to focus on.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nIt provides practical advice and tips you can easily apply to improve your productivity",
+      "toolUrl": "https://www.goodreads.com/book/show/37880811-make-time",
+      "creator": "Jake Knapp & John Zeratsky"
+    },
+    {
+      "title": "Start with Why",
+      "slug": "start-with-why",
+      "type": "book",
+      "summary": "Understanding a purpose drives forward momentum ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book gave a really compelling case why starting with the WHY is important and what value it can bring in a lot of perspectives. Simon, uses Apple a lot as an organisation which has a WHY and how it keeps them grounded and focused.\n\n## Best for\n\nProduct Managers and Business Owners\n\n## Key takeaway\n\nUnderstanding the core of the purpose of the business and / or product provides the foundation for success, this is a step that many people and teams do not do.",
+      "creator": "Simon Sinek",
+      "toolUrl": "https://www.goodreads.com/book/show/7108725-start-with-why"
+    },
+    {
+      "title": "Deep Work",
+      "slug": "deep-work",
+      "type": "book",
+      "summary": "Rules for Focused Success in a Distracted World",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Focus"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really provided another insight and perspective on how to bring focus into play and what can be done to really master the focus approach.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nHow being focused is the key to mastery",
+      "toolUrl": "https://www.goodreads.com/book/show/25744928-deep-work",
+      "creator": "Cal Newport"
+    },
+    {
+      "title": "Ego is the Enemy",
+      "slug": "ego-is-the-enemy",
+      "type": "book",
+      "summary": "How to be aware of ego and to also leverage it ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book focuses on our ego and how it can impede us and also how we can leverage it to bring greater self improvement. The book is really insightful and gives you a number of examples of various situations which you can relate to.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nHelps to provides the understanding and tooling to be able to work with ego",
+      "toolUrl": "https://www.goodreads.com/book/show/27036528-ego-is-the-enemy",
+      "creator": "Ryan Holiday"
+    },
+    {
+      "title": "Manage Your Day-to-Day",
+      "slug": "manage-your-day-to-day",
+      "type": "book",
+      "summary": "Build Your Routine, Find Your Focus, and Sharpen Your Creative Mind",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book and the two others mentioned above are books that really opened by eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Similar to the book \"Getting Things Done\" this book inspired me on how to manage my time and be more effective.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nPractical insights and guides that help you to take control of your day",
+      "creator": "Jocelyn K. Glei",
+      "toolUrl": "https://www.goodreads.com/book/show/17606014-manage-your-day-to-day"
+    },
+    {
+      "title": "Make Your Mark",
+      "slug": "make-your-mark",
+      "type": "book",
+      "summary": "A creative's guide to building a business with impact",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Business Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really opened by eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Make Your Mark focuses on the value generation you can have and how to leverage that.\n\n## Best for\n\nProduct Management\n\n## Key takeaway\n\nHow to leverage your value generation",
+      "creator": "Jocelyn K. Glei",
+      "toolUrl": "https://www.goodreads.com/book/show/22119095-make-your-mark"
+    },
+    {
+      "title": "Maximize Your Potential",
+      "slug": "maximize-your-potential",
+      "type": "book",
+      "summary": "Grow Your Expertise, Take Bold Risks & Build an Incredible Career",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really opened my eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Maximize Your Potential really shows how you can create new opportunities, build positive relationships and take bold risks.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\ntbd",
+      "creator": "Jocelyn K. Glei  ",
+      "toolUrl": "https://www.goodreads.com/book/show/17944645-maximize-your-potential"
+    },
+    {
+      "title": "Getting Things Done",
+      "slug": "getting-things-done",
+      "type": "book",
+      "summary": "The Art of Stress-Free Productivity",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book inspired me! so much that I never actually finished it. I got so much energy and it gave me appetite to just start on improving how I manage myself. I believe the book gives you a great foundation to grow on when it comes to Personal Task Management and is the foundation a lot of Task Managers re built from.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nThe book give you a foundational starting point to be able to get yourself in order and then develop your own approach",
+      "toolUrl": "https://www.goodreads.com/book/show/1633.Getting_Things_Done",
+      "creator": "David Allen"
+    },
+    {
+      "title": "Why leaders eat last",
+      "slug": "why-leaders-eat-last",
+      "type": "video",
+      "summary": "Powerful understanding about leadership and the human element ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Leadership",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nI watch this at least once a year to keep me grounded and really helps to understand the human aspect of leadership and how to empower people to unlock their potential.\n\n## Best for\n\nAnyone who considers themselves a leader\n\n## Key takeaway\n\nLeadership is a powerful tool which once understand can empower anyone to achieve their best",
+      "toolUrl": "https://youtube.com/watch?v=ReRcHdeUG9Y&feature=youtu.be",
+      "creator": "Simon Sinek"
+    },
+    {
+      "title": " Rituals of modern product teams",
+      "slug": "rituals-of-modern-product-teams",
+      "type": "video",
+      "summary": "Insights into how modern product teams use various rituals to drive success",
+      "author": "Joseph Hill",
+      "tags": [
+        "Rituals",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video dives into how various tech companies employ rituals as part of their operating system to drive their success. The insights show that there is no one perfect solution and that the rituals are driving the culture of the organisation\n\n## Best for\n\nProduct Managers\n\n## Key takeaway\n\nImpulses for implementing some new rituals or evaluating existing ones",
+      "toolUrl": "https://www.youtube.com/watch?v=veG6_hcrShE",
+      "creator": "Figma Config 2023"
+    },
+    {
+      "title": "The resource utilization trap",
+      "slug": "the-resource-utilization-trap",
+      "type": "video",
+      "summary": "How being 100% utilised is not productive at all ",
+      "author": "Joseph Hill",
+      "tags": [],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video shows in a very simple way why being 100% utilised is a myth and actually is less productive than being less utilised.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nWIP Limits are a key factor for driving the team and process to be effective",
+      "toolUrl": "https://www.youtube.com/watch?v=CostXs2p6r0",
+      "creator": "Henrik Kniberg"
+    },
+    {
+      "title": " Pentagon Wars - Bradley Fighting Vehicle Evolution",
+      "slug": "pentagon-wars-bradley-fighting-vehicle-evolution",
+      "type": "video",
+      "summary": "Example of the effects of feature creep in a funny way",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Management",
+        "Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video is a clip from the movie \"Pentagon Wars\" and is a funny story of how an armored troop career evolved overtime based on stakeholder feedback to be a vehicle which was good at nothing and shows feature creep\n\n## Best for\n\nProduct Management & Business Owners\n\n## Key takeaway\n\nDon't delegate feature and product decisions to a committee, understand the need and pains and keep the focus.",
+      "toolUrl": "https://www.youtube.com/watch?v=aXQ2lO3ieBA",
+      "creator": "Pentagon Wars Movie Clip"
+    },
+    {
+      "title": " Imposter Syndrome",
+      "slug": "imposter-syndrome",
+      "type": "video",
+      "summary": "A video on Imposter Syndrome from a first hand perspective from one of the founders of Atlassian",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Imposter Syndrome"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nMike Cannon-Brookes who is one of the founders of Atlassian, explains his first hand experience with Imposter Syndrome and how its normalised and actually is a benefit\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nImposter Syndrome is normal",
+      "toolUrl": "https://www.youtube.com/watch?v=zNBmHXS3A6I",
+      "creator": "Mike Cannon-Brookes at TEDxSydney"
+    },
+    {
+      "title": "Start Shipping with Shape Up",
+      "slug": "start-shipping-with-shape-up",
+      "type": "video",
+      "summary": "A look into the Shape Up process and Breadboarding",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Design",
+        "UX",
+        "Product Management"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nRyan Singer the person behind the methodology called Shape Up (https://basecamp.com/shapeup) gave a short talk to introduce Shape Up and also a glimpse into breadboarding\n\n## Best for\n\nProduct Design & Product Management\n\n## Key takeaway\n\nHow a simple breadboarding process can highlight some fundamental product issues",
+      "toolUrl": "https://www.youtube.com/watch?v=PU30bHF-rlI",
+      "creator": "Ryan Singer at Y Oslo"
+    },
+    {
+      "title": "Fat and Lazy",
+      "slug": "fat-and-lazy",
+      "type": "video",
+      "summary": "Stepping back and looking at how you spend the day give you insights on how to improve focus ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Time Management",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nCasey shows how his typical 24hr day looks like, where he makes conscious decisions to reduce time in some areas to get focus in others.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nStepping back and analyzing your day will show you have a lot of under utilised time",
+      "toolUrl": "https://www.youtube.com/watch?v=ZexvTZ1sV8U",
+      "creator": "Casey Neistat"
+    },
+    {
+      "title": "Leading through uncertainty",
+      "slug": "leading-through-uncertainty",
+      "type": "video",
+      "summary": "Haraldur Thorleifsson gives his personal take of navigating uncertainty ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership",
+        "Inspiring"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nHaraldur Thorleifsson gives you his first hand experiences of how he managed uncertainty and how you can do anything when you put your mind to it! A truly inspirational video which will make you cry\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nAnything is possible when you put your mind to it",
+      "toolUrl": "https://www.youtube.com/watch?v=w_yWIJfwZXo",
+      "creator": "Figma Config 2023"
+    },
+    {
+      "title": "Future Product Days",
+      "slug": "future-product-days",
+      "type": "conference",
+      "summary": "Future Product Days is a three-day conference in Copenhagen for professionals working in digital product design, UX, engineering, leadership and AI. ",
+      "author": "Joseph Hill",
+      "tags": [
+        "ProductManagement",
+        "UXDesign",
+        "DigitalInnovation",
+        "AI",
+        "ProductLeadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth attending\n\nFuture Product Days is worth attending for Product Managers who want to stay ahead of developments in product strategy, UX, technology and AI. The conference offers practical insights from experienced industry leaders, hands-on workshops and opportunities to learn how other organisations approach product challenges. It is also a valuable place to expand your professional network, exchange ideas with peers and return with new methods that can be applied directly to your products and teams.\n\n## Best for\n\nBest suited to Product Managers, Product Owners, UX and design professionals, engineering leaders and product executives working on digital products. It will be especially valuable for those looking to strengthen their product strategy, explore practical uses of AI, improve cross-functional collaboration and learn from peers facing similar challenges.\n\n## What to expect\n\nExpect a mix of inspiring talks, practical workshops and discussions covering product strategy, UX, leadership, engineering and AI. The most valuable takeaway is likely to be a clearer understanding of how strong product teams turn customer needs, emerging technology and business goals into better product decisions.",
+      "attended": "no",
+      "creator": "Femna",
+      "toolUrl": "https://www.futureproductdays.com/",
+      "eventDate": "2026-09-22",
+      "location": "Copenhagen, Denmark"
+    },
+    {
+      "title": "The Bottle Analogy",
+      "slug": "the-bottle-analogy",
+      "type": "article",
+      "summary": "Understand how to present your thoughts and opinions to a mixed level group",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe simple approach explains how to enable better group discussions around topics, in a group of mixed level thinkers. Once you understand the concept, you can easily apply it to a number of aspects of your daily work.\n\n## Best for\n\nAnyone who needs to get value from group think or wants to drive a direction forward with bringing people along with them\n\n## Key takeaway\n\nUnderstanding that humans when presented with a concrete idea or concept can better articulate their thoughts, opinions and ideas instead of a blank piece of paper where everything is possible and discussions go all in different directions.",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Bottle+Analogy",
+      "creator": "Joseph Hill"
+    },
+    {
+      "title": "Indexes for Metrics ",
+      "slug": "indexes-for-metrics",
+      "type": "article",
+      "summary": "Using indexes to develop high level health metrics which can be used to drive goal orientated development ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Metrics",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe article explains on how simplifying complicated metrics into simple 0 - 100 indexes enables all experience levels and perspectives to clearly see WHERE we are right now and opens the door to define WHAT is the standard we want to push for, and then measure it again after a period of time to see if we improved the metric or not\n\n## Best for\n\nProduct Management and Leadership to bring higher level metrics and understanding across a broad and mixed knowledge group\n\n## Key takeaway\n\nSimplifying and grouping metrics into multiple 0 - 100 health metrics brings a lot of value and enables positive discussions into WHERE we want to get to",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Indexes+",
+      "creator": "Joseph Hill"
+    }
+  ]
+}
