@@ -592,7 +592,12 @@ export default function ToolshelfApp({
     );
   } else if (route.kind === "share") {
     content = (
-      <SharePage localResources={localResources} folderConnected={Boolean(folderName)} notify={notify} />
+      <SharePage
+        localResources={localResources}
+        folderConnected={Boolean(folderName)}
+        notify={notify}
+        preselectKey={route.preselectKey}
+      />
     );
   } else if (route.kind === "resource") {
     const resource = resources.find(
@@ -1819,12 +1824,19 @@ function SharePage({
   localResources,
   folderConnected,
   notify,
+  preselectKey,
 }: {
   localResources: Resource[];
   folderConnected: boolean;
   notify: (message: string) => void;
+  preselectKey?: string;
 }) {
-  const [deselected, setDeselected] = useState<Set<string>>(new Set());
+  const [deselected, setDeselected] = useState<Set<string>>(() => {
+    if (!preselectKey) return new Set();
+    const allKeys = localResources.map((item) => resourceKey(item));
+    if (!allKeys.includes(preselectKey)) return new Set();
+    return new Set(allKeys.filter((key) => key !== preselectKey));
+  });
   const [bundleName, setBundleName] = useState("");
   const [query, setQuery] = useState("");
 
@@ -2390,6 +2402,15 @@ function ResourceDetail({
             <Pencil size={16} />
             {resource.source === "example" ? "Use this example" : "Edit"}
           </button>
+          {resource.source === "local" && (
+            <button
+              className="secondary-button"
+              onClick={() => navigate(`/share?resource=${encodeURIComponent(resourceKey(resource))}`)}
+            >
+              <Link2 size={16} />
+              Share this resource
+            </button>
+          )}
         </div>
       </header>
       <div className="detail-layout">
@@ -3026,7 +3047,7 @@ function parseRoute(path: string):
   | { kind: "home" }
   | { kind: "guide" }
   | { kind: "import" }
-  | { kind: "share" }
+  | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
   | { kind: "library"; type: ResourceType | "all" }
   | { kind: "resource"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
@@ -3038,7 +3059,10 @@ function parseRoute(path: string):
   if (cleanPath === "/") return { kind: "home" };
   if (cleanPath === "/guide") return { kind: "guide" };
   if (cleanPath === "/import") return { kind: "import" };
-  if (cleanPath === "/share") return { kind: "share" };
+  if (cleanPath === "/share") {
+    const params = new URLSearchParams(queryString);
+    return { kind: "share", preselectKey: params.get("resource") || undefined };
+  }
   if (cleanPath === "/favourites") return { kind: "favourites" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
   if (cleanPath === "/prompts") return { kind: "library", type: "prompt" };
