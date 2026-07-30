@@ -1828,21 +1828,27 @@ function SharePage({
   notify: (message: string) => void;
   preselectKey?: string;
 }) {
+  const preselectValid = Boolean(preselectKey) && localResources.some((item) => resourceKey(item) === preselectKey);
+
   const [deselected, setDeselected] = useState<Set<string>>(() => {
-    if (!preselectKey) return new Set();
-    const allKeys = localResources.map((item) => resourceKey(item));
-    if (!allKeys.includes(preselectKey)) return new Set();
-    return new Set(allKeys.filter((key) => key !== preselectKey));
+    if (!preselectValid) return new Set();
+    return new Set(
+      localResources.map((item) => resourceKey(item)).filter((key) => key !== preselectKey),
+    );
   });
   const [bundleName, setBundleName] = useState("");
   const [query, setQuery] = useState("");
+  const [restrictToPreselect, setRestrictToPreselect] = useState(preselectValid);
 
   const selected = useMemo(
     () => localResources.filter((item) => !deselected.has(`${item.meta.type}:${item.meta.slug}`)),
     [localResources, deselected],
   );
 
-  const visible = useMemo(() => filterResources(localResources, query, "all"), [localResources, query]);
+  const visible = useMemo(() => {
+    if (restrictToPreselect) return localResources.filter((item) => resourceKey(item) === preselectKey);
+    return filterResources(localResources, query, "all");
+  }, [localResources, query, restrictToPreselect, preselectKey]);
 
   function toggle(key: string) {
     setDeselected((prev) => {
@@ -1855,10 +1861,12 @@ function SharePage({
 
   function selectAll() {
     setDeselected(new Set());
+    setRestrictToPreselect(false);
   }
 
   function deselectAll() {
     setDeselected(new Set(localResources.map((item) => `${item.meta.type}:${item.meta.slug}`)));
+    setRestrictToPreselect(false);
   }
 
   function download() {
@@ -1892,7 +1900,10 @@ function SharePage({
                 <Search size={16} />
                 <input
                   value={query}
-                  onChange={(event) => setQuery(event.target.value)}
+                  onChange={(event) => {
+                    setQuery(event.target.value);
+                    setRestrictToPreselect(false);
+                  }}
                   placeholder="Search title, summary, author, or tag"
                 />
               </span>
@@ -1911,6 +1922,15 @@ function SharePage({
               </button>
             </div>
           </div>
+          {restrictToPreselect && (
+            <p className="import-page__notice">
+              Showing just this resource.{" "}
+              <button type="button" className="text-button" onClick={() => setRestrictToPreselect(false)}>
+                Show your whole library
+              </button>{" "}
+              to add more.
+            </p>
+          )}
           {visible.length === 0 ? (
             <p className="import-page__notice">No resources match your search.</p>
           ) : (
