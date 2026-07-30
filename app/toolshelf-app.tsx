@@ -46,7 +46,7 @@ import {
 } from "react";
 import { exampleResources } from "./data";
 import { publishedResources } from "./lib/published";
-import { renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
+import { displaySummary, renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
 import {
   downloadBundle,
   downloadMarkdown,
@@ -1404,7 +1404,7 @@ function ImportPage({
                               </div>
                               {(candidate.resource.meta.summary || candidate.resource.meta.author) && (
                                 <p className="import-candidate-meta">
-                                  {candidate.resource.meta.summary}
+                                  {displaySummary(candidate.resource.meta.summary)}
                                   {candidate.resource.meta.author && (
                                     <span className="import-candidate-author">
                                       {candidate.resource.meta.summary ? " · " : ""}
@@ -1713,7 +1713,7 @@ function ResourceGrid({
             </span>
           </div>
           <h3>{resource.meta.title}</h3>
-          <p>{resource.meta.summary}</p>
+          <p>{displaySummary(resource.meta.summary)}</p>
           <div className="tag-row">
             {resource.meta.tags.slice(0, 3).map((tag) => (
               <span key={tag}>{tag}</span>
@@ -1791,7 +1791,7 @@ function ResourceDetail({
             </span>
           </div>
           <h1>{resource.meta.title}</h1>
-          <p>{resource.meta.summary}</p>
+          <p>{displaySummary(resource.meta.summary)}</p>
           <div className="detail-byline">
             <span className="avatar">{initials(resource.meta.author)}</span>
             <span>
