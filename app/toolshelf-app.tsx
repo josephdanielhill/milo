@@ -28,6 +28,7 @@ import {
   RefreshCw,
   Search,
   Sparkles,
+  Star,
   Trash2,
   UploadCloud,
   Video,
@@ -61,6 +62,38 @@ import type { Resource, ResourceDraft, ResourceType } from "./types";
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
 const HAS_CONNECTED_KEY = "milo:has-connected";
+const IDENTITY_KEY = "milo:identity";
+
+// Used only to tell one browser's favourites apart from another's in a shared folder — not a
+// user-facing name, never editable, so no collision handling is needed beyond a decent pool size.
+const IDENTITY_ADJECTIVES = [
+  "amber", "brave", "calm", "clever", "cosmic", "crisp", "curious", "eager",
+  "gentle", "golden", "happy", "keen", "lively", "lucky", "mellow", "misty",
+  "nimble", "quiet", "quick", "sunny", "swift", "tidy", "vivid", "witty",
+];
+const IDENTITY_ANIMALS = [
+  "badger", "otter", "falcon", "heron", "lynx", "magpie", "marten", "mole",
+  "osprey", "panda", "puffin", "raven", "robin", "seal", "sparrow", "swan",
+  "tapir", "toucan", "vole", "walrus", "weasel", "wombat", "wren", "yak",
+];
+
+function generateIdentity() {
+  const adjective = IDENTITY_ADJECTIVES[Math.floor(Math.random() * IDENTITY_ADJECTIVES.length)];
+  const animal = IDENTITY_ANIMALS[Math.floor(Math.random() * IDENTITY_ANIMALS.length)];
+  return `${adjective}-${animal}`;
+}
+
+function getOrCreateIdentity() {
+  const stored = window.localStorage.getItem(IDENTITY_KEY);
+  if (stored) return stored;
+  const identity = generateIdentity();
+  window.localStorage.setItem(IDENTITY_KEY, identity);
+  return identity;
+}
+
+function resourceKey(resource: Pick<Resource, "meta">) {
+  return `${resource.meta.type}:${resource.meta.slug}`;
+}
 
 type FolderStatus = "idle" | "connecting" | "connected" | "permission" | "unsupported" | "error";
 
@@ -236,12 +269,14 @@ export default function ToolshelfApp({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toast, setToast] = useState("");
   const [search, setSearch] = useState("");
+  const [identity, setIdentity] = useState<string | null>(null);
+  const [favourites, setFavourites] = useState<Set<string>>(new Set());
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resources = useMemo(() => {
-    const localKeys = new Set(localResources.map((item) => `${item.meta.type}:${item.meta.slug}`));
+    const localKeys = new Set(localResources.map((item) => resourceKey(item)));
     const remotePublished = publishedResources.filter(
-      (item) => !localKeys.has(`${item.meta.type}:${item.meta.slug}`),
+      (item) => !localKeys.has(resourceKey(item)),
     );
     const realResources = [...localResources, ...remotePublished];
     const typesWithRealResources = new Set(realResources.map((item) => item.meta.type));
@@ -285,8 +320,40 @@ export default function ToolshelfApp({
   useEffect(() => {
     queueMicrotask(() => {
       if (window.localStorage.getItem(HAS_CONNECTED_KEY) === "1") setHasConnectedBefore(true);
+      setIdentity(getOrCreateIdentity());
     });
   }, []);
+
+  useEffect(() => {
+    if (!folderName || !identity) return;
+    let cancelled = false;
+    storage.getFavourites(identity).then((items) => {
+      if (!cancelled) setFavourites(new Set(items));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [folderName, identity]);
+
+  const toggleFavourite = useCallback(
+    async (resource: Resource) => {
+      if (!folderName || !identity) {
+        notify("Connect a folder to save favourites");
+        return;
+      }
+      const key = resourceKey(resource);
+      const next = new Set(favourites);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      setFavourites(next);
+      try {
+        await storage.saveFavourites(identity, [...next]);
+      } catch (error) {
+        notify(error instanceof Error ? error.message : "Could not save that favourite.");
+      }
+    },
+    [folderName, identity, favourites, notify],
+  );
 
   useEffect(() => {
     const onPop = () => setPath(pathFromLocation(basePath));
@@ -347,6 +414,7 @@ export default function ToolshelfApp({
     setFolderMessage("");
     setLocalResources([]);
     setHasConnectedBefore(false);
+    setFavourites(new Set());
     window.localStorage.removeItem(HAS_CONNECTED_KEY);
     notify("Folder disconnected");
   }
@@ -371,6 +439,8 @@ export default function ToolshelfApp({
         folderStatus={folderStatus}
         connectFolder={connectFolder}
         showFullHero={showFullHero}
+        favourites={favourites}
+        onToggleFavourite={toggleFavourite}
       />
     );
   } else if (route.kind === "library") {
@@ -379,6 +449,20 @@ export default function ToolshelfApp({
         key={route.type}
         resources={resources}
         initialType={route.type}
+        navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
+        favourites={favourites}
+        onToggleFavourite={toggleFavourite}
+      />
+    );
+  } else if (route.kind === "favourites") {
+    content = (
+      <FavouritesPage
+        resources={resources}
+        favourites={favourites}
+        onToggleFavourite={toggleFavourite}
         navigate={navigate}
         folderName={folderName}
         folderStatus={folderStatus}
@@ -420,6 +504,8 @@ export default function ToolshelfApp({
         folderConnected={Boolean(folderName)}
         navigate={navigate}
         notify={notify}
+        isFavourite={favourites.has(resourceKey(resource))}
+        onToggleFavourite={() => toggleFavourite(resource)}
         onDelete={async () => {
           await storage.deleteResource(resource.path);
           setLocalResources(await storage.listResources());
@@ -494,6 +580,7 @@ export default function ToolshelfApp({
         folderStatus={folderStatus}
         folderMessage={folderMessage}
         localCount={localResources.length}
+        favouritesCount={favourites.size}
         navigate={navigate}
         close={() => setMobileOpen(false)}
         refresh={refreshResources}
@@ -570,6 +657,7 @@ function Sidebar({
   folderStatus,
   folderMessage,
   localCount,
+  favouritesCount,
   navigate,
   close,
   refresh,
@@ -582,6 +670,7 @@ function Sidebar({
   folderStatus: FolderStatus;
   folderMessage: string;
   localCount: number;
+  favouritesCount: number;
   navigate: (path: string) => void;
   close: () => void;
   refresh: () => void;
@@ -624,6 +713,16 @@ function Sidebar({
           <CircleHelp size={18} aria-hidden="true" />
           Getting started
           {path === "/guide" && <span className="nav-active-dot" />}
+        </button>
+        <button
+          className={`nav-item nav-favourites ${path === "/favourites" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/favourites")}
+          aria-current={path === "/favourites" ? "page" : undefined}
+        >
+          <Star size={18} aria-hidden="true" />
+          Favourites
+          {favouritesCount > 0 && <span className="nav-count">{favouritesCount}</span>}
+          {path === "/favourites" && <span className="nav-active-dot" />}
         </button>
         <span className="nav-eyebrow">Library</span>
         {items.map(({ label, href, icon: Icon }) => {
@@ -788,6 +887,8 @@ function Dashboard({
   folderStatus,
   connectFolder,
   showFullHero,
+  favourites,
+  onToggleFavourite,
 }: {
   resources: Resource[];
   search: string;
@@ -797,6 +898,8 @@ function Dashboard({
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
   showFullHero: boolean;
+  favourites: Set<string>;
+  onToggleFavourite: (resource: Resource) => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -904,7 +1007,12 @@ function Dashboard({
         {search ? (
           <section className="section-block">
             <SectionHeading eyebrow="Search results" title={`Matching “${search}”`} />
-            <ResourceGrid resources={results} navigate={navigate} />
+            <ResourceGrid
+              resources={results}
+              navigate={navigate}
+              favourites={favourites}
+              onToggleFavourite={onToggleFavourite}
+            />
           </section>
         ) : folderName ? (
           <>
@@ -947,6 +1055,8 @@ function Dashboard({
                 navigate={navigate}
                 compact
                 showCreatedDate
+                favourites={favourites}
+                onToggleFavourite={onToggleFavourite}
               />
             </section>
           </>
@@ -1557,6 +1667,8 @@ function LibraryView({
   folderName,
   folderStatus,
   connectFolder,
+  favourites,
+  onToggleFavourite,
 }: {
   resources: Resource[];
   initialType: ResourceType | "all";
@@ -1564,6 +1676,8 @@ function LibraryView({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
+  favourites: Set<string>;
+  onToggleFavourite: (resource: Resource) => void;
 }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<ResourceType | "all">(initialType);
@@ -1627,7 +1741,12 @@ function LibraryView({
       <div className="result-summary">
         <strong>{filtered.length}</strong> {filtered.length === 1 ? "resource" : "resources"}
       </div>
-      <ResourceGrid resources={filtered} navigate={navigate} />
+      <ResourceGrid
+        resources={filtered}
+        navigate={navigate}
+        favourites={favourites}
+        onToggleFavourite={onToggleFavourite}
+      />
       {!filtered.length && (
         <div className="empty-state">
           <Search size={30} />
@@ -1635,6 +1754,75 @@ function LibraryView({
           <p>Try a broader term or clear one of the filters.</p>
           <button className="secondary-button" onClick={() => { setQuery(""); setType("all"); setSource("all"); }}>
             Clear filters
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FavouritesPage({
+  resources,
+  favourites,
+  onToggleFavourite,
+  navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
+}: {
+  resources: Resource[];
+  favourites: Set<string>;
+  onToggleFavourite: (resource: Resource) => void;
+  navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+}) {
+  const favouriteResources = useMemo(
+    () => resources.filter((resource) => favourites.has(resourceKey(resource))),
+    [resources, favourites],
+  );
+  return (
+    <div className="page library-page">
+      <PageTop
+        eyebrow="Saved for later"
+        title="Your favourites"
+        description="Resources you've starred in this browser, saved inside your connected folder for only you to see."
+      />
+      {!folderName ? (
+        <div className="empty-state">
+          <Star size={30} />
+          <h2>Connect a folder to use favourites</h2>
+          <p>Favourites are saved as a small file inside your connected folder, so connect one to start starring resources.</p>
+          {folderStatus === "unsupported" ? (
+            <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>
+          ) : (
+            <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
+              <FolderOpen size={17} />
+              {folderConnectLabel(folderStatus, null)}
+            </button>
+          )}
+        </div>
+      ) : favouriteResources.length ? (
+        <>
+          <div className="result-summary">
+            <strong>{favouriteResources.length}</strong>{" "}
+            {favouriteResources.length === 1 ? "favourite" : "favourites"}
+          </div>
+          <ResourceGrid
+            resources={favouriteResources}
+            navigate={navigate}
+            favourites={favourites}
+            onToggleFavourite={onToggleFavourite}
+          />
+        </>
+      ) : (
+        <div className="empty-state">
+          <Star size={30} />
+          <h2>No favourites yet</h2>
+          <p>Star a resource from its card or detail page to save it here.</p>
+          <button className="secondary-button" onClick={() => navigate("/library")}>
+            Browse the library
           </button>
         </div>
       )}
@@ -1694,15 +1882,21 @@ function ResourceGrid({
   navigate,
   compact = false,
   showCreatedDate = false,
+  favourites,
+  onToggleFavourite,
 }: {
   resources: Resource[];
   navigate: (path: string) => void;
   compact?: boolean;
   showCreatedDate?: boolean;
+  favourites: Set<string>;
+  onToggleFavourite: (resource: Resource) => void;
 }) {
   return (
     <div className={`resource-grid ${compact ? "resource-grid--compact" : ""}`}>
-      {resources.map((resource) => (
+      {resources.map((resource) => {
+        const isFavourite = favourites.has(resourceKey(resource));
+        return (
         <article
           className={`resource-card resource-card--${resource.meta.type}`}
           key={`${resource.source}-${resource.path}`}
@@ -1717,14 +1911,24 @@ function ResourceGrid({
               {typeIcon(resource.meta.type, 14)}
               {typeLabels[resource.meta.type]}
             </span>
-            <span className={`source-pill source-pill--${resource.source}`}>
-              {sourcePillLabel(resource.source)}
-            </span>
-            {resource.meta.importedFrom && (
-              <span className="source-pill source-pill--imported" title={`Imported from "${resource.meta.importedFrom}"`}>
-                Imported
+            <div className="resource-card__badges">
+              <span className={`source-pill source-pill--${resource.source}`}>
+                {sourcePillLabel(resource.source)}
               </span>
-            )}
+              {resource.meta.importedFrom && (
+                <span className="source-pill source-pill--imported" title={`Imported from "${resource.meta.importedFrom}"`}>
+                  Imported
+                </span>
+              )}
+              <button
+                className={`favourite-toggle ${isFavourite ? "favourite-toggle--active" : ""}`}
+                aria-label={isFavourite ? `Remove ${resource.meta.title} from favourites` : `Add ${resource.meta.title} to favourites`}
+                aria-pressed={isFavourite}
+                onClick={() => onToggleFavourite(resource)}
+              >
+                <Star size={15} />
+              </button>
+            </div>
           </div>
           <h3>{resource.meta.title}</h3>
           <p>{displaySummary(resource.meta.summary)}</p>
@@ -1742,7 +1946,8 @@ function ResourceGrid({
             <ChevronRight size={17} />
           </div>
         </article>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -1775,12 +1980,16 @@ function ResourceDetail({
   folderConnected,
   navigate,
   notify,
+  isFavourite,
+  onToggleFavourite,
   onDelete,
 }: {
   resource: Resource;
   folderConnected: boolean;
   navigate: (path: string) => void;
   notify: (message: string) => void;
+  isFavourite: boolean;
+  onToggleFavourite: () => void;
   onDelete: () => Promise<void>;
 }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -1820,6 +2029,16 @@ function ResourceDetail({
           </div>
         </div>
         <div className="detail-actions">
+          <button
+            className={`secondary-button favourite-toggle-detail ${isFavourite ? "favourite-toggle-detail--active" : ""}`}
+            disabled={!folderConnected}
+            title={!folderConnected ? "Connect a folder to save favourites" : undefined}
+            aria-pressed={isFavourite}
+            onClick={onToggleFavourite}
+          >
+            <Star size={16} />
+            {isFavourite ? "Favourited" : "Favourite"}
+          </button>
           {(isCollectionType(resource.meta.type) || resource.meta.type === "tool") &&
             resource.meta.toolUrl && (
             <a
@@ -2508,6 +2727,7 @@ function parseRoute(path: string):
   | { kind: "guide" }
   | { kind: "import" }
   | { kind: "share" }
+  | { kind: "favourites" }
   | { kind: "library"; type: ResourceType | "all" }
   | { kind: "resource"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
   | { kind: "edit"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
@@ -2519,6 +2739,7 @@ function parseRoute(path: string):
   if (cleanPath === "/guide") return { kind: "guide" };
   if (cleanPath === "/import") return { kind: "import" };
   if (cleanPath === "/share") return { kind: "share" };
+  if (cleanPath === "/favourites") return { kind: "favourites" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
   if (cleanPath === "/prompts") return { kind: "library", type: "prompt" };
   if (cleanPath === "/skills") return { kind: "library", type: "skill" };
