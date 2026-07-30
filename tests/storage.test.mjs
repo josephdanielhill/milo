@@ -239,6 +239,37 @@ test("saveFavourites overwrites a previous save for the same identity", async ()
   ]);
 });
 
+test("favourites survive a disconnect + reconnect to the same underlying folder", async () => {
+  // Disconnecting just drops the app's in-memory handle (LocalFolderStorage.root = null);
+  // it never touches disk. Reconnecting hands back a *new* directory handle object, but one
+  // backed by the same on-disk tree — modelled here by pointing a second storage instance at
+  // the exact same MockDirectoryHandle rather than a fresh one.
+  const root = new MockDirectoryHandle();
+  const before = new LocalFolderStorage();
+  before.root = root;
+  await before.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+
+  before.root = null; // simulate disconnectFolder()
+
+  const after = new LocalFolderStorage();
+  after.root = root; // simulate re-picking the same physical folder
+  assert.deepEqual(await after.getFavourites("swift-otter"), ["prompt:test-prompt"]);
+});
+
+test("getFavourites propagates an unexpected error instead of treating it as \"no favourites\"", async () => {
+  const storage = storageWithMockRoot();
+  const originalGetDirectoryHandle = storage.root.getDirectoryHandle.bind(storage.root);
+  storage.root.getDirectoryHandle = async (name, options) => {
+    if (name === ".milo") throw new DOMException("permission revoked", "NotAllowedError");
+    return originalGetDirectoryHandle(name, options);
+  };
+  await assert.rejects(storage.getFavourites("swift-otter"), (error) => {
+    assert.ok(error instanceof DOMException);
+    assert.equal(error.name, "NotAllowedError");
+    return true;
+  });
+});
+
 // -- Pure helper exports ----------------------------------------------------
 
 test("collectionTypeForFile maps known collection filenames", () => {
