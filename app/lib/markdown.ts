@@ -61,6 +61,15 @@ function parseTags(value: string) {
     .filter(Boolean);
 }
 
+const SUMMARY_DISPLAY_LIMIT = 200;
+
+/** Guards against summaries that exceed the limit outside the editor (manual file edits, older content). */
+export function displaySummary(summary: string) {
+  return summary.length > SUMMARY_DISPLAY_LIMIT
+    ? `${summary.slice(0, SUMMARY_DISPLAY_LIMIT)}...`
+    : summary;
+}
+
 export function slugify(value: string) {
   return value
     .normalize("NFKD")
@@ -150,7 +159,6 @@ export function validateResource(resource: ResourceDraft) {
   }
   if (!validTypes.has(resource.type)) errors.push("Choose a valid resource type.");
   if (!resource.summary.trim()) errors.push("Add a short summary.");
-  if (resource.summary.length > 200) errors.push("Keep the summary to 200 characters or fewer.");
   if (!resource.author.trim()) errors.push("Add an author.");
   if (linkedResourceTypes.has(resource.type) && !resource.creator?.trim()) {
     errors.push(creatorErrors[resource.type] || "Add the resource creator.");
