@@ -586,6 +586,29 @@ export class LocalFolderStorage implements StorageProvider {
     await this.write(dir, favouritesFileName(identity), `${JSON.stringify({ version: 1, items }, null, 2)}\n`);
   }
 
+  /**
+   * Lists the identities that already have a favourites file in this folder. Used to recover
+   * from a browser losing its stored identity (e.g. clearing site data): if exactly one
+   * identity exists, a fresh browser can safely adopt it — there's no ambiguity about whose
+   * favourites they are. With more than one, adopting would risk showing a teammate's stars.
+   */
+  async listFavouriteIdentities(): Promise<string[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const dir = (await milo.getDirectoryHandle(FAVOURITES_SUBDIR)) as DirectoryHandle;
+      const identities: string[] = [];
+      for await (const entry of dir.values()) {
+        if (entry.kind === "file" && entry.name.toLowerCase().endsWith(".json")) {
+          identities.push(entry.name.slice(0, -".json".length));
+        }
+      }
+      return identities;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
+  }
+
   private async write(folder: FileSystemDirectoryHandle, name: string, raw: string) {
     const handle = await folder.getFileHandle(name, { create: true });
     const writable = await handle.createWritable();
