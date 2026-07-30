@@ -33,6 +33,13 @@ export interface Resource {
   source: ResourceSource;
   path: string;
   raw: string;
+  /**
+   * Filesystem mtime (ms epoch), when known. createdAt/updatedAt are
+   * day-granularity and hand-editable, so same-day resources tie on them;
+   * this breaks that tie with real precision without touching the
+   * persisted front matter/JSON format.
+   */
+  fsModifiedMs?: number;
 }
 
 export interface ResourceDraft extends ResourceMeta {
