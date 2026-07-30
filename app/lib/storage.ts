@@ -269,6 +269,16 @@ export async function fetchImportSource(url: string): Promise<ImportSource> {
   return { name: name || parsed.hostname, resources, skipped };
 }
 
+/** Reads a locally-picked bundle file and parses it for review in the Import flow. */
+export async function readImportFile(file: File): Promise<ImportSource> {
+  if (file.size > 10_000_000) {
+    throw new Error("This bundle is larger than 10 MB. Ask the sender to split it into smaller bundles.");
+  }
+  const text = await file.text();
+  const { name, resources, skipped } = parseBundleItems(text, "local", "This bundle");
+  return { name: name || file.name, resources, skipped };
+}
+
 /** Serializes selected resources into a shareable bundle file, in the same shape as a collection file. */
 export function buildBundle(resources: Resource[], name?: string) {
   const items: ResourceDraft[] = resources.map((resource) => ({ ...resource.meta, body: resource.body }));

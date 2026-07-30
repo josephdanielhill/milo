@@ -37,6 +37,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  type ChangeEvent,
   type FormEvent,
   type ReactNode,
   useCallback,
@@ -54,6 +55,7 @@ import {
   fetchImportSource,
   LocalFolderStorage,
   pickImportSource,
+  readImportFile,
   supportsLocalFolders,
   type ImportSource,
 } from "./lib/storage";
@@ -1270,13 +1272,15 @@ function ImportPage({
   notify: (message: string) => void;
   refresh: () => Promise<void>;
 }) {
-  const [tab, setTab] = useState<"folder" | "url">("folder");
+  const [tab, setTab] = useState<"folder" | "url" | "file">("folder");
   const [source, setSource] = useState<ImportSource | null>(null);
   const [picking, setPicking] = useState(false);
   const [fetching, setFetching] = useState(false);
+  const [reading, setReading] = useState(false);
   const [importing, setImporting] = useState(false);
   const [error, setError] = useState("");
   const [url, setUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   // Candidates are selected by default; this tracks explicit opt-outs instead of mirroring
   // `candidates` in state, so there's no need to sync selection via an effect.
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
@@ -1303,7 +1307,7 @@ function ImportPage({
   const changedCount = candidates.length - newCount;
   const currentStep = !source ? 1 : importing ? 3 : 2;
 
-  function switchTab(next: "folder" | "url") {
+  function switchTab(next: "folder" | "url" | "file") {
     if (next === tab) return;
     setTab(next);
     setSource(null);
@@ -1341,6 +1345,26 @@ function ImportPage({
     } finally {
       setFetching(false);
     }
+  }
+
+  async function loadFromFile(file: File) {
+    setError("");
+    setReading(true);
+    try {
+      const picked = await readImportFile(file);
+      setSource(picked);
+      setDeselected(new Set());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not read that file.");
+    } finally {
+      setReading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  function handleFileInputChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) loadFromFile(file);
   }
 
   function toggle(key: string) {
@@ -1397,7 +1421,7 @@ function ImportPage({
             <PageTop
               eyebrow="Bring resources over"
               title="Import resources"
-              description="Bring in new or changed resources from another folder, or from a bundle URL someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
+              description="Bring in new or changed resources from another folder, or from a bundle URL or file someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
             />
           </div>
         </div>
@@ -1443,6 +1467,9 @@ function ImportPage({
               <button type="button" className={tab === "url" ? "is-active" : ""} onClick={() => switchTab("url")}>
                 <Link2 size={15} /> From URL
               </button>
+              <button type="button" className={tab === "file" ? "is-active" : ""} onClick={() => switchTab("file")}>
+                <FileText size={15} /> From file
+              </button>
             </div>
             {tab === "folder" ? (
               <button
@@ -1453,7 +1480,7 @@ function ImportPage({
                 <FolderOpen size={16} />
                 {picking ? "Opening…" : "Choose folder to import from"}
               </button>
-            ) : (
+            ) : tab === "url" ? (
               <div className="import-url-row">
                 <input
                   type="url"
@@ -1470,6 +1497,25 @@ function ImportPage({
                   {fetching ? "Loading…" : "Load bundle"}
                 </button>
               </div>
+            ) : (
+              <>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="application/json,.json"
+                  style={{ display: "none" }}
+                  onChange={handleFileInputChange}
+                />
+                <button
+                  type="button"
+                  className="secondary-button import-page__primary-action"
+                  disabled={reading}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <UploadCloud size={16} />
+                  {reading ? "Reading…" : "Choose bundle file to import"}
+                </button>
+              </>
             )}
             {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
             {source && (
