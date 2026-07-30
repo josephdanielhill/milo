@@ -800,7 +800,8 @@ function Dashboard({
         .sort(
           (first, second) =>
             second.meta.createdAt.localeCompare(first.meta.createdAt) ||
-            second.meta.updatedAt.localeCompare(first.meta.updatedAt),
+            second.meta.updatedAt.localeCompare(first.meta.updatedAt) ||
+            (second.fsModifiedMs ?? 0) - (first.fsModifiedMs ?? 0),
         )
         .slice(0, 5),
     [resources],

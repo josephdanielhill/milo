@@ -134,6 +134,7 @@ export function parseCollectionItems(
   type: CollectionResourceType,
   raw: string,
   source: Resource["source"],
+  fileModifiedMs?: number,
 ): Resource[] {
   const { items } = parseItemsEnvelope(raw, collectionFile(type));
   return items.map((item, index) => {
@@ -151,6 +152,9 @@ export function parseCollectionItems(
       source,
       path: `${collectionFile(type)}#${draft.slug}`,
       raw: `${JSON.stringify(draft, null, 2)}\n`,
+      // New items are always appended to the end of the collection file
+      // (see writeCollectionOp), so index order is creation order.
+      ...(fileModifiedMs !== undefined ? { fsModifiedMs: fileModifiedMs + index } : {}),
     };
   });
 }
@@ -284,8 +288,9 @@ async function readCollectionFrom(
     if (error instanceof DOMException && error.name === "NotFoundError") return [];
     throw error;
   }
-  const raw = await (await handle.getFile()).text();
-  return parseCollectionItems(type, raw, "local");
+  const file = await handle.getFile();
+  const raw = await file.text();
+  return parseCollectionItems(type, raw, "local", file.lastModified);
 }
 
 async function listResourcesFrom(
@@ -314,7 +319,9 @@ async function listResourcesFrom(
       try {
         const file = await entry.getFile();
         const raw = await file.text();
-        resources.push(parseResource(raw, `${folderFor(type)}/${entry.name}`));
+        const resource = parseResource(raw, `${folderFor(type)}/${entry.name}`);
+        resource.fsModifiedMs = file.lastModified;
+        resources.push(resource);
       } catch (error) {
         console.warn(`Skipped ${entry.name}:`, error);
       }
