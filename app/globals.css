@@ -1203,6 +1203,33 @@ button:disabled {
 .markdown-body a { color: #2d6a71; }
 .markdown-body strong { color: var(--brand-ink); }
 
+.markdown-body p {
+  margin: 0 0 20px;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0 0 20px;
+  padding-left: 1.4em;
+}
+
+.markdown-body ul { list-style: disc; }
+.markdown-body ol { list-style: decimal; }
+
+.markdown-body li {
+  margin: 0 0 8px;
+}
+
+.markdown-body li > ul,
+.markdown-body li > ol {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.markdown-body > :last-child {
+  margin-bottom: 0;
+}
+
 .markdown-body blockquote {
   background: #edf5f2;
   border-left: 4px solid #74b39b;
