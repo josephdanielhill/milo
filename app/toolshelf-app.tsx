@@ -795,7 +795,7 @@ function Sidebar({
         {folderName && (
           <button className="text-button" onClick={() => navigate("/import")}>
             <UploadCloud size={14} />
-            Import from another folder
+            Import from another source
           </button>
         )}
         {folderName && localCount > 0 && (
