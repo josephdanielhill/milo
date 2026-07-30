@@ -243,7 +243,12 @@ export default function ToolshelfApp({
     const remotePublished = publishedResources.filter(
       (item) => !localKeys.has(`${item.meta.type}:${item.meta.slug}`),
     );
-    return [...localResources, ...remotePublished, ...exampleResources];
+    const realResources = [...localResources, ...remotePublished];
+    const typesWithRealResources = new Set(realResources.map((item) => item.meta.type));
+    const visibleExamples = exampleResources.filter(
+      (item) => !typesWithRealResources.has(item.meta.type),
+    );
+    return [...realResources, ...visibleExamples];
   }, [localResources]);
 
   const notify = useCallback((message: string) => {
