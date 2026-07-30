@@ -2207,10 +2207,12 @@ function Editor({
             Summary
             <textarea
               value={draft.summary}
-              onChange={(event) => update("summary", event.target.value)}
+              onChange={(event) => update("summary", event.target.value.slice(0, 200))}
               placeholder="One sentence explaining when this is useful"
+              maxLength={200}
               rows={3}
             />
+            <span className="form-hint">{draft.summary.length}/200</span>
           </label>
           <label>
             {isCollectionType(draft.type) ? "Added by" : "Author"}
