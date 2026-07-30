@@ -40,6 +40,7 @@ import {
   type ChangeEvent,
   type FormEvent,
   type ReactNode,
+  type RefObject,
   useCallback,
   useEffect,
   useMemo,
@@ -275,7 +276,11 @@ export default function ToolshelfApp({
   const [identity, setIdentity] = useState<string | null>(null);
   const [favourites, setFavourites] = useState<Set<string>>(new Set());
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const paletteInputRef = useRef<HTMLInputElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const resources = useMemo(() => {
     const localKeys = new Set(localResources.map((item) => resourceKey(item)));
@@ -425,6 +430,12 @@ export default function ToolshelfApp({
     [folderName, identity, favourites, notify],
   );
 
+  const closeCommandPalette = useCallback(() => {
+    setCommandPaletteOpen(false);
+    lastFocusedRef.current?.focus();
+    lastFocusedRef.current = null;
+  }, []);
+
   useEffect(() => {
     const onPop = () => setPath(pathFromLocation(basePath));
     window.addEventListener("popstate", onPop);
@@ -449,6 +460,27 @@ export default function ToolshelfApp({
       .catch(() => setFolderStatus("idle"));
     return () => window.removeEventListener("popstate", onPop);
   }, [basePath]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") return;
+      event.preventDefault();
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+        searchInputRef.current.select();
+        return;
+      }
+      if (paletteInputRef.current) {
+        paletteInputRef.current.focus();
+        paletteInputRef.current.select();
+        return;
+      }
+      lastFocusedRef.current = document.activeElement as HTMLElement | null;
+      setCommandPaletteOpen(true);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   async function connectFolder(reconnect = false) {
     try {
@@ -504,6 +536,7 @@ export default function ToolshelfApp({
         resources={resources}
         search={search}
         setSearch={setSearch}
+        searchInputRef={searchInputRef}
         navigate={navigate}
         folderName={folderName}
         folderStatus={folderStatus}
@@ -706,6 +739,14 @@ export default function ToolshelfApp({
           <Check size={16} />
           {toast}
         </div>
+      )}
+      {commandPaletteOpen && (
+        <CommandPalette
+          resources={resources}
+          navigate={navigate}
+          onClose={closeCommandPalette}
+          inputRef={paletteInputRef}
+        />
       )}
     </div>
   );
@@ -975,6 +1016,7 @@ function Dashboard({
   resources,
   search,
   setSearch,
+  searchInputRef,
   navigate,
   folderName,
   folderStatus,
@@ -986,6 +1028,7 @@ function Dashboard({
   resources: Resource[];
   search: string;
   setSearch: (value: string) => void;
+  searchInputRef: RefObject<HTMLInputElement | null>;
   navigate: (path: string) => void;
   folderName: string | null;
   folderStatus: FolderStatus;
@@ -1084,11 +1127,13 @@ function Dashboard({
               <section className="search-band" aria-label="Search resources">
                 <Search size={22} aria-hidden="true" />
                 <input
+                  ref={searchInputRef}
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="Search MILO…"
                   aria-label="Search MILO"
                 />
+                <span className="search-band-hint" aria-hidden="true">⌘K</span>
                 <span>{search ? `${results.length} found` : `${resources.length} resources`}</span>
               </section>
             </div>
@@ -1162,6 +1207,83 @@ function Dashboard({
         )}
       </div>
     </>
+  );
+}
+
+function CommandPalette({
+  resources,
+  navigate,
+  onClose,
+  inputRef,
+}: {
+  resources: Resource[];
+  navigate: (path: string) => void;
+  onClose: () => void;
+  inputRef: RefObject<HTMLInputElement | null>;
+}) {
+  const [query, setQuery] = useState("");
+  const results = useMemo(
+    () => filterResources(resources, query, "all").slice(0, 8),
+    [resources, query],
+  );
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  const goTo = (resource: Resource) => {
+    navigate(resourceUrl(resource));
+    onClose();
+  };
+
+  return (
+    <div className="command-palette">
+      <button
+        type="button"
+        className="command-palette-backdrop"
+        aria-label="Close search overlay"
+        onClick={onClose}
+      />
+      <div className="command-palette-panel" role="dialog" aria-modal="true" aria-label="Search MILO">
+        <div className="command-palette-input-row">
+          <Search size={20} aria-hidden="true" />
+          <input
+            ref={inputRef}
+            autoFocus
+            className="command-palette-input"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && results.length > 0) goTo(results[0]);
+            }}
+            placeholder="Search MILO…"
+            aria-label="Search MILO"
+          />
+        </div>
+        {query.trim() && results.length === 0 ? (
+          <p className="command-palette-empty">No matches for “{query}”</p>
+        ) : (
+          <ul className="command-palette-results">
+            {results.map((resource) => (
+              <li className="command-palette-result" key={`${resource.source}-${resource.path}`}>
+                <button type="button" onClick={() => goTo(resource)}>
+                  <span className="type-pill">
+                    {typeIcon(resource.meta.type, 14)}
+                    {typeLabels[resource.meta.type]}
+                  </span>
+                  <strong>{resource.meta.title}</strong>
+                  <span>{displaySummary(resource.meta.summary)}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 }
 
