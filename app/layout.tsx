@@ -23,6 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s · MILO",
     },
     description,
+    icons: {
+      icon: `${origin}/favicon.png`,
+    },
     openGraph: {
       title,
       description,

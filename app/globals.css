@@ -176,35 +176,10 @@ button:disabled {
 }
 
 .brand-glyph {
-  display: flex;
+  border-radius: 8px;
   height: 32px;
-  position: relative;
+  object-fit: cover;
   width: 32px;
-}
-
-.brand-glyph span {
-  border-radius: 50% 50% 42% 58%;
-  height: 20px;
-  position: absolute;
-  width: 20px;
-}
-
-.brand-glyph span:nth-child(1) {
-  background: var(--brand-red);
-  left: 0;
-  top: 0;
-}
-
-.brand-glyph span:nth-child(2) {
-  background: var(--brand-blue);
-  right: 0;
-  top: 0;
-}
-
-.brand-glyph span:nth-child(3) {
-  background: var(--brand-mint);
-  bottom: 0;
-  left: 6px;
 }
 
 .nav-eyebrow,
@@ -2323,11 +2298,6 @@ button:disabled {
   .brand-mark--compact .brand-glyph {
     height: 25px;
     width: 25px;
-  }
-
-  .brand-mark--compact .brand-glyph span {
-    height: 16px;
-    width: 16px;
   }
 
   .brand-mark--compact strong {
