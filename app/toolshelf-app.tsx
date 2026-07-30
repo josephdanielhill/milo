@@ -536,11 +536,12 @@ function BrandMark({
   return (
     <div className={`brand-mark ${compact ? "brand-mark--compact" : ""}`}>
       {showGlyph && (
-        <div className="brand-glyph" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
+        <img
+          className="brand-glyph"
+          src={`${import.meta.env.BASE_URL}favicon.png`}
+          alt=""
+          aria-hidden="true"
+        />
       )}
       <div className="brand-text">
         <strong>MILO</strong>
