@@ -329,13 +329,27 @@ export default function ToolshelfApp({
   useEffect(() => {
     if (!folderName || !identity) return;
     let cancelled = false;
-    storage.getFavourites(identity).then((items) => {
-      if (!cancelled) setFavourites(new Set(items));
-    });
+    storage.getFavourites(identity).then(
+      (items) => {
+        if (!cancelled) setFavourites(new Set(items));
+      },
+      (error) => {
+        // Without this, a rejection here (anything but "file doesn't exist yet") left
+        // favourites silently stuck at whatever they were before reconnecting — usually
+        // empty — with no indication anything had gone wrong.
+        if (cancelled) return;
+        console.warn("Could not load favourites:", error);
+        notify(
+          error instanceof Error
+            ? `Could not load your favourites: ${error.message}`
+            : "Could not load your favourites.",
+        );
+      },
+    );
     return () => {
       cancelled = true;
     };
-  }, [folderName, identity]);
+  }, [folderName, identity, notify]);
 
   const toggleFavourite = useCallback(
     async (resource: Resource) => {
