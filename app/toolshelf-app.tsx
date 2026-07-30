@@ -1613,11 +1613,14 @@ function SharePage({
 }) {
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
   const [bundleName, setBundleName] = useState("");
+  const [query, setQuery] = useState("");
 
   const selected = useMemo(
     () => localResources.filter((item) => !deselected.has(`${item.meta.type}:${item.meta.slug}`)),
     [localResources, deselected],
   );
+
+  const visible = useMemo(() => filterResources(localResources, query, "all"), [localResources, query]);
 
   function toggle(key: string) {
     setDeselected((prev) => {
@@ -1626,6 +1629,14 @@ function SharePage({
       else next.add(key);
       return next;
     });
+  }
+
+  function selectAll() {
+    setDeselected(new Set());
+  }
+
+  function deselectAll() {
+    setDeselected(new Set(localResources.map((item) => `${item.meta.type}:${item.meta.slug}`)));
   }
 
   function download() {
@@ -1644,34 +1655,64 @@ function SharePage({
         <p className="import-page__notice">Connect a folder with at least one resource first.</p>
       ) : (
         <>
-          <label className="share-page__name-field">
-            Bundle name (optional)
-            <input
-              value={bundleName}
-              onChange={(event) => setBundleName(event.target.value)}
-              placeholder="e.g. Onboarding starter pack"
-            />
-          </label>
-          <ul className="import-candidate-list">
-            {localResources.map((item) => {
-              const key = `${item.meta.type}:${item.meta.slug}`;
-              return (
-                <li key={key}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={!deselected.has(key)}
-                      onChange={() => toggle(key)}
-                    />
-                    <span className="type-pill">
-                      {typeIcon(item.meta.type, 14)} {typeLabels[item.meta.type]}
-                    </span>
-                    <strong>{item.meta.title}</strong>
-                  </label>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="share-page__toolbar">
+            <label className="share-page__name-field">
+              Bundle name (optional)
+              <input
+                value={bundleName}
+                onChange={(event) => setBundleName(event.target.value)}
+                placeholder="e.g. Onboarding starter pack"
+              />
+            </label>
+            <label className="share-page__search-field">
+              Search your resources
+              <span className="share-page__search-input">
+                <Search size={16} />
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search title, summary, author, or tag"
+                />
+              </span>
+            </label>
+          </div>
+          <div className="share-page__selection-row">
+            <span className="share-page__selection-count">
+              {selected.length} of {localResources.length} selected
+            </span>
+            <div className="share-page__selection-actions">
+              <button type="button" className="text-button" onClick={selectAll} disabled={selected.length === localResources.length}>
+                Select all
+              </button>
+              <button type="button" className="text-button" onClick={deselectAll} disabled={selected.length === 0}>
+                Deselect all
+              </button>
+            </div>
+          </div>
+          {visible.length === 0 ? (
+            <p className="import-page__notice">No resources match your search.</p>
+          ) : (
+            <ul className="import-candidate-list">
+              {visible.map((item) => {
+                const key = `${item.meta.type}:${item.meta.slug}`;
+                return (
+                  <li key={key}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={!deselected.has(key)}
+                        onChange={() => toggle(key)}
+                      />
+                      <span className="type-pill">
+                        {typeIcon(item.meta.type, 14)} {typeLabels[item.meta.type]}
+                      </span>
+                      <strong>{item.meta.title}</strong>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           <button
             className="primary-button import-page__primary-action"
             disabled={selected.length === 0}
