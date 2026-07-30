@@ -5,6 +5,9 @@ const DB_NAME = "pm-toolshelf";
 const STORE_NAME = "handles";
 const HANDLE_KEY = "local-library";
 
+const FAVOURITES_ROOT_DIR = ".milo";
+const FAVOURITES_SUBDIR = "favourites";
+
 type PermissionMode = "read" | "readwrite";
 type FileSystemPermissionDescriptor = { mode?: PermissionMode };
 
@@ -64,6 +67,10 @@ async function clearHandle() {
 
 function folderFor(type: ResourceType) {
   return `${type}s`;
+}
+
+function favouritesFileName(identity: string) {
+  return `${identity}.json`;
 }
 
 type CollectionResourceType =
@@ -371,6 +378,8 @@ export class LocalFolderStorage implements StorageProvider {
     for (const type of ["prompt", "skill", "tool"] as ResourceType[]) {
       await this.root.getDirectoryHandle(folderFor(type), { create: true });
     }
+    const milo = await this.root.getDirectoryHandle(FAVOURITES_ROOT_DIR, { create: true });
+    await (milo as DirectoryHandle).getDirectoryHandle(FAVOURITES_SUBDIR, { create: true });
     await saveHandle(this.root);
     return this.root.name;
   }
@@ -539,6 +548,32 @@ export class LocalFolderStorage implements StorageProvider {
     const writable = await handle.createWritable();
     await writable.write(`${JSON.stringify({ version: 1, items: next }, null, 2)}\n`);
     await writable.close();
+  }
+
+  /**
+   * Favourites are per-browser (identified by `identity`, a random label generated and kept
+   * client-side — see toolshelf-app.tsx) rather than part of the shared resource content, so
+   * they live in their own file instead of on `meta`. Missing file/directory just means no
+   * favourites saved yet, not an error.
+   */
+  async getFavourites(identity: string): Promise<string[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const dir = (await milo.getDirectoryHandle(FAVOURITES_SUBDIR)) as DirectoryHandle;
+      const handle = await dir.getFileHandle(favouritesFileName(identity));
+      const file = await handle.getFile();
+      const { items } = parseItemsEnvelope(await file.text(), "Favourites file");
+      return items.filter((item): item is string => typeof item === "string");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
+  }
+
+  async saveFavourites(identity: string, items: string[]) {
+    const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR, { create: true });
+    const dir = (await milo.getDirectoryHandle(FAVOURITES_SUBDIR, { create: true })) as DirectoryHandle;
+    await this.write(dir, favouritesFileName(identity), `${JSON.stringify({ version: 1, items }, null, 2)}\n`);
   }
 
   private async write(folder: FileSystemDirectoryHandle, name: string, raw: string) {

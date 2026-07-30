@@ -196,6 +196,49 @@ test("createResource keeps unrelated collection items untouched", async () => {
   );
 });
 
+// -- Favourites (per-identity file under .milo/favourites/) -----------------
+
+test("getFavourites returns an empty list when nothing has been saved yet", async () => {
+  const storage = storageWithMockRoot();
+  assert.deepEqual(await storage.getFavourites("swift-otter"), []);
+});
+
+test("saveFavourites then getFavourites round-trips the same identity's items", async () => {
+  const storage = storageWithMockRoot();
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt", "book:test-book"]);
+  assert.deepEqual(await storage.getFavourites("swift-otter"), [
+    "prompt:test-prompt",
+    "book:test-book",
+  ]);
+});
+
+test("favourites are written under .milo/favourites/<identity>.json", async () => {
+  const storage = storageWithMockRoot();
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+  const milo = storage.root.dirs.get(".milo");
+  const favouritesDir = milo.dirs.get("favourites");
+  const raw = favouritesDir.files.get("swift-otter.json");
+  assert.deepEqual(JSON.parse(raw), { version: 1, items: ["prompt:test-prompt"] });
+});
+
+test("saveFavourites for one identity does not affect another identity's file", async () => {
+  const storage = storageWithMockRoot();
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+  await storage.saveFavourites("keen-heron", ["book:test-book"]);
+  assert.deepEqual(await storage.getFavourites("swift-otter"), ["prompt:test-prompt"]);
+  assert.deepEqual(await storage.getFavourites("keen-heron"), ["book:test-book"]);
+});
+
+test("saveFavourites overwrites a previous save for the same identity", async () => {
+  const storage = storageWithMockRoot();
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt", "book:test-book"]);
+  assert.deepEqual(await storage.getFavourites("swift-otter"), [
+    "prompt:test-prompt",
+    "book:test-book",
+  ]);
+});
+
 // -- Pure helper exports ----------------------------------------------------
 
 test("collectionTypeForFile maps known collection filenames", () => {
