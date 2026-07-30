@@ -40,6 +40,10 @@ body:has(.app-shell--pre-connect) {
   overflow: hidden;
 }
 
+body:has(.command-palette) {
+  overflow: hidden;
+}
+
 button,
 input,
 textarea,
@@ -612,6 +616,107 @@ button:disabled {
   letter-spacing: 0.08em;
   white-space: nowrap;
   text-transform: uppercase;
+}
+
+.search-band-hint {
+  border: 1px solid var(--brand-line);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.command-palette {
+  align-items: flex-start;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding-top: 12vh;
+  position: fixed;
+  z-index: 300;
+}
+
+.command-palette-backdrop {
+  background: rgba(25, 29, 27, 0.45);
+  backdrop-filter: blur(6px);
+  border: 0;
+  cursor: default;
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.command-palette-panel {
+  background: #fff;
+  border: 1px solid var(--brand-line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow: hidden;
+  position: relative;
+  width: min(560px, 92vw);
+  z-index: 1;
+}
+
+.command-palette-input-row {
+  align-items: center;
+  border-bottom: 1px solid var(--brand-line);
+  display: flex;
+  gap: 15px;
+  min-height: 68px;
+  padding: 0 22px;
+}
+
+.command-palette-input {
+  background: transparent;
+  border: 0;
+  font-size: 17px;
+  outline: 0;
+  width: 100%;
+}
+
+.command-palette-results {
+  list-style: none;
+  margin: 0;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.command-palette-result button {
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.command-palette-result button:hover,
+.command-palette-result button:focus-visible {
+  background: var(--brand-paper);
+}
+
+.command-palette-result strong {
+  font-size: 15px;
+}
+
+.command-palette-result > button > span:last-child {
+  color: #777a74;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-palette-empty {
+  color: #777a74;
+  font-size: 13px;
+  padding: 24px 22px;
+  text-align: center;
 }
 
 .section-block {
