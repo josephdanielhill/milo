@@ -60,6 +60,10 @@ class MockDirectoryHandle {
     if (this.dirs.delete(name)) return;
     throw new DOMException("not found", "NotFoundError");
   }
+  async *values() {
+    for (const name of this.files.keys()) yield { kind: "file", name };
+    for (const name of this.dirs.keys()) yield { kind: "directory", name };
+  }
 }
 
 function storageWithMockRoot() {
@@ -254,6 +258,46 @@ test("favourites survive a disconnect + reconnect to the same underlying folder"
   const after = new LocalFolderStorage();
   after.root = root; // simulate re-picking the same physical folder
   assert.deepEqual(await after.getFavourites("swift-otter"), ["prompt:test-prompt"]);
+});
+
+test("listFavouriteIdentities returns an empty list before anyone has favourited anything", async () => {
+  const storage = storageWithMockRoot();
+  assert.deepEqual(await storage.listFavouriteIdentities(), []);
+});
+
+test("listFavouriteIdentities lists every identity that has saved favourites", async () => {
+  const storage = storageWithMockRoot();
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+  await storage.saveFavourites("keen-heron", ["book:test-book"]);
+  assert.deepEqual(new Set(await storage.listFavouriteIdentities()), new Set(["swift-otter", "keen-heron"]));
+});
+
+test("a browser that lost its stored identity can recover the sole existing identity's favourites", async () => {
+  // Models clearing cookies/site data: localStorage (and so the remembered identity) is wiped,
+  // but the folder on disk — and the favourites file already saved there — is untouched. A
+  // fresh browser picking the same folder should be able to find that one orphaned identity.
+  const root = new MockDirectoryHandle();
+  const before = new LocalFolderStorage();
+  before.root = root;
+  await before.saveFavourites("swift-otter", ["prompt:test-prompt", "book:test-book"]);
+
+  const after = new LocalFolderStorage();
+  after.root = root;
+  const newBrowserIdentity = "keen-heron"; // freshly generated, has no file of its own yet
+  assert.deepEqual(await after.getFavourites(newBrowserIdentity), []);
+  const existing = await after.listFavouriteIdentities();
+  assert.deepEqual(existing, ["swift-otter"]);
+  assert.deepEqual(await after.getFavourites(existing[0]), ["prompt:test-prompt", "book:test-book"]);
+});
+
+test("listFavouriteIdentities does not pick a winner when multiple identities exist", async () => {
+  const root = new MockDirectoryHandle();
+  const storage = new LocalFolderStorage();
+  storage.root = root;
+  await storage.saveFavourites("swift-otter", ["prompt:test-prompt"]);
+  await storage.saveFavourites("keen-heron", ["book:test-book"]);
+  const existing = await storage.listFavouriteIdentities();
+  assert.equal(existing.length, 2);
 });
 
 test("getFavourites propagates an unexpected error instead of treating it as \"no favourites\"", async () => {

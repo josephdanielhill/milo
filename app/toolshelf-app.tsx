@@ -329,11 +329,31 @@ export default function ToolshelfApp({
   useEffect(() => {
     if (!folderName || !identity) return;
     let cancelled = false;
-    storage.getFavourites(identity).then(
-      (items) => {
+    (async () => {
+      try {
+        let activeIdentity = identity;
+        let items = await storage.getFavourites(activeIdentity);
+        if (items.length === 0) {
+          // This browser's identity has no favourites file here. That's normal for a truly
+          // new identity, but it's also what a *previous* identity looks like once its
+          // localStorage entry is gone (e.g. the user cleared cookies/site data, which wipes
+          // localStorage too, not just cookies). If this folder has exactly one favourites
+          // file, there's no ambiguity about whose it is, so adopt it rather than leaving the
+          // user's favourites orphaned under a name nothing points to anymore. With more than
+          // one identity present (a shared folder), don't guess — that risks showing someone
+          // else's stars.
+          const existing = await storage.listFavouriteIdentities();
+          if (existing.length === 1 && existing[0] !== activeIdentity) {
+            activeIdentity = existing[0];
+            items = await storage.getFavourites(activeIdentity);
+            if (!cancelled) {
+              window.localStorage.setItem(IDENTITY_KEY, activeIdentity);
+              setIdentity(activeIdentity);
+            }
+          }
+        }
         if (!cancelled) setFavourites(new Set(items));
-      },
-      (error) => {
+      } catch (error) {
         // Without this, a rejection here (anything but "file doesn't exist yet") left
         // favourites silently stuck at whatever they were before reconnecting — usually
         // empty — with no indication anything had gone wrong.
@@ -344,8 +364,8 @@ export default function ToolshelfApp({
             ? `Could not load your favourites: ${error.message}`
             : "Could not load your favourites.",
         );
-      },
-    );
+      }
+    })();
     return () => {
       cancelled = true;
     };
