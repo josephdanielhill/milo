@@ -1245,7 +1245,11 @@ function ImportPage({
     let succeeded = 0;
     const failed: string[] = [];
     for (const candidate of chosen) {
-      const draft: ResourceDraft = { ...candidate.resource.meta, body: candidate.resource.body };
+      const draft: ResourceDraft = {
+        ...candidate.resource.meta,
+        body: candidate.resource.body,
+        importedFrom: source?.name,
+      };
       try {
         if (candidate.existing) {
           await storage.updateResource(candidate.existing.path, draft);
@@ -1711,6 +1715,11 @@ function ResourceGrid({
             <span className={`source-pill source-pill--${resource.source}`}>
               {sourcePillLabel(resource.source)}
             </span>
+            {resource.meta.importedFrom && (
+              <span className="source-pill source-pill--imported" title={`Imported from "${resource.meta.importedFrom}"`}>
+                Imported
+              </span>
+            )}
           </div>
           <h3>{resource.meta.title}</h3>
           <p>{displaySummary(resource.meta.summary)}</p>
@@ -1789,6 +1798,11 @@ function ResourceDetail({
             <span className={`source-pill source-pill--${resource.source}`}>
               {sourceDetailLabel(resource.source)}
             </span>
+            {resource.meta.importedFrom && (
+              <span className="source-pill source-pill--imported">
+                {`Imported from "${resource.meta.importedFrom}"`}
+              </span>
+            )}
           </div>
           <h1>{resource.meta.title}</h1>
           <p>{displaySummary(resource.meta.summary)}</p>

@@ -117,6 +117,7 @@ export function parseResource(
       ? { attended: values.attended }
       : {}),
     ...(values.whoAttended ? { whoAttended: values.whoAttended } : {}),
+    ...(values.importedFrom ? { importedFrom: values.importedFrom } : {}),
   };
 
   const errors = validateResource({ ...meta, body: match[2].trim() });
@@ -147,6 +148,7 @@ export function serializeResource(resource: ResourceDraft) {
   if (resource.location) lines.push(`location: ${yamlString(resource.location)}`);
   if (resource.attended) lines.push(`attended: ${resource.attended}`);
   if (resource.whoAttended) lines.push(`whoAttended: ${yamlString(resource.whoAttended)}`);
+  if (resource.importedFrom) lines.push(`importedFrom: ${yamlString(resource.importedFrom)}`);
   return `${lines.join("\n")}\n---\n\n${resource.body.trim()}\n`;
 }
 

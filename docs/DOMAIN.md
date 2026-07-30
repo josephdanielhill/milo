@@ -27,6 +27,7 @@ interface ResourceMeta {
   location?: string;     // conference-specific
   attended?: "yes" | "no";     // conference-specific
   whoAttended?: string;         // conference-specific
+  importedFrom?: string;        // set by the Import flow to the source folder/bundle name
 }
 
 interface Resource {
@@ -102,3 +103,9 @@ anything that isn't `local`.
   whoever added the resource to MILO.
 - Conference-only fields: `eventDate`, `location`, `attended` (`"yes"|"no"`),
   `whoAttended` (free text, only meaningful when `attended: "yes"`).
+- `importedFrom` is set automatically when a resource is brought in via the
+  `/import` flow (from either a folder or a bundle URL), to that source's
+  name — it's what powers the "Imported" badge shown alongside the source
+  pill in the UI. Absent on resources created directly, and on anything
+  written before this field existed (fully optional, so older content parses
+  unchanged).

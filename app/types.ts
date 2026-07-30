@@ -25,6 +25,8 @@ export interface ResourceMeta {
   location?: string;
   attended?: "yes" | "no";
   whoAttended?: string;
+  /** Name of the folder or bundle this resource was brought in from via Import, if any. */
+  importedFrom?: string;
 }
 
 export interface Resource {
