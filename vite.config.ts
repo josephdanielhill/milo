@@ -1,6 +1,7 @@
 import vinext from "vinext";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
+import { readBuildId } from "./build/read-build-id";
 import { sites } from "./build/sites-vite-plugin";
 
 const { r2 } = hostingConfig;
@@ -35,6 +36,9 @@ export default defineConfig(async () => {
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
+    define: {
+      __MILO_BUILD_ID__: JSON.stringify(readBuildId(process.cwd())),
+    },
     plugins: [
       vinext(),
       sites(),

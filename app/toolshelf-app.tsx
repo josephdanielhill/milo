@@ -65,6 +65,7 @@ const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
 const HAS_CONNECTED_KEY = "milo:has-connected";
 const IDENTITY_KEY = "milo:identity";
+const VERSION_POLL_INTERVAL_MS = 5 * 60 * 1000;
 
 // Used only to tell one browser's favourites apart from another's in a shared folder — not a
 // user-facing name, never editable, so no collision handling is needed beyond a decent pool size.
@@ -273,6 +274,7 @@ export default function ToolshelfApp({
   const [search, setSearch] = useState("");
   const [identity, setIdentity] = useState<string | null>(null);
   const [favourites, setFavourites] = useState<Set<string>>(new Set());
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resources = useMemo(() => {
@@ -324,6 +326,38 @@ export default function ToolshelfApp({
       if (window.localStorage.getItem(HAS_CONNECTED_KEY) === "1") setHasConnectedBefore(true);
       setIdentity(getOrCreateIdentity());
     });
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function checkForUpdate() {
+      try {
+        const response = await fetch(`${import.meta.env.BASE_URL}version.json`, {
+          cache: "no-store",
+        });
+        const data = await response.json();
+        if (cancelled || !data.buildId || data.buildId === __MILO_BUILD_ID__) return;
+        setUpdateAvailable(true);
+        clearInterval(interval);
+        document.removeEventListener("visibilitychange", onVisible);
+      } catch {
+        // Offline or the request failed — just try again next tick.
+      }
+    }
+
+    function onVisible() {
+      if (document.visibilityState === "visible") checkForUpdate();
+    }
+
+    const interval = setInterval(checkForUpdate, VERSION_POLL_INTERVAL_MS);
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, []);
 
   useEffect(() => {
@@ -631,6 +665,29 @@ export default function ToolshelfApp({
         />
       )}
       <main className="main-frame">
+        {updateAvailable && (
+          <div className="update-banner" role="status">
+            <span>A new version of MILO is available.</span>
+            <div className="update-banner-actions">
+              <button
+                type="button"
+                className="update-banner-refresh"
+                onClick={() => window.location.reload()}
+              >
+                <RefreshCw size={14} />
+                Refresh
+              </button>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Dismiss"
+                onClick={() => setUpdateAvailable(false)}
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+        )}
         <header className="mobile-header">
           <button
             className="icon-button"

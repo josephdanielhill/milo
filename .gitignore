@@ -10,6 +10,9 @@ out/
 # Generated at dev/build time by build/generate-published-resources.mjs
 app/generated/
 
+# Generated at dev/build time by build/generate-version.mjs
+public/version.json
+
 # Cloudflare / Wrangler local state
 .wrangler/
 
