@@ -933,9 +933,6 @@ function Sidebar({
             Disconnect folder
           </button>
         )}
-        <button className="folder-mini__guide" onClick={() => navigate("/guide")}>
-          Getting started
-        </button>
       </div>
       <p className="privacy-note">
         <span>Private by design</span>
