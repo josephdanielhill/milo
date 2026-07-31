@@ -674,7 +674,7 @@ export class LocalFolderStorage implements StorageProvider {
 
   /** Batches all outcomes from a subscriptions check into a single re-read-modify-write. */
   async recordSubscriptionChecks(
-    results: { url: string; ok: boolean; error?: string; resourceCount?: number }[],
+    results: { url: string; ok: boolean; error?: string; resourceCount?: number; name?: string }[],
   ): Promise<void> {
     const current = await this.listSubscriptions();
     const byUrl = new Map(results.map((result) => [result.url, result]));
@@ -684,6 +684,7 @@ export class LocalFolderStorage implements StorageProvider {
       if (!result) return item;
       return {
         ...item,
+        name: (result.ok && result.name) ? result.name : item.name,
         lastCheckedAt,
         lastCheckedOk: result.ok,
         lastError: result.ok ? undefined : result.error,
