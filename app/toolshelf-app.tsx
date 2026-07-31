@@ -1200,6 +1200,10 @@ function Dashboard({
                       connectFolder={connectFolder}
                       onCreate={() => navigate("/create")}
                     />
+                    <button className="secondary-button" onClick={() => navigate("/import")}>
+                      <UploadCloud size={17} />
+                      Import resource
+                    </button>
                     <button className="secondary-button" onClick={() => navigate("/library")}>
                       Browse the library
                       <ChevronRight size={17} />
