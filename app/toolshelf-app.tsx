@@ -627,6 +627,10 @@ export default function ToolshelfApp({
   } else if (route.kind === "import") {
     content = (
       <ImportPage
+        // Remounts (resetting local tab/state) when the deep-link target changes, e.g. clicking
+        // the Refresh-files banner's "Review" action while already viewing /import on another tab —
+        // simpler than syncing local state to a prop change via an effect.
+        key={route.focusSubscriptions ? "subscriptions" : "default"}
         localResources={localResources}
         folderConnected={Boolean(folderName)}
         notify={notify}
@@ -1571,11 +1575,12 @@ function buildImportCandidates(resources: Resource[], localByKey: Map<string, Re
 }
 
 const importSourceOptions: Array<{
-  key: "folder" | "url" | "file";
+  key: "folder" | "url" | "file" | "subscriptions";
   icon: ReactNode;
   label: string;
   description: string;
   actionTitle: string;
+  aside?: string;
 }> = [
   {
     key: "folder",
@@ -1598,6 +1603,14 @@ const importSourceOptions: Array<{
     description: "Import a bundle file already saved on this device.",
     actionTitle: "Choose a bundle file to import",
   },
+  {
+    key: "subscriptions",
+    icon: <RefreshCw size={18} />,
+    label: "Subscriptions",
+    description: "Bundles you're following — check them for new or changed resources.",
+    actionTitle: "Manage your subscriptions",
+    aside: "Saved bundle URLs that Refresh files re-checks. Nothing is added without your review.",
+  },
 ];
 
 function ImportPage({
@@ -1613,7 +1626,9 @@ function ImportPage({
   refresh: () => Promise<void>;
   focusSubscriptions?: boolean;
 }) {
-  const [tab, setTab] = useState<"folder" | "url" | "file">("folder");
+  const [tab, setTab] = useState<"folder" | "url" | "file" | "subscriptions">(() =>
+    focusSubscriptions ? "subscriptions" : "folder",
+  );
   const [source, setSource] = useState<ImportSource | null>(null);
   const [picking, setPicking] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -1629,7 +1644,6 @@ function ImportPage({
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [subscribing, setSubscribing] = useState(false);
   const [checkingUrl, setCheckingUrl] = useState<string | null>(null);
-  const subscriptionsSectionRef = useRef<HTMLElement>(null);
 
   // Not memoized: reloaded imperatively from event handlers (subscribe/unsubscribe/check now)
   // rather than as an effect dependency, so it's just a plain async helper, recreated each render.
@@ -1658,10 +1672,6 @@ function ImportPage({
     };
   }, [folderConnected]);
 
-  useEffect(() => {
-    if (focusSubscriptions) subscriptionsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [focusSubscriptions]);
-
   const isUrlSubscribed = tab === "url" && subscriptions.some((item) => item.url === url.trim());
 
   const localByKey = useMemo(() => {
@@ -1681,7 +1691,7 @@ function ImportPage({
   const currentStep = !source ? 1 : importing ? 3 : 2;
   const activeOption = importSourceOptions.find((option) => option.key === tab) ?? importSourceOptions[0];
 
-  function switchTab(next: "folder" | "url" | "file") {
+  function switchTab(next: "folder" | "url" | "file" | "subscriptions") {
     if (next === tab) return;
     setTab(next);
     setSource(null);
@@ -1750,8 +1760,7 @@ function ImportPage({
     await loadSubscriptions();
     setCheckingUrl(null);
     if (result.ok) {
-      setTab("url");
-      setUrl(subscription.url);
+      setTab("subscriptions");
       setSource(result.source);
       setDeselected(new Set());
     } else {
@@ -1903,7 +1912,11 @@ function ImportPage({
               tabIndex={-1}
               aria-label={activeOption.actionTitle}
             >
-              <SectionHeading eyebrow={activeOption.label} title={activeOption.actionTitle} />
+              <SectionHeading
+                eyebrow={activeOption.label}
+                title={activeOption.actionTitle}
+                aside={activeOption.aside}
+              />
               <div className="import-source-panel">
                 {tab === "folder" ? (
                   <button
@@ -1931,7 +1944,7 @@ function ImportPage({
                       {fetching ? "Loading…" : "Load bundle"}
                     </button>
                   </div>
-                ) : (
+                ) : tab === "file" ? (
                   <>
                     <input
                       ref={fileInputRef}
@@ -1950,6 +1963,47 @@ function ImportPage({
                       {reading ? "Reading…" : "Choose bundle file to import"}
                     </button>
                   </>
+                ) : subscriptions.length === 0 ? (
+                  <p className="import-page__notice">
+                    Load a bundle from the URL tab, then choose “Subscribe to this URL” to start tracking it here.
+                  </p>
+                ) : (
+                  <ul className="import-subscription-list">
+                    {subscriptions.map((subscription) => (
+                      <li key={subscription.url}>
+                        <div className="import-subscription-body">
+                          <strong>{subscription.name}</strong>
+                          <p className="import-subscription-url">{subscription.url}</p>
+                          <p className="import-subscription-meta">
+                            {subscription.lastCheckedAt
+                              ? `Last checked ${formatDate(subscription.lastCheckedAt.slice(0, 10))}${
+                                  subscription.lastCheckedOk === false ? " — couldn't be reached" : ""
+                                }`
+                              : "Never checked"}
+                          </p>
+                        </div>
+                        <div className="import-subscription-actions">
+                          <button
+                            type="button"
+                            className="secondary-button"
+                            disabled={checkingUrl === subscription.url}
+                            onClick={() => checkSubscriptionNow(subscription)}
+                          >
+                            <RefreshCw size={14} />
+                            {checkingUrl === subscription.url ? "Checking…" : "Check now"}
+                          </button>
+                          <button
+                            type="button"
+                            className="icon-button"
+                            aria-label={`Remove subscription to ${subscription.name}`}
+                            onClick={() => unsubscribe(subscription)}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 )}
                 {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
               </div>
@@ -2042,55 +2096,6 @@ function ImportPage({
                 )}
               </section>
             )}
-            <section className="section-block import-subscriptions" ref={subscriptionsSectionRef}>
-              <SectionHeading
-                eyebrow="Stay in sync"
-                title="Subscriptions"
-                aside="Saved bundle URLs that Refresh files re-checks for new or changed resources. Nothing is added without your review."
-              />
-              {subscriptions.length === 0 ? (
-                <p className="import-page__notice">
-                  Load a bundle from a URL above, then choose “Subscribe to this URL” to keep checking it here.
-                </p>
-              ) : (
-                <ul className="import-subscription-list">
-                  {subscriptions.map((subscription) => (
-                    <li key={subscription.url}>
-                      <div className="import-subscription-body">
-                        <strong>{subscription.name}</strong>
-                        <p className="import-subscription-url">{subscription.url}</p>
-                        <p className="import-subscription-meta">
-                          {subscription.lastCheckedAt
-                            ? `Last checked ${formatDate(subscription.lastCheckedAt.slice(0, 10))}${
-                                subscription.lastCheckedOk === false ? " — couldn't be reached" : ""
-                              }`
-                            : "Never checked"}
-                        </p>
-                      </div>
-                      <div className="import-subscription-actions">
-                        <button
-                          type="button"
-                          className="secondary-button"
-                          disabled={checkingUrl === subscription.url}
-                          onClick={() => checkSubscriptionNow(subscription)}
-                        >
-                          <RefreshCw size={14} />
-                          {checkingUrl === subscription.url ? "Checking…" : "Check now"}
-                        </button>
-                        <button
-                          type="button"
-                          className="icon-button"
-                          aria-label={`Remove subscription to ${subscription.name}`}
-                          onClick={() => unsubscribe(subscription)}
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
           </>
         )}
       </div>
