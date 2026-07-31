@@ -542,7 +542,9 @@ export default function ToolshelfApp({
         cleanPath === "/guide";
 
       if (!isAllowedWithoutConnection) {
-        navigate("/");
+        queueMicrotask(() => {
+          navigate("/");
+        });
       }
     }
   }, [isReconnecting, folderName, path, navigate]);
