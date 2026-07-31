@@ -54,7 +54,7 @@ two independent builds that never run together:
 imports `dist/server/index.js` and asserts on the server-rendered HTML (title
 "MILO", the `CorporateColourRail` branded UI element, and the set of known
 routes: `/library`, `/prompts`, `/books`, `/videos`, `/conferences`,
-`/training`, `/articles`, `/podcasts`, `/create`, `/guide`).
+`/training`, `/articles`, `/podcasts`, `/create`, `/about`).
 
 ## The Worker (`worker/index.ts`)
 
@@ -166,7 +166,7 @@ re-reading it top to bottom, use this map to jump to the relevant function:
 | `ToolshelfApp` (default export) | Top-level state: current `path`, `localResources`, folder connect status, search, toast, mobile nav — and dispatches to the views below based on `parseRoute(path)`. |
 | `Sidebar` | Left nav: resource-type links, folder connect/status. |
 | `Dashboard` | Home view — recent/featured resources across sources. |
-| `ContributionGuide` | Renders the "getting started" flow (connect a folder, create a resource, share via synced drive or bundle URL — mirrors `README.md`'s "Adding resources" section) at `/guide`. |
+| `AboutMilo` | `/about` — two in-page sections toggled by an internal sub-nav: `AboutPhilosophy` (local-first, secure sharing, build-your-own-collection) and `AboutSharing` (the connect-a-folder/create/share walkthrough, mirrors `README.md`'s "Adding resources" section). `/guide` aliases to the sharing section for old links. |
 | `ImportPage` | `/import` — pick a second read-only folder (`pickImportSource`) and selectively bring resources into the connected folder. |
 | `LibraryView` | `/library` and per-type list views — search/filter by `query`, `type`, `source`. |
 | `LibraryUsageTldr` | Short usage tips shown for `prompt`/`skill` library views. |

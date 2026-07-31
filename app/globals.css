@@ -2516,6 +2516,72 @@ button:disabled {
   margin: 0;
 }
 
+.about-subnav {
+  margin-top: 40px;
+  width: fit-content;
+}
+
+.philosophy-intro {
+  margin-top: 42px;
+  max-width: 760px;
+}
+
+.philosophy-intro h2 {
+  font-family: var(--font-editorial);
+  font-size: clamp(28px, 2.6vw, 38px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 10px 0 12px;
+}
+
+.philosophy-intro p {
+  color: #5f625c;
+  font-family: var(--font-editorial);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.philosophy-pillars {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 40px;
+}
+
+.philosophy-pillar {
+  background: #f4f2eb;
+  border: 1px solid #e6e3da;
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.philosophy-pillar__icon {
+  align-items: center;
+  background: #eeece5;
+  border-radius: 50%;
+  display: flex;
+  height: 46px;
+  justify-content: center;
+  margin-bottom: 16px;
+  width: 46px;
+}
+
+.philosophy-pillar h3 {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.philosophy-pillar p {
+  color: #5f625c;
+  font-family: var(--font-editorial);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+}
+
 .empty-state,
 .not-found,
 .connect-prompt {
@@ -2769,6 +2835,10 @@ button:disabled {
   }
 
   .intro-panel__steps {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-pillars {
     grid-template-columns: 1fr;
   }
 

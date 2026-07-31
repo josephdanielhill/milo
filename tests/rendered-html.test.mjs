@@ -48,7 +48,7 @@ test("supports application routes through the shared app shell", async () => {
     "/articles",
     "/podcasts",
     "/create",
-    "/guide",
+    "/about",
   ]) {
     const response = await render(pathname);
     assert.equal(response.status, 200, pathname);
@@ -56,6 +56,13 @@ test("supports application routes through the shared app shell", async () => {
     assert.match(html, /MILO/, pathname);
     assert.doesNotMatch(html, /Starter Project/, pathname);
   }
+});
+
+test("aliases the legacy /guide route to About Milo's sharing section", async () => {
+  const response = await render("/guide");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /MILO/);
 });
 
 test("keeps corporate branding fixed and local storage provider isolated", async () => {

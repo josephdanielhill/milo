@@ -17,6 +17,7 @@ import {
   FolderOpen,
   FolderX,
   GraduationCap,
+  HardDrive,
   Home,
   Headphones,
   Library,
@@ -27,6 +28,7 @@ import {
   Plus,
   RefreshCw,
   Search,
+  ShieldCheck,
   Sparkles,
   Star,
   Trash2,
@@ -615,13 +617,15 @@ export default function ToolshelfApp({
         connectFolder={connectFolder}
       />
     );
-  } else if (route.kind === "guide") {
+  } else if (route.kind === "about") {
     content = (
-      <ContributionGuide
+      <AboutMilo
+        key={route.section}
         navigate={navigate}
         folderName={folderName}
         folderStatus={folderStatus}
         connectFolder={connectFolder}
+        initialSection={route.section}
       />
     );
   } else if (route.kind === "import") {
@@ -927,13 +931,13 @@ function Sidebar({
           {path === "/" && <span className="nav-active-dot" />}
         </button>
         <button
-          className={`nav-item nav-guide ${path === "/guide" ? "nav-item--active" : ""}`}
-          onClick={() => navigate("/guide")}
-          aria-current={path === "/guide" ? "page" : undefined}
+          className={`nav-item nav-about ${path === "/about" || path.startsWith("/guide") ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/about")}
+          aria-current={path === "/about" || path.startsWith("/guide") ? "page" : undefined}
         >
           <CircleHelp size={18} aria-hidden="true" />
-          Getting started
-          {path === "/guide" && <span className="nav-active-dot" />}
+          About Milo
+          {(path === "/about" || path.startsWith("/guide")) && <span className="nav-active-dot" />}
         </button>
         <button
           className={`nav-item nav-favourites ${path === "/favourites" ? "nav-item--active" : ""}`}
@@ -1418,17 +1422,130 @@ function GetStartedPanel({
   );
 }
 
-function ContributionGuide({
+function AboutMilo({
   navigate,
   folderName,
   folderStatus,
   connectFolder,
+  initialSection,
 }: {
   navigate: (path: string) => void;
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
+  initialSection: "philosophy" | "sharing";
 }) {
+  const [section, setSection] = useState<"philosophy" | "sharing">(initialSection);
+
+  return (
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img
+              src={`${import.meta.env.BASE_URL}milo-getting-started-hero.png`}
+              alt="Milo the black Labrador ready to get started"
+            />
+          </div>
+          <div className="hero-split-content">
+            <PageTop
+              eyebrow="About Milo"
+              title={
+                section === "philosophy"
+                  ? "A local-first way to build and share knowledge"
+                  : "Add a resource to your shelf"
+              }
+              description={
+                section === "philosophy"
+                  ? "No servers, no gatekeeping. MILO lives in a folder you control."
+                  : "Connect a folder (your own, or a shared drive everyone already uses) and start adding resources directly. No review step, no pull request."
+              }
+              action={
+                section === "sharing" ? (
+                  <CreateAction
+                    label="Create a resource"
+                    folderName={folderName}
+                    folderStatus={folderStatus}
+                    connectFolder={connectFolder}
+                    onCreate={() => navigate("/create")}
+                  />
+                ) : undefined
+              }
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="page about-page">
+        <div className="segmented about-subnav" role="tablist" aria-label="About Milo sections">
+          <button
+            role="tab"
+            aria-selected={section === "philosophy"}
+            className={section === "philosophy" ? "is-active" : ""}
+            onClick={() => setSection("philosophy")}
+          >
+            Philosophy
+          </button>
+          <button
+            role="tab"
+            aria-selected={section === "sharing"}
+            className={section === "sharing" ? "is-active" : ""}
+            onClick={() => setSection("sharing")}
+          >
+            How resources work &amp; sharing
+          </button>
+        </div>
+        {section === "philosophy" ? <AboutPhilosophy /> : <AboutSharing />}
+      </div>
+    </>
+  );
+}
+
+function AboutPhilosophy() {
+  const pillars = [
+    {
+      icon: HardDrive,
+      title: "Local-first",
+      copy: "Everything you save lives as a file on your own device — your folder, your rules. MILO has no server storage of its own, so there's nothing to migrate off later.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Secure sharing, no gatekeeping",
+      copy: "Share through a drive you already trust (OneDrive, Google Drive, Dropbox), or export an explicit bundle link. No central server ever holds your content, and no review step stands between you and publishing.",
+    },
+    {
+      icon: Pencil,
+      title: "Build your own collection",
+      copy: "The library that ships with MILO is a starting point, not a rulebook. Fork it, edit it, or start from a blank folder — it's yours to shape.",
+    },
+  ];
+
+  return (
+    <>
+      <section className="philosophy-intro">
+        <span className="eyebrow">Why Milo works this way</span>
+        <h2>Your knowledge lives on your machine. Full stop.</h2>
+        <p>
+          MILO is a resource hub with no backend of its own. Prompts, skills, tools, and
+          the rest of your library are plain Markdown and JSON files, saved wherever you
+          point it — so the same folder that holds your resources also determines who can
+          see them and how they move around.
+        </p>
+      </section>
+      <div className="philosophy-pillars">
+        {pillars.map(({ icon: Icon, title, copy }) => (
+          <article className="philosophy-pillar" key={title}>
+            <div className="philosophy-pillar__icon"><Icon size={22} aria-hidden="true" /></div>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function AboutSharing() {
   const steps = [
     {
       number: "01",
@@ -1462,95 +1579,66 @@ function ContributionGuide({
 
   return (
     <>
-      <div className="hero-split">
-        <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img
-              src={`${import.meta.env.BASE_URL}milo-getting-started-hero.png`}
-              alt="Milo the black Labrador ready to get started"
-            />
-          </div>
-          <div className="hero-split-content">
-            <PageTop
-              eyebrow="Getting started"
-              title="Add a resource to your shelf"
-              description="Connect a folder (your own, or a shared drive everyone already uses) and start adding resources directly. No review step, no pull request."
-              action={
-                <CreateAction
-                  label="Create a resource"
-                  folderName={folderName}
-                  folderStatus={folderStatus}
-                  connectFolder={connectFolder}
-                  onCreate={() => navigate("/create")}
-                />
-              }
-            />
-          </div>
+      <section className="guide-intro">
+        <div className="guide-intro__number">4</div>
+        <div>
+          <span className="eyebrow">Before you begin</span>
+          <h2>One folder, no gatekeeping.</h2>
+          <p>
+            Point MILO at a folder on your machine (your own, or one kept in sync by a
+            shared drive) and start adding resources straight away.
+          </p>
         </div>
-      </div>
+        <div className="guide-apps" aria-label="Applications used">
+          <span><BookOpen size={18} /> MILO</span>
+          <ChevronRight size={16} aria-hidden="true" />
+          <span><Folder size={18} /> Your folder</span>
+        </div>
+      </section>
 
-      <div className="page guide-page">
-        <section className="guide-intro">
-          <div className="guide-intro__number">4</div>
-          <div>
-            <span className="eyebrow">Before you begin</span>
-            <h2>One folder, no gatekeeping.</h2>
-            <p>
-              Point MILO at a folder on your machine (your own, or one kept in sync by a
-              shared drive) and start adding resources straight away.
-            </p>
-          </div>
-          <div className="guide-apps" aria-label="Applications used">
-            <span><BookOpen size={18} /> MILO</span>
-            <ChevronRight size={16} aria-hidden="true" />
-            <span><Folder size={18} /> Your folder</span>
-          </div>
-        </section>
+      <section className="guide-steps" aria-labelledby="guide-steps-title">
+        <div className="guide-section-heading">
+          <span className="eyebrow">Step by step</span>
+          <h2 id="guide-steps-title">Add a new resource</h2>
+        </div>
+        <div className="guide-step-list">
+          {steps.map(({ number, icon: Icon, title, copy, note }) => (
+            <article className="guide-step" key={number}>
+              <div className="guide-step__number">{number}</div>
+              <div className="guide-step__icon"><Icon size={22} aria-hidden="true" /></div>
+              <div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+                <small><Check size={13} aria-hidden="true" /> {note}</small>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section className="guide-steps" aria-labelledby="guide-steps-title">
-          <div className="guide-section-heading">
-            <span className="eyebrow">Step by step</span>
-            <h2 id="guide-steps-title">Add a new resource</h2>
-          </div>
-          <div className="guide-step-list">
-            {steps.map(({ number, icon: Icon, title, copy, note }) => (
-              <article className="guide-step" key={number}>
-                <div className="guide-step__number">{number}</div>
-                <div className="guide-step__icon"><Icon size={22} aria-hidden="true" /></div>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                  <small><Check size={13} aria-hidden="true" /> {note}</small>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+      <section className="guide-checklist">
+        <div>
+          <span className="eyebrow">Before you save</span>
+          <h2>A quick quality check</h2>
+        </div>
+        <ul>
+          <li><Check size={16} /> The title clearly says what the resource does.</li>
+          <li><Check size={16} /> The summary explains when someone should use it.</li>
+          <li><Check size={16} /> No customer data or confidential information is included.</li>
+          <li><Check size={16} /> The preview is easy to scan and the filename is meaningful.</li>
+        </ul>
+      </section>
 
-        <section className="guide-checklist">
-          <div>
-            <span className="eyebrow">Before you save</span>
-            <h2>A quick quality check</h2>
-          </div>
-          <ul>
-            <li><Check size={16} /> The title clearly says what the resource does.</li>
-            <li><Check size={16} /> The summary explains when someone should use it.</li>
-            <li><Check size={16} /> No customer data or confidential information is included.</li>
-            <li><Check size={16} /> The preview is easy to scan and the filename is meaningful.</li>
-          </ul>
-        </section>
-
-        <section className="guide-help">
-          <CircleHelp size={24} />
-          <div>
-            <h2>Something not showing up?</h2>
-            <p>
-              If you&apos;re using a shared drive, make sure it has finished syncing on your
-              machine. Then use Refresh files in MILO to pick up changes made by others.
-            </p>
-          </div>
-        </section>
-      </div>
+      <section className="guide-help">
+        <CircleHelp size={24} />
+        <div>
+          <h2>Something not showing up?</h2>
+          <p>
+            If you&apos;re using a shared drive, make sure it has finished syncing on your
+            machine. Then use Refresh files in MILO to pick up changes made by others.
+          </p>
+        </div>
+      </section>
     </>
   );
 }
@@ -3352,7 +3440,7 @@ function filterResources(
 
 function parseRoute(path: string):
   | { kind: "home" }
-  | { kind: "guide" }
+  | { kind: "about"; section: "philosophy" | "sharing" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
@@ -3364,7 +3452,11 @@ function parseRoute(path: string):
   const [pathname, queryString = ""] = path.split("?");
   const cleanPath = pathname.replace(/\/+$/, "") || "/";
   if (cleanPath === "/") return { kind: "home" };
-  if (cleanPath === "/guide") return { kind: "guide" };
+  if (cleanPath === "/about") {
+    const params = new URLSearchParams(queryString);
+    return { kind: "about", section: params.get("section") === "sharing" ? "sharing" : "philosophy" };
+  }
+  if (cleanPath === "/guide") return { kind: "about", section: "sharing" };
   if (cleanPath === "/import") {
     const params = new URLSearchParams(queryString);
     return { kind: "import", focusSubscriptions: params.get("tab") === "subscriptions" };
