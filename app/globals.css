@@ -2093,16 +2093,10 @@ button:disabled {
   color: #8a6a2f;
 }
 
-.import-source-picker {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 260px 1fr;
-  margin-top: 24px;
-}
-
 .import-source-grid {
   display: grid;
-  gap: 10px;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .import-source-card {
@@ -2113,7 +2107,7 @@ button:disabled {
   cursor: pointer;
   display: flex;
   gap: 12px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   text-align: left;
   transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
@@ -2159,11 +2153,20 @@ button:disabled {
 }
 
 .import-source-panel {
-  align-self: start;
   background: #f8f7f2;
   border: 1px solid var(--brand-line);
   border-radius: 13px;
+  max-width: 640px;
   padding: 22px;
+}
+
+.import-source-action:focus {
+  border-radius: 13px;
+  outline: 0;
+}
+
+.import-source-action:focus-visible {
+  box-shadow: 0 0 0 3px rgba(101, 125, 120, 0.25);
 }
 
 .import-page__primary-action {
@@ -2345,11 +2348,13 @@ button:disabled {
 }
 
 .import-steps {
+  border-bottom: 1px solid var(--brand-line);
   display: flex;
   gap: 10px;
   list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
+  margin: 24px auto 0;
+  max-width: 560px;
+  padding: 0 0 28px;
 }
 
 .import-steps li {
@@ -2712,22 +2717,6 @@ button:disabled {
     min-height: 250px;
   }
 
-  .import-source-picker {
-    grid-template-columns: 1fr;
-  }
-
-  .import-source-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .import-source-card {
-    flex-direction: column;
-  }
-
-  .import-source-card__text p {
-    display: none;
-  }
-
   .intro-panel__steps {
     grid-template-columns: 1fr;
   }
@@ -2792,18 +2781,6 @@ button:disabled {
 
   .intro-panel {
     padding: 24px 22px 26px;
-  }
-
-  .import-source-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .import-source-card {
-    flex-direction: row;
-  }
-
-  .import-source-card__text p {
-    display: block;
   }
 
   .import-source-panel {
