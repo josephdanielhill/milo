@@ -1506,7 +1506,7 @@ function AboutPhilosophy() {
     {
       icon: HardDrive,
       title: "Local-first",
-      copy: "Everything you save lives as a file on your own device — your folder, your rules. MILO has no server storage of its own, so there's nothing to migrate off later.",
+      copy: "Everything you save lives as a file on your own device (your folder, your rules). MILO has no server storage of its own, so there's nothing to migrate off later.",
     },
     {
       icon: ShieldCheck,
@@ -1516,7 +1516,7 @@ function AboutPhilosophy() {
     {
       icon: Pencil,
       title: "Build your own collection",
-      copy: "The library that ships with MILO is a starting point, not a rulebook. Fork it, edit it, or start from a blank folder — it's yours to shape.",
+      copy: "The library that ships with MILO is a starting point, not a rulebook. Fork it, edit it, or start from a blank folder. It's yours to shape.",
     },
   ];
 
@@ -1528,7 +1528,7 @@ function AboutPhilosophy() {
         <p>
           MILO is a resource hub with no backend of its own. Prompts, skills, tools, and
           the rest of your library are plain Markdown and JSON files, saved wherever you
-          point it — so the same folder that holds your resources also determines who can
+          point it, so the same folder that holds your resources also determines who can
           see them and how they move around.
         </p>
       </section>
