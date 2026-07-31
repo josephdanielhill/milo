@@ -51,6 +51,7 @@ import { exampleResources } from "./data";
 import { publishedResources } from "./lib/published";
 import { displaySummary, renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
 import {
+  checkSubscription,
   downloadBundle,
   downloadMarkdown,
   fetchImportSource,
@@ -60,7 +61,7 @@ import {
   supportsLocalFolders,
   type ImportSource,
 } from "./lib/storage";
-import type { Resource, ResourceDraft, ResourceType } from "./types";
+import type { Resource, ResourceDraft, ResourceType, Subscription } from "./types";
 
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
@@ -276,6 +277,11 @@ export default function ToolshelfApp({
   const [identity, setIdentity] = useState<string | null>(null);
   const [favourites, setFavourites] = useState<Set<string>>(new Set());
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [subscriptionUpdates, setSubscriptionUpdates] = useState<{
+    newOrChanged: number;
+    subs: number;
+    failed: number;
+  } | null>(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -318,8 +324,45 @@ export default function ToolshelfApp({
   const refreshResources = useCallback(async () => {
     if (!folderName) return;
     try {
-      setLocalResources(await storage.listResources());
-      notify("Library refreshed");
+      const freshLocalResources = await storage.listResources();
+      setLocalResources(freshLocalResources);
+
+      const subscriptions = await storage.listSubscriptions();
+      if (subscriptions.length === 0) {
+        notify("Library refreshed");
+        return;
+      }
+
+      const localByKey = new Map<string, Resource>();
+      for (const item of freshLocalResources) localByKey.set(`${item.meta.type}:${item.meta.slug}`, item);
+
+      const checks = await Promise.all(
+        subscriptions.map(async (subscription) => ({ subscription, result: await checkSubscription(subscription) })),
+      );
+      await storage.recordSubscriptionChecks(
+        checks.map(({ subscription, result }) =>
+          result.ok
+            ? { url: subscription.url, ok: true, resourceCount: result.source.resources.length }
+            : { url: subscription.url, ok: false, error: result.error },
+        ),
+      );
+
+      let newOrChanged = 0;
+      let failed = 0;
+      for (const { result } of checks) {
+        if (result.ok) newOrChanged += buildImportCandidates(result.source.resources, localByKey).length;
+        else failed += 1;
+      }
+
+      if (newOrChanged > 0) {
+        setSubscriptionUpdates({ newOrChanged, subs: subscriptions.length, failed });
+      } else {
+        notify(
+          failed > 0
+            ? `Library refreshed — no updates from your subscriptions (${failed} of ${subscriptions.length} couldn't be reached).`
+            : "Library refreshed — no updates from your subscriptions.",
+        );
+      }
     } catch (error) {
       setFolderStatus("permission");
       setFolderMessage(error instanceof Error ? error.message : "Folder access was lost.");
@@ -588,6 +631,7 @@ export default function ToolshelfApp({
         folderConnected={Boolean(folderName)}
         notify={notify}
         refresh={refreshResources}
+        focusSubscriptions={route.focusSubscriptions}
       />
     );
   } else if (route.kind === "share") {
@@ -720,6 +764,40 @@ export default function ToolshelfApp({
                 className="icon-button"
                 aria-label="Dismiss"
                 onClick={() => setUpdateAvailable(false)}
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+        )}
+        {subscriptionUpdates && (
+          <div className="update-banner" role="status">
+            <span>
+              {subscriptionUpdates.newOrChanged} new/updated{" "}
+              {subscriptionUpdates.newOrChanged === 1 ? "resource" : "resources"} available from{" "}
+              {subscriptionUpdates.subs} {subscriptionUpdates.subs === 1 ? "subscription" : "subscriptions"}
+              {subscriptionUpdates.failed > 0
+                ? ` (${subscriptionUpdates.failed} couldn't be reached)`
+                : ""}
+              .
+            </span>
+            <div className="update-banner-actions">
+              <button
+                type="button"
+                className="update-banner-refresh"
+                onClick={() => {
+                  navigate("/import?tab=subscriptions");
+                  setSubscriptionUpdates(null);
+                }}
+              >
+                <Link2 size={14} />
+                Review
+              </button>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Dismiss"
+                onClick={() => setSubscriptionUpdates(null)}
               >
                 <X size={16} />
               </button>
@@ -1476,6 +1554,22 @@ interface ImportCandidate {
   status: "new" | "changed";
 }
 
+/**
+ * Diffs a fetched/read set of resources against the local library by `type:slug`, classifying
+ * each as new or changed and dropping anything byte-identical to what's already there. Shared
+ * by the folder/url/file Import tabs and the subscriptions "Check now" flow, so every source
+ * of incoming resources gets the same review-before-write behavior.
+ */
+function buildImportCandidates(resources: Resource[], localByKey: Map<string, Resource>): ImportCandidate[] {
+  return resources
+    .map((resource) => {
+      const key = `${resource.meta.type}:${resource.meta.slug}`;
+      const existing = localByKey.get(key) || null;
+      return { key, resource, existing, status: existing ? "changed" : "new" } as ImportCandidate;
+    })
+    .filter((candidate) => !candidate.existing || candidate.existing.raw !== candidate.resource.raw);
+}
+
 const importSourceOptions: Array<{
   key: "folder" | "url" | "file";
   icon: ReactNode;
@@ -1511,11 +1605,13 @@ function ImportPage({
   folderConnected,
   notify,
   refresh,
+  focusSubscriptions,
 }: {
   localResources: Resource[];
   folderConnected: boolean;
   notify: (message: string) => void;
   refresh: () => Promise<void>;
+  focusSubscriptions?: boolean;
 }) {
   const [tab, setTab] = useState<"folder" | "url" | "file">("folder");
   const [source, setSource] = useState<ImportSource | null>(null);
@@ -1530,6 +1626,43 @@ function ImportPage({
   // Candidates are selected by default; this tracks explicit opt-outs instead of mirroring
   // `candidates` in state, so there's no need to sync selection via an effect.
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [subscribing, setSubscribing] = useState(false);
+  const [checkingUrl, setCheckingUrl] = useState<string | null>(null);
+  const subscriptionsSectionRef = useRef<HTMLElement>(null);
+
+  // Not memoized: reloaded imperatively from event handlers (subscribe/unsubscribe/check now)
+  // rather than as an effect dependency, so it's just a plain async helper, recreated each render.
+  async function loadSubscriptions() {
+    if (!folderConnected) return;
+    try {
+      setSubscriptions(await storage.listSubscriptions());
+    } catch {
+      // Best-effort — the source picker/import flow above still works without a subscriptions list.
+    }
+  }
+
+  useEffect(() => {
+    if (!folderConnected) return;
+    let cancelled = false;
+    storage
+      .listSubscriptions()
+      .then((items) => {
+        if (!cancelled) setSubscriptions(items);
+      })
+      .catch(() => {
+        // Best-effort — the source picker/import flow above still works without a subscriptions list.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [folderConnected]);
+
+  useEffect(() => {
+    if (focusSubscriptions) subscriptionsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [focusSubscriptions]);
+
+  const isUrlSubscribed = tab === "url" && subscriptions.some((item) => item.url === url.trim());
 
   const localByKey = useMemo(() => {
     const map = new Map<string, Resource>();
@@ -1539,13 +1672,7 @@ function ImportPage({
 
   const candidates = useMemo<ImportCandidate[]>(() => {
     if (!source) return [];
-    return source.resources
-      .map((resource) => {
-        const key = `${resource.meta.type}:${resource.meta.slug}`;
-        const existing = localByKey.get(key) || null;
-        return { key, resource, existing, status: existing ? "changed" : "new" } as ImportCandidate;
-      })
-      .filter((candidate) => !candidate.existing || candidate.existing.raw !== candidate.resource.raw);
+    return buildImportCandidates(source.resources, localByKey);
   }, [source, localByKey]);
 
   const selectedCount = candidates.filter((candidate) => !deselected.has(candidate.key)).length;
@@ -1594,6 +1721,48 @@ function ImportPage({
     } finally {
       setFetching(false);
     }
+  }
+
+  async function subscribeToUrl() {
+    if (!source || !url.trim()) return;
+    setSubscribing(true);
+    setError("");
+    try {
+      await storage.addSubscription(url.trim(), source.name);
+      await loadSubscriptions();
+      notify(`Subscribed to “${source.name}”.`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not save this subscription.");
+    } finally {
+      setSubscribing(false);
+    }
+  }
+
+  async function checkSubscriptionNow(subscription: Subscription) {
+    setCheckingUrl(subscription.url);
+    setError("");
+    const result = await checkSubscription(subscription);
+    await storage.recordSubscriptionChecks([
+      result.ok
+        ? { url: subscription.url, ok: true, resourceCount: result.source.resources.length }
+        : { url: subscription.url, ok: false, error: result.error },
+    ]);
+    await loadSubscriptions();
+    setCheckingUrl(null);
+    if (result.ok) {
+      setTab("url");
+      setUrl(subscription.url);
+      setSource(result.source);
+      setDeselected(new Set());
+    } else {
+      setError(`Could not check “${subscription.name}”: ${result.error}`);
+    }
+  }
+
+  async function unsubscribe(subscription: Subscription) {
+    await storage.removeSubscription(subscription.url);
+    await loadSubscriptions();
+    notify(`Unsubscribed from “${subscription.name}”.`);
   }
 
   async function loadFromFile(file: File) {
@@ -1802,6 +1971,17 @@ function ImportPage({
                       : "Items identical to what's already in your connected folder are left out automatically."
                   }
                 />
+                {tab === "url" && (
+                  <button
+                    type="button"
+                    className="secondary-button import-page__subscribe-action"
+                    disabled={subscribing || isUrlSubscribed}
+                    onClick={subscribeToUrl}
+                  >
+                    <Link2 size={16} />
+                    {isUrlSubscribed ? "Subscribed" : subscribing ? "Subscribing…" : "Subscribe to this URL"}
+                  </button>
+                )}
                 {source.skipped && source.skipped.length > 0 && (
                   <p className="import-page__notice import-page__notice--warning">
                     Skipped {source.skipped.length} {source.skipped.length === 1 ? "item" : "items"} that could
@@ -1862,6 +2042,55 @@ function ImportPage({
                 )}
               </section>
             )}
+            <section className="section-block import-subscriptions" ref={subscriptionsSectionRef}>
+              <SectionHeading
+                eyebrow="Stay in sync"
+                title="Subscriptions"
+                aside="Saved bundle URLs that Refresh files re-checks for new or changed resources. Nothing is added without your review."
+              />
+              {subscriptions.length === 0 ? (
+                <p className="import-page__notice">
+                  Load a bundle from a URL above, then choose “Subscribe to this URL” to keep checking it here.
+                </p>
+              ) : (
+                <ul className="import-subscription-list">
+                  {subscriptions.map((subscription) => (
+                    <li key={subscription.url}>
+                      <div className="import-subscription-body">
+                        <strong>{subscription.name}</strong>
+                        <p className="import-subscription-url">{subscription.url}</p>
+                        <p className="import-subscription-meta">
+                          {subscription.lastCheckedAt
+                            ? `Last checked ${formatDate(subscription.lastCheckedAt.slice(0, 10))}${
+                                subscription.lastCheckedOk === false ? " — couldn't be reached" : ""
+                              }`
+                            : "Never checked"}
+                        </p>
+                      </div>
+                      <div className="import-subscription-actions">
+                        <button
+                          type="button"
+                          className="secondary-button"
+                          disabled={checkingUrl === subscription.url}
+                          onClick={() => checkSubscriptionNow(subscription)}
+                        >
+                          <RefreshCw size={14} />
+                          {checkingUrl === subscription.url ? "Checking…" : "Check now"}
+                        </button>
+                        <button
+                          type="button"
+                          className="icon-button"
+                          aria-label={`Remove subscription to ${subscription.name}`}
+                          onClick={() => unsubscribe(subscription)}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
           </>
         )}
       </div>
@@ -3115,7 +3344,7 @@ function filterResources(
 function parseRoute(path: string):
   | { kind: "home" }
   | { kind: "guide" }
-  | { kind: "import" }
+  | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
   | { kind: "library"; type: ResourceType | "all" }
@@ -3127,7 +3356,10 @@ function parseRoute(path: string):
   const cleanPath = pathname.replace(/\/+$/, "") || "/";
   if (cleanPath === "/") return { kind: "home" };
   if (cleanPath === "/guide") return { kind: "guide" };
-  if (cleanPath === "/import") return { kind: "import" };
+  if (cleanPath === "/import") {
+    const params = new URLSearchParams(queryString);
+    return { kind: "import", focusSubscriptions: params.get("tab") === "subscriptions" };
+  }
   if (cleanPath === "/share") {
     const params = new URLSearchParams(queryString);
     return { kind: "share", preselectKey: params.get("resource") || undefined };

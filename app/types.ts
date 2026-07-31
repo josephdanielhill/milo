@@ -48,6 +48,16 @@ export interface ResourceDraft extends ResourceMeta {
   body: string;
 }
 
+export interface Subscription {
+  url: string;
+  name: string;
+  addedAt: string;
+  lastCheckedAt?: string;
+  lastCheckedOk?: boolean;
+  lastError?: string;
+  lastResourceCount?: number;
+}
+
 export interface StorageProvider {
   connect(): Promise<string>;
   reconnect(): Promise<string | null>;

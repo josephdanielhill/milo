@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   LocalFolderStorage,
   buildBundle,
+  checkSubscription,
   collectionTypeForFile,
   parseBundleItems,
   parseCollectionItems,
@@ -312,6 +313,121 @@ test("getFavourites propagates an unexpected error instead of treating it as \"n
     assert.equal(error.name, "NotAllowedError");
     return true;
   });
+});
+
+// -- Subscriptions (shared .milo/subscriptions.json) -------------------------
+
+test("listSubscriptions returns an empty list when nothing has been saved yet", async () => {
+  const storage = storageWithMockRoot();
+  assert.deepEqual(await storage.listSubscriptions(), []);
+});
+
+test("addSubscription then listSubscriptions round-trips the saved entry", async () => {
+  const storage = storageWithMockRoot();
+  const saved = await storage.addSubscription(" https://example.com/bundle.json ", "Example bundle");
+  assert.equal(saved.url, "https://example.com/bundle.json");
+  assert.equal(saved.name, "Example bundle");
+  assert.match(saved.addedAt, /^\d{4}-\d{2}-\d{2}$/);
+  const subscriptions = await storage.listSubscriptions();
+  assert.equal(subscriptions.length, 1);
+  assert.equal(subscriptions[0].url, "https://example.com/bundle.json");
+});
+
+test("subscriptions are written under .milo/subscriptions.json, shared (not per-identity)", async () => {
+  const storage = storageWithMockRoot();
+  await storage.addSubscription("https://example.com/bundle.json", "Example bundle");
+  const milo = storage.root.dirs.get(".milo");
+  const raw = milo.files.get("subscriptions.json");
+  const parsed = JSON.parse(raw);
+  assert.equal(parsed.version, 1);
+  assert.equal(parsed.items.length, 1);
+  assert.equal(parsed.items[0].url, "https://example.com/bundle.json");
+});
+
+test("addSubscription rejects a URL that's already subscribed", async () => {
+  const storage = storageWithMockRoot();
+  await storage.addSubscription("https://example.com/bundle.json", "Example bundle");
+  await assert.rejects(
+    storage.addSubscription("https://example.com/bundle.json", "Same bundle, again"),
+    /Already subscribed/,
+  );
+});
+
+test("removeSubscription removes only the matching entry", async () => {
+  const storage = storageWithMockRoot();
+  await storage.addSubscription("https://example.com/a.json", "Bundle A");
+  await storage.addSubscription("https://example.com/b.json", "Bundle B");
+  await storage.removeSubscription("https://example.com/a.json");
+  const subscriptions = await storage.listSubscriptions();
+  assert.equal(subscriptions.length, 1);
+  assert.equal(subscriptions[0].url, "https://example.com/b.json");
+});
+
+test("recordSubscriptionChecks stamps check outcomes onto the matching entries only", async () => {
+  const storage = storageWithMockRoot();
+  await storage.addSubscription("https://example.com/a.json", "Bundle A");
+  await storage.addSubscription("https://example.com/b.json", "Bundle B");
+  await storage.recordSubscriptionChecks([
+    { url: "https://example.com/a.json", ok: true, resourceCount: 3 },
+    { url: "https://example.com/b.json", ok: false, error: "That URL returned an error (404)." },
+  ]);
+  const [a, b] = await storage.listSubscriptions();
+  assert.equal(a.lastCheckedOk, true);
+  assert.equal(a.lastResourceCount, 3);
+  assert.equal(a.lastError, undefined);
+  assert.match(a.lastCheckedAt, /^\d{4}-\d{2}-\d{2}T/);
+  assert.equal(b.lastCheckedOk, false);
+  assert.equal(b.lastError, "That URL returned an error (404).");
+});
+
+test("recordSubscriptionChecks keeps a subscription's previous resource count on a failed check", async () => {
+  const storage = storageWithMockRoot();
+  await storage.addSubscription("https://example.com/a.json", "Bundle A");
+  await storage.recordSubscriptionChecks([{ url: "https://example.com/a.json", ok: true, resourceCount: 5 }]);
+  await storage.recordSubscriptionChecks([
+    { url: "https://example.com/a.json", ok: false, error: "Could not reach that URL." },
+  ]);
+  const [a] = await storage.listSubscriptions();
+  assert.equal(a.lastCheckedOk, false);
+  assert.equal(a.lastResourceCount, 5);
+});
+
+test("checkSubscription reports ok:true with the fetched bundle when the host responds", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    status: 200,
+    text: async () => JSON.stringify({ version: 1, name: "Example bundle", items: [bookDraft()] }),
+  });
+  try {
+    const result = await checkSubscription({
+      url: "https://example.com/bundle.json",
+      name: "Example bundle",
+      addedAt: "2026-01-01",
+    });
+    assert.equal(result.ok, true);
+    assert.equal(result.source.resources.length, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("checkSubscription reports ok:false instead of throwing when the host is unreachable", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => {
+    throw new Error("network down");
+  };
+  try {
+    const result = await checkSubscription({
+      url: "https://example.com/bundle.json",
+      name: "Example bundle",
+      addedAt: "2026-01-01",
+    });
+    assert.equal(result.ok, false);
+    assert.match(result.error, /Could not reach that URL/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 // -- Pure helper exports ----------------------------------------------------
