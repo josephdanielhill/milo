@@ -2084,19 +2084,88 @@ button:disabled {
   color: #8a6a2f;
 }
 
-.import-page .editor-tabs {
-  margin: 24px 0 0;
+.import-source-picker {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 260px 1fr;
+  margin-top: 24px;
+}
+
+.import-source-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.import-source-card {
+  align-items: flex-start;
+  background: #fff;
+  border: 1.5px solid var(--brand-line);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  text-align: left;
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.import-source-card:hover {
+  border-color: #b7c9c4;
+}
+
+.import-source-card.is-active {
+  background: #eef4f1;
+  border-color: #657d78;
+  box-shadow: 0 0 0 3px rgba(101, 125, 120, 0.12);
+}
+
+.import-source-card__icon {
+  align-items: center;
+  background: #f4f2eb;
+  border-radius: 50%;
+  color: #4f524b;
+  display: flex;
+  flex: 0 0 auto;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.import-source-card.is-active .import-source-card__icon {
+  background: #657d78;
+  color: #fff;
+}
+
+.import-source-card__text strong {
+  display: block;
+  font-size: 13.5px;
+  margin-bottom: 2px;
+}
+
+.import-source-card__text p {
+  color: #797c75;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.import-source-panel {
+  align-self: start;
+  background: #f8f7f2;
+  border: 1px solid var(--brand-line);
+  border-radius: 13px;
+  padding: 22px;
 }
 
 .import-page__primary-action {
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .import-url-row {
   align-items: center;
   display: flex;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .import-url-row input,
@@ -2634,6 +2703,22 @@ button:disabled {
     min-height: 250px;
   }
 
+  .import-source-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .import-source-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .import-source-card {
+    flex-direction: column;
+  }
+
+  .import-source-card__text p {
+    display: none;
+  }
+
   .intro-panel__steps {
     grid-template-columns: 1fr;
   }
@@ -2698,6 +2783,27 @@ button:disabled {
 
   .intro-panel {
     padding: 24px 22px 26px;
+  }
+
+  .import-source-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .import-source-card {
+    flex-direction: row;
+  }
+
+  .import-source-card__text p {
+    display: block;
+  }
+
+  .import-source-panel {
+    padding: 18px;
+  }
+
+  .import-url-row {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .search-band {

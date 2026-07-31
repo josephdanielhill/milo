@@ -1476,6 +1476,27 @@ interface ImportCandidate {
   status: "new" | "changed";
 }
 
+const importSourceOptions: Array<{ key: "folder" | "url" | "file"; icon: ReactNode; label: string; description: string }> = [
+  {
+    key: "folder",
+    icon: <FolderOpen size={18} />,
+    label: "From a folder",
+    description: "Pull resources from another folder you can pick on this device.",
+  },
+  {
+    key: "url",
+    icon: <Link2 size={18} />,
+    label: "From a URL",
+    description: "Load a bundle someone shared with you as a link.",
+  },
+  {
+    key: "file",
+    icon: <FileText size={18} />,
+    label: "From a file",
+    description: "Import a bundle file already saved on this device.",
+  },
+];
+
 function ImportPage({
   localResources,
   folderConnected,
@@ -1671,68 +1692,73 @@ function ImportPage({
                 </p>
               </div>
             </div>
-            <div className="editor-tabs">
-              <button
-                type="button"
-                className={tab === "folder" ? "is-active" : ""}
-                onClick={() => switchTab("folder")}
-              >
-                <FolderOpen size={15} /> From folder
-              </button>
-              <button type="button" className={tab === "url" ? "is-active" : ""} onClick={() => switchTab("url")}>
-                <Link2 size={15} /> From URL
-              </button>
-              <button type="button" className={tab === "file" ? "is-active" : ""} onClick={() => switchTab("file")}>
-                <FileText size={15} /> From file
-              </button>
-            </div>
-            {tab === "folder" ? (
-              <button
-                className="secondary-button import-page__primary-action"
-                disabled={picking}
-                onClick={choose}
-              >
-                <FolderOpen size={16} />
-                {picking ? "Opening…" : "Choose folder to import from"}
-              </button>
-            ) : tab === "url" ? (
-              <div className="import-url-row">
-                <input
-                  type="url"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                  placeholder="https://example.com/bundle.json"
-                />
-                <button
-                  className="secondary-button import-page__primary-action"
-                  disabled={fetching || !url.trim()}
-                  onClick={loadFromUrl}
-                >
-                  <UploadCloud size={16} />
-                  {fetching ? "Loading…" : "Load bundle"}
-                </button>
+            <div className="import-source-picker">
+              <div className="import-source-grid">
+                {importSourceOptions.map((option) => (
+                  <button
+                    key={option.key}
+                    type="button"
+                    className={`import-source-card${tab === option.key ? " is-active" : ""}`}
+                    onClick={() => switchTab(option.key)}
+                  >
+                    <span className="import-source-card__icon">{option.icon}</span>
+                    <span className="import-source-card__text">
+                      <strong>{option.label}</strong>
+                      <p>{option.description}</p>
+                    </span>
+                  </button>
+                ))}
               </div>
-            ) : (
-              <>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="application/json,.json"
-                  style={{ display: "none" }}
-                  onChange={handleFileInputChange}
-                />
-                <button
-                  type="button"
-                  className="secondary-button import-page__primary-action"
-                  disabled={reading}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <UploadCloud size={16} />
-                  {reading ? "Reading…" : "Choose bundle file to import"}
-                </button>
-              </>
-            )}
-            {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
+              <div className="import-source-panel">
+                {tab === "folder" ? (
+                  <button
+                    className="secondary-button import-page__primary-action"
+                    disabled={picking}
+                    onClick={choose}
+                  >
+                    <FolderOpen size={16} />
+                    {picking ? "Opening…" : "Choose folder to import from"}
+                  </button>
+                ) : tab === "url" ? (
+                  <div className="import-url-row">
+                    <input
+                      type="url"
+                      value={url}
+                      onChange={(event) => setUrl(event.target.value)}
+                      placeholder="https://example.com/bundle.json"
+                    />
+                    <button
+                      className="secondary-button import-page__primary-action"
+                      disabled={fetching || !url.trim()}
+                      onClick={loadFromUrl}
+                    >
+                      <UploadCloud size={16} />
+                      {fetching ? "Loading…" : "Load bundle"}
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="application/json,.json"
+                      style={{ display: "none" }}
+                      onChange={handleFileInputChange}
+                    />
+                    <button
+                      type="button"
+                      className="secondary-button import-page__primary-action"
+                      disabled={reading}
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      <UploadCloud size={16} />
+                      {reading ? "Reading…" : "Choose bundle file to import"}
+                    </button>
+                  </>
+                )}
+                {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
+              </div>
+            </div>
             {source && (
               <section className="section-block">
                 <SectionHeading
