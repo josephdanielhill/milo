@@ -1433,16 +1433,16 @@ function AboutMilo({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
-  initialSection: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription";
+  initialSection: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security";
 }) {
   const [section, setSection] = useState<
-    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription"
+    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security"
   >(initialSection);
 
   const tabConfigs: Record<
-    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription",
+    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security",
     {
-      key: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription";
+      key: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security";
       tabLabel: string;
       eyebrow: string;
       heroTitle: string;
@@ -1595,6 +1595,34 @@ function AboutMilo({
         },
       ],
     },
+    security: {
+      key: "security",
+      tabLabel: "Security",
+      eyebrow: "Safe & Secure",
+      heroTitle: "Security and data safety",
+      heroDescription:
+        "Your local files are protected by strict schema validation and XSS mitigations.",
+      introTitle: "Safe local storage and clean JSON validation",
+      introParagraph:
+        "MILO is designed with a defense-in-depth approach to keep your local data safe. Because all your resources and collection data are saved locally on your device as plain files (JSON and Markdown), MILO uses strict schema parsing, secure link checking, and sanitization to make sure everything you load and preview is secure.",
+      pillars: [
+        {
+          icon: ShieldCheck,
+          title: "Schema Validation",
+          copy: "All local JSON collections (books, articles, videos) and imported bundles are validated against strict schema rules. Unrecognized envelopes or items with missing required fields are immediately rejected.",
+        },
+        {
+          icon: Link2,
+          title: "Safe Links",
+          copy: "External link fields (toolUrl) are checked against potential security risks. MILO strictly forbids dangerous URL schemes like javascript: or data:, rendering only standard safe HTTP/HTTPS links.",
+        },
+        {
+          icon: FileText,
+          title: "XSS Protection",
+          copy: "To protect you from cross-site scripting (XSS), Markdown bodies and summaries are fully sanitized during rendering. Event handlers (like onclick) and inline script tags are stripped before they are displayed.",
+        },
+      ],
+    },
   };
 
   const activeTab = tabConfigs[section];
@@ -1621,7 +1649,7 @@ function AboutMilo({
 
       <div className="page about-page">
         <div className="segmented about-subnav" role="tablist" aria-label="About Milo sections">
-          {(["philosophy", "local-folder", "shared-folder", "loading", "subscription"] as const).map(
+          {(["philosophy", "local-folder", "shared-folder", "loading", "subscription", "security"] as const).map(
             (sec) => (
               <button
                 key={sec}
@@ -3480,7 +3508,7 @@ function filterResources(
 
 function parseRoute(path: string):
   | { kind: "home" }
-  | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" }
+  | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
@@ -3499,7 +3527,8 @@ function parseRoute(path: string):
       sec === "local-folder" ||
       sec === "shared-folder" ||
       sec === "loading" ||
-      sec === "subscription"
+      sec === "subscription" ||
+      sec === "security"
     ) {
       return { kind: "about", section: sec };
     }
