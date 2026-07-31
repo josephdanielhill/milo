@@ -498,6 +498,15 @@ button:disabled {
   padding: 28px 0 40px;
 }
 
+.hero-split-content .page-top:has(+ .import-trust-notice) {
+  padding-bottom: 0;
+}
+
+.hero-split-content .import-trust-notice {
+  margin: 20px 0 40px;
+  max-width: 850px;
+}
+
 .hero {
   align-items: flex-end;
   display: flex;

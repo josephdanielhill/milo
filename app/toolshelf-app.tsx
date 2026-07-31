@@ -1659,6 +1659,17 @@ function ImportPage({
               title="Import resources"
               description="Bring in new or changed resources from another folder, or from a bundle URL or file someone shared with you. Nothing already there is removed, and identical items are skipped automatically."
             />
+            <div className="import-trust-notice">
+              <CircleAlert size={18} aria-hidden="true" />
+              <div>
+                <strong>Only import from sources you trust</strong>
+                <p>
+                  Anything you bring in (titles, summaries, links, and prompt or skill instructions) is
+                  added to your library as-is and shown to anyone who opens this folder. Skim what you&apos;re
+                  about to import before you confirm, especially from a URL you weren&apos;t expecting.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1681,17 +1692,6 @@ function ImportPage({
                 <span>Import</span>
               </li>
             </ol>
-            <div className="import-trust-notice">
-              <CircleAlert size={18} aria-hidden="true" />
-              <div>
-                <strong>Only import from sources you trust</strong>
-                <p>
-                  Anything you bring in (titles, summaries, links, and prompt or skill instructions) is
-                  added to your library as-is and shown to anyone who opens this folder. Skim what you&apos;re
-                  about to import before you confirm, especially from a URL you weren&apos;t expecting.
-                </p>
-              </div>
-            </div>
             <div className="import-source-picker">
               <div className="import-source-grid">
                 {importSourceOptions.map((option) => (
