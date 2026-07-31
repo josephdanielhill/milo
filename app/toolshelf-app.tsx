@@ -1712,7 +1712,7 @@ function areResourcesEquivalent(a: Resource, b: Resource): boolean {
   ]);
 
   for (const key of keys) {
-    if (key === "importedFrom") continue;
+    if (key === "importedFrom" || (key as string) === "body") continue;
     const valA = a.meta[key];
     const valB = b.meta[key];
 
