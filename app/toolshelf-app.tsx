@@ -1445,8 +1445,6 @@ function AboutMilo({
       key: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security";
       tabLabel: string;
       eyebrow: string;
-      heroTitle: string;
-      heroDescription: string;
       introTitle: string;
       introParagraph: string;
       pillars: Array<{
@@ -1460,8 +1458,6 @@ function AboutMilo({
       key: "philosophy",
       tabLabel: "Philosophy",
       eyebrow: "Why Milo works this way",
-      heroTitle: "A local-first way to build and share knowledge",
-      heroDescription: "No servers, no gatekeeping. MILO lives in a folder you control.",
       introTitle: "Your knowledge lives on your machine. Full stop.",
       introParagraph:
         "MILO is a resource hub with no backend of its own. Prompts, skills, tools, and the rest of your library are plain Markdown and JSON files, saved wherever you point it, so the same folder that holds your resources also determines who can see them and how they move around.",
@@ -1487,9 +1483,6 @@ function AboutMilo({
       key: "local-folder",
       tabLabel: "Local Folder",
       eyebrow: "Local Storage",
-      heroTitle: "Own your data in a local folder",
-      heroDescription:
-        "All your files are saved locally as plain text and JSON. Your toolshelf belongs entirely to you.",
       introTitle: "Direct filesystem access",
       introParagraph:
         "MILO connects directly to a folder on your computer's local drive using the modern File System Access API. All your resources are stored as simple files you can open, edit, or back up using any standard text editor or tool.",
@@ -1515,9 +1508,6 @@ function AboutMilo({
       key: "shared-folder",
       tabLabel: "Shared Folder URL",
       eyebrow: "URL Sharing",
-      heroTitle: "Share resources with your team",
-      heroDescription:
-        "Sync automatically through a shared drive, or export bundle URLs to share across networks.",
       introTitle: "Export and import bundles",
       introParagraph:
         "While MILO doesn't use a central database, you can easily share groups of resources with other users. You can bundle your chosen resources and export them, producing a shared URL or file that others can import.",
@@ -1543,9 +1533,6 @@ function AboutMilo({
       key: "loading",
       tabLabel: "Loading",
       eyebrow: "Data Merging",
-      heroTitle: "How resources are compiled",
-      heroDescription:
-        "MILO seamlessly merges built-in library resources with your own local files at runtime.",
       introTitle: "How resources are loaded",
       introParagraph:
         "MILO combines resources from multiple layers at runtime to build your toolshelf. This approach lets you keep your personal resources separate from built-in templates.",
@@ -1571,9 +1558,6 @@ function AboutMilo({
       key: "subscription",
       tabLabel: "Subscription",
       eyebrow: "Stay in sync",
-      heroTitle: "Subscribe to bundle updates",
-      heroDescription:
-        "Follow shared bundle links to keep your toolshelf updated as new resources are published.",
       introTitle: "Follow bundle updates",
       introParagraph:
         "Subscriptions let you follow shared resource bundles over time. By subscribing to a bundle URL, you can check for updates and pull in new resources without manually re-importing.",
@@ -1599,9 +1583,6 @@ function AboutMilo({
       key: "security",
       tabLabel: "Security",
       eyebrow: "Safe & Secure",
-      heroTitle: "Security and data safety",
-      heroDescription:
-        "Your local files are protected by strict schema validation and XSS mitigations.",
       introTitle: "Safe local storage and clean JSON validation",
       introParagraph:
         "MILO is designed with a defense-in-depth approach to keep your local data safe. Because all your resources and collection data are saved locally on your device as plain files (JSON and Markdown), MILO uses strict schema parsing, secure link checking, and sanitization to make sure everything you load and preview is secure.",
@@ -1640,8 +1621,8 @@ function AboutMilo({
           <div className="hero-split-content">
             <PageTop
               eyebrow="About Milo"
-              title={activeTab.heroTitle}
-              description={activeTab.heroDescription}
+              title="About Milo"
+              description="Here's some additional information about MILO, its workings, and some insights."
             />
           </div>
         </div>
