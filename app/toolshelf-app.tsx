@@ -1433,9 +1433,171 @@ function AboutMilo({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
-  initialSection: "philosophy" | "sharing";
+  initialSection: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription";
 }) {
-  const [section, setSection] = useState<"philosophy" | "sharing">(initialSection);
+  const [section, setSection] = useState<
+    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription"
+  >(initialSection);
+
+  const tabConfigs: Record<
+    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription",
+    {
+      key: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription";
+      tabLabel: string;
+      eyebrow: string;
+      heroTitle: string;
+      heroDescription: string;
+      introTitle: string;
+      introParagraph: string;
+      pillars: Array<{
+        icon: React.ComponentType<{ size: number; "aria-hidden"?: string | boolean }>;
+        title: string;
+        copy: string;
+      }>;
+    }
+  > = {
+    philosophy: {
+      key: "philosophy",
+      tabLabel: "Philosophy",
+      eyebrow: "Why Milo works this way",
+      heroTitle: "A local-first way to build and share knowledge",
+      heroDescription: "No servers, no gatekeeping. MILO lives in a folder you control.",
+      introTitle: "Your knowledge lives on your machine. Full stop.",
+      introParagraph:
+        "MILO is a resource hub with no backend of its own. Prompts, skills, tools, and the rest of your library are plain Markdown and JSON files, saved wherever you point it, so the same folder that holds your resources also determines who can see them and how they move around.",
+      pillars: [
+        {
+          icon: HardDrive,
+          title: "Local-first",
+          copy: "Everything you save lives as a file on your own device (your folder, your rules). MILO has no server storage of its own, so there's nothing to migrate off later.",
+        },
+        {
+          icon: ShieldCheck,
+          title: "Secure sharing, no gatekeeping",
+          copy: "Share through a drive you already trust (OneDrive, Google Drive, Dropbox), or export an explicit bundle link. No central server ever holds your content, and no review step stands between you and publishing.",
+        },
+        {
+          icon: Pencil,
+          title: "Build your own collection",
+          copy: "The library that ships with MILO is a starting point, not a rulebook. Fork it, edit it, or start from a blank folder. It's yours to shape.",
+        },
+      ],
+    },
+    "local-folder": {
+      key: "local-folder",
+      tabLabel: "Local Folder",
+      eyebrow: "Local Storage",
+      heroTitle: "Own your data in a local folder",
+      heroDescription:
+        "All your files are saved locally as plain text and JSON. Your toolshelf belongs entirely to you.",
+      introTitle: "Direct filesystem access",
+      introParagraph:
+        "MILO connects directly to a folder on your computer's local drive using the modern File System Access API. All your resources are stored as simple files you can open, edit, or back up using any standard text editor or tool.",
+      pillars: [
+        {
+          icon: FolderOpen,
+          title: "Directory structure",
+          copy: "Markdown resources (prompt, skill, tool) are saved as individual files under prompts/, skills/, and tools/ subdirectories. Collection resources (like books, articles, and videos) live inside type-specific JSON files in the root folder.",
+        },
+        {
+          icon: FolderCheck,
+          title: "Auto-reconnect",
+          copy: "The folder handle is stored securely in your browser's IndexedDB. When you return, MILO automatically attempts to reconnect, asking only for your quick browser permission to re-access the files.",
+        },
+        {
+          icon: Pencil,
+          title: "External edits",
+          copy: "Since everything is a plain text file, you can edit your resources outside of MILO using VS Code, Obsidian, or notepad. Simply hit 'Refresh files' in the sidebar to sync the app's view.",
+        },
+      ],
+    },
+    "shared-folder": {
+      key: "shared-folder",
+      tabLabel: "Shared Folder URL",
+      eyebrow: "URL Sharing",
+      heroTitle: "Share resources with your team",
+      heroDescription:
+        "Sync automatically through a shared drive, or export bundle URLs to share across networks.",
+      introTitle: "Export and import bundles",
+      introParagraph:
+        "While MILO doesn't use a central database, you can easily share groups of resources with other users. You can bundle your chosen resources and export them, producing a shared URL or file that others can import.",
+      pillars: [
+        {
+          icon: Folder,
+          title: "Sharing via Shared Drive",
+          copy: "If your local folder is synced via a cloud service (like OneDrive, Google Drive, or Dropbox), sharing is automatic. Anyone else connected to that same shared folder will see updates once their drive client syncs.",
+        },
+        {
+          icon: Link2,
+          title: "Bundle Links",
+          copy: "For sharing outside a shared drive, use the 'Share resources' page. You can select items to export, and MILO generates a bundle link. Send this link to anyone to let them import your resources.",
+        },
+        {
+          icon: Download,
+          title: "Importing from URL",
+          copy: "When someone shares a bundle URL with you, go to the 'Import' page, choose 'From a URL', paste the link, and MILO will fetch and display the resources for you to review and import.",
+        },
+      ],
+    },
+    loading: {
+      key: "loading",
+      tabLabel: "Loading",
+      eyebrow: "Data Merging",
+      heroTitle: "How resources are compiled",
+      heroDescription:
+        "MILO seamlessly merges built-in library resources with your own local files at runtime.",
+      introTitle: "How resources are loaded",
+      introParagraph:
+        "MILO combines resources from multiple layers at runtime to build your toolshelf. This approach lets you keep your personal resources separate from built-in templates.",
+      pillars: [
+        {
+          icon: Library,
+          title: "Three Sources",
+          copy: "MILO merges three types of content: example resources (built-in templates), published resources (the common library compiled into the application), and local resources (your personal connected folder).",
+        },
+        {
+          icon: BookOpen,
+          title: "Merge & Precedence",
+          copy: "If a local resource has the same identifier (type and slug) as a published or example resource, the local version takes precedence. You can customize any built-in resource by saving an edited version to your local folder.",
+        },
+        {
+          icon: RefreshCw,
+          title: "Fast Scanning",
+          copy: "At startup, MILO scans your connected folder. Click 'Refresh files' to reload the folder from your drive, update subscriptions, and clear any cached content.",
+        },
+      ],
+    },
+    subscription: {
+      key: "subscription",
+      tabLabel: "Subscription",
+      eyebrow: "Stay in sync",
+      heroTitle: "Subscribe to bundle updates",
+      heroDescription:
+        "Follow shared bundle links to keep your toolshelf updated as new resources are published.",
+      introTitle: "Follow bundle updates",
+      introParagraph:
+        "Subscriptions let you follow shared resource bundles over time. By subscribing to a bundle URL, you can check for updates and pull in new resources without manually re-importing.",
+      pillars: [
+        {
+          icon: Link2,
+          title: "Save Bundle URLs",
+          copy: "If there is a bundle URL you import from regularly, you can save it as a subscription. Go to the 'Import' page under the 'Subscriptions' tab to manage your followed URLs.",
+        },
+        {
+          icon: RefreshCw,
+          title: "Periodic Checks",
+          copy: "Whenever you click 'Refresh files', MILO automatically checks all subscribed URLs in the background to see if the authors have added or updated any resources.",
+        },
+        {
+          icon: Check,
+          title: "Review First",
+          copy: "Nothing is imported automatically. If MILO finds updates, it flags them for review, letting you choose exactly which resources to import or ignore.",
+        },
+      ],
+    },
+  };
+
+  const activeTab = tabConfigs[section];
 
   return (
     <>
@@ -1450,27 +1612,8 @@ function AboutMilo({
           <div className="hero-split-content">
             <PageTop
               eyebrow="About Milo"
-              title={
-                section === "philosophy"
-                  ? "A local-first way to build and share knowledge"
-                  : "Add a resource to your shelf"
-              }
-              description={
-                section === "philosophy"
-                  ? "No servers, no gatekeeping. MILO lives in a folder you control."
-                  : "Connect a folder (your own, or a shared drive everyone already uses) and start adding resources directly. No review step, no pull request."
-              }
-              action={
-                section === "sharing" ? (
-                  <CreateAction
-                    label="Create a resource"
-                    folderName={folderName}
-                    folderStatus={folderStatus}
-                    connectFolder={connectFolder}
-                    onCreate={() => navigate("/create")}
-                  />
-                ) : undefined
-              }
+              title={activeTab.heroTitle}
+              description={activeTab.heroDescription}
             />
           </div>
         </div>
@@ -1478,167 +1621,64 @@ function AboutMilo({
 
       <div className="page about-page">
         <div className="segmented about-subnav" role="tablist" aria-label="About Milo sections">
-          <button
-            role="tab"
-            aria-selected={section === "philosophy"}
-            className={section === "philosophy" ? "is-active" : ""}
-            onClick={() => setSection("philosophy")}
-          >
-            Philosophy
-          </button>
-          <button
-            role="tab"
-            aria-selected={section === "sharing"}
-            className={section === "sharing" ? "is-active" : ""}
-            onClick={() => setSection("sharing")}
-          >
-            How resources work &amp; sharing
-          </button>
+          {(["philosophy", "local-folder", "shared-folder", "loading", "subscription"] as const).map(
+            (sec) => (
+              <button
+                key={sec}
+                role="tab"
+                aria-selected={section === sec}
+                className={section === sec ? "is-active" : ""}
+                onClick={() => setSection(sec)}
+              >
+                {tabConfigs[sec].tabLabel}
+              </button>
+            ),
+          )}
         </div>
-        {section === "philosophy" ? <AboutPhilosophy /> : <AboutSharing />}
+        <AboutTabContent
+          eyebrow={activeTab.eyebrow}
+          introTitle={activeTab.introTitle}
+          introParagraph={activeTab.introParagraph}
+          pillars={activeTab.pillars}
+        />
       </div>
     </>
   );
 }
 
-function AboutPhilosophy() {
-  const pillars = [
-    {
-      icon: HardDrive,
-      title: "Local-first",
-      copy: "Everything you save lives as a file on your own device (your folder, your rules). MILO has no server storage of its own, so there's nothing to migrate off later.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Secure sharing, no gatekeeping",
-      copy: "Share through a drive you already trust (OneDrive, Google Drive, Dropbox), or export an explicit bundle link. No central server ever holds your content, and no review step stands between you and publishing.",
-    },
-    {
-      icon: Pencil,
-      title: "Build your own collection",
-      copy: "The library that ships with MILO is a starting point, not a rulebook. Fork it, edit it, or start from a blank folder. It's yours to shape.",
-    },
-  ];
-
+function AboutTabContent({
+  eyebrow,
+  introTitle,
+  introParagraph,
+  pillars,
+}: {
+  eyebrow: string;
+  introTitle: string;
+  introParagraph: string;
+  pillars: Array<{
+    icon: React.ComponentType<{ size: number; "aria-hidden"?: string | boolean }>;
+    title: string;
+    copy: string;
+  }>;
+}) {
   return (
     <>
       <section className="philosophy-intro">
-        <span className="eyebrow">Why Milo works this way</span>
-        <h2>Your knowledge lives on your machine. Full stop.</h2>
-        <p>
-          MILO is a resource hub with no backend of its own. Prompts, skills, tools, and
-          the rest of your library are plain Markdown and JSON files, saved wherever you
-          point it, so the same folder that holds your resources also determines who can
-          see them and how they move around.
-        </p>
+        <span className="eyebrow">{eyebrow}</span>
+        <h2>{introTitle}</h2>
+        <p>{introParagraph}</p>
       </section>
       <div className="philosophy-pillars">
         {pillars.map(({ icon: Icon, title, copy }) => (
           <article className="philosophy-pillar" key={title}>
-            <div className="philosophy-pillar__icon"><Icon size={22} aria-hidden="true" /></div>
+            <div className="philosophy-pillar__icon">
+              <Icon size={22} aria-hidden="true" />
+            </div>
             <h3>{title}</h3>
             <p>{copy}</p>
           </article>
         ))}
       </div>
-    </>
-  );
-}
-
-function AboutSharing() {
-  const steps = [
-    {
-      number: "01",
-      icon: FolderOpen,
-      title: "Connect a folder",
-      copy: "Choose Connect folder and select any folder on your machine, including one kept in sync by OneDrive, Google Drive, Dropbox, or similar.",
-      note: "MILO reads and writes resource files there directly. No special integration needed.",
-    },
-    {
-      number: "02",
-      icon: FileText,
-      title: "Create or edit a resource",
-      copy: "Choose Create new, select the resource type, add the details and recommendation, preview it, then save.",
-      note: "Prompts, skills, and tools save as .md files. Other resources update their dedicated JSON collection.",
-    },
-    {
-      number: "03",
-      icon: RefreshCw,
-      title: "It's shared automatically",
-      copy: "If your folder lives on a shared drive, anyone else connected to it sees the new resource as soon as their drive client syncs.",
-      note: "No review step, no merge: just Refresh files in MILO to pick up changes from others.",
-    },
-    {
-      number: "04",
-      icon: Link2,
-      title: "Sharing outside your shared drive?",
-      copy: "Use Share resources to export selected items as a bundle link. The recipient opens Import → From URL and picks what to bring in.",
-      note: "Handy for one-off shares or teams that don't use the same shared drive.",
-    },
-  ];
-
-  return (
-    <>
-      <section className="guide-intro">
-        <div className="guide-intro__number">4</div>
-        <div>
-          <span className="eyebrow">Before you begin</span>
-          <h2>One folder, no gatekeeping.</h2>
-          <p>
-            Point MILO at a folder on your machine (your own, or one kept in sync by a
-            shared drive) and start adding resources straight away.
-          </p>
-        </div>
-        <div className="guide-apps" aria-label="Applications used">
-          <span><BookOpen size={18} /> MILO</span>
-          <ChevronRight size={16} aria-hidden="true" />
-          <span><Folder size={18} /> Your folder</span>
-        </div>
-      </section>
-
-      <section className="guide-steps" aria-labelledby="guide-steps-title">
-        <div className="guide-section-heading">
-          <span className="eyebrow">Step by step</span>
-          <h2 id="guide-steps-title">Add a new resource</h2>
-        </div>
-        <div className="guide-step-list">
-          {steps.map(({ number, icon: Icon, title, copy, note }) => (
-            <article className="guide-step" key={number}>
-              <div className="guide-step__number">{number}</div>
-              <div className="guide-step__icon"><Icon size={22} aria-hidden="true" /></div>
-              <div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <small><Check size={13} aria-hidden="true" /> {note}</small>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="guide-checklist">
-        <div>
-          <span className="eyebrow">Before you save</span>
-          <h2>A quick quality check</h2>
-        </div>
-        <ul>
-          <li><Check size={16} /> The title clearly says what the resource does.</li>
-          <li><Check size={16} /> The summary explains when someone should use it.</li>
-          <li><Check size={16} /> No customer data or confidential information is included.</li>
-          <li><Check size={16} /> The preview is easy to scan and the filename is meaningful.</li>
-        </ul>
-      </section>
-
-      <section className="guide-help">
-        <CircleHelp size={24} />
-        <div>
-          <h2>Something not showing up?</h2>
-          <p>
-            If you&apos;re using a shared drive, make sure it has finished syncing on your
-            machine. Then use Refresh files in MILO to pick up changes made by others.
-          </p>
-        </div>
-      </section>
     </>
   );
 }
@@ -3440,7 +3480,7 @@ function filterResources(
 
 function parseRoute(path: string):
   | { kind: "home" }
-  | { kind: "about"; section: "philosophy" | "sharing" }
+  | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
@@ -3454,9 +3494,18 @@ function parseRoute(path: string):
   if (cleanPath === "/") return { kind: "home" };
   if (cleanPath === "/about") {
     const params = new URLSearchParams(queryString);
-    return { kind: "about", section: params.get("section") === "sharing" ? "sharing" : "philosophy" };
+    const sec = params.get("section");
+    if (
+      sec === "local-folder" ||
+      sec === "shared-folder" ||
+      sec === "loading" ||
+      sec === "subscription"
+    ) {
+      return { kind: "about", section: sec };
+    }
+    return { kind: "about", section: "philosophy" };
   }
-  if (cleanPath === "/guide") return { kind: "about", section: "sharing" };
+  if (cleanPath === "/guide") return { kind: "about", section: "local-folder" };
   if (cleanPath === "/import") {
     const params = new URLSearchParams(queryString);
     return { kind: "import", focusSubscriptions: params.get("tab") === "subscriptions" };
