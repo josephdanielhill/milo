@@ -1070,6 +1070,18 @@ function FolderStatusDot({ status }: { status: string }) {
   );
 }
 
+function UnsupportedBrowserNotice() {
+  return (
+    <div className="folder-unsupported-notice">
+      <CircleAlert size={18} aria-hidden="true" />
+      <div>
+        <strong>Chromium browser required</strong>
+        <p>This is only compatible with Chromium browsers such as Chrome, Edge, etc.</p>
+      </div>
+    </div>
+  );
+}
+
 function CreateAction({
   label,
   folderName,
@@ -1095,7 +1107,7 @@ function CreateAction({
     );
   }
   if (folderStatus === "unsupported") {
-    return <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>;
+    return <UnsupportedBrowserNotice />;
   }
   return (
     <button className={buttonClass} onClick={() => connectFolder(folderStatus === "permission")}>
@@ -1119,7 +1131,7 @@ function ConnectFolderPrompt({
       <h1>Connect a local folder to create resources</h1>
       <p>MILO saves new resources straight into a folder on your machine. Connect one to continue.</p>
       {folderStatus === "unsupported" ? (
-        <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>
+        <UnsupportedBrowserNotice />
       ) : (
         <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
           <FolderOpen size={17} />
@@ -1237,11 +1249,16 @@ function Dashboard({
                       connectFolder={connectFolder}
                       onCreate={() => navigate("/create")}
                     />
-                    <button className="secondary-button" onClick={() => navigate("/import")}>
-                      <UploadCloud size={17} />
-                      Import resource
-                    </button>
-                    <button className="secondary-button" onClick={() => navigate("/library")}>
+                    {folderStatus !== "unsupported" && (
+                      <button className="secondary-button" onClick={() => navigate("/import")}>
+                        <UploadCloud size={17} />
+                        Import resource
+                      </button>
+                    )}
+                    <button
+                      className={folderStatus === "unsupported" ? "primary-button" : "secondary-button"}
+                      onClick={() => navigate("/library")}
+                    >
                       Browse the library
                       <ChevronRight size={17} />
                     </button>
@@ -1277,7 +1294,7 @@ function Dashboard({
               onToggleFavourite={onToggleFavourite}
             />
           </section>
-        ) : folderName ? (
+        ) : (folderName || folderStatus === "unsupported") ? (
           <>
             <section className="section-block">
               <SectionHeading
@@ -2719,7 +2736,7 @@ function FavouritesPage({
           <h2>Connect a folder to use favourites</h2>
           <p>Favourites are saved as a small file inside your connected folder, so connect one to start starring resources.</p>
           {folderStatus === "unsupported" ? (
-            <p className="folder-required-notice">Folder access requires desktop Chrome or Edge.</p>
+            <UnsupportedBrowserNotice />
           ) : (
             <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
               <FolderOpen size={17} />

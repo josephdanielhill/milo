@@ -3196,3 +3196,39 @@ button:disabled {
   margin-left: 8px;
 }
 
+/* Browser support compatibility callout styling */
+.folder-unsupported-notice {
+  align-items: flex-start;
+  background: #fbf0d5; /* Match import-trust-notice styling */
+  border: 1px solid #e6d39e;
+  border-radius: 11px;
+  color: #5d512f;
+  display: flex;
+  gap: 11px;
+  margin-top: 18px;
+  padding: 14px 18px;
+  text-align: left;
+  flex: 1 1 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.folder-unsupported-notice svg {
+  flex: 0 0 auto;
+  color: #c27829;
+  margin-top: 2px;
+}
+
+.folder-unsupported-notice strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.folder-unsupported-notice p {
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+  color: #6d5f45;
+}
+
