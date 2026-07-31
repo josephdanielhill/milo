@@ -1700,6 +1700,38 @@ interface ImportCandidate {
 }
 
 /**
+ * Compares two resources for equivalence, ignoring metadata fields that are purely local
+ * or tracking-related (like `importedFrom`).
+ */
+function areResourcesEquivalent(a: Resource, b: Resource): boolean {
+  if (a.body.trim() !== b.body.trim()) return false;
+
+  const keys = new Set<keyof ResourceMeta>([
+    ...(Object.keys(a.meta) as Array<keyof ResourceMeta>),
+    ...(Object.keys(b.meta) as Array<keyof ResourceMeta>),
+  ]);
+
+  for (const key of keys) {
+    if (key === "importedFrom") continue;
+    const valA = a.meta[key];
+    const valB = b.meta[key];
+
+    if (Array.isArray(valA) && Array.isArray(valB)) {
+      if (valA.length !== valB.length) return false;
+      for (let i = 0; i < valA.length; i++) {
+        if (valA[i] !== valB[i]) return false;
+      }
+    } else {
+      const normA = valA === undefined || valA === null ? "" : valA;
+      const normB = valB === undefined || valB === null ? "" : valB;
+      if (normA !== normB) return false;
+    }
+  }
+
+  return true;
+}
+
+/**
  * Diffs a fetched/read set of resources against the local library by `type:slug`, classifying
  * each as new or changed and dropping anything byte-identical to what's already there. Shared
  * by the folder/url/file Import tabs and the subscriptions "Check now" flow, so every source
@@ -1712,7 +1744,7 @@ function buildImportCandidates(resources: Resource[], localByKey: Map<string, Re
       const existing = localByKey.get(key) || null;
       return { key, resource, existing, status: existing ? "changed" : "new" } as ImportCandidate;
     })
-    .filter((candidate) => !candidate.existing || candidate.existing.raw !== candidate.resource.raw);
+    .filter((candidate) => !candidate.existing || !areResourcesEquivalent(candidate.existing, candidate.resource));
 }
 
 const importSourceOptions: Array<{
