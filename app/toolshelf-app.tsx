@@ -20,6 +20,7 @@ import {
   HardDrive,
   Home,
   Headphones,
+  Info,
   Library,
   Link2,
   Menu,
@@ -284,6 +285,8 @@ export default function ToolshelfApp({
     subs: number;
     failed: number;
   } | null>(null);
+  const [pendingReviewSources, setPendingReviewSources] = useState<ImportSource[]>([]);
+  const [subscriptionReviewModalOpen, setSubscriptionReviewModalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -351,13 +354,24 @@ export default function ToolshelfApp({
 
       let newOrChanged = 0;
       let failed = 0;
+      const pendingSources: ImportSource[] = [];
       for (const { result } of checks) {
-        if (result.ok) newOrChanged += buildImportCandidates(result.source.resources, localByKey).length;
-        else failed += 1;
+        if (result.ok) {
+          const candidatesCount = buildImportCandidates(result.source.resources, localByKey).length;
+          if (candidatesCount > 0) {
+            newOrChanged += candidatesCount;
+            pendingSources.push(result.source);
+          }
+        } else {
+          failed += 1;
+        }
       }
+
+      setPendingReviewSources(pendingSources);
 
       if (newOrChanged > 0) {
         setSubscriptionUpdates({ newOrChanged, subs: subscriptions.length, failed });
+        setSubscriptionReviewModalOpen(true);
       } else {
         notify(
           failed > 0
@@ -634,12 +648,13 @@ export default function ToolshelfApp({
         // Remounts (resetting local tab/state) when the deep-link target changes, e.g. clicking
         // the Refresh-files banner's "Review" action while already viewing /import on another tab —
         // simpler than syncing local state to a prop change via an effect.
-        key={route.focusSubscriptions ? "subscriptions" : "default"}
+        key={route.focusSubscriptions ? `subscriptions-${pendingReviewSources.length}` : "default"}
         localResources={localResources}
         folderConnected={Boolean(folderName)}
         notify={notify}
         refresh={refreshResources}
         focusSubscriptions={route.focusSubscriptions}
+        pendingReviewSources={pendingReviewSources}
       />
     );
   } else if (route.kind === "share") {
@@ -805,7 +820,10 @@ export default function ToolshelfApp({
                 type="button"
                 className="icon-button"
                 aria-label="Dismiss"
-                onClick={() => setSubscriptionUpdates(null)}
+                onClick={() => {
+                  setSubscriptionUpdates(null);
+                  setPendingReviewSources([]);
+                }}
               >
                 <X size={16} />
               </button>
@@ -837,6 +855,16 @@ export default function ToolshelfApp({
           navigate={navigate}
           onClose={closeCommandPalette}
           inputRef={paletteInputRef}
+        />
+      )}
+      {subscriptionReviewModalOpen && subscriptionUpdates && (
+        <SubscriptionReviewModal
+          newOrChanged={subscriptionUpdates.newOrChanged}
+          onClose={() => setSubscriptionReviewModalOpen(false)}
+          onNext={() => {
+            navigate("/import?tab=subscriptions");
+            setSubscriptionReviewModalOpen(false);
+          }}
         />
       )}
     </div>
@@ -1299,6 +1327,73 @@ function Dashboard({
         )}
       </div>
     </>
+  );
+}
+
+function SubscriptionReviewModal({
+  newOrChanged,
+  onClose,
+  onNext,
+}: {
+  newOrChanged: number;
+  onClose: () => void;
+  onNext: () => void;
+}) {
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  return (
+    <div className="subscription-review-modal">
+      <button
+        type="button"
+        className="subscription-review-modal-backdrop"
+        aria-label="Close review modal"
+        onClick={onClose}
+      />
+      <div className="subscription-review-modal-panel" role="dialog" aria-modal="true" aria-label="Subscription updates available">
+        <div className="subscription-review-modal-header">
+          <div className="subscription-review-modal-icon-container">
+            <Info size={22} />
+          </div>
+          <div className="subscription-review-modal-header-content">
+            <h2>Subscription updates</h2>
+            <p>Hey, there are some resources to review.</p>
+          </div>
+          <button
+            type="button"
+            className="subscription-review-modal-close"
+            aria-label="Close"
+            onClick={onClose}
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className="subscription-review-modal-body">
+          We found <strong>{newOrChanged}</strong> new or updated {newOrChanged === 1 ? "resource" : "resources"} available from your subscriptions.
+        </div>
+        <div className="subscription-review-modal-footer">
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={onNext}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1792,17 +1887,23 @@ function ImportPage({
   notify,
   refresh,
   focusSubscriptions,
+  pendingReviewSources,
 }: {
   localResources: Resource[];
   folderConnected: boolean;
   notify: (message: string) => void;
   refresh: () => Promise<void>;
   focusSubscriptions?: boolean;
+  pendingReviewSources?: ImportSource[];
 }) {
   const [tab, setTab] = useState<"folder" | "url" | "file" | "subscriptions">(() =>
-    focusSubscriptions ? "subscriptions" : "folder",
+    (pendingReviewSources && pendingReviewSources.length > 0) || focusSubscriptions
+      ? "subscriptions"
+      : "folder",
   );
-  const [source, setSource] = useState<ImportSource | null>(null);
+  const [source, setSource] = useState<ImportSource | null>(() =>
+    pendingReviewSources && pendingReviewSources.length > 0 ? pendingReviewSources[0] : null,
+  );
   const [picking, setPicking] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [reading, setReading] = useState(false);
@@ -2142,40 +2243,65 @@ function ImportPage({
                   </p>
                 ) : (
                   <ul className="import-subscription-list">
-                    {subscriptions.map((subscription) => (
-                      <li key={subscription.url}>
-                        <div className="import-subscription-body">
-                          <strong>{subscription.name}</strong>
-                          <p className="import-subscription-url">{subscription.url}</p>
-                          <p className="import-subscription-meta">
-                            {subscription.lastCheckedAt
-                              ? `Last checked ${formatDate(subscription.lastCheckedAt.slice(0, 10))}${
-                                  subscription.lastCheckedOk === false ? " — couldn't be reached" : ""
-                                }`
-                              : "Never checked"}
-                          </p>
-                        </div>
-                        <div className="import-subscription-actions">
-                          <button
-                            type="button"
-                            className="secondary-button"
-                            disabled={checkingUrl === subscription.url}
-                            onClick={() => checkSubscriptionNow(subscription)}
-                          >
-                            <RefreshCw size={14} />
-                            {checkingUrl === subscription.url ? "Checking…" : "Check now"}
-                          </button>
-                          <button
-                            type="button"
-                            className="icon-button"
-                            aria-label={`Remove subscription to ${subscription.name}`}
-                            onClick={() => unsubscribe(subscription)}
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </li>
-                    ))}
+                    {subscriptions.map((subscription) => {
+                      const preloaded = pendingReviewSources?.find((s) => s.url === subscription.url);
+                      const preloadedUpdateCount = preloaded
+                        ? buildImportCandidates(preloaded.resources, localByKey).length
+                        : 0;
+
+                      return (
+                        <li key={subscription.url}>
+                          <div className="import-subscription-body">
+                            <strong>
+                              {subscription.name}
+                              {preloadedUpdateCount > 0 && (
+                                <span className="subscription-update-badge">
+                                  {preloadedUpdateCount} update{preloadedUpdateCount === 1 ? "" : "s"}
+                                </span>
+                              )}
+                            </strong>
+                            <p className="import-subscription-url">{subscription.url}</p>
+                            <p className="import-subscription-meta">
+                              {subscription.lastCheckedAt
+                                ? `Last checked ${formatDate(subscription.lastCheckedAt.slice(0, 10))}${
+                                    subscription.lastCheckedOk === false ? " — couldn't be reached" : ""
+                                  }`
+                                : "Never checked"}
+                            </p>
+                          </div>
+                          <div className="import-subscription-actions">
+                            <button
+                              type="button"
+                              className={preloadedUpdateCount > 0 ? "primary-button" : "secondary-button"}
+                              disabled={checkingUrl === subscription.url}
+                              onClick={() => {
+                                if (preloaded) {
+                                  setSource(preloaded);
+                                  setDeselected(new Set());
+                                } else {
+                                  checkSubscriptionNow(subscription);
+                                }
+                              }}
+                            >
+                              {preloadedUpdateCount > 0 ? <Check size={14} /> : <RefreshCw size={14} />}
+                              {checkingUrl === subscription.url
+                                ? "Checking…"
+                                : preloadedUpdateCount > 0
+                                ? "Review"
+                                : "Check now"}
+                            </button>
+                            <button
+                              type="button"
+                              className="icon-button"
+                              aria-label={`Remove subscription to ${subscription.name}`}
+                              onClick={() => unsubscribe(subscription)}
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
                 {error && <p className="import-page__notice import-page__notice--error">{error}</p>}

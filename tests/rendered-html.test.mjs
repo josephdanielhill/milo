@@ -85,6 +85,8 @@ test("keeps corporate branding fixed and local storage provider isolated", async
   assert.match(css, /\.corporate-rail\s*\{[\s\S]*position:\s*fixed/);
   assert.match(css, /@media \(max-width:\s*900px\)/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /\.subscription-review-modal/);
+  assert.match(app, /SubscriptionReviewModal/);
 
   assert.match(storage, /class LocalFolderStorage implements StorageProvider/);
   assert.match(storage, /showDirectoryPicker/);

@@ -44,6 +44,10 @@ body:has(.command-palette) {
   overflow: hidden;
 }
 
+body:has(.subscription-review-modal) {
+  overflow: hidden;
+}
+
 button,
 input,
 textarea,
@@ -3065,3 +3069,130 @@ button:disabled {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Subscription Review Modal Styles */
+.subscription-review-modal {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 300;
+  padding: 16px;
+}
+
+.subscription-review-modal-backdrop {
+  background: rgba(25, 29, 27, 0.45);
+  backdrop-filter: blur(6px);
+  border: 0;
+  cursor: default;
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.subscription-review-modal-panel {
+  background: #fff;
+  border: 1px solid var(--brand-line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  width: min(440px, 92vw);
+  z-index: 1;
+  padding: 24px;
+  gap: 16px;
+}
+
+.subscription-review-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.subscription-review-modal-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand-mint);
+  color: #116844;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.subscription-review-modal-header-content {
+  flex-grow: 1;
+}
+
+.subscription-review-modal-header-content h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--brand-ink);
+}
+
+.subscription-review-modal-header-content p {
+  font-size: 13px;
+  color: #666;
+  margin: 4px 0 0 0;
+}
+
+.subscription-review-modal-close {
+  color: #666;
+  padding: 4px;
+  margin-top: -4px;
+  margin-right: -4px;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscription-review-modal-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.subscription-review-modal-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--brand-ink);
+}
+
+.subscription-review-modal-body strong {
+  color: var(--brand-ink);
+}
+
+.subscription-review-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--brand-line);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+.subscription-review-modal-footer .secondary-button,
+.subscription-review-modal-footer .primary-button {
+  min-height: 36px;
+  font-size: 14px;
+}
+
+/* Subscription updates badge styling */
+.subscription-update-badge {
+  background: var(--brand-lime);
+  color: var(--brand-ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-left: 8px;
+}
+
