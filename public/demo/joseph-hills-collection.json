@@ -1,7 +1,22 @@
 {
-  "name": "Joseph Hill's Collection",
   "version": 1,
+  "name": "Joseph Hill's Collection",
   "items": [
+    {
+      "title": "Time Reflection for Miro",
+      "slug": "time-reflection-for-miro",
+      "type": "tool",
+      "summary": "Exercise to get a high flight level view on your day to day to help you get visibility to make decisions",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Time Management"
+      ],
+      "createdAt": "2026-07-31",
+      "updatedAt": "2026-07-31",
+      "toolUrl": "https://miro.com/miroverse/time-reflection-template/?social=copy-link",
+      "body": "## What it helps with\n\nThis interactive Miro template guides you through categorising your time into meaningful segments - whether it's deep work, meetings, personal care, family time, or other activities that matter to you. The visual nature of plotting these categories across a 24-hour period makes it immediately apparent how you're investing your time. Unlike traditional time tracking tools, this template creates an immediate visceral impact - you can literally see how your day fills up, making it impossible to ignore imbalances or overcrowding.\n\n## Suggested workflow\n\n1. Open the tool.\n2. Follow the instructions"
+    },
     {
       "title": "Job Reflection",
       "slug": "job-reflection",
