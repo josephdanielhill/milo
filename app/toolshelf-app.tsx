@@ -1476,24 +1476,33 @@ interface ImportCandidate {
   status: "new" | "changed";
 }
 
-const importSourceOptions: Array<{ key: "folder" | "url" | "file"; icon: ReactNode; label: string; description: string }> = [
+const importSourceOptions: Array<{
+  key: "folder" | "url" | "file";
+  icon: ReactNode;
+  label: string;
+  description: string;
+  actionTitle: string;
+}> = [
   {
     key: "folder",
     icon: <FolderOpen size={18} />,
     label: "From a folder",
     description: "Pull resources from another folder you can pick on this device.",
+    actionTitle: "Choose a folder to import from",
   },
   {
     key: "url",
     icon: <Link2 size={18} />,
     label: "From a URL",
     description: "Load a bundle someone shared with you as a link.",
+    actionTitle: "Load a bundle from a link",
   },
   {
     key: "file",
     icon: <FileText size={18} />,
     label: "From a file",
     description: "Import a bundle file already saved on this device.",
+    actionTitle: "Choose a bundle file to import",
   },
 ];
 
@@ -1517,6 +1526,7 @@ function ImportPage({
   const [error, setError] = useState("");
   const [url, setUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const actionSectionRef = useRef<HTMLElement>(null);
   // Candidates are selected by default; this tracks explicit opt-outs instead of mirroring
   // `candidates` in state, so there's no need to sync selection via an effect.
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
@@ -1542,6 +1552,7 @@ function ImportPage({
   const newCount = candidates.filter((candidate) => candidate.status === "new").length;
   const changedCount = candidates.length - newCount;
   const currentStep = !source ? 1 : importing ? 3 : 2;
+  const activeOption = importSourceOptions.find((option) => option.key === tab) ?? importSourceOptions[0];
 
   function switchTab(next: "folder" | "url" | "file") {
     if (next === tab) return;
@@ -1550,6 +1561,8 @@ function ImportPage({
     setError("");
     setDeselected(new Set());
     setUrl("");
+    actionSectionRef.current?.focus({ preventScroll: true });
+    actionSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   async function choose() {
@@ -1692,7 +1705,12 @@ function ImportPage({
                 <span>Import</span>
               </li>
             </ol>
-            <div className="import-source-picker">
+            <section className="section-block">
+              <SectionHeading
+                eyebrow="Choose a source"
+                title="Select your source location"
+                aside="Folder, URL, or file — pick where you're bringing resources in from."
+              />
               <div className="import-source-grid">
                 {importSourceOptions.map((option) => (
                   <button
@@ -1709,6 +1727,14 @@ function ImportPage({
                   </button>
                 ))}
               </div>
+            </section>
+            <section
+              className="section-block import-source-action"
+              ref={actionSectionRef}
+              tabIndex={-1}
+              aria-label={activeOption.actionTitle}
+            >
+              <SectionHeading eyebrow={activeOption.label} title={activeOption.actionTitle} />
               <div className="import-source-panel">
                 {tab === "folder" ? (
                   <button
@@ -1758,7 +1784,7 @@ function ImportPage({
                 )}
                 {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
               </div>
-            </div>
+            </section>
             {source && (
               <section className="section-block">
                 <SectionHeading
