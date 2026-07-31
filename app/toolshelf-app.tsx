@@ -1510,7 +1510,7 @@ function AboutMilo({
       eyebrow: "URL Sharing",
       introTitle: "Export and import bundles",
       introParagraph:
-        "While MILO doesn't use a central database, you can easily share groups of resources with other users. You can bundle your chosen resources and export them, producing a shared URL or file that others can import.",
+        "While MILO doesn't use a central database, you can easily share groups of resources with other users. You can bundle your chosen resources and export them, producing a shared JSON file that others can import directly or host online to share via URL.",
       pillars: [
         {
           icon: Folder,
@@ -1519,13 +1519,13 @@ function AboutMilo({
         },
         {
           icon: Link2,
-          title: "Bundle Links",
-          copy: "For sharing outside a shared drive, use the 'Share resources' page. You can select items to export, and MILO generates a bundle link. Send this link to anyone to let them import your resources.",
+          title: "Bundle Files",
+          copy: "For sharing outside a shared drive, use the 'Share resources' page. You can select items to export, and MILO generates a downloaded bundle JSON file. You can send this file to anyone directly, or host it somewhere to share it as a link.",
         },
         {
           icon: Download,
-          title: "Importing from URL",
-          copy: "When someone shares a bundle URL with you, go to the 'Import' page, choose 'From a URL', paste the link, and MILO will fetch and display the resources for you to review and import.",
+          title: "Importing Files or URLs",
+          copy: "Recipients can go to the 'Import' page, choose 'From a file' to upload the JSON bundle directly, or choose 'From a URL' and paste the hosted link to load the resources.",
         },
       ],
     },
