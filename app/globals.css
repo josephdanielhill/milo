@@ -2351,10 +2351,6 @@ button:disabled {
   margin: 14px 0 0;
 }
 
-.import-subscriptions {
-  margin-top: 28px;
-}
-
 .import-subscription-list {
   display: grid;
   gap: 12px;
