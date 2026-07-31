@@ -288,6 +288,7 @@ export default function ToolshelfApp({
   const [pendingReviewSources, setPendingReviewSources] = useState<ImportSource[]>([]);
   const [subscriptionReviewModalOpen, setSubscriptionReviewModalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [isReconnecting, setIsReconnecting] = useState(true);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const paletteInputRef = useRef<HTMLInputElement>(null);
@@ -504,7 +505,10 @@ export default function ToolshelfApp({
     const onPop = () => setPath(pathFromLocation(basePath));
     window.addEventListener("popstate", onPop);
     if (!supportsLocalFolders()) {
-      queueMicrotask(() => setFolderStatus("unsupported"));
+      queueMicrotask(() => {
+        setFolderStatus("unsupported");
+        setIsReconnecting(false);
+      });
       return () => window.removeEventListener("popstate", onPop);
     }
     storage
@@ -521,9 +525,27 @@ export default function ToolshelfApp({
           setFolderMessage("Reconnect your folder to continue editing.");
         }
       })
-      .catch(() => setFolderStatus("idle"));
+      .catch(() => setFolderStatus("idle"))
+      .finally(() => {
+        setIsReconnecting(false);
+      });
     return () => window.removeEventListener("popstate", onPop);
   }, [basePath]);
+
+  useEffect(() => {
+    if (isReconnecting) return;
+    if (!folderName) {
+      const cleanPath = path.split("?")[0].replace(/\/+$/, "") || "/";
+      const isAllowedWithoutConnection =
+        cleanPath === "/" ||
+        cleanPath === "/about" ||
+        cleanPath === "/guide";
+
+      if (!isAllowedWithoutConnection) {
+        navigate("/");
+      }
+    }
+  }, [isReconnecting, folderName, path, navigate]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -583,6 +605,7 @@ export default function ToolshelfApp({
     setFavourites(new Set());
     window.localStorage.removeItem(HAS_CONNECTED_KEY);
     notify("Folder disconnected");
+    navigate("/");
   }
 
   const route = parseRoute(path);
