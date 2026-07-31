@@ -1,4 +1,4 @@
-import type { Resource, ResourceDraft, ResourceType, StorageProvider } from "../types";
+import type { Resource, ResourceDraft, ResourceType, StorageProvider, Subscription } from "../types";
 import { parseResource, serializeResource, validateResource } from "./markdown.ts";
 
 const DB_NAME = "pm-toolshelf";
@@ -7,6 +7,7 @@ const HANDLE_KEY = "local-library";
 
 const FAVOURITES_ROOT_DIR = ".milo";
 const FAVOURITES_SUBDIR = "favourites";
+const SUBSCRIPTIONS_FILE = "subscriptions.json";
 
 type PermissionMode = "read" | "readwrite";
 type FileSystemPermissionDescriptor = { mode?: PermissionMode };
@@ -135,6 +136,16 @@ function parseItemsEnvelope(raw: string, label: string): { name?: string; items:
       ? (value as { name: string }).name
       : undefined;
   return { name, items };
+}
+
+function isSubscription(item: unknown): item is Subscription {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    typeof (item as Subscription).url === "string" &&
+    typeof (item as Subscription).name === "string" &&
+    typeof (item as Subscription).addedAt === "string"
+  );
 }
 
 export function parseCollectionItems(
@@ -267,6 +278,23 @@ export async function fetchImportSource(url: string): Promise<ImportSource> {
   }
   const { name, resources, skipped } = parseBundleItems(text, "local", "This bundle");
   return { name: name || parsed.hostname, resources, skipped };
+}
+
+/**
+ * Re-fetches a subscribed bundle URL for the "Check now" / Refresh files flows. Wraps
+ * `fetchImportSource` so a failing subscription (unreachable host, CORS, bad bundle) is
+ * reported instead of thrown, letting callers check many subscriptions in parallel without
+ * one bad host aborting the rest.
+ */
+export async function checkSubscription(
+  subscription: Subscription,
+): Promise<{ ok: true; source: ImportSource } | { ok: false; error: string }> {
+  try {
+    const source = await fetchImportSource(subscription.url);
+    return { ok: true, source };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : "Could not check this subscription." };
+  }
 }
 
 /** Reads a locally-picked bundle file and parses it for review in the Import flow. */
@@ -607,6 +635,67 @@ export class LocalFolderStorage implements StorageProvider {
       if (error instanceof DOMException && error.name === "NotFoundError") return [];
       throw error;
     }
+  }
+
+  /**
+   * Subscriptions live in a single shared `.milo/subscriptions.json` file (unlike favourites,
+   * which are per-identity) since a subscription is a decision about where this shared library
+   * pulls content from, not a personal preference — everyone who connects to this folder should
+   * see and benefit from the same subscribed bundles.
+   */
+  async listSubscriptions(): Promise<Subscription[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const handle = await milo.getFileHandle(SUBSCRIPTIONS_FILE);
+      const file = await handle.getFile();
+      const { items } = parseItemsEnvelope(await file.text(), "Subscriptions file");
+      return items.filter((item): item is Subscription => isSubscription(item));
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
+  }
+
+  async addSubscription(url: string, name: string): Promise<Subscription> {
+    const trimmed = url.trim();
+    const current = await this.listSubscriptions();
+    if (current.some((item) => item.url === trimmed)) {
+      throw new Error("Already subscribed to this URL.");
+    }
+    const subscription: Subscription = { url: trimmed, name, addedAt: new Date().toISOString().slice(0, 10) };
+    await this.writeSubscriptions([...current, subscription]);
+    return subscription;
+  }
+
+  async removeSubscription(url: string): Promise<void> {
+    const current = await this.listSubscriptions();
+    await this.writeSubscriptions(current.filter((item) => item.url !== url));
+  }
+
+  /** Batches all outcomes from a subscriptions check into a single re-read-modify-write. */
+  async recordSubscriptionChecks(
+    results: { url: string; ok: boolean; error?: string; resourceCount?: number }[],
+  ): Promise<void> {
+    const current = await this.listSubscriptions();
+    const byUrl = new Map(results.map((result) => [result.url, result]));
+    const lastCheckedAt = new Date().toISOString();
+    const next = current.map((item) => {
+      const result = byUrl.get(item.url);
+      if (!result) return item;
+      return {
+        ...item,
+        lastCheckedAt,
+        lastCheckedOk: result.ok,
+        lastError: result.ok ? undefined : result.error,
+        lastResourceCount: result.ok ? result.resourceCount : item.lastResourceCount,
+      };
+    });
+    await this.writeSubscriptions(next);
+  }
+
+  private async writeSubscriptions(items: Subscription[]) {
+    const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR, { create: true });
+    await this.write(milo, SUBSCRIPTIONS_FILE, `${JSON.stringify({ version: 1, items }, null, 2)}\n`);
   }
 
   private async write(folder: FileSystemDirectoryHandle, name: string, raw: string) {
