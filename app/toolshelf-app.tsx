@@ -347,7 +347,12 @@ export default function ToolshelfApp({
       await storage.recordSubscriptionChecks(
         checks.map(({ subscription, result }) =>
           result.ok
-            ? { url: subscription.url, ok: true, resourceCount: result.source.resources.length }
+            ? {
+                url: subscription.url,
+                ok: true,
+                resourceCount: result.source.resources.length,
+                name: result.source.name,
+              }
             : { url: subscription.url, ok: false, error: result.error },
         ),
       );
@@ -2028,7 +2033,12 @@ function ImportPage({
     const result = await checkSubscription(subscription);
     await storage.recordSubscriptionChecks([
       result.ok
-        ? { url: subscription.url, ok: true, resourceCount: result.source.resources.length }
+        ? {
+            url: subscription.url,
+            ok: true,
+            resourceCount: result.source.resources.length,
+            name: result.source.name,
+          }
         : { url: subscription.url, ok: false, error: result.error },
     ]);
     await loadSubscriptions();
