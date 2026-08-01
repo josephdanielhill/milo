@@ -368,6 +368,20 @@ button:disabled {
   margin-top: 12px;
 }
 
+.sct-link {
+  color: #777a74;
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 16px 4px 0;
+  text-decoration: none;
+}
+.sct-link:hover {
+  color: var(--brand-ink);
+  text-decoration: underline;
+}
+
 .privacy-note {
   color: #777a74;
   font-family: var(--font-editorial);
