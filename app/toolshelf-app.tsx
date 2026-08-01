@@ -1087,6 +1087,14 @@ function Sidebar({
       </p>
       <a
         className="sct-link"
+        href="https://tally.so/r/zxNrGM"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Feedback / Report Issue
+      </a>
+      <a
+        className="sct-link"
         href="https://squarecircletriangle.co/#/milo"
         target="_blank"
         rel="noopener noreferrer"
