@@ -1081,6 +1081,10 @@ function Sidebar({
           </button>
         )}
       </div>
+      <p className="privacy-note">
+        <span>Private by design</span>
+        Your library stays on this device.
+      </p>
       <a
         className="sct-link"
         href="https://squarecircletriangle.co/#/milo"
@@ -1089,10 +1093,6 @@ function Sidebar({
       >
         SquareCircleTriangle
       </a>
-      <p className="privacy-note">
-        <span>Private by design</span>
-        Your library stays on this device.
-      </p>
     </aside>
   );
 }
