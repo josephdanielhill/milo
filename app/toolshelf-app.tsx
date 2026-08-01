@@ -1081,6 +1081,14 @@ function Sidebar({
           </button>
         )}
       </div>
+      <a
+        className="sct-link"
+        href="https://squarecircletriangle.co/#/milo"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        SquareCircleTriangle
+      </a>
       <p className="privacy-note">
         <span>Private by design</span>
         Your library stays on this device.
