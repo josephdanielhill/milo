@@ -1014,12 +1014,12 @@ function Sidebar({
           {path === "/" && <span className="nav-active-dot" />}
         </button>
         <button
-          className={`nav-item nav-collections ${path === "/forum" ? "nav-item--active" : ""}`}
+          className={`nav-item nav-discover ${path === "/forum" ? "nav-item--active" : ""}`}
           onClick={() => navigate("/forum")}
           aria-current={path === "/forum" ? "page" : undefined}
         >
           <Globe size={18} aria-hidden="true" />
-          Collections
+          Discover
           {path === "/forum" && <span className="nav-active-dot" />}
         </button>
         <button
@@ -1456,6 +1456,7 @@ function ForumPage({
   onSubscribe: (collection: ForumCollection) => void;
 }) {
   const collections = publishedForumCollectionsList;
+  const [selectedCollection, setSelectedCollection] = useState<ForumCollection | null>(null);
   return (
     <>
       <div className="hero-split">
@@ -1467,7 +1468,7 @@ function ForumPage({
             <section className="hero">
               <div className="hero-copy">
                 <span className="eyebrow">Curated collections</span>
-                <h1>Collections</h1>
+                <h1>Discover</h1>
                 <p>
                   Hand-picked bundles curated by Joseph Hill. Subscribe to bring curated
                   resources into your library and keep them up to date.
@@ -1482,7 +1483,12 @@ function ForumPage({
           <section className="section-block">
             <div className="forum-grid">
               {collections.map((collection) => (
-                <div key={collection.slug} className="forum-card">
+                <button
+                  key={collection.slug}
+                  type="button"
+                  className="forum-card"
+                  onClick={() => setSelectedCollection(collection)}
+                >
                   <span className="forum-card-author">by {collection.author}</span>
                   <h3>{collection.name}</h3>
                   <p>{collection.description}</p>
@@ -1491,13 +1497,16 @@ function ForumPage({
                     <button
                       type="button"
                       className="forum-subscribe-button"
-                      onClick={() => onSubscribe(collection)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onSubscribe(collection);
+                      }}
                     >
                       <Plus size={14} />
                       Subscribe
                     </button>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </section>
@@ -1511,6 +1520,73 @@ function ForumPage({
           </section>
         )}
       </div>
+
+      {selectedCollection && (
+        <>
+          <div className="discover-overlay" onClick={() => setSelectedCollection(null)} />
+          <div className="discover-panel discover-panel--open" role="dialog" aria-label={selectedCollection.name}>
+            <div className="discover-panel-header">
+              <h2>{selectedCollection.name}</h2>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Close"
+                onClick={() => setSelectedCollection(null)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="discover-panel-body">
+              <span className="forum-card-author">by {selectedCollection.author}</span>
+              <p className="discover-panel-description">{selectedCollection.description}</p>
+
+              {selectedCollection.tags.length > 0 && (
+                <div className="discover-panel-tags">
+                  {selectedCollection.tags.map((tag) => (
+                    <span key={tag} className="discover-panel-tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+
+              {selectedCollection.typeBreakdown && (
+                <>
+                  <span className="discover-panel-section-title">Resource breakdown</span>
+                  <div className="discover-panel-breakdown">
+                    {Object.entries(selectedCollection.typeBreakdown).map(([type, count]) => (
+                      <div key={type} className="discover-panel-breakdown-item">
+                        <div className="discover-panel-breakdown-icon">
+                          {typeIcon(type as ResourceType, 16)}
+                        </div>
+                        <div>
+                          <span className="discover-panel-breakdown-label">{pluralTypeLabel(type as ResourceType)}</span>
+                          <span className="discover-panel-breakdown-count">{count}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              <span className="discover-panel-section-title">Details</span>
+              <p className="discover-panel-date">Added {selectedCollection.createdAt}</p>
+              <p className="discover-panel-date">{selectedCollection.itemCount} resources total</p>
+            </div>
+            <div className="discover-panel-footer">
+              <button
+                type="button"
+                className="forum-subscribe-button"
+                onClick={() => {
+                  onSubscribe(selectedCollection);
+                  setSelectedCollection(null);
+                }}
+              >
+                <Plus size={16} />
+                Subscribe to this collection
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

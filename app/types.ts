@@ -57,6 +57,8 @@ export interface ForumCollection {
   itemCount: number;
   tags: string[];
   createdAt: string;
+  /** Per-type resource counts, e.g. { tool: 4, book: 3, video: 2 } */
+  typeBreakdown?: Record<string, number>;
 }
 
 export interface Subscription {
