@@ -843,6 +843,116 @@ button:disabled {
   padding-bottom: 56px;
 }
 
+/* ── Forum section ── */
+
+.forum-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.forum-card {
+  background: #fff;
+  border: 0;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 28px 24px 24px;
+  position: relative;
+  text-align: left;
+  transition: box-shadow 170ms ease, transform 170ms ease;
+}
+
+.forum-card:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-4px);
+}
+
+.forum-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.forum-card-tag {
+  background: var(--brand-mint);
+  border-radius: 5px;
+  color: #2a4f43;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.forum-card-author {
+  color: #676a64;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.forum-card h3 {
+  font-family: var(--font-editorial);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.forum-card p {
+  color: #555852;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 auto;
+}
+
+.forum-card-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.forum-card-count {
+  color: #898c86;
+  font-size: 12px;
+}
+
+.forum-subscribe-button {
+  align-items: center;
+  background: var(--brand-ink);
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 6px;
+  padding: 8px 16px;
+  transition: background 150ms ease;
+}
+
+.forum-subscribe-button:hover {
+  background: #3f4441;
+}
+
+.forum-subscribe-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.forum-subscribe-button--subscribed {
+  background: var(--brand-mint);
+  color: #2a4f43;
+}
+
+.forum-subscribe-button--subscribed:hover {
+  background: #a8dcc2;
+}
+
 .category-link {
   align-items: center;
   bottom: 22px;

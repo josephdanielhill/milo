@@ -51,7 +51,7 @@ import {
   useState,
 } from "react";
 import { exampleResources } from "./data";
-import { publishedResources } from "./lib/published";
+import { publishedForumCollectionsList, publishedResources } from "./lib/published";
 import { displaySummary, renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
 import {
   checkSubscription,
@@ -64,7 +64,7 @@ import {
   supportsLocalFolders,
   type ImportSource,
 } from "./lib/storage";
-import type { Resource, ResourceDraft, ResourceType, Subscription } from "./types";
+import type { Resource, ResourceDraft, ForumCollection, ResourceType, Subscription } from "./types";
 
 const storage = new LocalFolderStorage();
 const today = new Date().toISOString().slice(0, 10);
@@ -636,6 +636,18 @@ export default function ToolshelfApp({
           window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
           setHasConnectedBefore(true);
         }}
+        onForumSubscribe={async (collection) => {
+          if (!folderName) {
+            notify("Connect a folder to subscribe to forum collections.");
+            return;
+          }
+          try {
+            await storage.addSubscription(collection.bundleUrl, collection.name);
+            notify(`Subscribed to “${collection.name}”. Refresh to import its resources.`);
+          } catch (error) {
+            notify(error instanceof Error ? error.message : "Could not subscribe to this collection.");
+          }
+        }}
       />
     );
   } else if (route.kind === "library") {
@@ -1202,6 +1214,7 @@ function Dashboard({
   favourites,
   onToggleFavourite,
   onExploreExamples,
+  onForumSubscribe,
 }: {
   resources: Resource[];
   search: string;
@@ -1215,6 +1228,7 @@ function Dashboard({
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
   onExploreExamples?: () => void;
+  onForumSubscribe?: (collection: ForumCollection) => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -1349,9 +1363,45 @@ function Dashboard({
               onToggleFavourite={onToggleFavourite}
             />
           </section>
-        ) : (folderName || folderStatus === "unsupported") ? (
+        ) : (
           <>
-            <section className="section-block">
+            {onForumSubscribe && publishedForumCollectionsList.length > 0 && (
+              <section className="section-block">
+                <SectionHeading
+                  eyebrow="Curated collections"
+                  title="Forum"
+                  aside="Hand-picked bundles by Joseph Hill. Subscribe to bring curated resources into your library."
+                />
+                <div className="forum-grid">
+                  {publishedForumCollectionsList.map((collection) => (
+                    <div key={collection.slug} className="forum-card">
+                      <div className="forum-card-tags">
+                        {collection.tags.slice(0, 3).map((tag) => (
+                          <span key={tag} className="forum-card-tag">{tag}</span>
+                        ))}
+                      </div>
+                      <span className="forum-card-author">by {collection.author}</span>
+                      <h3>{collection.name}</h3>
+                      <p>{collection.description}</p>
+                      <div className="forum-card-footer">
+                        <span className="forum-card-count">{collection.itemCount} resources</span>
+                        <button
+                          type="button"
+                          className="forum-subscribe-button"
+                          onClick={() => onForumSubscribe(collection)}
+                        >
+                          <Plus size={14} />
+                          Subscribe
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+            {(folderName || folderStatus === "unsupported") ? (
+              <>
+              <section className="section-block">
               <SectionHeading
                 eyebrow="Choose your starting point"
                 title="What are you looking for?"
@@ -1402,7 +1452,9 @@ function Dashboard({
             connectFolder={connectFolder}
           />
         )}
-      </div>
+      </>
+    )}
+    </div>
     </>
   );
 }
