@@ -1,6 +1,7 @@
-import type { Resource } from "../types";
+import type { ForumCollection, Resource } from "../types";
 import {
   publishedCollectionFiles,
+  publishedForumCollections,
   publishedResourceFiles,
 } from "../generated/published-manifest";
 import { parseResource } from "./markdown";
@@ -28,3 +29,17 @@ function loadPublishedResources(): Resource[] {
 }
 
 export const publishedResources = loadPublishedResources();
+
+function loadPublishedForumCollections(): ForumCollection[] {
+  if (
+    typeof publishedForumCollections === "object" &&
+    publishedForumCollections !== null &&
+    "collections" in publishedForumCollections &&
+    Array.isArray(publishedForumCollections.collections)
+  ) {
+    return publishedForumCollections.collections as ForumCollection[];
+  }
+  return [];
+}
+
+export const publishedForumCollectionsList = loadPublishedForumCollections();

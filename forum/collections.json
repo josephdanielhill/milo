@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "collections": [
+    {
+      "slug": "josephs-personal-kit",
+      "name": "Joseph's Personal Kit",
+      "author": "Joseph Hill",
+      "description": "My personal curated collection of tools, prompts, books, videos, articles and a conference I've found valuable for product management and personal development. Time reflection, job reflection, breadboarding, Shape Up, leadership videos, and more.",
+      "bundleUrl": "https://josephhill.co/collections/josephs-personal-kit.json",
+      "itemCount": 25,
+      "tags": ["personal", "essentials", "productivity", "leadership", "curated"],
+      "createdAt": "2026-08-04"
+    },
+    {
+      "slug": "product-discovery-essentials",
+      "name": "Product Discovery Essentials",
+      "author": "Joseph Hill",
+      "description": "A curated selection of the best prompts, skills, and tools for running continuous product discovery — from framing research questions to synthesising findings into opportunities.",
+      "bundleUrl": "https://josephhill.co/collections/product-discovery-essentials.json",
+      "itemCount": 8,
+      "tags": ["discovery", "research", "opportunities", "essentials"],
+      "createdAt": "2026-08-04"
+    },
+    {
+      "slug": "product-strategy-playbook",
+      "name": "Product Strategy Playbook",
+      "author": "Joseph Hill",
+      "description": "Frameworks and practices for moving beyond feature delivery into outcome-driven product strategy — opportunity trees, decision logs, pre-mortems, and strategic narratives.",
+      "bundleUrl": "https://josephhill.co/collections/product-strategy-playbook.json",
+      "itemCount": 6,
+      "tags": ["strategy", "outcomes", "leadership", "frameworks"],
+      "createdAt": "2026-08-04"
+    },
+    {
+      "slug": "ai-driven-product-work",
+      "name": "AI for Product Managers",
+      "author": "Joseph Hill",
+      "description": "Practical prompts and workflows for using AI effectively throughout the product lifecycle — from customer research synthesis to brief writing and stakeholder updates.",
+      "bundleUrl": "https://josephhill.co/collections/ai-for-product-managers.json",
+      "itemCount": 5,
+      "tags": ["ai", "prompts", "workflow", "productivity"],
+      "createdAt": "2026-08-04"
+    }
+  ]
+}

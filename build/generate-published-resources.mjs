@@ -20,6 +20,8 @@ const collectionFileNames = [
 
 const markdownFolders = ["prompts", "skills", "tools"];
 
+const forumCollectionPath = "forum/collections.json";
+
 async function readIfExists(path) {
   try {
     return await readFile(path, "utf8");
@@ -59,6 +61,8 @@ async function main() {
     files.push(...(await collectMarkdownFiles(folder)));
   }
 
+  const forumRaw = await readIfExists(join(projectRoot, forumCollectionPath));
+
   const outDir = join(projectRoot, "app", "generated");
   await mkdir(outDir, { recursive: true });
 
@@ -68,6 +72,8 @@ async function main() {
 export const publishedCollectionFiles: Record<string, string> = ${JSON.stringify(collections, null, 2)};
 
 export const publishedResourceFiles: { path: string; raw: string }[] = ${JSON.stringify(files, null, 2)};
+
+${forumRaw !== null ? `export const publishedForumCollections = ${forumRaw};` : 'export const publishedForumCollections = { version: 1, collections: [] };'}
 `;
 
   await writeFile(join(outDir, "published-manifest.ts"), contents);

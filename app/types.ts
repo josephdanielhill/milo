@@ -48,6 +48,17 @@ export interface ResourceDraft extends ResourceMeta {
   body: string;
 }
 
+export interface ForumCollection {
+  slug: string;
+  name: string;
+  author: string;
+  description: string;
+  bundleUrl: string;
+  itemCount: number;
+  tags: string[];
+  createdAt: string;
+}
+
 export interface Subscription {
   url: string;
   name: string;
