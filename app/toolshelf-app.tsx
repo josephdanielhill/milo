@@ -1496,8 +1496,8 @@ function ForumPage({
                 <span className="eyebrow">Curated collections</span>
                 <h1>Discover</h1>
                 <p>
-                  Hand-picked bundles curated by Joseph Hill. Subscribe to bring curated
-                  resources into your library and keep them up to date.
+                  Curated collections by the MILO team. Subscribe to discover and bring
+                  new resources into your personal library.
                 </p>
                 <div className="hero-actions" style={{ marginTop: 28 }}>
                   {folderName && (
@@ -1663,8 +1663,7 @@ function ForumPage({
               </p>
               <ol style={{ lineHeight: 1.8, margin: "20px 0", paddingLeft: 20 }}>
                 <li><strong>Export your bundle</strong> — Go to <em>Share resources</em> in the sidebar, select the resources you want to include, and export a Milo bundle (.json file).</li>
-                <li><strong>Host the file</strong> — Upload the bundle to a public URL that supports CORS (your own site, GitHub Pages, etc.).</li>
-                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle URL. We&apos;ll review and add it to Discover.</li>
+                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle file. We&apos;ll review and add it to Discover.</li>
               </ol>
             </div>
             <div className="discover-panel-footer">
