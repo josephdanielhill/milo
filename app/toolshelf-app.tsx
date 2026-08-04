@@ -1441,7 +1441,6 @@ function Dashboard({
       </>
     )}
     </div>
-    <FeaturesShowcase />
     </>
   );
 }
@@ -1871,66 +1870,6 @@ function GetStartedPanel({
           connectFolder={connectFolder}
           onCreate={() => {}}
         />
-      </div>
-    </section>
-  );
-}
-
-function FeaturesShowcase() {
-  const features = [
-    {
-      title: "Browse the curated library",
-      description:
-        "Explore hundreds of resources across eight categories: prompts, skills, tools, books, videos, conferences, training, and articles. Each resource is hand-picked and organised so you can find what you need, fast.",
-      image: `${import.meta.env.BASE_URL}feature-library.png`,
-      imageAlt: "MILO resource library grid showing categorized resource cards",
-    },
-    {
-      title: "Connect any folder you already use",
-      description:
-        "Point MILO at a folder on your machine — local, OneDrive, Google Drive, or Dropbox — and everything works with your existing sync setup. Your resources live as plain files, not locked in a database.",
-      image: `${import.meta.env.BASE_URL}feature-connect.png`,
-      imageAlt: "MILO folder connection interface showing the choose-folder workflow",
-    },
-    {
-      title: "Import & subscribe to shared bundles",
-      description:
-        "Bring in resources from teammates or the community via a simple URL. Subscribe to curated collections from the forum and they show up as files in your folder, ready to browse, favourite, and edit.",
-      image: `${import.meta.env.BASE_URL}feature-import.png`,
-      imageAlt: "MILO import and subscription panel showing URL import and collection cards",
-    },
-    {
-      title: "Create and edit in Markdown",
-      description:
-        "Write prompts, skills, and tools right in your browser. Everything is stored as Markdown — open and edit any resource with your favourite text editor. No app to install, no account to create.",
-      image: `${import.meta.env.BASE_URL}feature-create.png`,
-      imageAlt: "MILO resource creation form with Markdown editor",
-    },
-  ];
-
-  return (
-    <section className="features-showcase" aria-label="MILO features">
-      <div className="features-showcase__inner">
-        <div className="features-showcase__header">
-          <span className="eyebrow">Why MILO</span>
-          <h2>Your knowledge, your way.</h2>
-          <p>
-            Everything you need to build, share, and organise a personal library of
-            product management resources — without giving up control of your data.
-          </p>
-        </div>
-        {features.map((feature, index) => (
-          <div key={index} className={`feature-block${index % 2 === 1 ? " feature-block--reverse" : ""}`}>
-            <div className="feature-block__media">
-              <img src={feature.image} alt={feature.imageAlt} loading={index > 0 ? "lazy" : undefined} />
-            </div>
-            <div className="feature-block__content">
-              <span className="feature-block__number">0{index + 1}</span>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </div>
-          </div>
-        ))}
       </div>
     </section>
   );
