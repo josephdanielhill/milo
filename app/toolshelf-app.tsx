@@ -1116,22 +1116,25 @@ function Sidebar({
         <span>Private by design</span>
         Your library stays on this device.
       </p>
-      <a
-        className="sct-link"
-        href="https://tally.so/r/zxNrGM"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Feedback / Report Issue
-      </a>
-      <a
-        className="sct-link"
-        href="https://squarecircletriangle.co/#/milo"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        SquareCircleTriangle
-      </a>
+      <hr className="sct-divider" />
+      <div className="sct-group">
+        <a
+          className="sct-link"
+          href="https://tally.so/r/zxNrGM"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Feedback / Report Issue
+        </a>
+        <a
+          className="sct-link"
+          href="https://squarecircletriangle.co/#/milo"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SquareCircleTriangle
+        </a>
+      </div>
     </aside>
   );
 }
@@ -1656,12 +1659,12 @@ function ForumPage({
             </div>
             <div className="discover-panel-body">
               <p className="discover-panel-section-title" style={{ marginBottom: 6, color: "#555852", fontSize: 14, textTransform: "none", letterSpacing: 0 }}>
-                Want to share your curated collection with the community? Here's how:
+                Want to share your curated collection with the community? Here&apos;s how:
               </p>
               <ol style={{ lineHeight: 1.8, margin: "20px 0", paddingLeft: 20 }}>
                 <li><strong>Export your bundle</strong> — Go to <em>Share resources</em> in the sidebar, select the resources you want to include, and export a Milo bundle (.json file).</li>
                 <li><strong>Host the file</strong> — Upload the bundle to a public URL that supports CORS (your own site, GitHub Pages, etc.).</li>
-                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle URL. We'll review and add it to Discover.</li>
+                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle URL. We&apos;ll review and add it to Discover.</li>
               </ol>
             </div>
             <div className="discover-panel-footer">
