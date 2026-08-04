@@ -969,6 +969,17 @@ button:disabled {
   background: #a8dcc2;
 }
 
+/* ── Card click hint ── */
+
+.forum-card-hint {
+  color: #898c86;
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  margin-top: 14px;
+  text-align: center;
+}
+
 /* ── Discover side panel ── */
 
 .discover-overlay {
@@ -3520,5 +3531,122 @@ button:disabled {
   line-height: 1.55;
   margin: 0;
   color: #6d5f45;
+}
+
+/* ── Features showcase (no-folder landing page) ── */
+
+.features-showcase {
+  background: var(--brand-paper);
+  padding: 80px clamp(32px, 5vw, 82px);
+}
+
+.features-showcase__inner {
+  margin: 0 auto;
+  max-width: 1460px;
+}
+
+.features-showcase__header {
+  margin-bottom: 72px;
+  max-width: 620px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-showcase__header > .eyebrow {
+  display: block;
+}
+
+.features-showcase__header h2 {
+  font-family: var(--font-editorial);
+  font-size: clamp(38px, 4.2vw, 58px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 16px 0 0;
+}
+
+.features-showcase__header p {
+  color: #5d605a;
+  font-family: var(--font-editorial);
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.6;
+  margin: 20px 0 0;
+}
+
+.feature-block {
+  align-items: center;
+  display: flex;
+  gap: 64px;
+  margin-bottom: 80px;
+}
+
+.feature-block--reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-block__media {
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  flex: 1;
+  overflow: hidden;
+}
+
+.feature-block__media img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.feature-block__content {
+  flex: 0 0 400px;
+}
+
+.feature-block__number {
+  color: #c4c2b9;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.feature-block__content h3 {
+  font-family: var(--font-editorial);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 10px 0 0;
+}
+
+.feature-block__content p {
+  color: #5d605a;
+  font-family: var(--font-editorial);
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  margin: 16px 0 0;
+}
+
+@media (max-width: 900px) {
+  .feature-block,
+  .feature-block--reverse {
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .feature-block__content {
+    flex: none;
+    max-width: 100%;
+  }
+
+  .features-showcase__header {
+    margin-bottom: 48px;
+  }
+
+  .features-showcase {
+    padding: 56px clamp(24px, 4vw, 40px);
+  }
 }
 
