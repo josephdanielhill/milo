@@ -1014,13 +1014,13 @@ function Sidebar({
           {path === "/" && <span className="nav-active-dot" />}
         </button>
         <button
-          className={`nav-item nav-discover ${path === "/forum" ? "nav-item--active" : ""}`}
-          onClick={() => navigate("/forum")}
-          aria-current={path === "/forum" ? "page" : undefined}
+          className={`nav-item nav-discover ${path === "/discover" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/discover")}
+          aria-current={path === "/discover" ? "page" : undefined}
         >
           <Globe size={18} aria-hidden="true" />
           Discover
-          {path === "/forum" && <span className="nav-active-dot" />}
+          {path === "/discover" && <span className="nav-active-dot" />}
         </button>
         <button
           className={`nav-item nav-about ${path === "/about" || path.startsWith("/guide") ? "nav-item--active" : ""}`}
@@ -4022,7 +4022,7 @@ function parseRoute(path: string):
   const [pathname, queryString = ""] = path.split("?");
   const cleanPath = pathname.replace(/\/+$/, "") || "/";
   if (cleanPath === "/") return { kind: "home" };
-  if (cleanPath === "/forum") return { kind: "forum" };
+  if (cleanPath === "/discover") return { kind: "forum" };
   if (cleanPath === "/about") {
     const params = new URLSearchParams(queryString);
     const sec = params.get("section");
