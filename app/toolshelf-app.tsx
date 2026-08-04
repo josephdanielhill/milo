@@ -1489,8 +1489,8 @@ function ForumPage({
                   className="forum-card"
                   onClick={() => setSelectedCollection(collection)}
                 >
-                  <span className="forum-card-author">by {collection.author}</span>
                   <h3>{collection.name}</h3>
+                  <span className="forum-card-author">by {collection.author}</span>
                   <p>{collection.description}</p>
                   <div className="forum-card-footer">
                     <span className="forum-card-count">{collection.itemCount} resources</span>
