@@ -16,6 +16,7 @@ import {
   FolderCheck,
   FolderOpen,
   FolderX,
+  Globe,
   GraduationCap,
   HardDrive,
   Home,
@@ -636,7 +637,16 @@ export default function ToolshelfApp({
           window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
           setHasConnectedBefore(true);
         }}
-        onForumSubscribe={async (collection) => {
+      />
+    );
+  } else if (route.kind === "forum") {
+    content = (
+      <ForumPage
+        navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
+        onSubscribe={async (collection) => {
           if (!folderName) {
             notify("Connect a folder to subscribe to forum collections.");
             return;
@@ -1022,6 +1032,15 @@ function Sidebar({
           {favouritesCount > 0 && <span className="nav-count">{favouritesCount}</span>}
           {path === "/favourites" && <span className="nav-active-dot" />}
         </button>
+        <button
+          className={`nav-item nav-forum ${path === "/forum" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/forum")}
+          aria-current={path === "/forum" ? "page" : undefined}
+        >
+          <Globe size={18} aria-hidden="true" />
+          Forum
+          {path === "/forum" && <span className="nav-active-dot" />}
+        </button>
         <span className="nav-eyebrow">Library</span>
         {items.map(({ label, href, icon: Icon }) => {
           const active =
@@ -1214,7 +1233,6 @@ function Dashboard({
   favourites,
   onToggleFavourite,
   onExploreExamples,
-  onForumSubscribe,
 }: {
   resources: Resource[];
   search: string;
@@ -1228,7 +1246,6 @@ function Dashboard({
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
   onExploreExamples?: () => void;
-  onForumSubscribe?: (collection: ForumCollection) => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -1365,40 +1382,6 @@ function Dashboard({
           </section>
         ) : (
           <>
-            {onForumSubscribe && publishedForumCollectionsList.length > 0 && (
-              <section className="section-block">
-                <SectionHeading
-                  eyebrow="Curated collections"
-                  title="Forum"
-                  aside="Hand-picked bundles by Joseph Hill. Subscribe to bring curated resources into your library."
-                />
-                <div className="forum-grid">
-                  {publishedForumCollectionsList.map((collection) => (
-                    <div key={collection.slug} className="forum-card">
-                      <div className="forum-card-tags">
-                        {collection.tags.slice(0, 3).map((tag) => (
-                          <span key={tag} className="forum-card-tag">{tag}</span>
-                        ))}
-                      </div>
-                      <span className="forum-card-author">by {collection.author}</span>
-                      <h3>{collection.name}</h3>
-                      <p>{collection.description}</p>
-                      <div className="forum-card-footer">
-                        <span className="forum-card-count">{collection.itemCount} resources</span>
-                        <button
-                          type="button"
-                          className="forum-subscribe-button"
-                          onClick={() => onForumSubscribe(collection)}
-                        >
-                          <Plus size={14} />
-                          Subscribe
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
             {(folderName || folderStatus === "unsupported") ? (
               <>
               <section className="section-block">
@@ -1455,6 +1438,84 @@ function Dashboard({
       </>
     )}
     </div>
+    </>
+  );
+}
+
+function ForumPage({
+  navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
+  onSubscribe,
+}: {
+  navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+  onSubscribe: (collection: ForumCollection) => void;
+}) {
+  const collections = publishedForumCollectionsList;
+  return (
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
+          </div>
+          <div className="hero-split-content">
+            <section className="hero">
+              <div className="hero-copy">
+                <span className="eyebrow">Curated collections</span>
+                <h1>Forum</h1>
+                <p>
+                  Hand-picked bundles curated by Joseph Hill. Subscribe to bring curated
+                  resources into your library and keep them up to date.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div className="page dashboard-page">
+        {collections.length > 0 ? (
+          <section className="section-block">
+            <div className="forum-grid">
+              {collections.map((collection) => (
+                <div key={collection.slug} className="forum-card">
+                  <div className="forum-card-tags">
+                    {collection.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="forum-card-tag">{tag}</span>
+                    ))}
+                  </div>
+                  <span className="forum-card-author">by {collection.author}</span>
+                  <h3>{collection.name}</h3>
+                  <p>{collection.description}</p>
+                  <div className="forum-card-footer">
+                    <span className="forum-card-count">{collection.itemCount} resources</span>
+                    <button
+                      type="button"
+                      className="forum-subscribe-button"
+                      onClick={() => onSubscribe(collection)}
+                    >
+                      <Plus size={14} />
+                      Subscribe
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section className="section-block">
+            <SectionHeading
+              eyebrow="Coming soon"
+              title="No collections yet"
+              aside="Check back later for curated collections from Joseph Hill."
+            />
+          </section>
+        )}
+      </div>
     </>
   );
 }
@@ -3781,6 +3842,7 @@ function filterResources(
 
 function parseRoute(path: string):
   | { kind: "home" }
+  | { kind: "forum" }
   | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
@@ -3793,6 +3855,7 @@ function parseRoute(path: string):
   const [pathname, queryString = ""] = path.split("?");
   const cleanPath = pathname.replace(/\/+$/, "") || "/";
   if (cleanPath === "/") return { kind: "home" };
+  if (cleanPath === "/forum") return { kind: "forum" };
   if (cleanPath === "/about") {
     const params = new URLSearchParams(queryString);
     const sec = params.get("section");
