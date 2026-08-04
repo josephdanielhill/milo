@@ -1457,6 +1457,29 @@ function ForumPage({
 }) {
   const collections = publishedForumCollectionsList;
   const [selectedCollection, setSelectedCollection] = useState<ForumCollection | null>(null);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [showSubmitInfo, setShowSubmitInfo] = useState(false);
+
+  const subscribedUrls = useMemo(() => new Set(subscriptions.map((s) => s.url)), [subscriptions]);
+
+  useEffect(() => {
+    if (!folderName) return;
+    let cancelled = false;
+    storage
+      .listSubscriptions()
+      .then((items) => {
+        if (!cancelled) setSubscriptions(items);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [folderName]);
+
+  function isSubscribed(collection: ForumCollection) {
+    return subscribedUrls.has(collection.bundleUrl);
+  }
+
   return (
     <>
       <div className="hero-split">
@@ -1473,6 +1496,24 @@ function ForumPage({
                   Hand-picked bundles curated by Joseph Hill. Subscribe to bring curated
                   resources into your library and keep them up to date.
                 </p>
+                <div className="hero-actions" style={{ marginTop: 28 }}>
+                  {folderName && (
+                    <button
+                      className="secondary-button"
+                      onClick={() => navigate("/import?tab=subscriptions")}
+                    >
+                      <Link2 size={17} />
+                      My Subscriptions
+                    </button>
+                  )}
+                  <button
+                    className="secondary-button"
+                    onClick={() => setShowSubmitInfo(true)}
+                  >
+                    <UploadCloud size={17} />
+                    Submit Your Collection
+                  </button>
+                </div>
               </div>
             </section>
           </div>
@@ -1482,32 +1523,36 @@ function ForumPage({
         {collections.length > 0 ? (
           <section className="section-block">
             <div className="forum-grid">
-              {collections.map((collection) => (
-                <button
-                  key={collection.slug}
-                  type="button"
-                  className="forum-card"
-                  onClick={() => setSelectedCollection(collection)}
-                >
-                  <h3>{collection.name}</h3>
-                  <span className="forum-card-author">by {collection.author}</span>
-                  <p>{collection.description}</p>
-                  <div className="forum-card-footer">
-                    <span className="forum-card-count">{collection.itemCount} resources</span>
-                    <button
-                      type="button"
-                      className="forum-subscribe-button"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        onSubscribe(collection);
-                      }}
-                    >
-                      <Plus size={14} />
-                      Subscribe
-                    </button>
-                  </div>
-                </button>
-              ))}
+              {collections.map((collection) => {
+                const subscribed = isSubscribed(collection);
+                return (
+                  <button
+                    key={collection.slug}
+                    type="button"
+                    className="forum-card"
+                    onClick={() => setSelectedCollection(collection)}
+                  >
+                    <h3>{collection.name}</h3>
+                    <span className="forum-card-author">by {collection.author}</span>
+                    <p>{collection.description}</p>
+                    <div className="forum-card-footer">
+                      <span className="forum-card-count">{collection.itemCount} resources</span>
+                      <button
+                        type="button"
+                        className={`forum-subscribe-button${subscribed ? " forum-subscribe-button--subscribed" : ""}`}
+                        disabled={subscribed}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onSubscribe(collection);
+                        }}
+                      >
+                        {subscribed ? <Check size={14} /> : <Plus size={14} />}
+                        {subscribed ? "Subscribed" : "Subscribe"}
+                      </button>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </section>
         ) : (
@@ -1572,16 +1617,65 @@ function ForumPage({
               <p className="discover-panel-date">{selectedCollection.itemCount} resources total</p>
             </div>
             <div className="discover-panel-footer">
+              {(() => {
+                const subscribed = isSubscribed(selectedCollection);
+                return (
+                  <button
+                    type="button"
+                    className={`forum-subscribe-button${subscribed ? " forum-subscribe-button--subscribed" : ""}`}
+                    disabled={subscribed}
+                    onClick={() => {
+                      onSubscribe(selectedCollection);
+                      setSelectedCollection(null);
+                    }}
+                  >
+                    {subscribed ? <Check size={16} /> : <Plus size={16} />}
+                    {subscribed ? "Already subscribed" : "Subscribe to this collection"}
+                  </button>
+                );
+              })()}
+            </div>
+          </div>
+        </>
+      )}
+
+      {showSubmitInfo && (
+        <>
+          <div className="discover-overlay" onClick={() => setShowSubmitInfo(false)} />
+          <div className="discover-panel discover-panel--open" role="dialog" aria-label="Submit Your Collection">
+            <div className="discover-panel-header">
+              <h2>Submit Your Collection</h2>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Close"
+                onClick={() => setShowSubmitInfo(false)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="discover-panel-body">
+              <p className="discover-panel-section-title" style={{ marginBottom: 6, color: "#555852", fontSize: 14, textTransform: "none", letterSpacing: 0 }}>
+                Want to share your curated collection with the community? Here's how:
+              </p>
+              <ol style={{ lineHeight: 1.8, margin: "20px 0", paddingLeft: 20 }}>
+                <li><strong>Export your bundle</strong> — Go to <em>Share resources</em> in the sidebar, select the resources you want to include, and export a Milo bundle (.json file).</li>
+                <li><strong>Host the file</strong> — Upload the bundle to a public URL that supports CORS (your own site, GitHub Pages, etc.).</li>
+                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle URL. We'll review and add it to Discover.</li>
+              </ol>
+            </div>
+            <div className="discover-panel-footer">
               <button
                 type="button"
                 className="forum-subscribe-button"
                 onClick={() => {
-                  onSubscribe(selectedCollection);
-                  setSelectedCollection(null);
+                  window.open("https://tally.so/r/zxNrGM", "_blank", "noopener");
+                  setShowSubmitInfo(false);
                 }}
+                style={{ width: "100%", justifyContent: "center", padding: "12px 16px", fontSize: 14 }}
               >
-                <Plus size={16} />
-                Subscribe to this collection
+                <ExternalLink size={16} />
+                Open submission form
               </button>
             </div>
           </div>
