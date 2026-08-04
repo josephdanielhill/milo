@@ -1014,6 +1014,15 @@ function Sidebar({
           {path === "/" && <span className="nav-active-dot" />}
         </button>
         <button
+          className={`nav-item nav-collections ${path === "/forum" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/forum")}
+          aria-current={path === "/forum" ? "page" : undefined}
+        >
+          <Globe size={18} aria-hidden="true" />
+          Collections
+          {path === "/forum" && <span className="nav-active-dot" />}
+        </button>
+        <button
           className={`nav-item nav-about ${path === "/about" || path.startsWith("/guide") ? "nav-item--active" : ""}`}
           onClick={() => navigate("/about")}
           aria-current={path === "/about" || path.startsWith("/guide") ? "page" : undefined}
@@ -1031,15 +1040,6 @@ function Sidebar({
           Favourites
           {favouritesCount > 0 && <span className="nav-count">{favouritesCount}</span>}
           {path === "/favourites" && <span className="nav-active-dot" />}
-        </button>
-        <button
-          className={`nav-item nav-forum ${path === "/forum" ? "nav-item--active" : ""}`}
-          onClick={() => navigate("/forum")}
-          aria-current={path === "/forum" ? "page" : undefined}
-        >
-          <Globe size={18} aria-hidden="true" />
-          Forum
-          {path === "/forum" && <span className="nav-active-dot" />}
         </button>
         <span className="nav-eyebrow">Library</span>
         {items.map(({ label, href, icon: Icon }) => {
@@ -1467,7 +1467,7 @@ function ForumPage({
             <section className="hero">
               <div className="hero-copy">
                 <span className="eyebrow">Curated collections</span>
-                <h1>Forum</h1>
+                <h1>Collections</h1>
                 <p>
                   Hand-picked bundles curated by Joseph Hill. Subscribe to bring curated
                   resources into your library and keep them up to date.
@@ -1483,11 +1483,6 @@ function ForumPage({
             <div className="forum-grid">
               {collections.map((collection) => (
                 <div key={collection.slug} className="forum-card">
-                  <div className="forum-card-tags">
-                    {collection.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="forum-card-tag">{tag}</span>
-                    ))}
-                  </div>
                   <span className="forum-card-author">by {collection.author}</span>
                   <h3>{collection.name}</h3>
                   <p>{collection.description}</p>
