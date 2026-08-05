@@ -1502,7 +1502,7 @@ function ForumPage({
                 <div className="hero-actions" style={{ marginTop: 28 }}>
                   {folderName && (
                     <button
-                      className="secondary-button"
+                      className="primary-button"
                       onClick={() => navigate("/import?tab=subscriptions")}
                     >
                       <Link2 size={17} />
