@@ -2,14 +2,14 @@
   "version": 1,
   "collections": [
     {
-      "slug": "josephs-personal-kit",
-      "name": "Joseph's Personal Kit",
+      "slug": "josephs-backpack",
+      "name": "Joseph's Backpack",
       "author": "Joseph Hill",
-      "description": "My personal curated collection of tools, prompts, books, videos, articles and a conference I've found valuable for product management and personal development. Time reflection, job reflection, breadboarding, Shape Up, leadership videos, and more.",
-      "bundleUrl": "https://josephhill.co/collections/josephs-personal-kit.json",
+      "description": "My personal curated backpack of tools, prompts, books, videos, articles and conferences I always keep with me for product management and personal growth. Time reflection, job reflection, breadboarding, Shape Up, leadership videos, and more.",
+      "bundleUrl": "https://josephhill.co/collections/josephs-backpack.json",
       "itemCount": 25,
       "tags": ["personal", "essentials", "productivity", "leadership", "curated"],
-      "createdAt": "2026-08-04",
+      "createdAt": "2026-08-05",
       "typeBreakdown": { "tool": 5, "book": 10, "video": 8, "conference": 1, "article": 2, "prompt": 1 }
     }
   ]
