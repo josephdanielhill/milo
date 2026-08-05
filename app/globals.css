@@ -536,6 +536,19 @@ button:disabled {
   padding-bottom: 0;
 }
 
+.hero-split-content .page-top h1 {
+  font-size: clamp(54px, 6.5vw, 94px);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+  margin: 22px 0 28px;
+}
+
+.hero-split-content .page-top p {
+  font-size: 20px;
+  line-height: 1.55;
+}
+
 .hero-split-content .import-trust-notice {
   margin: 20px 0 40px;
   max-width: 850px;
