@@ -2717,65 +2717,7 @@ button:disabled {
   gap: 8px;
 }
 
-.import-steps {
-  border-bottom: 1px solid var(--brand-line);
-  display: flex;
-  gap: 10px;
-  list-style: none;
-  margin: 24px auto 0;
-  max-width: 560px;
-  padding: 0 0 28px;
-}
 
-.import-steps li {
-  align-items: center;
-  color: #9b9c94;
-  display: flex;
-  flex: 1;
-  font-size: 12.5px;
-  font-weight: 700;
-  gap: 10px;
-}
-
-.import-steps li:not(:last-child)::after {
-  background: var(--brand-line);
-  content: "";
-  flex: 1;
-  height: 1px;
-  margin-left: 4px;
-}
-
-.import-steps__badge {
-  align-items: center;
-  border: 1.5px solid #cfcec7;
-  border-radius: 50%;
-  display: flex;
-  flex: 0 0 auto;
-  font-size: 11px;
-  height: 22px;
-  justify-content: center;
-  width: 22px;
-}
-
-.import-steps li.is-current {
-  color: var(--brand-ink);
-}
-
-.import-steps li.is-current .import-steps__badge {
-  background: #657d78;
-  border-color: #657d78;
-  color: #fff;
-}
-
-.import-steps li.is-done {
-  color: #62655f;
-}
-
-.import-steps li.is-done .import-steps__badge {
-  background: #e4f2e9;
-  border-color: #bcd9c8;
-  color: #2d6042;
-}
 
 .import-trust-notice {
   align-items: flex-start;

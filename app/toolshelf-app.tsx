@@ -2506,20 +2506,6 @@ function ImportPage({
           <p className="import-page__notice">Connect a folder first, then come back here to import into it.</p>
         ) : (
           <>
-            <ol className="import-steps">
-              <li className={currentStep === 1 ? "is-current" : "is-done"}>
-                <span className="import-steps__badge">{currentStep > 1 ? <Check size={12} /> : 1}</span>
-                <span>Choose a source</span>
-              </li>
-              <li className={currentStep === 2 ? "is-current" : currentStep > 2 ? "is-done" : ""}>
-                <span className="import-steps__badge">{currentStep > 2 ? <Check size={12} /> : 2}</span>
-                <span>Review &amp; select</span>
-              </li>
-              <li className={currentStep === 3 ? "is-current" : ""}>
-                <span className="import-steps__badge">3</span>
-                <span>Import</span>
-              </li>
-            </ol>
             <section className="section-block">
               <SectionHeading
                 eyebrow="Choose a source"
