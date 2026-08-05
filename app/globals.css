@@ -2831,6 +2831,10 @@ button:disabled {
   width: fit-content;
 }
 
+.about-subnav-chevron {
+  display: none;
+}
+
 .philosophy-intro {
   margin-top: 42px;
   max-width: 760px;
@@ -3293,10 +3297,19 @@ button:disabled {
   .about-subnav {
     width: 100%;
     max-width: 100%;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .about-subnav button {
-    flex: 0 0 auto;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+  }
+
+  .about-subnav-chevron {
+    display: inline-flex;
+    align-items: center;
   }
 
   .segmented button {

@@ -2093,6 +2093,7 @@ function AboutMilo({
                 onClick={() => setSection(sec)}
               >
                 {tabConfigs[sec].tabLabel}
+                <ChevronRight size={14} className="about-subnav-chevron" aria-hidden="true" />
               </button>
             ),
           )}
