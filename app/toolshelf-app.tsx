@@ -2961,7 +2961,7 @@ function LibraryView({
     <div className="page library-page">
       <PageTop
         eyebrow="Knowledge, ready when you are"
-        title={type === "all" ? "The complete MILO library" : `${typeLabels[type]} library`}
+        title={type === "all" ? "Your Library of Resources" : `${typeLabels[type]} library`}
         description={
           type === "all"
             ? "Browse the shared examples and everything saved in your local folder."
