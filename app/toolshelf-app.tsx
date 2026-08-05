@@ -3054,50 +3054,65 @@ function FavouritesPage({
     [resources, favourites],
   );
   return (
-    <div className="page library-page">
-      <PageTop
-        eyebrow="Saved for later"
-        title="Your favourites"
-        description="Resources you've starred in this browser, saved inside your connected folder for only you to see."
-      />
-      {!folderName ? (
-        <div className="empty-state">
-          <Star size={30} />
-          <h2>Connect a folder to use favourites</h2>
-          <p>Favourites are saved as a small file inside your connected folder, so connect one to start starring resources.</p>
-          {folderStatus === "unsupported" ? (
-            <UnsupportedBrowserNotice />
-          ) : (
-            <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
-              <FolderOpen size={17} />
-              {folderConnectLabel(folderStatus, null)}
-            </button>
-          )}
-        </div>
-      ) : favouriteResources.length ? (
-        <>
-          <div className="result-summary">
-            <strong>{favouriteResources.length}</strong>{" "}
-            {favouriteResources.length === 1 ? "favourite" : "favourites"}
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
           </div>
-          <ResourceGrid
-            resources={favouriteResources}
-            navigate={navigate}
-            favourites={favourites}
-            onToggleFavourite={onToggleFavourite}
-          />
-        </>
-      ) : (
-        <div className="empty-state">
-          <Star size={30} />
-          <h2>No favourites yet</h2>
-          <p>Star a resource from its card or detail page to save it here.</p>
-          <button className="secondary-button" onClick={() => navigate("/library")}>
-            Browse the library
-          </button>
+          <div className="hero-split-content">
+            <section className="hero">
+              <div className="hero-copy">
+                <span className="eyebrow">Saved for later</span>
+                <h1>Your favourites</h1>
+                <p>
+                  Resources you&apos;ve starred in this browser, saved inside your connected folder for only you to see.
+                </p>
+              </div>
+            </section>
+          </div>
         </div>
-      )}
-    </div>
+      </div>
+      <div className="page library-page">
+        {!folderName ? (
+          <div className="empty-state">
+            <Star size={30} />
+            <h2>Connect a folder to use favourites</h2>
+            <p>Favourites are saved as a small file inside your connected folder, so connect one to start starring resources.</p>
+            {folderStatus === "unsupported" ? (
+              <UnsupportedBrowserNotice />
+            ) : (
+              <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
+                <FolderOpen size={17} />
+                {folderConnectLabel(folderStatus, null)}
+              </button>
+            )}
+          </div>
+        ) : favouriteResources.length ? (
+          <>
+            <div className="result-summary">
+              <strong>{favouriteResources.length}</strong>{" "}
+              {favouriteResources.length === 1 ? "favourite" : "favourites"}
+            </div>
+            <ResourceGrid
+              resources={favouriteResources}
+              navigate={navigate}
+              favourites={favourites}
+              onToggleFavourite={onToggleFavourite}
+            />
+          </>
+        ) : (
+          <div className="empty-state">
+            <Star size={30} />
+            <h2>No favourites yet</h2>
+            <p>Star a resource from its card or detail page to save it here.</p>
+            <button className="secondary-button" onClick={() => navigate("/library")}>
+              Browse the library
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
