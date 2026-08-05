@@ -1368,6 +1368,7 @@ button:disabled {
 .page-top h1,
 .detail-hero h1 {
   font-size: clamp(46px, 5vw, 74px);
+  font-weight: 700;
   letter-spacing: -0.055em;
   line-height: 0.98;
   margin: 17px 0;
