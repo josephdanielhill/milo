@@ -3285,6 +3285,15 @@ button:disabled {
     overflow-x: auto;
   }
 
+  .about-subnav {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-subnav button {
+    flex: 0 0 auto;
+  }
+
   .segmented button {
     flex: 1;
   }
