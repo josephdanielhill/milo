@@ -2462,7 +2462,6 @@ button:disabled {
   background: #f8f7f2;
   border: 1px solid var(--brand-line);
   border-radius: 13px;
-  max-width: 640px;
   padding: 22px;
 }
 
