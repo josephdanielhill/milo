@@ -3062,7 +3062,7 @@ button:disabled {
     background: rgba(253, 252, 248, 0.92);
     border-bottom: 1px solid var(--brand-line);
     display: flex;
-    height: 62px;
+    height: 72px;
     justify-content: space-between;
     padding: 0 20px;
     position: sticky;
@@ -3073,9 +3073,14 @@ button:disabled {
   }
 
   .app-shell--pre-connect .mobile-header {
-    margin-bottom: -62px;
+    margin-bottom: -72px;
     pointer-events: none;
     transform: translateY(-100%);
+  }
+
+  .mobile-header .icon-button {
+    width: 44px;
+    height: 44px;
   }
 
   .mobile-header .brand-mark {
