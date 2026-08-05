@@ -2587,6 +2587,20 @@ button:disabled {
   cursor: default;
 }
 
+.share-page__inline-button {
+  font-size: 12px;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 7px;
+  gap: 6px;
+  margin-left: 4px;
+}
+
+.share-page__inline-button:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(30, 34, 31, 0.12);
+  transform: translateY(-1px);
+}
+
 .import-candidate-list {
   display: grid;
   gap: 12px;

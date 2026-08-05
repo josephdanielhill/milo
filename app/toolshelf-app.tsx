@@ -2868,6 +2868,14 @@ function SharePage({
               <button type="button" className="text-button" onClick={deselectAll} disabled={selected.length === 0}>
                 Deselect all
               </button>
+              <button
+                className="primary-button share-page__inline-button"
+                disabled={selected.length === 0}
+                onClick={download}
+              >
+                <Download size={14} />
+                {`${selected.length > 0 ? `Download bundle (${selected.length})` : "Download bundle"}`}
+              </button>
             </div>
           </div>
           {restrictToPreselect && (
