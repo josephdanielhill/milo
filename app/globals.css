@@ -1790,21 +1790,23 @@ button:disabled {
 
 .delete-button {
   align-items: center;
-  background: transparent;
-  border: 1px solid #e8c4c6;
+  background: #e8c4c6;
+  border: 1px solid #a53d49;
   border-radius: 9px;
   color: #a53d49;
+  cursor: pointer;
   display: flex;
   font-size: 13px;
   gap: 6px;
   justify-content: center;
   min-height: 36px;
   padding: 0 14px;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
   width: 100%;
 }
 
 .delete-button:hover {
+  background: #c28a90;
   box-shadow: 0 7px 18px rgba(30, 34, 31, 0.1);
   transform: translateY(-1px);
 }
