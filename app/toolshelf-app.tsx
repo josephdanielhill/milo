@@ -3445,8 +3445,10 @@ function ResourceDetail({
                     ? `Remove this item from ${collectionFiles[resource.meta.type]}?`
                     : "Delete this local file?"}
                 </p>
-                <button onClick={onDelete}>Yes, delete</button>
-                <button onClick={() => setConfirmingDelete(false)}>Cancel</button>
+                <div className="delete-confirm-actions">
+                  <button className="delete-confirm-yes" onClick={onDelete}>Yes, delete</button>
+                  <button className="delete-confirm-cancel" onClick={() => setConfirmingDelete(false)}>Cancel</button>
+                </div>
               </div>
             ) : (
               <button className="delete-button" onClick={() => setConfirmingDelete(true)}>

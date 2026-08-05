@@ -1791,12 +1791,22 @@ button:disabled {
 .delete-button {
   align-items: center;
   background: transparent;
-  border: 0;
+  border: 1px solid #e8c4c6;
+  border-radius: 9px;
   color: #a53d49;
   display: flex;
-  font-size: 11px;
+  font-size: 13px;
   gap: 6px;
-  padding: 0;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  width: 100%;
+}
+
+.delete-button:hover {
+  box-shadow: 0 7px 18px rgba(30, 34, 31, 0.1);
+  transform: translateY(-1px);
 }
 
 .delete-confirm {
@@ -1811,12 +1821,35 @@ button:disabled {
   margin: 0 0 8px;
 }
 
-.delete-confirm button {
+.delete-confirm-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.delete-confirm-actions .delete-confirm-yes {
+  align-items: center;
+  background: #a53d49;
+  border: 1px solid #a53d49;
+  border-radius: 7px;
+  color: white;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 34px;
+  padding: 0 14px;
+}
+
+.delete-confirm-actions .delete-confirm-cancel {
+  align-items: center;
   background: transparent;
-  border: 0;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px 4px 0;
+  border: 1px solid #bfc0ba;
+  border-radius: 7px;
+  color: var(--brand-ink);
+  display: inline-flex;
+  font-size: 13px;
+  min-height: 34px;
+  padding: 0 14px;
 }
 
 .editor-page {
