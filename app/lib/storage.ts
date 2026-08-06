@@ -7,6 +7,7 @@ const HANDLE_KEY = "local-library";
 
 const FAVOURITES_ROOT_DIR = ".milo";
 const FAVOURITES_SUBDIR = "favourites";
+const DISMISSED_SUBDIR = "dismissed";
 const SUBSCRIPTIONS_FILE = "subscriptions.json";
 
 type PermissionMode = "read" | "readwrite";
@@ -71,6 +72,10 @@ function folderFor(type: ResourceType) {
 }
 
 function favouritesFileName(identity: string) {
+  return `${identity}.json`;
+}
+
+function dismissedFileName(identity: string) {
   return `${identity}.json`;
 }
 
@@ -670,6 +675,50 @@ export class LocalFolderStorage implements StorageProvider {
   async removeSubscription(url: string): Promise<void> {
     const current = await this.listSubscriptions();
     await this.writeSubscriptions(current.filter((item) => item.url !== url));
+  }
+
+  /**
+   * Dismissed (hidden) published/example resources are a per-user preference, so like
+   * favourites they live in `.milo/dismissed/{identity}.json` — one list of `type:slug`
+   * keys the user has chosen to hide from their library. Missing file just means nothing
+   * has been dismissed yet, not an error.
+   */
+  async getDismissed(identity: string): Promise<string[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const dir = (await milo.getDirectoryHandle(DISMISSED_SUBDIR)) as DirectoryHandle;
+      const handle = await dir.getFileHandle(dismissedFileName(identity));
+      const file = await handle.getFile();
+      const { items } = parseItemsEnvelope(await file.text(), "Dismissed resources file");
+      return items.filter((item): item is string => typeof item === "string");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
+  }
+
+  async saveDismissed(identity: string, items: string[]): Promise<void> {
+    const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR, { create: true });
+    const dir = (await milo.getDirectoryHandle(DISMISSED_SUBDIR, { create: true })) as DirectoryHandle;
+    await this.write(dir, dismissedFileName(identity), `${JSON.stringify({ version: 1, items }, null, 2)}\n`);
+  }
+
+  /** Lists the identities that already have a dismissed file in this folder — mirrors listFavouriteIdentities. */
+  async listDismissedIdentities(): Promise<string[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const dir = (await milo.getDirectoryHandle(DISMISSED_SUBDIR)) as DirectoryHandle;
+      const identities: string[] = [];
+      for await (const entry of dir.values()) {
+        if (entry.kind === "file" && entry.name.toLowerCase().endsWith(".json")) {
+          identities.push(entry.name.slice(0, -".json".length));
+        }
+      }
+      return identities;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
   }
 
   /** Batches all outcomes from a subscriptions check into a single re-read-modify-write. */

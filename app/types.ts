@@ -80,4 +80,7 @@ export interface StorageProvider {
   updateResource(path: string, resource: ResourceDraft): Promise<Resource>;
   deleteResource(path: string): Promise<void>;
   downloadResource(path: string): Promise<void>;
+  getFavourites(identity: string): Promise<string[]>;
+  saveFavourites(identity: string, items: string[]): Promise<void>;
+  listFavouriteIdentities(): Promise<string[]>;
 }
