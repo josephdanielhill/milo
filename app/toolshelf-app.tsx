@@ -687,6 +687,8 @@ export default function ToolshelfApp({
         showFullHero={showFullHero}
         favourites={favourites}
         onToggleFavourite={toggleFavourite}
+        dismissed={dismissed}
+        onToggleDismiss={toggleDismiss}
         onExploreExamples={() => {
           window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
           setHasConnectedBefore(true);
@@ -726,6 +728,8 @@ export default function ToolshelfApp({
         connectFolder={connectFolder}
         favourites={favourites}
         onToggleFavourite={toggleFavourite}
+        dismissed={dismissed}
+        onToggleDismiss={toggleDismiss}
       />
     );
   } else if (route.kind === "favourites") {
@@ -738,6 +742,8 @@ export default function ToolshelfApp({
         folderName={folderName}
         folderStatus={folderStatus}
         connectFolder={connectFolder}
+        dismissed={dismissed}
+        onToggleDismiss={toggleDismiss}
       />
     );
   } else if (route.kind === "hidden") {
@@ -1315,6 +1321,8 @@ function Dashboard({
   showFullHero,
   favourites,
   onToggleFavourite,
+  dismissed,
+  onToggleDismiss,
   onExploreExamples,
 }: {
   resources: Resource[];
@@ -1328,6 +1336,8 @@ function Dashboard({
   showFullHero: boolean;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
+  dismissed: Set<string>;
+  onToggleDismiss: (resource: Resource) => void;
   onExploreExamples?: () => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
@@ -1461,6 +1471,8 @@ function Dashboard({
               navigate={navigate}
               favourites={favourites}
               onToggleFavourite={onToggleFavourite}
+              dismissed={dismissed}
+              onToggleDismiss={onToggleDismiss}
             />
           </section>
         ) : (
@@ -1508,6 +1520,8 @@ function Dashboard({
                 showCreatedDate
                 favourites={favourites}
                 onToggleFavourite={onToggleFavourite}
+                dismissed={dismissed}
+                onToggleDismiss={onToggleDismiss}
               />
             </section>
           </>
@@ -3021,6 +3035,8 @@ function LibraryView({
   connectFolder,
   favourites,
   onToggleFavourite,
+  dismissed,
+  onToggleDismiss,
 }: {
   resources: Resource[];
   initialType: ResourceType | "all";
@@ -3030,16 +3046,39 @@ function LibraryView({
   connectFolder: (reconnect?: boolean) => void;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
+  dismissed: Set<string>;
+  onToggleDismiss: (resource: Resource) => void;
 }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<ResourceType | "all">(initialType);
   const [source, setSource] = useState<"all" | "local" | "published" | "example">("all");
+  const [hiddenBannerDismissed, setHiddenBannerDismissed] = useState(false);
   const filtered = useMemo(
     () => filterResources(resources, query, type).filter((item) => source === "all" || item.source === source),
     [resources, query, type, source],
   );
+  const hiddenCount = useMemo(
+    () => resources.filter((r) => dismissed.has(resourceKey(r))).length,
+    [resources, dismissed],
+  );
+  const showHiddenBanner = hiddenCount > 0 && !hiddenBannerDismissed;
   return (
     <div className="page library-page">
+      {showHiddenBanner && (
+        <div className="banner banner--info">
+          <span>
+            {hiddenCount} {hiddenCount === 1 ? "resource has" : "resources have"} been hidden &mdash;{" "}
+            <button className="banner-link" onClick={() => navigate("/hidden")}>Manage hidden items</button>
+          </span>
+          <button
+            className="banner-close"
+            onClick={() => setHiddenBannerDismissed(true)}
+            aria-label="Dismiss"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
       <PageTop
         eyebrow="Knowledge, ready when you are"
         title={type === "all" ? "Your Library of Resources" : `${typeLabels[type]} library`}
@@ -3098,6 +3137,8 @@ function LibraryView({
         navigate={navigate}
         favourites={favourites}
         onToggleFavourite={onToggleFavourite}
+        dismissed={dismissed}
+        onToggleDismiss={onToggleDismiss}
       />
       {!filtered.length && (
         <div className="empty-state">
@@ -3121,6 +3162,8 @@ function FavouritesPage({
   folderName,
   folderStatus,
   connectFolder,
+  dismissed,
+  onToggleDismiss,
 }: {
   resources: Resource[];
   favourites: Set<string>;
@@ -3129,6 +3172,8 @@ function FavouritesPage({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
+  dismissed: Set<string>;
+  onToggleDismiss: (resource: Resource) => void;
 }) {
   const favouriteResources = useMemo(
     () => resources.filter((resource) => favourites.has(resourceKey(resource))),
@@ -3180,6 +3225,8 @@ function FavouritesPage({
               navigate={navigate}
               favourites={favourites}
               onToggleFavourite={onToggleFavourite}
+              dismissed={dismissed}
+              onToggleDismiss={onToggleDismiss}
             />
           </>
         ) : (
@@ -3372,6 +3419,8 @@ function ResourceGrid({
   showCreatedDate = false,
   favourites,
   onToggleFavourite,
+  dismissed,
+  onToggleDismiss,
 }: {
   resources: Resource[];
   navigate: (path: string) => void;
@@ -3379,14 +3428,17 @@ function ResourceGrid({
   showCreatedDate?: boolean;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
+  dismissed?: Set<string>;
+  onToggleDismiss?: (resource: Resource) => void;
 }) {
   return (
     <div className={`resource-grid ${compact ? "resource-grid--compact" : ""}`}>
       {resources.map((resource) => {
         const isFavourite = favourites.has(resourceKey(resource));
+        const isDismissed = dismissed?.has(resourceKey(resource));
         return (
         <article
-          className={`resource-card resource-card--${resource.meta.type}`}
+          className={`resource-card resource-card--${resource.meta.type}${isDismissed ? " resource-card--dismissed" : ""}`}
           key={`${resource.source}-${resource.path}`}
         >
           <button
@@ -3407,6 +3459,16 @@ function ResourceGrid({
                 <span className="source-pill source-pill--imported" title={`Imported from "${resource.meta.importedFrom}"`}>
                   Imported
                 </span>
+              )}
+              {resource.source === "published" && onToggleDismiss && (
+                <button
+                  className="dismiss-toggle"
+                  aria-label={`Hide ${resource.meta.title}`}
+                  title="Hide this published resource"
+                  onClick={(e) => { e.stopPropagation(); onToggleDismiss(resource); }}
+                >
+                  <EyeOff size={15} />
+                </button>
               )}
               <button
                 className={`favourite-toggle ${isFavourite ? "favourite-toggle--active" : ""}`}
