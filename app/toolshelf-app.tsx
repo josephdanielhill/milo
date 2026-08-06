@@ -1111,16 +1111,6 @@ function Sidebar({
           {favouritesCount > 0 && <span className="nav-count">{favouritesCount}</span>}
           {path === "/favourites" && <span className="nav-active-dot" />}
         </button>
-        <button
-          className={`nav-item nav-hidden ${path === "/hidden" ? "nav-item--active" : ""}`}
-          onClick={() => navigate("/hidden")}
-          aria-current={path === "/hidden" ? "page" : undefined}
-        >
-          <EyeOff size={18} aria-hidden="true" />
-          Hidden
-          {dismissedCount > 0 && <span className="nav-count">{dismissedCount}</span>}
-          {path === "/hidden" && <span className="nav-active-dot" />}
-        </button>
         <span className="nav-eyebrow">Library</span>
         {items.map(({ label, href, icon: Icon }) => {
           const active =
@@ -1185,6 +1175,14 @@ function Sidebar({
             Share resources
           </button>
         )}
+        <button
+          className={`text-button nav-hidden ${path === "/hidden" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/hidden")}
+        >
+          <EyeOff size={14} />
+          Hidden
+          {dismissedCount > 0 && <span className="nav-count">{dismissedCount}</span>}
+        </button>
         {folderName && (
           <button className="text-button" onClick={disconnectFolder}>
             <FolderX size={14} />
