@@ -643,6 +643,32 @@ export class LocalFolderStorage implements StorageProvider {
   }
 
   /**
+   * Dismissed (hidden) resources are per-browser, exactly like favourites — a personal
+   * preference about which published resources the user doesn't want cluttering their
+   * library — so they live in the same pattern: a JSON file at `.milo/dismissed/{identity}.json`.
+   * A missing file/directory simply means nothing has been dismissed yet, not an error.
+   */
+  async getDismissedResources(identity: string): Promise<string[]> {
+    try {
+      const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR);
+      const dir = (await milo.getDirectoryHandle(DISMISSED_SUBDIR)) as DirectoryHandle;
+      const handle = await dir.getFileHandle(dismissedFileName(identity));
+      const file = await handle.getFile();
+      const { items } = parseItemsEnvelope(await file.text(), "Dismissed resources file");
+      return items.filter((item): item is string => typeof item === "string");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "NotFoundError") return [];
+      throw error;
+    }
+  }
+
+  async saveDismissedResources(identity: string, items: string[]) {
+    const milo = await this.requireRoot().getDirectoryHandle(FAVOURITES_ROOT_DIR, { create: true });
+    const dir = (await milo.getDirectoryHandle(DISMISSED_SUBDIR, { create: true })) as DirectoryHandle;
+    await this.write(dir, dismissedFileName(identity), `${JSON.stringify({ version: 1, items }, null, 2)}\n`);
+  }
+
+  /**
    * Subscriptions live in a single shared `.milo/subscriptions.json` file (unlike favourites,
    * which are per-identity) since a subscription is a decision about where this shared library
    * pulls content from, not a personal preference — everyone who connects to this folder should
