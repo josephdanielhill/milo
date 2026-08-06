@@ -365,6 +365,7 @@ button:disabled {
 }
 
 .folder-mini .text-button {
+  display: flex;
   margin-top: 12px;
 }
 
