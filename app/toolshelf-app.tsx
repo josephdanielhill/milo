@@ -281,7 +281,7 @@ export default function ToolshelfApp({
   const [search, setSearch] = useState("");
   const [identity, setIdentity] = useState<string | null>(null);
   const [favourites, setFavourites] = useState<Set<string>>(new Set());
-  const [dismissedResources, setDismissedResources] = useState<Set<string>>(new Set());
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [subscriptionUpdates, setSubscriptionUpdates] = useState<{
     newOrChanged: number;
@@ -307,11 +307,23 @@ export default function ToolshelfApp({
     const visibleExamples = exampleResources.filter(
       (item) => !typesWithRealResources.has(item.meta.type),
     );
-    const all = [...realResources, ...visibleExamples];
-    return dismissedResources.size > 0
-      ? all.filter((item) => !dismissedResources.has(resourceKey(item)))
-      : all;
-  }, [localResources, dismissedResources]);
+    return [...realResources, ...visibleExamples].filter(
+      (item) => !dismissed.has(resourceKey(item)),
+    );
+  }, [localResources, dismissed]);
+
+  const allResources = useMemo(() => {
+    const localKeys = new Set(localResources.map((item) => resourceKey(item)));
+    const remotePublished = publishedResources.filter(
+      (item) => !localKeys.has(resourceKey(item)),
+    );
+    const realResources = [...localResources, ...remotePublished];
+    const typesWithRealResources = new Set(realResources.map((item) => item.meta.type));
+    const visibleExamples = exampleResources.filter(
+      (item) => !typesWithRealResources.has(item.meta.type),
+    );
+    return [...realResources, ...visibleExamples];
+  }, [localResources]);
 
   const notify = useCallback((message: string) => {
     setToast(message);
@@ -486,22 +498,17 @@ export default function ToolshelfApp({
     let cancelled = false;
     (async () => {
       try {
-        const items = await storage.getDismissedResources(identity);
-        if (!cancelled) setDismissedResources(new Set(items));
+        const items = await storage.getDismissed(identity);
+        if (!cancelled) setDismissed(new Set(items));
       } catch (error) {
         if (cancelled) return;
         console.warn("Could not load dismissed resources:", error);
-        notify(
-          error instanceof Error
-            ? `Could not load your dismissed resources: ${error.message}`
-            : "Could not load your dismissed resources.",
-        );
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [folderName, identity, notify]);
+  }, [folderName, identity]);
 
   const toggleFavourite = useCallback(
     async (resource: Resource) => {
@@ -523,45 +530,24 @@ export default function ToolshelfApp({
     [folderName, identity, favourites, notify],
   );
 
-  const dismissResource = useCallback(
+  const toggleDismiss = useCallback(
     async (resource: Resource) => {
       if (!folderName || !identity) {
-        notify("Connect a folder to dismiss resources");
-        return;
-      }
-      if (resource.source !== "published") return;
-      const key = resourceKey(resource);
-      const next = new Set(dismissedResources);
-      next.add(key);
-      setDismissedResources(next);
-      try {
-        await storage.saveDismissedResources(identity, [...next]);
-        notify(`"${resource.meta.title}" hidden`);
-      } catch (error) {
-        notify(error instanceof Error ? error.message : "Could not dismiss that resource.");
-      }
-    },
-    [folderName, identity, dismissedResources, notify],
-  );
-
-  const restoreResource = useCallback(
-    async (resource: Resource) => {
-      if (!folderName || !identity) {
-        notify("Connect a folder to restore resources");
+        notify("Connect a folder to hide resources");
         return;
       }
       const key = resourceKey(resource);
-      const next = new Set(dismissedResources);
-      next.delete(key);
-      setDismissedResources(next);
+      const next = new Set(dismissed);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      setDismissed(next);
       try {
-        await storage.saveDismissedResources(identity, [...next]);
-        notify(`"${resource.meta.title}" restored`);
+        await storage.saveDismissed(identity, [...next]);
       } catch (error) {
-        notify(error instanceof Error ? error.message : "Could not restore that resource.");
+        notify(error instanceof Error ? error.message : "Could not save hidden resources.");
       }
     },
-    [folderName, identity, dismissedResources, notify],
+    [folderName, identity, dismissed, notify],
   );
 
   const closeCommandPalette = useCallback(() => {
@@ -701,9 +687,6 @@ export default function ToolshelfApp({
         showFullHero={showFullHero}
         favourites={favourites}
         onToggleFavourite={toggleFavourite}
-        dismissedResources={dismissedResources}
-        onDismissResource={dismissResource}
-        onRestoreResource={restoreResource}
         onExploreExamples={() => {
           window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
           setHasConnectedBefore(true);
@@ -743,9 +726,6 @@ export default function ToolshelfApp({
         connectFolder={connectFolder}
         favourites={favourites}
         onToggleFavourite={toggleFavourite}
-        dismissedResources={dismissedResources}
-        onDismissResource={dismissResource}
-        onRestoreResource={restoreResource}
       />
     );
   } else if (route.kind === "favourites") {
@@ -758,9 +738,18 @@ export default function ToolshelfApp({
         folderName={folderName}
         folderStatus={folderStatus}
         connectFolder={connectFolder}
-        dismissedResources={dismissedResources}
-        onDismissResource={dismissResource}
-        onRestoreResource={restoreResource}
+      />
+    );
+  } else if (route.kind === "hidden") {
+    content = (
+      <HiddenPage
+        resources={allResources}
+        dismissed={dismissed}
+        onToggleDismiss={toggleDismiss}
+        navigate={navigate}
+        folderName={folderName}
+        folderStatus={folderStatus}
+        connectFolder={connectFolder}
       />
     );
   } else if (route.kind === "about") {
@@ -813,7 +802,7 @@ export default function ToolshelfApp({
         notify={notify}
         isFavourite={favourites.has(resourceKey(resource))}
         onToggleFavourite={() => toggleFavourite(resource)}
-        onDismissResource={() => dismissResource(resource)}
+        onToggleDismiss={() => toggleDismiss(resource)}
         onDelete={async () => {
           await storage.deleteResource(resource.path);
           setLocalResources(await storage.listResources());
@@ -889,6 +878,7 @@ export default function ToolshelfApp({
         folderMessage={folderMessage}
         localCount={localResources.length}
         favouritesCount={favourites.size}
+        dismissedCount={dismissed.size}
         navigate={navigate}
         close={() => setMobileOpen(false)}
         refresh={refreshResources}
@@ -1044,6 +1034,7 @@ function Sidebar({
   folderMessage,
   localCount,
   favouritesCount,
+  dismissedCount,
   navigate,
   close,
   refresh,
@@ -1057,6 +1048,7 @@ function Sidebar({
   folderMessage: string;
   localCount: number;
   favouritesCount: number;
+  dismissedCount: number;
   navigate: (path: string) => void;
   close: () => void;
   refresh: () => void;
@@ -1118,6 +1110,16 @@ function Sidebar({
           Favourites
           {favouritesCount > 0 && <span className="nav-count">{favouritesCount}</span>}
           {path === "/favourites" && <span className="nav-active-dot" />}
+        </button>
+        <button
+          className={`nav-item nav-hidden ${path === "/hidden" ? "nav-item--active" : ""}`}
+          onClick={() => navigate("/hidden")}
+          aria-current={path === "/hidden" ? "page" : undefined}
+        >
+          <EyeOff size={18} aria-hidden="true" />
+          Hidden
+          {dismissedCount > 0 && <span className="nav-count">{dismissedCount}</span>}
+          {path === "/hidden" && <span className="nav-active-dot" />}
         </button>
         <span className="nav-eyebrow">Library</span>
         {items.map(({ label, href, icon: Icon }) => {
@@ -1313,9 +1315,6 @@ function Dashboard({
   showFullHero,
   favourites,
   onToggleFavourite,
-  dismissedResources,
-  onDismissResource,
-  onRestoreResource,
   onExploreExamples,
 }: {
   resources: Resource[];
@@ -1329,9 +1328,6 @@ function Dashboard({
   showFullHero: boolean;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
-  dismissedResources: Set<string>;
-  onDismissResource: (resource: Resource) => void;
-  onRestoreResource: (resource: Resource) => void;
   onExploreExamples?: () => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
@@ -1465,8 +1461,6 @@ function Dashboard({
               navigate={navigate}
               favourites={favourites}
               onToggleFavourite={onToggleFavourite}
-              dismissedResources={dismissedResources}
-              onDismissResource={onDismissResource}
             />
           </section>
         ) : (
@@ -1514,8 +1508,6 @@ function Dashboard({
                 showCreatedDate
                 favourites={favourites}
                 onToggleFavourite={onToggleFavourite}
-                dismissedResources={dismissedResources}
-                onDismissResource={onDismissResource}
               />
             </section>
           </>
@@ -3029,9 +3021,6 @@ function LibraryView({
   connectFolder,
   favourites,
   onToggleFavourite,
-  dismissedResources,
-  onDismissResource,
-  onRestoreResource,
 }: {
   resources: Resource[];
   initialType: ResourceType | "all";
@@ -3041,41 +3030,16 @@ function LibraryView({
   connectFolder: (reconnect?: boolean) => void;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
-  dismissedResources: Set<string>;
-  onDismissResource: (resource: Resource) => void;
-  onRestoreResource: (resource: Resource) => void;
 }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<ResourceType | "all">(initialType);
   const [source, setSource] = useState<"all" | "local" | "published" | "example">("all");
-  const [hiddenItemsOpen, setHiddenItemsOpen] = useState(false);
   const filtered = useMemo(
     () => filterResources(resources, query, type).filter((item) => source === "all" || item.source === source),
     [resources, query, type, source],
   );
-  const hiddenCount = useMemo(
-    () => resources.filter((r) => dismissedResources.has(resourceKey(r))).length,
-    [resources, dismissedResources],
-  );
-  const [dismissedBannerDismissed, setDismissedBannerDismissed] = useState(false);
-  const showHiddenBanner = hiddenCount > 0 && !dismissedBannerDismissed;
   return (
     <div className="page library-page">
-      {showHiddenBanner && (
-        <div className="banner banner--info">
-          <span>
-            {hiddenCount} {hiddenCount === 1 ? "resource has" : "resources have"} been hidden &mdash;{" "}
-            <button className="banner-link" onClick={() => setHiddenItemsOpen(true)}>Manage hidden items</button>
-          </span>
-          <button
-            className="banner-close"
-            onClick={() => setDismissedBannerDismissed(true)}
-            aria-label="Dismiss"
-          >
-            <X size={16} />
-          </button>
-        </div>
-      )}
       <PageTop
         eyebrow="Knowledge, ready when you are"
         title={type === "all" ? "Your Library of Resources" : `${typeLabels[type]} library`}
@@ -3134,8 +3098,6 @@ function LibraryView({
         navigate={navigate}
         favourites={favourites}
         onToggleFavourite={onToggleFavourite}
-        dismissedResources={dismissedResources}
-        onDismissResource={onDismissResource}
       />
       {!filtered.length && (
         <div className="empty-state">
@@ -3147,70 +3109,6 @@ function LibraryView({
           </button>
         </div>
       )}
-      {hiddenItemsOpen && (
-        <HiddenItemsModal
-          resources={resources}
-          dismissedResources={dismissedResources}
-          onRestoreResource={onRestoreResource}
-          onClose={() => setHiddenItemsOpen(false)}
-        />
-      )}
-    </div>
-  );
-}
-
-function HiddenItemsModal({
-  resources,
-  dismissedResources,
-  onRestoreResource,
-  onClose,
-}: {
-  resources: Resource[];
-  dismissedResources: Set<string>;
-  onRestoreResource: (resource: Resource) => void;
-  onClose: () => void;
-}) {
-  const hiddenResources = useMemo(
-    () => resources.filter((r) => dismissedResources.has(resourceKey(r))),
-    [resources, dismissedResources],
-  );
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal modal--medium" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>Hidden items</h2>
-          <button className="modal-close" onClick={onClose} aria-label="Close">
-            <X size={20} />
-          </button>
-        </div>
-        <div className="modal-body">
-          {hiddenResources.length === 0 ? (
-            <p className="empty-state-inline">No hidden items.</p>
-          ) : (
-            <ul className="hidden-items-list">
-              {hiddenResources.map((resource) => (
-                <li key={resourceKey(resource)} className="hidden-item-row">
-                  <div className="hidden-item-info">
-                    <span className="type-pill" style={{ fontSize: 12 }}>
-                      {typeIcon(resource.meta.type, 12)}
-                      {typeLabels[resource.meta.type]}
-                    </span>
-                    <span className="hidden-item-title">{resource.meta.title}</span>
-                  </div>
-                  <button
-                    className="secondary-button"
-                    style={{ fontSize: 13, padding: "4px 12px" }}
-                    onClick={() => onRestoreResource(resource)}
-                  >
-                    <EyeOff size={14} />
-                    Restore
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -3223,9 +3121,6 @@ function FavouritesPage({
   folderName,
   folderStatus,
   connectFolder,
-  dismissedResources,
-  onDismissResource,
-  onRestoreResource,
 }: {
   resources: Resource[];
   favourites: Set<string>;
@@ -3234,9 +3129,6 @@ function FavouritesPage({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
-  dismissedResources: Set<string>;
-  onDismissResource: (resource: Resource) => void;
-  onRestoreResource: (resource: Resource) => void;
 }) {
   const favouriteResources = useMemo(
     () => resources.filter((resource) => favourites.has(resourceKey(resource))),
@@ -3288,8 +3180,6 @@ function FavouritesPage({
               navigate={navigate}
               favourites={favourites}
               onToggleFavourite={onToggleFavourite}
-              dismissedResources={dismissedResources}
-              onDismissResource={onDismissResource}
             />
           </>
         ) : (
@@ -3297,6 +3187,127 @@ function FavouritesPage({
             <Star size={30} />
             <h2>No favourites yet</h2>
             <p>Star a resource from its card or detail page to save it here.</p>
+            <button className="secondary-button" onClick={() => navigate("/library")}>
+              Browse the library
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+function HiddenPage({
+  resources,
+  dismissed,
+  onToggleDismiss,
+  navigate,
+  folderName,
+  folderStatus,
+  connectFolder,
+}: {
+  resources: Resource[];
+  dismissed: Set<string>;
+  onToggleDismiss: (resource: Resource) => void;
+  navigate: (path: string) => void;
+  folderName: string | null;
+  folderStatus: FolderStatus;
+  connectFolder: (reconnect?: boolean) => void;
+}) {
+  const hiddenResources = useMemo(
+    () => resources.filter((resource) => dismissed.has(resourceKey(resource))),
+    [resources, dismissed],
+  );
+  return (
+    <>
+      <div className="hero-split">
+        <div className="hero-split-inner">
+          <div className="hero-split-media">
+            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
+          </div>
+          <div className="hero-split-content">
+            <section className="hero">
+              <div className="hero-copy">
+                <span className="eyebrow">Hidden from view</span>
+                <h1>Dismissed resources</h1>
+                <p>
+                  Resources you&apos;ve hidden from your library. Restore them to make them visible again.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div className="page library-page">
+        {!folderName ? (
+          <div className="empty-state">
+            <EyeOff size={30} />
+            <h2>Connect a folder to dismiss resources</h2>
+            <p>Dismissed resources are tracked in a small file inside your connected folder, so connect one to start hiding resources.</p>
+            {folderStatus === "unsupported" ? (
+              <UnsupportedBrowserNotice />
+            ) : (
+              <button className="primary-button" onClick={() => connectFolder(folderStatus === "permission")}>
+                <FolderOpen size={17} />
+                {folderConnectLabel(folderStatus, null)}
+              </button>
+            )}
+          </div>
+        ) : hiddenResources.length ? (
+          <>
+            <div className="result-summary">
+              <strong>{hiddenResources.length}</strong>{" "}
+              {hiddenResources.length === 1 ? "hidden resource" : "hidden resources"}
+            </div>
+            <div className="resource-grid">
+              {hiddenResources.map((resource) => {
+                const key = resourceKey(resource);
+                return (
+                  <article
+                    className={`resource-card resource-card--${resource.meta.type}`}
+                    key={`${resource.source}-${resource.path}`}
+                  >
+                    <button
+                      className="card-hit"
+                      aria-label={`Open ${resource.meta.title}`}
+                      onClick={() => navigate(resourceUrl(resource))}
+                    />
+                    <div className="resource-card__top">
+                      <span className="type-pill">
+                        {typeIcon(resource.meta.type, 14)}
+                        {typeLabels[resource.meta.type]}
+                      </span>
+                      <div className="resource-card__badges">
+                        <span className={`source-pill source-pill--${resource.source}`}>
+                          {sourcePillLabel(resource.source)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="resource-card__body">
+                      <h3>{resource.meta.title}</h3>
+                      {resource.meta.creator && (
+                        <span className="resource-card__creator">by {resource.meta.creator}</span>
+                      )}
+                      <p>{resource.meta.summary}</p>
+                    </div>
+                    <div className="resource-card__actions">
+                      <button
+                        className="secondary-button"
+                        onClick={() => onToggleDismiss(resource)}
+                      >
+                        <EyeOff size={14} /> Restore
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <div className="empty-state">
+            <EyeOff size={30} />
+            <h2>No hidden resources</h2>
+            <p>Dismissed resources will appear here. Dismiss a published resource from its detail page.</p>
             <button className="secondary-button" onClick={() => navigate("/library")}>
               Browse the library
             </button>
@@ -3361,8 +3372,6 @@ function ResourceGrid({
   showCreatedDate = false,
   favourites,
   onToggleFavourite,
-  dismissedResources,
-  onDismissResource,
 }: {
   resources: Resource[];
   navigate: (path: string) => void;
@@ -3370,17 +3379,14 @@ function ResourceGrid({
   showCreatedDate?: boolean;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
-  dismissedResources?: Set<string>;
-  onDismissResource?: (resource: Resource) => void;
 }) {
   return (
     <div className={`resource-grid ${compact ? "resource-grid--compact" : ""}`}>
       {resources.map((resource) => {
         const isFavourite = favourites.has(resourceKey(resource));
-        const isDismissed = dismissedResources?.has(resourceKey(resource));
         return (
         <article
-          className={`resource-card resource-card--${resource.meta.type}${isDismissed ? " resource-card--dismissed" : ""}`}
+          className={`resource-card resource-card--${resource.meta.type}`}
           key={`${resource.source}-${resource.path}`}
         >
           <button
@@ -3401,16 +3407,6 @@ function ResourceGrid({
                 <span className="source-pill source-pill--imported" title={`Imported from "${resource.meta.importedFrom}"`}>
                   Imported
                 </span>
-              )}
-              {resource.source === "published" && onDismissResource && (
-                <button
-                  className="dismiss-toggle"
-                  aria-label={`Hide ${resource.meta.title}`}
-                  title="Hide this published resource"
-                  onClick={(e) => { e.stopPropagation(); onDismissResource(resource); }}
-                >
-                  <EyeOff size={15} />
-                </button>
               )}
               <button
                 className={`favourite-toggle ${isFavourite ? "favourite-toggle--active" : ""}`}
@@ -3474,7 +3470,7 @@ function ResourceDetail({
   notify,
   isFavourite,
   onToggleFavourite,
-  onDismissResource,
+  onToggleDismiss,
   onDelete,
 }: {
   resource: Resource;
@@ -3483,7 +3479,7 @@ function ResourceDetail({
   notify: (message: string) => void;
   isFavourite: boolean;
   onToggleFavourite: () => void;
-  onDismissResource: () => void;
+  onToggleDismiss: () => void;
   onDelete: () => Promise<void>;
 }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -3533,15 +3529,6 @@ function ResourceDetail({
             <Star size={16} />
             {isFavourite ? "Favourited" : "Favourite"}
           </button>
-          {resource.source === "published" && (
-            <button
-              className="secondary-button dismiss-toggle-detail"
-              onClick={onDismissResource}
-            >
-              <EyeOff size={16} />
-              Hide
-            </button>
-          )}
           {(isCollectionType(resource.meta.type) || resource.meta.type === "tool") &&
             resource.meta.toolUrl && (
             <a
@@ -3672,6 +3659,15 @@ function ResourceDetail({
                 <Trash2 size={14} /> Delete resource
               </button>
             )
+          )}
+          {resource.source !== "local" && (
+            <button
+              className="secondary-button dismiss-button"
+              onClick={onToggleDismiss}
+              title="Hide this resource from your library"
+            >
+              <X size={14} /> Dismiss
+            </button>
           )}
         </aside>
       </div>
@@ -4243,6 +4239,7 @@ function parseRoute(path: string):
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
+  | { kind: "hidden" }
   | { kind: "library"; type: ResourceType | "all" }
   | { kind: "resource"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
   | { kind: "edit"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
@@ -4276,6 +4273,7 @@ function parseRoute(path: string):
     return { kind: "share", preselectKey: params.get("resource") || undefined };
   }
   if (cleanPath === "/favourites") return { kind: "favourites" };
+  if (cleanPath === "/hidden") return { kind: "hidden" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
   if (cleanPath === "/prompts") return { kind: "library", type: "prompt" };
   if (cleanPath === "/skills") return { kind: "library", type: "skill" };
