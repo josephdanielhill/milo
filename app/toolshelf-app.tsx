@@ -36,7 +36,6 @@ import {
   Star,
   Trash2,
   UploadCloud,
-  UserPlus,
   Video,
   WandSparkles,
   Wrench,
@@ -54,7 +53,6 @@ import {
   useState,
 } from "react";
 import { exampleResources } from "./data";
-import SignupPage from "./signup";
 import { publishedForumCollectionsList, publishedResources } from "./lib/published";
 import { displaySummary, renderMarkdown, slugify, starterBody, validateResource } from "./lib/markdown";
 import {
@@ -754,10 +752,6 @@ export default function ToolshelfApp({
         connectFolder={connectFolder}
       />
     );
-  } else if (route.kind === "signup") {
-    content = (
-      <SignupPage navigate={navigate} />
-    );
   } else if (route.kind === "about") {
     content = (
       <AboutMilo
@@ -1106,15 +1100,6 @@ function Sidebar({
           <CircleHelp size={18} aria-hidden="true" />
           About Milo
           {(path === "/about" || path.startsWith("/guide")) && <span className="nav-active-dot" />}
-        </button>
-        <button
-          className={`nav-item nav-signup ${path === "/signup" ? "nav-item--active" : ""}`}
-          onClick={() => navigate("/signup")}
-          aria-current={path === "/signup" ? "page" : undefined}
-        >
-          <UserPlus size={18} aria-hidden="true" />
-          Sign up
-          {path === "/signup" && <span className="nav-active-dot" />}
         </button>
         <button
           className={`nav-item nav-favourites ${path === "/favourites" ? "nav-item--active" : ""}`}
@@ -4253,7 +4238,6 @@ function parseRoute(path: string):
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
   | { kind: "hidden" }
-  | { kind: "signup" }
   | { kind: "library"; type: ResourceType | "all" }
   | { kind: "resource"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
   | { kind: "edit"; source: "local" | "published" | "example"; type: ResourceType; slug: string }
@@ -4288,7 +4272,6 @@ function parseRoute(path: string):
   }
   if (cleanPath === "/favourites") return { kind: "favourites" };
   if (cleanPath === "/hidden") return { kind: "hidden" };
-  if (cleanPath === "/signup") return { kind: "signup" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
   if (cleanPath === "/prompts") return { kind: "library", type: "prompt" };
   if (cleanPath === "/skills") return { kind: "library", type: "skill" };
