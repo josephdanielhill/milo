@@ -3737,3 +3737,121 @@ body:has(.modal-overlay) {
   overflow: hidden;
 }
 
+/* New Published Resource Popup Styles */
+body:has(.new-resource-popup) {
+  overflow: hidden;
+}
+.new-resource-popup {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 300;
+  padding: 16px;
+}
+.new-resource-popup-backdrop {
+  background: rgba(25, 29, 27, 0.45);
+  backdrop-filter: blur(6px);
+  border: 0;
+  cursor: default;
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+.new-resource-popup-panel {
+  background: #fff;
+  border: 1px solid var(--brand-line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  width: min(400px, 92vw);
+  z-index: 1;
+}
+.new-resource-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+}
+.new-resource-popup-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+.new-resource-popup-close {
+  color: #666;
+  padding: 4px;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.new-resource-popup-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.new-resource-popup-asset {
+  display: flex;
+  justify-content: center;
+  padding: 24px 20px 0;
+}
+.new-resource-popup-icon-callout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--brand-mint);
+  color: #116844;
+}
+.new-resource-popup-body {
+  padding: 20px;
+  text-align: center;
+}
+.new-resource-popup-body .eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #999;
+}
+.new-resource-popup-body h2 {
+  font-size: 19px;
+  font-weight: 650;
+  margin: 8px 0 4px;
+  color: var(--brand-ink);
+}
+.new-resource-popup-creator {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 8px;
+}
+.new-resource-popup-body p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+.new-resource-popup-footer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  border-top: 1px solid var(--brand-line);
+  padding: 16px 20px;
+}
+.new-resource-popup-footer .secondary-button,
+.new-resource-popup-footer .primary-button {
+  min-height: 36px;
+  font-size: 13px;
+}
+

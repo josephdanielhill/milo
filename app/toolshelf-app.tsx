@@ -292,6 +292,7 @@ export default function ToolshelfApp({
   const [subscriptionReviewModalOpen, setSubscriptionReviewModalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [isReconnecting, setIsReconnecting] = useState(true);
+  const [newResourcePopup, setNewResourcePopup] = useState<Resource | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const paletteInputRef = useRef<HTMLInputElement>(null);
@@ -492,6 +493,29 @@ export default function ToolshelfApp({
       cancelled = true;
     };
   }, [folderName, identity, notify]);
+
+  // Detect newly published resources and show pop-up
+  useEffect(() => {
+    if (resources.length === 0) return;
+    const seenKey = "milo:seen-published-resources";
+    try {
+      const raw = window.localStorage.getItem(seenKey);
+      const seen: Set<string> = new Set(raw ? JSON.parse(raw) : []);
+      const publishedOnly = publishedResources.filter(
+        (r) => !dismissed.has(resourceKey(r)),
+      );
+      const unseen = publishedOnly.filter((r) => !seen.has(resourceKey(r)));
+      if (unseen.length > 0) {
+        // Mark all as seen and show the first one
+        const newSeen = new Set(seen);
+        for (const r of unseen) newSeen.add(resourceKey(r));
+        window.localStorage.setItem(seenKey, JSON.stringify([...newSeen]));
+        setNewResourcePopup(unseen[0]);
+      }
+    } catch {
+      // localStorage might not be available
+    }
+  }, [resources, dismissed]);
 
   useEffect(() => {
     if (!folderName || !identity) return;
@@ -988,6 +1012,22 @@ export default function ToolshelfApp({
             navigate("/import?tab=subscriptions");
             setSubscriptionReviewModalOpen(false);
           }}
+        />
+      )}
+      {newResourcePopup && (
+        <NewPublishedResourcePopup
+          resource={newResourcePopup}
+          onClose={() => setNewResourcePopup(null)}
+          onView={() => {
+            const url = resourceUrl(newResourcePopup);
+            navigate(url);
+            setNewResourcePopup(null);
+          }}
+          onDismiss={() => {
+            setDismissed((prev) => new Set(prev).add(resourceKey(newResourcePopup)));
+            setNewResourcePopup(null);
+          }}
+          onHide={() => setNewResourcePopup(null)}
         />
       )}
     </div>
@@ -1826,6 +1866,93 @@ function SubscriptionReviewModal({
             onClick={onNext}
           >
             Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NewPublishedResourcePopup({
+  resource,
+  onClose,
+  onView,
+  onDismiss,
+  onHide,
+}: {
+  resource: Resource;
+  onClose: () => void;
+  onView: () => void;
+  onDismiss: () => void;
+  onHide: () => void;
+}) {
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  return (
+    <div className="new-resource-popup">
+      <button
+        type="button"
+        className="new-resource-popup-backdrop"
+        aria-label="Close pop-up"
+        onClick={onHide}
+      />
+      <div className="new-resource-popup-panel" role="dialog" aria-modal="true" aria-label="New published resource">
+        <div className="new-resource-popup-header">
+          <span className="new-resource-popup-type-pill">
+            {typeIcon(resource.meta.type, 16)}
+            {typeLabels[resource.meta.type]}
+          </span>
+          <button
+            type="button"
+            className="new-resource-popup-close"
+            aria-label="Close"
+            onClick={onHide}
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className="new-resource-popup-asset">
+          <div className="new-resource-popup-icon-callout">
+            {typeIcon(resource.meta.type, 40)}
+          </div>
+        </div>
+        <div className="new-resource-popup-body">
+          <span className="eyebrow">New published resource</span>
+          <h2>{resource.meta.title}</h2>
+          {resource.meta.creator && (
+            <p className="new-resource-popup-creator">by {resource.meta.creator}</p>
+          )}
+          <p>{displaySummary(resource.meta.summary)}</p>
+        </div>
+        <div className="new-resource-popup-footer">
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={onDismiss}
+          >
+            <EyeOff size={14} />
+            Dismiss
+          </button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={onHide}
+          >
+            Later
+          </button>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={onView}
+          >
+            <ExternalLink size={14} />
+            View resource
           </button>
         </div>
       </div>
