@@ -612,7 +612,7 @@ export default function ToolshelfApp({
   }, [basePath]);
 
   useEffect(() => {
-    if (isReconnecting) return;
+    if (isReconnecting && window.localStorage.getItem(HAS_CONNECTED_KEY) === "1") return;
     if (!folderName) {
       const cleanPath = path.split("?")[0].replace(/\/+$/, "") || "/";
       const isAllowedWithoutConnection =
