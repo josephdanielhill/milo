@@ -711,11 +711,7 @@ export default function ToolshelfApp({
         showFullHero={showFullHero}
         favourites={favourites}
         onToggleFavourite={toggleFavourite}
-        onExploreExamples={() => {
-          window.localStorage.setItem(HAS_CONNECTED_KEY, "1");
-          setHasConnectedBefore(true);
-        }}
-      />
+        />
     );
   } else if (route.kind === "forum") {
     content = (
@@ -1353,7 +1349,6 @@ function Dashboard({
   showFullHero,
   favourites,
   onToggleFavourite,
-  onExploreExamples,
 }: {
   resources: Resource[];
   search: string;
@@ -1366,7 +1361,6 @@ function Dashboard({
   showFullHero: boolean;
   favourites: Set<string>;
   onToggleFavourite: (resource: Resource) => void;
-  onExploreExamples?: () => void;
 }) {
   const results = useMemo(() => filterResources(resources, search, "all"), [resources, search]);
   const latestResources = useMemo(
@@ -1418,15 +1412,6 @@ function Dashboard({
                       connectFolder={connectFolder}
                       onCreate={() => navigate("/create")}
                     />
-                    {folderStatus === "unsupported" && onExploreExamples && (
-                      <button
-                        className="primary-button"
-                        onClick={onExploreExamples}
-                      >
-                        Explore example library
-                        <ChevronRight size={17} />
-                      </button>
-                    )}
                   </div>
                 </div>
               </section>
