@@ -597,6 +597,60 @@ button:disabled {
   margin-top: 34px;
 }
 
+.folder-helper-text {
+  align-items: center;
+  color: #5d605a;
+  display: flex;
+  font-size: 13px;
+  gap: 7px;
+  justify-content: center;
+  line-height: 1.45;
+  margin-top: 14px;
+  max-width: 500px;
+}
+
+.folder-helper-text svg {
+  flex: 0 0 auto;
+  opacity: 0.6;
+}
+
+.trust-cards {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 780px;
+}
+
+.trust-card {
+  background: #ffffffd4;
+  border: 1px solid #d5e3e3;
+  border-radius: 11px;
+  flex: 1;
+  min-width: 0;
+  padding: 20px 18px 24px;
+  text-align: center;
+}
+
+.trust-card svg {
+  color: #2b7a7a;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.trust-card strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.trust-card p {
+  color: #5d605a;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .primary-button,
 .secondary-button,
 .dark-button {

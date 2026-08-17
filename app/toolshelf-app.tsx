@@ -1413,9 +1413,43 @@ function Dashboard({
                       onCreate={() => navigate("/create")}
                     />
                   </div>
+                  {folderStatus !== "connecting" && !folderName && (
+                    <p className="folder-helper-text">
+                      <Info size={15} aria-hidden="true" />
+                      Your resources live as plain files on your own machine —
+                      nothing is uploaded to any server. Pick a folder to get
+                      started.
+                    </p>
+                  )}
                 </div>
               </section>
-            </div>
+              <div className="trust-cards">
+                <div className="trust-card">
+                  <HardDrive size={22} aria-hidden="true" />
+                  <strong>Local-First Storage</strong>
+                  <p>
+                    All your prompts, skills, and tools live as standard files
+                    in a folder you choose. No cloud database, no vendor lock-in.
+                  </p>
+                </div>
+                <div className="trust-card">
+                  <ShieldCheck size={22} aria-hidden="true" />
+                  <strong>No Account Required</strong>
+                  <p>
+                    No sign-up, no account, no login. MILO works entirely on
+                    your machine — your data stays yours, always.
+                  </p>
+                </div>
+                <div className="trust-card">
+                  <Globe size={22} aria-hidden="true" />
+                  <strong>Open & Portable</strong>
+                  <p>
+                    Everything is Markdown and JSON — readable and editable in
+                    any text editor. Share via sync or export a bundle.
+                  </p>
+                </div>
+              </div>
+          </div>
           </div>
         ) : (
           <div className="hero-split-inner">
