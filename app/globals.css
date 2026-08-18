@@ -439,7 +439,10 @@ button:disabled {
 }
 
 .app-shell--pre-connect .dashboard-page {
+  height: 0;
   opacity: 0;
+  overflow: hidden;
+  padding: 0;
   pointer-events: none;
   transform: translateY(40px);
 }
@@ -615,6 +618,7 @@ button:disabled {
 
 .trust-cards {
   display: flex;
+  flex-wrap: wrap;
   gap: 18px;
   justify-content: center;
   margin: 0 auto;
@@ -3261,7 +3265,15 @@ button:disabled {
   }
 
   .hero h1 {
-    font-size: 47px;
+    font-size: 38px;
+  }
+
+  .trust-cards {
+    flex-direction: column;
+  }
+
+  .hero-split--full {
+    min-height: auto;
   }
 
   .hero-copy > p {
