@@ -291,7 +291,7 @@ export default function ToolshelfApp({
   const [pendingReviewSources, setPendingReviewSources] = useState<ImportSource[]>([]);
   const [subscriptionReviewModalOpen, setSubscriptionReviewModalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [isReconnecting, setIsReconnecting] = useState(true);
+  const [isReconnecting, setIsReconnecting] = useState(false);
   const [newResourcePopup, setNewResourcePopup] = useState<Resource | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -330,6 +330,13 @@ export default function ToolshelfApp({
     setToast(message);
     if (toastTimer.current) clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToast(""), 2600);
+  }, []);
+
+  // Clean up toast timer on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimer.current) clearTimeout(toastTimer.current);
+    };
   }, []);
 
   const navigate = useCallback((nextPath: string) => {
@@ -404,6 +411,8 @@ export default function ToolshelfApp({
             : "Library refreshed — no updates from your subscriptions.",
         );
       }
+      setFolderStatus("connected");
+      setFolderMessage("");
     } catch (error) {
       setFolderStatus("permission");
       setFolderMessage(error instanceof Error ? error.message : "Folder access was lost.");
@@ -590,6 +599,7 @@ export default function ToolshelfApp({
       });
       return () => window.removeEventListener("popstate", onPop);
     }
+    setIsReconnecting(true);
     storage
       .reconnect()
       .then(async (name) => {
@@ -1003,10 +1013,14 @@ export default function ToolshelfApp({
       {subscriptionReviewModalOpen && subscriptionUpdates && (
         <SubscriptionReviewModal
           newOrChanged={subscriptionUpdates.newOrChanged}
-          onClose={() => setSubscriptionReviewModalOpen(false)}
+          onClose={() => {
+            setSubscriptionReviewModalOpen(false);
+            setPendingReviewSources([]);
+          }}
           onNext={() => {
             navigate("/import?tab=subscriptions");
             setSubscriptionReviewModalOpen(false);
+            setPendingReviewSources([]);
           }}
         />
       )}
