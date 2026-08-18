@@ -295,25 +295,11 @@ export default function ToolshelfApp({
   const [newResourcePopup, setNewResourcePopup] = useState<Resource | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const unsavedChangesRef = useRef(false);
   const paletteInputRef = useRef<HTMLInputElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
-  const resources = useMemo(() => {
-    const localKeys = new Set(localResources.map((item) => resourceKey(item)));
-    const remotePublished = publishedResources.filter(
-      (item) => !localKeys.has(resourceKey(item)),
-    );
-    const realResources = [...localResources, ...remotePublished];
-    const typesWithRealResources = new Set(realResources.map((item) => item.meta.type));
-    const visibleExamples = exampleResources.filter(
-      (item) => !typesWithRealResources.has(item.meta.type),
-    );
-    return [...realResources, ...visibleExamples].filter(
-      (item) => !dismissed.has(resourceKey(item)),
-    );
-  }, [localResources, dismissed]);
-
-  const allResources = useMemo(() => {
+  const mergedResources = useMemo(() => {
     const localKeys = new Set(localResources.map((item) => resourceKey(item)));
     const remotePublished = publishedResources.filter(
       (item) => !localKeys.has(resourceKey(item)),
@@ -325,6 +311,13 @@ export default function ToolshelfApp({
     );
     return [...realResources, ...visibleExamples];
   }, [localResources]);
+
+  const resources = useMemo(
+    () => mergedResources.filter((item) => !dismissed.has(resourceKey(item))),
+    [mergedResources, dismissed],
+  );
+
+  const allResources = mergedResources;
 
   const notify = useCallback((message: string) => {
     setToast(message);
@@ -341,13 +334,13 @@ export default function ToolshelfApp({
 
   const navigate = useCallback((nextPath: string) => {
     if (
-      document.body.dataset.toolshelfUnsaved === "true" &&
+      unsavedChangesRef.current &&
       !window.confirm("Leave without saving your changes?")
     ) {
       return;
     }
-    delete document.body.dataset.toolshelfUnsaved;
     window.history.pushState({}, "", `${basePath}${nextPath}`);
+    unsavedChangesRef.current = false;
     setPath(nextPath);
     setMobileOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -856,6 +849,7 @@ export default function ToolshelfApp({
           setLocalResources(await storage.listResources());
           return saved;
         }}
+        onDirtyChange={(dirty) => { unsavedChangesRef.current = dirty; }}
       />
     ) : (
       <ConnectFolderPrompt folderStatus={folderStatus} connectFolder={connectFolder} navigate={navigate} />
@@ -883,6 +877,7 @@ export default function ToolshelfApp({
           setLocalResources(await storage.listResources());
           return saved;
         }}
+        onDirtyChange={(dirty) => { unsavedChangesRef.current = dirty; }}
       />
     ) : (
       <NotFound navigate={navigate} />
@@ -3957,6 +3952,7 @@ function Editor({
   connectFolder,
   notify,
   onSave,
+  onDirtyChange,
 }: {
   initial: ResourceDraft;
   original?: Resource;
@@ -3965,6 +3961,7 @@ function Editor({
   connectFolder: (reconnect?: boolean) => void;
   notify: (message: string) => void;
   onSave: (draft: ResourceDraft, saveAsNew: boolean) => Promise<Resource>;
+  onDirtyChange?: (dirty: boolean) => void;
 }) {
   const [draft, setDraft] = useState(initial);
   const [tagInput, setTagInput] = useState(initial.tags.join(", "));
@@ -3987,14 +3984,13 @@ function Editor({
     const warn = (event: BeforeUnloadEvent) => {
       if (dirty) event.preventDefault();
     };
-    if (dirty) document.body.dataset.toolshelfUnsaved = "true";
-    else delete document.body.dataset.toolshelfUnsaved;
+    onDirtyChange?.(dirty);
     window.addEventListener("beforeunload", warn);
     return () => {
       window.removeEventListener("beforeunload", warn);
-      delete document.body.dataset.toolshelfUnsaved;
+      onDirtyChange?.(false);
     };
-  }, [dirty]);
+  }, [dirty, onDirtyChange]);
 
   function update<K extends keyof ResourceDraft>(key: K, value: ResourceDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value, updatedAt: today }));
@@ -4046,7 +4042,7 @@ function Editor({
       setError("");
       const saved = await onSave(current, saveAsNew || isReadOnlyOriginal);
       setDirty(false);
-      delete document.body.dataset.toolshelfUnsaved;
+      onDirtyChange?.(false);
       notify(isReadOnlyOriginal || saveAsNew ? "Saved to your local folder" : "Changes saved");
       navigate(resourceUrl(saved));
     } catch (saveError) {
