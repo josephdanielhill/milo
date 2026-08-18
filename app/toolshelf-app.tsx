@@ -1422,14 +1422,6 @@ function Dashboard({
                       onCreate={() => navigate("/create")}
                     />
                   </div>
-                  {folderStatus !== "connecting" && !folderName && (
-                    <p className="folder-helper-text">
-                      <Info size={15} aria-hidden="true" />
-                      Your resources live as plain files on your own machine —
-                      nothing is uploaded to any server. Pick a folder to get
-                      started.
-                    </p>
-                  )}
                 </div>
               </section>
               <div className="trust-cards">
