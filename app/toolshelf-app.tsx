@@ -512,7 +512,7 @@ export default function ToolshelfApp({
         const newSeen = new Set(seen);
         for (const r of unseen) newSeen.add(resourceKey(r));
         window.localStorage.setItem(seenKey, JSON.stringify([...newSeen]));
-        setNewResourcePopup(unseen[0]);
+        queueMicrotask(() => setNewResourcePopup(unseen[0]));
       }
     } catch {
       // localStorage might not be available
@@ -592,7 +592,7 @@ export default function ToolshelfApp({
       });
       return () => window.removeEventListener("popstate", onPop);
     }
-    setIsReconnecting(true);
+    queueMicrotask(() => setIsReconnecting(true));
     storage
       .reconnect()
       .then(async (name) => {
