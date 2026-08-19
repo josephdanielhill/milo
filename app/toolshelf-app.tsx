@@ -1569,34 +1569,6 @@ function Dashboard({
               />
             </section>
 
-            <section className="section-block trust-cards-section">
-              <div className="trust-cards">
-                <div className="trust-card">
-                  <HardDrive size={22} aria-hidden="true" />
-                  <strong>Local-First Storage</strong>
-                  <p>
-                    All your prompts, skills, and tools live as standard files
-                    in a folder you choose. No cloud database, no vendor lock-in.
-                  </p>
-                </div>
-                <div className="trust-card">
-                  <ShieldCheck size={22} aria-hidden="true" />
-                  <strong>No Account Required</strong>
-                  <p>
-                    No sign-up, no account, no login. MILO works entirely on
-                    your machine — your data stays yours, always.
-                  </p>
-                </div>
-                <div className="trust-card">
-                  <Globe size={22} aria-hidden="true" />
-                  <strong>Open & Portable</strong>
-                  <p>
-                    Everything is Markdown and JSON — readable and editable in
-                    any text editor. Share via sync or export a bundle.
-                  </p>
-                </div>
-              </div>
-            </section>
           </>
         ) : (
           <GetStartedPanel
