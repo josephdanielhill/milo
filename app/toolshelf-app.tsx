@@ -1626,9 +1626,6 @@ function ForumPage({
     <>
       <div className="hero-split">
         <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
-          </div>
           <div className="hero-split-content">
             <section className="hero">
               <div className="hero-copy">
@@ -2291,12 +2288,6 @@ function AboutMilo({
     <>
       <div className="hero-split">
         <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img
-              src={`${import.meta.env.BASE_URL}milo-getting-started-hero.png`}
-              alt="Milo the black Labrador ready to get started"
-            />
-          </div>
           <div className="hero-split-content">
             <PageTop
               eyebrow="About Milo"
@@ -2705,9 +2696,6 @@ function ImportPage({
     <>
       <div className="hero-split">
         <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img src={`${import.meta.env.BASE_URL}milo-import-hero.png`} alt="Milo the black Labrador sniffing out new resources" />
-          </div>
           <div className="hero-split-content">
             <PageTop
               eyebrow="Bring resources over"
