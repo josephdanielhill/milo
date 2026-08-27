@@ -3272,9 +3272,6 @@ function FavouritesPage({
     <>
       <div className="hero-split">
         <div className="hero-split-inner">
-          <div className="hero-split-media">
-            <img src={`${import.meta.env.BASE_URL}milo-hero.png`} alt="Milo the black Labrador holding a book" />
-          </div>
           <div className="hero-split-content">
             <section className="hero">
               <div className="hero-copy">
