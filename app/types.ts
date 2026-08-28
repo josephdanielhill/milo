@@ -10,6 +10,9 @@ export type ResourceType =
   | "podcast";
 export type ResourceSource = "example" | "local" | "published";
 
+/** Which drive a resource lives on — main (local computer) or collection (shared/network). */
+export type DriveType = "main" | "collection";
+
 export interface ResourceMeta {
   title: string;
   slug: string;
@@ -27,6 +30,8 @@ export interface ResourceMeta {
   whoAttended?: string;
   /** Name of the folder or bundle this resource was brought in from via Import, if any. */
   importedFrom?: string;
+  /** Which drive this resource belongs to — "main" (local) or "collection" (shared). */
+  driveType?: DriveType;
 }
 
 export interface Resource {

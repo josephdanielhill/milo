@@ -109,3 +109,8 @@ anything that isn't `local`.
   pill in the UI. Absent on resources created directly, and on anything
   written before this field existed (fully optional, so older content parses
   unchanged).
+- `driveType` (`"main"` | `"collection"`) indicates which drive a resource
+  belongs to. Resources in the user's connected folder default to `"main"`.
+  Resources viewed from a secondary shared/collection folder get
+  `"collection"`. Absent on resources not yet migrated (defaults to
+  `"main"`).
