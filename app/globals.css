@@ -1386,6 +1386,7 @@ button:disabled {
 .source-pill--local { background: #e4f2e9; color: #2d6042; }
 .source-pill--published { background: #e4ecf7; color: #2d4f80; }
 .source-pill--imported { background: #faecd8; color: #8a5a1e; }
+.source-pill--collection { background: #e8defa; color: #4a1d8a; }
 
 .resource-card h3 {
   font-size: 21px;

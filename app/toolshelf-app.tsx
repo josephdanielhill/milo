@@ -191,6 +191,12 @@ function sourceDetailLabel(source: Resource["source"]) {
   return "Bundled example";
 }
 
+/** Human-readable label for driveType badge. */
+function driveBadgeLabel(driveType?: string) {
+  if (driveType === "collection") return "Collection drive";
+  return ""; // Main drive is the default — no badge needed
+}
+
 function routeForType(type: ResourceType) {
   return type === "training" ? "/training" : `/${type}s`;
 }
@@ -3168,9 +3174,14 @@ function LibraryView({
   const [query, setQuery] = useState("");
   const [type, setType] = useState<ResourceType | "all">(initialType);
   const [source, setSource] = useState<"all" | "local" | "published" | "example">("all");
+  const [drive, setDrive] = useState<"all" | "main" | "collection">("all");
   const filtered = useMemo(
-    () => filterResources(resources, query, type).filter((item) => source === "all" || item.source === source),
-    [resources, query, type, source],
+    () => filterResources(resources, query, type).filter((item) => {
+      if (source !== "all" && item.source !== source) return false;
+      if (drive !== "all" && (item.meta.driveType || "main") !== drive) return false;
+      return true;
+    }),
+    [resources, query, type, source, drive],
   );
   return (
     <div className="page library-page">
@@ -3223,6 +3234,15 @@ function LibraryView({
           <option value="published">Published</option>
           <option value="example">Examples</option>
         </select>
+        <select
+          value={drive}
+          onChange={(event) => setDrive(event.target.value as typeof drive)}
+          aria-label="Filter by drive"
+        >
+          <option value="all">All drives</option>
+          <option value="main">Main drive</option>
+          <option value="collection">Collection drive</option>
+        </select>
       </div>
       <div className="result-summary">
         <strong>{filtered.length}</strong> {filtered.length === 1 ? "resource" : "resources"}
@@ -3238,7 +3258,7 @@ function LibraryView({
           <Search size={30} />
           <h2>Nothing matched that search</h2>
           <p>Try a broader term or clear one of the filters.</p>
-          <button className="secondary-button" onClick={() => { setQuery(""); setType("all"); setSource("all"); }}>
+          <button className="secondary-button" onClick={() => { setQuery(""); setType("all"); setSource("all"); setDrive("all"); }}>
             Clear filters
           </button>
         </div>
@@ -3412,6 +3432,11 @@ function HiddenPage({
                         <span className={`source-pill source-pill--${resource.source}`}>
                           {sourcePillLabel(resource.source)}
                         </span>
+                        {resource.meta.driveType === "collection" && (
+                          <span className="source-pill source-pill--collection" title="This resource lives on the collection drive">
+                            Collection
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="resource-card__body">
@@ -3539,6 +3564,11 @@ function ResourceGrid({
                   Imported
                 </span>
               )}
+              {resource.meta.driveType && resource.meta.driveType === "collection" && (
+                <span className="source-pill source-pill--collection" title="This resource lives on the collection drive">
+                  Collection
+                </span>
+              )}
               <button
                 className={`favourite-toggle ${isFavourite ? "favourite-toggle--active" : ""}`}
                 aria-label={isFavourite ? `Remove ${resource.meta.title} from favourites` : `Add ${resource.meta.title} to favourites`}
@@ -3638,6 +3668,11 @@ function ResourceDetail({
                 {`Imported from "${resource.meta.importedFrom}"`}
               </span>
             )}
+            {resource.meta.driveType === "collection" && (
+              <span className="source-pill source-pill--collection" title="This resource lives on the collection drive">
+                Collection
+              </span>
+            )}
           </div>
           <h1>{resource.meta.title}</h1>
           <p>{displaySummary(resource.meta.summary)}</p>
@@ -3718,6 +3753,19 @@ function ResourceDetail({
             >
               <Link2 size={16} />
               Share this resource
+            </button>
+          )}
+          {resource.meta.driveType === "collection" && (
+            <button
+              className="primary-button"
+              disabled={!folderConnected}
+              title={!folderConnected ? "Connect a folder to import resources" : undefined}
+              onClick={() => {
+                notify("Import feature coming soon — resources will be copied from the collection drive to your main drive.");
+              }}
+            >
+              <Download size={16} />
+              Import to main drive
             </button>
           )}
         </div>

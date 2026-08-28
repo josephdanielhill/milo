@@ -12,6 +12,7 @@ const examples: ResourceDraft[] = [
     tags: ["Discovery", "Research", "Strategy"],
     createdAt: "2026-06-12",
     updatedAt: "2026-07-24",
+    driveType: "main",
     body: `## When to use this
 
 Use this after a round of interviews, support-ticket analysis, or survey review.
@@ -46,6 +47,7 @@ Do not propose features yet. Separate observed evidence from interpretation.
     tags: ["Communication", "Leadership"],
     createdAt: "2026-05-18",
     updatedAt: "2026-07-21",
+    driveType: "main",
     body: `## Prompt
 
 Turn the notes below into a weekly executive update.
@@ -74,6 +76,7 @@ Write in plain English. Keep the whole update below 180 words.
     tags: ["Product brief", "Quality", "Review"],
     createdAt: "2026-04-03",
     updatedAt: "2026-07-20",
+    driveType: "main",
     body: `## Purpose
 
 Review a product brief before it enters delivery planning.
@@ -100,6 +103,7 @@ Return a short scorecard followed by the **three changes with the highest levera
     tags: ["Risk", "Workshop", "Launch"],
     createdAt: "2026-03-11",
     updatedAt: "2026-07-16",
+    driveType: "main",
     body: `## Scenario
 
 Imagine it is six months from now and the initiative failed.
@@ -124,6 +128,7 @@ Imagine it is six months from now and the initiative failed.
     tags: ["Discovery", "Mapping", "Prioritisation"],
     createdAt: "2026-02-14",
     updatedAt: "2026-07-12",
+    driveType: "main",
     toolUrl: "https://www.producttalk.org/opportunity-solution-trees/",
     body: `## What it helps with
 
@@ -147,6 +152,7 @@ Opportunity Solution Trees keep discovery anchored to an outcome while making al
     tags: ["Decision", "Alignment", "Documentation"],
     createdAt: "2026-01-20",
     updatedAt: "2026-07-08",
+    driveType: "main",
     body: `## Decision template
 
 | Field | Detail |
@@ -172,6 +178,7 @@ Keep entries short enough that people will actually read them.`,
     tags: ["Discovery", "Research", "Product teams"],
     createdAt: "2026-07-01",
     updatedAt: "2026-07-25",
+    driveType: "main",
     toolUrl: "https://www.producttalk.org/continuous-discovery-habits/",
     body: `## Why it is worth reading
 
@@ -196,6 +203,7 @@ Talk to customers every week and test assumptions before investing in complete s
     tags: ["Leadership", "Communication", "Purpose"],
     createdAt: "2026-07-02",
     updatedAt: "2026-07-26",
+    driveType: "main",
     toolUrl: "https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action",
     body: `## Why it is worth watching
 
@@ -220,6 +228,7 @@ Start with purpose, then explain the approach and finally the product or action.
     tags: ["Conference", "Discovery", "Community"],
     createdAt: "2026-07-03",
     updatedAt: "2026-07-27",
+    driveType: "main",
     toolUrl: "https://example.com/product-discovery-conference",
     eventDate: "2026-10-15",
     location: "Berlin · Hybrid",
@@ -248,6 +257,7 @@ Talks, peer discussions, and hands-on sessions focused on modern product practic
     tags: ["Training", "Strategy", "Prioritisation"],
     createdAt: "2026-07-04",
     updatedAt: "2026-07-27",
+    driveType: "main",
     toolUrl: "https://example.com/product-strategy-training",
     body: `## Why it is useful
 
@@ -272,6 +282,7 @@ How to frame strategic choices, define outcomes, and connect priorities to evide
     tags: ["Article", "Writing", "Product brief"],
     createdAt: "2026-07-05",
     updatedAt: "2026-07-28",
+    driveType: "main",
     toolUrl: "https://example.com/decision-ready-product-briefs",
     body: `## Why it is worth reading
 
@@ -296,6 +307,7 @@ A strong brief makes the customer problem, evidence, intended outcome, and unres
     tags: ["Podcast", "Learning", "Product teams"],
     createdAt: "2026-07-06",
     updatedAt: "2026-07-28",
+    driveType: "main",
     toolUrl: "https://example.com/how-product-teams-learn",
     body: `## Why it is worth listening
 
@@ -308,6 +320,55 @@ Product managers looking to improve how their teams capture and apply lessons.
 ## Key takeaway
 
 Learning becomes useful when teams turn it into a visible decision or a small change in behaviour.`,
+  },
+  // Collection-drive examples
+  {
+    title: "UX research synthesis template",
+    slug: "ux-research-synthesis-template",
+    type: "prompt",
+    summary:
+      "A structured prompt for synthesising user research findings into actionable insights, shared from the design team's collection.",
+    author: "Design Team",
+    tags: ["Research", "UX", "Synthesis"],
+    createdAt: "2026-07-10",
+    updatedAt: "2026-08-15",
+    driveType: "collection",
+    body: `## Prompt
+
+Synthesise the raw research notes below into a findings report.
+
+Structure your report as:
+
+1. **Key findings** — the strongest signals across participants
+2. **Patterns** — recurring behaviours, needs, or frustrations
+3. **Opportunities** — where a change could improve the experience
+4. **Open questions** — what remains unclear and how to learn more
+5. **Recommendations** — what to do next, in priority order`,
+  },
+  {
+    title: "Competitive analysis canvas",
+    slug: "competitive-analysis-canvas",
+    type: "tool",
+    summary:
+      "A shared competitive analysis framework maintained by the strategy team.",
+    author: "Strategy Team",
+    tags: ["Strategy", "Competitive", "Analysis"],
+    createdAt: "2026-06-01",
+    updatedAt: "2026-08-10",
+    driveType: "collection",
+    toolUrl: "https://example.com/competitive-analysis-canvas",
+    body: `## What it helps with
+
+Compare products across dimensions that matter to your customers, not just feature lists.
+
+## How to use
+
+1. Define your evaluation criteria based on customer jobs-to-be-done.
+2. Score each product independently before comparing.
+3. Identify gaps and over-investment areas.
+4. Turn insight into a strategic recommendation.
+
+Keep the canvas updated as competitors evolve.`,
   },
 ];
 
