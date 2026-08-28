@@ -838,6 +838,20 @@ export default function ToolshelfApp({
           navigate("/library");
           notify("Resource deleted");
         }}
+        onImport={async () => {
+          const draft: ResourceDraft = {
+            ...resource.meta,
+            body: resource.body,
+            importedFrom: "Collection drive",
+            driveType: "main",
+          };
+          const created = await storage.createResource(draft);
+          setLocalResources(await storage.listResources());
+          navigate(
+            `/resource/local/${created.meta.type}/${created.meta.slug}`,
+          );
+          notify(`Imported “${created.meta.title}” to main drive`);
+        }}
       />
     ) : (
       <NotFound navigate={navigate} />
@@ -3633,6 +3647,7 @@ function ResourceDetail({
   onToggleFavourite,
   onToggleDismiss,
   onDelete,
+  onImport,
 }: {
   resource: Resource;
   folderConnected: boolean;
@@ -3642,8 +3657,10 @@ function ResourceDetail({
   onToggleFavourite: () => void;
   onToggleDismiss: () => void;
   onDelete: () => Promise<void>;
+  onImport?: () => Promise<void>;
 }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [importing, setImporting] = useState(false);
   async function copy(value: string, message: string) {
     await navigator.clipboard.writeText(value);
     notify(message);
@@ -3758,14 +3775,26 @@ function ResourceDetail({
           {resource.meta.driveType === "collection" && (
             <button
               className="primary-button"
-              disabled={!folderConnected}
-              title={!folderConnected ? "Connect a folder to import resources" : undefined}
-              onClick={() => {
-                notify("Import feature coming soon — resources will be copied from the collection drive to your main drive.");
+              disabled={!folderConnected || importing}
+              title={
+                !folderConnected
+                  ? "Connect a folder to import resources"
+                  : importing
+                    ? "Importing..."
+                    : undefined
+              }
+              onClick={async () => {
+                if (!onImport) return;
+                setImporting(true);
+                try {
+                  await onImport();
+                } finally {
+                  setImporting(false);
+                }
               }}
             >
               <Download size={16} />
-              Import to main drive
+              {importing ? "Importing..." : "Import to main drive"}
             </button>
           )}
         </div>
