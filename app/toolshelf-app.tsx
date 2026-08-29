@@ -281,6 +281,10 @@ export default function ToolshelfApp({
   const [folderName, setFolderName] = useState<string | null>(null);
   const [folderStatus, setFolderStatus] = useState<FolderStatus>("idle");
   const [folderMessage, setFolderMessage] = useState("");
+  const [collectionResources, setCollectionResources] = useState<Resource[]>([]);
+  const [collectionFolderName, setCollectionFolderName] = useState<string | null>(null);
+  const [collectionFolderStatus, setCollectionFolderStatus] = useState<FolderStatus>("idle");
+  const [collectionFolderMessage, setCollectionFolderMessage] = useState("");
   const [hasConnectedBefore, setHasConnectedBefore] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toast, setToast] = useState("");
@@ -307,16 +311,21 @@ export default function ToolshelfApp({
 
   const mergedResources = useMemo(() => {
     const localKeys = new Set(localResources.map((item) => resourceKey(item)));
-    const remotePublished = publishedResources.filter(
+    const collectionVisible = collectionResources.filter(
       (item) => !localKeys.has(resourceKey(item)),
     );
-    const realResources = [...localResources, ...remotePublished];
+    const mergedRealKeys = new Set(localResources.map((item) => resourceKey(item)));
+    for (const item of collectionVisible) mergedRealKeys.add(resourceKey(item));
+    const remotePublished = publishedResources.filter(
+      (item) => !mergedRealKeys.has(resourceKey(item)),
+    );
+    const realResources = [...localResources, ...collectionVisible, ...remotePublished];
     const typesWithRealResources = new Set(realResources.map((item) => item.meta.type));
     const visibleExamples = exampleResources.filter(
       (item) => !typesWithRealResources.has(item.meta.type),
     );
     return [...realResources, ...visibleExamples];
-  }, [localResources]);
+  }, [localResources, collectionResources]);
 
   const resources = useMemo(
     () => mergedResources.filter((item) => !dismissed.has(resourceKey(item))),
@@ -353,70 +362,81 @@ export default function ToolshelfApp({
   }, [basePath]);
 
   const refreshResources = useCallback(async () => {
-    if (!folderName) return;
+    if (!folderName && !collectionFolderName) return;
     try {
-      const freshLocalResources = await storage.listResources();
-      setLocalResources(freshLocalResources);
+      if (folderName) {
+        const freshLocalResources = await storage.listResources();
+        setLocalResources(freshLocalResources);
 
-      const subscriptions = await storage.listSubscriptions();
-      if (subscriptions.length === 0) {
-        notify("Library refreshed");
-        return;
-      }
-
-      const localByKey = new Map<string, Resource>();
-      for (const item of freshLocalResources) localByKey.set(`${item.meta.type}:${item.meta.slug}`, item);
-
-      const checks = await Promise.all(
-        subscriptions.map(async (subscription) => ({ subscription, result: await checkSubscription(subscription) })),
-      );
-      await storage.recordSubscriptionChecks(
-        checks.map(({ subscription, result }) =>
-          result.ok
-            ? {
-                url: subscription.url,
-                ok: true,
-                resourceCount: result.source.resources.length,
-                name: result.source.name,
-              }
-            : { url: subscription.url, ok: false, error: result.error },
-        ),
-      );
-
-      let newOrChanged = 0;
-      let failed = 0;
-      const pendingSources: ImportSource[] = [];
-      for (const { result } of checks) {
-        if (result.ok) {
-          const candidatesCount = buildImportCandidates(result.source.resources, localByKey).length;
-          if (candidatesCount > 0) {
-            newOrChanged += candidatesCount;
-            pendingSources.push(result.source);
+        const subscriptions = await storage.listSubscriptions();
+        if (subscriptions.length === 0) {
+          // No subscriptions — just refresh collection if connected and done
+          if (collectionFolderName) {
+            setCollectionResources(await storage.listCollectionResources());
           }
-        } else {
-          failed += 1;
+          notify("Library refreshed");
+          return;
         }
-      }
 
-      setPendingReviewSources(pendingSources);
+        const localByKey = new Map<string, Resource>();
+        for (const item of freshLocalResources) localByKey.set(`${item.meta.type}:${item.meta.slug}`, item);
 
-      if (newOrChanged > 0) {
-        setSubscriptionUpdates({ newOrChanged, subs: subscriptions.length, failed });
-        setSubscriptionReviewModalOpen(true);
-      } else {
-        notify(
-          failed > 0
-            ? `Library refreshed — no updates from your subscriptions (${failed} of ${subscriptions.length} couldn't be reached).`
-            : "Library refreshed — no updates from your subscriptions.",
+        const checks = await Promise.all(
+          subscriptions.map(async (subscription) => ({ subscription, result: await checkSubscription(subscription) })),
         );
+        await storage.recordSubscriptionChecks(
+          checks.map(({ subscription, result }) =>
+            result.ok
+              ? {
+                  url: subscription.url,
+                  ok: true,
+                  resourceCount: result.source.resources.length,
+                  name: result.source.name,
+                }
+              : { url: subscription.url, ok: false, error: result.error },
+          ),
+        );
+
+        let newOrChanged = 0;
+        let failed = 0;
+        const pendingSources: ImportSource[] = [];
+        for (const { result } of checks) {
+          if (result.ok) {
+            const candidatesCount = buildImportCandidates(result.source.resources, localByKey).length;
+            if (candidatesCount > 0) {
+              newOrChanged += candidatesCount;
+              pendingSources.push(result.source);
+            }
+          } else {
+            failed += 1;
+          }
+        }
+
+        setPendingReviewSources(pendingSources);
+
+        if (newOrChanged > 0) {
+          setSubscriptionUpdates({ newOrChanged, subs: subscriptions.length, failed });
+          setSubscriptionReviewModalOpen(true);
+        } else {
+          notify(
+            failed > 0
+              ? `Library refreshed — no updates from your subscriptions (${failed} of ${subscriptions.length} couldn't be reached).`
+              : "Library refreshed — no updates from your subscriptions.",
+          );
+        }
+        setFolderStatus("connected");
+        setFolderMessage("");
       }
-      setFolderStatus("connected");
-      setFolderMessage("");
+
+      if (collectionFolderName) {
+        setCollectionResources(await storage.listCollectionResources());
+        if (!folderName) notify("Collection drive refreshed");
+      }
     } catch (error) {
       setFolderStatus("permission");
       setFolderMessage(error instanceof Error ? error.message : "Folder access was lost.");
     }
-  }, [folderName, notify]);
+  }, [folderName, collectionFolderName, notify]);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -615,14 +635,30 @@ export default function ToolshelfApp({
       })
       .catch(() => setFolderStatus("idle"))
       .finally(() => {
-        setIsReconnecting(false);
+        // Try reconnecting the collection drive too
+        storage
+          .reconnectCollectionDrive()
+          .then(async (collectionName) => {
+            if (collectionName) {
+              setCollectionFolderName(collectionName);
+              setCollectionFolderStatus("connected");
+              setCollectionResources(await storage.listCollectionResources());
+            } else if (storage.collectionFolderName) {
+              setCollectionFolderStatus("permission");
+              setCollectionFolderMessage("Reconnect your collection drive to browse shared resources.");
+            }
+          })
+          .catch(() => {})
+          .finally(() => {
+            setIsReconnecting(false);
+          });
       });
     return () => window.removeEventListener("popstate", onPop);
   }, [basePath]);
 
   useEffect(() => {
     if (isReconnecting && window.localStorage.getItem(HAS_CONNECTED_KEY) === "1") return;
-    if (!folderName) {
+    if (!folderName && !collectionFolderName) {
       const cleanPath = path.split("?")[0].replace(/\/+$/, "") || "/";
       const isAllowedWithoutConnection =
         cleanPath === "/" ||
@@ -635,7 +671,7 @@ export default function ToolshelfApp({
         });
       }
     }
-  }, [isReconnecting, folderName, path, navigate]);
+  }, [isReconnecting, folderName, collectionFolderName, path, navigate]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -698,11 +734,48 @@ export default function ToolshelfApp({
     navigate("/");
   }
 
+  async function connectCollectionFolder(reconnect = false) {
+    try {
+      setCollectionFolderStatus("connecting");
+      const name = reconnect
+        ? await storage.requestStoredCollectionPermission()
+        : await storage.connectCollectionDrive();
+      if (!name) {
+        setCollectionFolderStatus("permission");
+        setCollectionFolderMessage("Permission was not granted. Shared resources remain hidden.");
+        return;
+      }
+      setCollectionFolderName(name);
+      setCollectionResources(await storage.listCollectionResources());
+      setCollectionFolderStatus("connected");
+      setCollectionFolderMessage("");
+      notify(`Collection drive connected: ${name}`);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        setCollectionFolderStatus(collectionFolderName ? "connected" : "idle");
+        return;
+      }
+      setCollectionFolderStatus("error");
+      setCollectionFolderMessage(error instanceof Error ? error.message : "Could not open that folder.");
+    }
+  }
+
+  async function disconnectCollectionFolder() {
+    if (!window.confirm("Disconnect the collection drive? You can reconnect it later.")) return;
+    await storage.disconnectCollectionDrive();
+    setCollectionFolderName(null);
+    setCollectionFolderStatus("idle");
+    setCollectionFolderMessage("");
+    setCollectionResources([]);
+    notify("Collection drive disconnected");
+  }
+
   const route = parseRoute(path);
   const showFullHero =
     route.kind === "home" &&
     !hasConnectedBefore &&
     !folderName &&
+    !collectionFolderName &&
     folderStatus !== "connecting";
   let content: ReactNode;
 
@@ -922,6 +995,10 @@ export default function ToolshelfApp({
         folderStatus={folderStatus}
         folderMessage={folderMessage}
         localCount={localResources.length}
+        collectionFolderName={collectionFolderName}
+        collectionFolderStatus={collectionFolderStatus}
+        collectionFolderMessage={collectionFolderMessage}
+        collectionCount={collectionResources.length}
         favouritesCount={favourites.size}
         dismissedCount={dismissed.size}
         navigate={navigate}
@@ -929,6 +1006,8 @@ export default function ToolshelfApp({
         refresh={refreshResources}
         connectFolder={connectFolder}
         disconnectFolder={disconnectFolder}
+        connectCollectionFolder={connectCollectionFolder}
+        disconnectCollectionFolder={disconnectCollectionFolder}
       />
       {mobileOpen && (
         <button
@@ -1098,6 +1177,10 @@ function Sidebar({
   folderStatus,
   folderMessage,
   localCount,
+  collectionFolderName,
+  collectionFolderStatus,
+  collectionFolderMessage,
+  collectionCount,
   favouritesCount,
   dismissedCount,
   navigate,
@@ -1105,6 +1188,8 @@ function Sidebar({
   refresh,
   connectFolder,
   disconnectFolder,
+  connectCollectionFolder,
+  disconnectCollectionFolder,
 }: {
   path: string;
   mobileOpen: boolean;
@@ -1112,6 +1197,10 @@ function Sidebar({
   folderStatus: FolderStatus;
   folderMessage: string;
   localCount: number;
+  collectionFolderName: string | null;
+  collectionFolderStatus: FolderStatus;
+  collectionFolderMessage: string;
+  collectionCount: number;
   favouritesCount: number;
   dismissedCount: number;
   navigate: (path: string) => void;
@@ -1119,6 +1208,8 @@ function Sidebar({
   refresh: () => void;
   connectFolder: (reconnect?: boolean) => void;
   disconnectFolder: () => void;
+  connectCollectionFolder: (reconnect?: boolean) => void;
+  disconnectCollectionFolder: () => void;
 }) {
   const items = [
     { label: "All resources", href: "/library", icon: Library },
@@ -1252,6 +1343,37 @@ function Sidebar({
           <button className="text-button" onClick={disconnectFolder}>
             <FolderX size={14} />
             Disconnect folder
+          </button>
+        )}
+      </div>
+      <div className={`folder-mini ${collectionFolderStatus === "connected" ? "folder-mini--connected" : ""}`}>
+        <span className="folder-mini__eyebrow">Collection drive</span>
+        <div className="folder-mini__heading">
+          {collectionFolderName ? <HardDrive size={18} /> : <Folder size={18} />}
+          <div>
+            <strong>{collectionFolderName || "Not connected"}</strong>
+            <small>
+              {collectionFolderName
+                ? `${collectionCount} shared ${collectionCount === 1 ? "resource" : "resources"}`
+                : "Connect a shared folder"}
+            </small>
+          </div>
+        </div>
+        {collectionFolderMessage && <p className="folder-mini__message">{collectionFolderMessage}</p>}
+        {collectionFolderStatus === "unsupported" ? null : (
+          <button
+            className="folder-mini__connect"
+            disabled={collectionFolderStatus === "connecting"}
+            onClick={() => connectCollectionFolder(collectionFolderStatus === "permission")}
+          >
+            <HardDrive size={14} />
+            {folderConnectLabel(collectionFolderStatus, collectionFolderName)}
+          </button>
+        )}
+        {collectionFolderName && (
+          <button className="text-button" onClick={disconnectCollectionFolder}>
+            <FolderX size={14} />
+            Disconnect collection drive
           </button>
         )}
       </div>
