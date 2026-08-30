@@ -1,5 +1,5 @@
-import { copyFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { access, copyFile, mkdir, readdir, writeFile } from "node:fs/promises";
+import { dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
@@ -27,6 +27,26 @@ function pagesFallback(): Plugin {
 
       await copyFile(indexFile, fallbackFile);
       await writeFile(resolve(output, ".nojekyll"), "");
+
+      // Copy forum bundles to pages-dist/collections/ so GitHub Pages
+      // serves them at /collections/<slug>.json (matching bundleUrl
+      // in forum/collections.json).
+      const bundlesDir = resolve(projectRoot, "forum", "bundles");
+      try {
+        await access(bundlesDir);
+        const collectionsDir = resolve(output, "collections");
+        await mkdir(collectionsDir, { recursive: true });
+        const entries = await readdir(bundlesDir, { withFileTypes: true });
+        for (const entry of entries) {
+          if (!entry.isFile() || extname(entry.name).toLowerCase() !== ".json") continue;
+          await copyFile(
+            join(bundlesDir, entry.name),
+            join(collectionsDir, entry.name),
+          );
+        }
+      } catch {
+        // No forum/bundles directory — skip.
+      }
     },
   };
 }
