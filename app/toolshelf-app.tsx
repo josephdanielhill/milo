@@ -1940,21 +1940,25 @@ function ForumPage({
               <p className="discover-panel-section-title" style={{ marginBottom: 6, color: "#555852", fontSize: 14, textTransform: "none", letterSpacing: 0 }}>
                 Want to share your curated collection with the community? Here&apos;s how:
               </p>
-              <ol style={{ lineHeight: 1.8, margin: "20px 0", paddingLeft: 20 }}>
-                <li><strong>Export your bundle</strong> — Go to <em>Share resources</em> in the sidebar, select the resources you want to include, and export a Milo bundle (.json file).</li>
-                <li><strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle file. We&apos;ll review and add it to Discover.</li>
-              </ol>
-              <button
-                type="button"
-                className="navigate-share-button"
-                onClick={() => {
-                  navigate("/share");
-                  setShowSubmitInfo(false);
-                }}
-              >
-                <Link2 size={15} />
-                Go to Share Resources
-              </button>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "20px 0" }}>
+                <div>
+                  <strong>Export your bundle</strong> — Go to <em>Share resources</em> in the sidebar, select the resources you want to include, and export a Milo bundle (.json file).
+                </div>
+                <button
+                  type="button"
+                  className="navigate-share-button"
+                  onClick={() => {
+                    navigate("/share");
+                    setShowSubmitInfo(false);
+                  }}
+                >
+                  <Link2 size={15} />
+                  Go to Share Resources
+                </button>
+                <div>
+                  <strong>Submit the details</strong> — Use the form below to tell us the collection name, description, and bundle file. We&apos;ll review and add it to Discover.
+                </div>
+              </div>
             </div>
             <div className="discover-panel-footer">
               <button
