@@ -6,22 +6,22 @@
       "name": "Joseph's Backpack",
       "author": "Joseph Hill",
       "description": "Everything Joseph keeps in his backpack — the tools, prompts, books, videos, articles and conferences he always carries for product management and personal growth. Time reflection, job reflection, breadboarding, Shape Up, leadership videos, and more.",
-      "bundleUrl": "https://josephhill.co/collections/josephs-backpack.json",
-      "itemCount": 25,
+      "bundleUrl": "/collections/josephs-backpack.json",
+      "itemCount": 87,
       "tags": ["personal", "essentials", "productivity", "leadership", "curated"],
       "createdAt": "2026-08-05",
-      "typeBreakdown": { "tool": 5, "book": 10, "video": 8, "conference": 1, "article": 2, "prompt": 1 }
+      "typeBreakdown": { "prompt": 10, "skill": 10, "tool": 10, "book": 10, "video": 11, "conference": 10, "training": 6, "article": 10, "podcast": 10 }
     },
     {
       "slug": "b2b-product-manager",
       "name": "B2B Product Manager",
       "author": "Joseph Hill",
       "description": "A curated collection of 80+ resources for B2B Product Managers covering enterprise sales, product-led growth, pricing strategy, stakeholder management, and technical product management across prompts, skills, tools, books, videos, conferences, training, articles, and podcasts.",
-      "bundleUrl": "https://josephhill.co/collections/b2b-product-manager.json",
-      "itemCount": 92,
+      "bundleUrl": "/collections/b2b-product-manager.json",
+      "itemCount": 87,
       "tags": ["b2b", "product-management", "enterprise", "saas", "leadership", "curated"],
       "createdAt": "2026-08-30",
-      "typeBreakdown": { "prompt": 10, "skill": 11, "tool": 10, "book": 10, "video": 11, "conference": 11, "training": 9, "article": 10, "podcast": 10 }
+      "typeBreakdown": { "prompt": 10, "skill": 10, "tool": 10, "book": 10, "video": 11, "conference": 10, "training": 6, "article": 10, "podcast": 10 }
     }
   ]
 }

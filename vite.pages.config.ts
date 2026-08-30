@@ -28,10 +28,11 @@ function pagesFallback(): Plugin {
       await copyFile(indexFile, fallbackFile);
       await writeFile(resolve(output, ".nojekyll"), "");
 
-      // Copy forum bundles to pages-dist/collections/ so GitHub Pages
+      // Copy forum bundles from public/collections/ so GitHub Pages
       // serves them at /collections/<slug>.json (matching bundleUrl
-      // in forum/collections.json).
-      const bundlesDir = resolve(projectRoot, "forum", "bundles");
+      // in forum/collections.json). Vite copies public/ content for
+      // the Cloudflare Workers build automatically.
+      const bundlesDir = resolve(projectRoot, "public", "collections");
       try {
         await access(bundlesDir);
         const collectionsDir = resolve(output, "collections");

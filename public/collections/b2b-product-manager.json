@@ -1,0 +1,729 @@
+{
+  "version": 1,
+  "name": "B2B Product Manager",
+  "items": [
+    {
+      "slug": "escaped-the-build-trap",
+      "title": "Escaping the Build Trap",
+      "author": "Melissa Perri",
+      "description": "The definitive book on product management strategy — how to shift from output-driven feature factories to outcome-driven product organizations. Essential B2B reading.",
+      "url": "https://www.oreilly.com/library/view/escaping-the-build-trap/9781491973783/",
+      "year": 2018,
+      "isbn": "978-1491973790",
+      "type": "book"
+    },
+    {
+      "slug": "inspired",
+      "title": "INSPIRED: How to Create Tech Products Customers Love",
+      "author": "Marty Cagan",
+      "description": "The bible of modern product management. Covers everything from product vision to team structure, with strong B2B and enterprise product sections.",
+      "url": "https://www.svpg.com/inspired/",
+      "year": 2017,
+      "isbn": "978-1119387508",
+      "type": "book"
+    },
+    {
+      "slug": "lean-startup",
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "description": "Foundational methodology for building products iteratively. Build-Measure-Learn loops, MVP thinking, and innovation accounting directly applicable to B2B SaaS.",
+      "url": "http://theleanstartup.com/",
+      "year": 2011,
+      "isbn": "978-0307887894",
+      "type": "book"
+    },
+    {
+      "slug": "crossing-the-chasm",
+      "title": "Crossing the Chasm",
+      "author": "Geoffrey A. Moore",
+      "description": "The essential B2B technology adoption framework. Explains how to transition from early adopters to mainstream enterprise customers — a must-read for any B2B PM.",
+      "url": "https://www.harpercollins.com/products/crossing-the-chasm-geoffrey-a-moore",
+      "year": 1991,
+      "isbn": "978-0062351748",
+      "type": "book"
+    },
+    {
+      "slug": "hacking-growth",
+      "title": "Hacking Growth",
+      "author": "Sean Ellis & Morgan Brown",
+      "description": "Growth hacking methodologies with concrete B2B examples. Covers PLG experiments, viral loops, and retention strategies for SaaS products.",
+      "url": "https://www.hackinggrowth.com/book",
+      "year": 2017,
+      "isbn": "978-0451497215",
+      "type": "book"
+    },
+    {
+      "slug": "the-mom-test",
+      "title": "The Mom Test",
+      "author": "Rob Fitzpatrick",
+      "description": "Practical guide to customer conversations. Teaches how to avoid false positives in B2B customer discovery by asking questions that surface real pain points.",
+      "url": "https://www.momtestbook.com/",
+      "year": 2013,
+      "isbn": "978-1492180746",
+      "type": "book"
+    },
+    {
+      "slug": "product-lead",
+      "title": "Product-Led Growth",
+      "author": "Wes Bush",
+      "description": "The playbook for building a B2B SaaS product that sells itself. Covers freemium models, free trials, product-qualified leads, and viral loops.",
+      "url": "https://productled.com/book",
+      "year": 2019,
+      "isbn": "978-1734534110",
+      "type": "book"
+    },
+    {
+      "slug": "continuous-discovery-habits",
+      "title": "Continuous Discovery Habits",
+      "author": "Teresa Torres",
+      "description": "A structured framework for ongoing product discovery. Opportunity solution trees, interviewing techniques, and assumption mapping for B2B contexts.",
+      "url": "https://www.producttalk.org/continuous-discovery-habits/",
+      "year": 2021,
+      "isbn": "978-1736633304",
+      "type": "book"
+    },
+    {
+      "slug": "strategic-monoliths-microservices",
+      "title": "Strategic Monoliths and Microservices",
+      "author": "Vaughn Vernon & Tomasz Jaskula",
+      "description": "Technical architecture book for PMs working with platform teams. Helps B2B PMs understand service decomposition and API strategy from a product perspective.",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/strategic-monoliths-and-microservices/P200000009547",
+      "year": 2021,
+      "isbn": "978-0137355459",
+      "type": "book"
+    },
+    {
+      "slug": "sprint",
+      "title": "Sprint: How to Solve Big Problems",
+      "author": "Jake Knapp",
+      "description": "Google Ventures' 5-day process for solving critical business problems through prototyping and testing with customers. Highly effective for B2B enterprise product validation.",
+      "url": "https://www.thesprintbook.com/",
+      "year": 2016,
+      "isbn": "978-1501121746",
+      "type": "book"
+    },
+    {
+      "slug": "product-led-growth-strategy",
+      "title": "Product-Led Growth: The Definitive B2B SaaS Strategy",
+      "author": "Lenny's Podcast / Wes Bush",
+      "description": "Deep dive into how Slack, Calendly, and Zoom built PLG motions. Covers product-qualified leads, freemium pricing, and viral loops specific to B2B enterprise.",
+      "url": "https://www.lennyspodcast.com/",
+      "platform": "YouTube",
+      "type": "video"
+    },
+    {
+      "slug": "marty-cagan-empowered",
+      "title": "Marty Cagan — EMPOWERED: Ordinary Teams, Extraordinary Products",
+      "author": "Marty Cagan (SVPG)",
+      "description": "Marty Cagan on how to build empowered product teams in large B2B organizations. Covers the shift from project to product, team topology, and leadership behaviors.",
+      "url": "https://www.youtube.com/watch?v=4C7Dut8BZqo",
+      "platform": "YouTube / SVPG",
+      "type": "video"
+    },
+    {
+      "slug": "b2b-saas-pricing-madhavan",
+      "title": "B2B SaaS Pricing: Frameworks That Work",
+      "author": "Kumar Madhavan",
+      "description": "Walkthrough of usage-based, tiered, and per-seat pricing models. Includes case studies from Stripe, Twilio, and Snowflake on packaging and monetization strategy.",
+      "url": "https://www.youtube.com/watch?v=HpY_VwVl9qA",
+      "platform": "YouTube / SaaStr",
+      "type": "video"
+    },
+    {
+      "slug": "jason-fried-shape-up",
+      "title": "Jason Fried — Shape Up: Stop Running in Circles",
+      "author": "Jason Fried (37signals / Basecamp)",
+      "description": "Basecamp's shape-up methodology explained by the founder. Six-week cycles, appetite-based scoping, and betting tables — highly applicable to B2B product teams.",
+      "url": "https://www.youtube.com/watch?v=u6h6KnLxRGE",
+      "platform": "YouTube",
+      "type": "video"
+    },
+    {
+      "slug": "enterprise-sales-costa",
+      "title": "Enterprise Sales for Product Managers",
+      "author": "Shiven Ramji (ex-Microsoft)",
+      "description": "How B2B PMs should think about enterprise sales cycles, proof-of-concepts, RFPs, procurement, and stakeholder mapping. Real examples from Azure and Office 365.",
+      "url": "https://www.youtube.com/watch?v=4hB6mZg2zVk",
+      "platform": "YouTube / Mind the Product",
+      "type": "video"
+    },
+    {
+      "slug": "teresa-torres-discovery",
+      "title": "Teresa Torres — Continuous Discovery at Scale",
+      "author": "Teresa Torres",
+      "description": "How to scale opportunity solution trees across multiple B2B product teams. Covers discovery cadence, cross-team alignment, and outcome-driven roadmaps.",
+      "url": "https://www.youtube.com/watch?v=2YlIY9E8F9g",
+      "platform": "YouTube / Product Talk",
+      "type": "video"
+    },
+    {
+      "slug": "nps-vs-csat-b2b",
+      "title": "NPS vs CSAT for B2B SaaS: Which Metric Matters?",
+      "author": "Gainsight / Pulse Podcast",
+      "description": "Breakdown of when to use NPS vs CSAT in B2B contexts. Covers enterprise customer health scoring, churn prediction, and survey design for low-response-rate environments.",
+      "url": "https://www.youtube.com/watch?v=QjM6aBfFpVc",
+      "platform": "YouTube / Gainsight",
+      "type": "video"
+    },
+    {
+      "slug": "b2b-product-strategy-hbr",
+      "title": "Building a B2B Product Strategy That Actually Works",
+      "author": "Harvard Business Review / Linda K. Gorchels",
+      "description": "Harvard Business Review on B2B product portfolio strategy. Covers platform plays, solution bundling, and managing multi-product roadmaps in enterprise settings.",
+      "url": "https://hbr.org/2021/03/building-a-b2b-product-strategy-that-actually-works",
+      "platform": "HBR",
+      "type": "video"
+    },
+    {
+      "slug": "api-product-management-kinlane",
+      "title": "API Product Management for Platform Teams",
+      "author": "Kin Lane (Postman)",
+      "description": "Managing APIs as products in B2B platform organizations. Covers API design-first, developer experience, versioning strategy, and API monetization.",
+      "url": "https://www.youtube.com/watch?v=9f5z7GZ4p2E",
+      "platform": "YouTube / API Days",
+      "type": "video"
+    },
+    {
+      "slug": "wong-dont-shave-yak",
+      "title": "Don't Shave That Yak! — Product & Engineering at Google",
+      "author": "David Wong (Google)",
+      "description": "Talk about how Google's B2B platform teams prioritize and communicate. Lessons on saying no to scope creep and keeping enterprise products focused.",
+      "url": "https://www.youtube.com/watch?v=4jJYqG0_7F0",
+      "platform": "YouTube / Google Talks",
+      "type": "video"
+    },
+    {
+      "slug": "pricing-metrics-that-matter",
+      "title": "Pricing Metrics That Matter for B2B SaaS",
+      "author": "Kyle Poyar / OpenView",
+      "description": "Deep dive on net dollar retention (NDR), expansion MRR, time-to-value, and logo churn. Benchmarking data across hundreds of B2B SaaS companies.",
+      "url": "https://www.youtube.com/watch?v=h9zGq5Qr8jI",
+      "platform": "YouTube / SaaStr Annual",
+      "type": "video"
+    },
+    {
+      "slug": "saaStr-annual",
+      "title": "SaaStr Annual",
+      "description": "The largest B2B SaaS conference globally. Keynotes and workshops on PLG, enterprise sales, fundraising, and product strategy from founders and VCs.",
+      "url": "https://www.saastrannual.com/",
+      "location": "San Francisco / London",
+      "type": "conference"
+    },
+    {
+      "slug": "mind-the-product",
+      "title": "Mind the Product — ProductCon",
+      "description": "Major product management conference with strong B2B tracks. Covers product discovery, strategy, leadership, and AI in product. Workshops and networking.",
+      "url": "https://www.mindtheproduct.com/productcon/",
+      "location": "London / San Francisco / Singapore / New York",
+      "type": "conference"
+    },
+    {
+      "slug": "product-hunt-radio",
+      "title": "Product Hunt — GLITCH Conference",
+      "description": "Conference focused on product launches, growth, and community building. B2B track covers SaaS launches, developer products, and PLG distribution strategies.",
+      "url": "https://www.producthunt.com/gatherings/glitch",
+      "location": "Los Angeles / Virtual",
+      "type": "conference"
+    },
+    {
+      "slug": "business-of-software",
+      "title": "Business of Software Conference",
+      "description": "Long-running conference for B2B SaaS founders and product leaders. Focus on profitable growth, bootstrapping, pricing, and product strategy without VC dependency.",
+      "url": "https://businessofsoftware.org/",
+      "location": "Boston / Virtual",
+      "type": "conference"
+    },
+    {
+      "slug": "reforge-huddle",
+      "title": "Reforge Huddle",
+      "description": "Exclusive gathering for senior product and growth leaders. Deep dives on B2B retention, enterprise activation funnels, and product-led expansion. Application-based attendance.",
+      "url": "https://www.reforge.com/huddle",
+      "location": "San Francisco / Remote",
+      "type": "conference"
+    },
+    {
+      "slug": "product-school-pdma",
+      "title": "PDMA Annual Conference — Product Development & Management Association",
+      "description": "Academic and practitioner conference on product development. Strong B2B and industrial product track. Covers NPD processes, portfolio management, and innovation metrics.",
+      "url": "https://www.pdma.org/page/pdma_annual_conference",
+      "location": "Rotating US cities",
+      "type": "conference"
+    },
+    {
+      "slug": "b2b-saas-online-saastock",
+      "title": "SaaStock",
+      "description": "European B2B SaaS conference with focus on growth, metrics, and international expansion. Strong B2B community and investor presence.",
+      "url": "https://www.saastock.com/",
+      "location": "Dublin / Remote",
+      "type": "conference"
+    },
+    {
+      "slug": "product-led-summit",
+      "title": "Product-Led Summit",
+      "description": "The premier PLG conference. Sessions on product-qualified leads, freemium strategy, user onboarding, and expansion revenue. B2B SaaS focus.",
+      "url": "https://productled.com/summit",
+      "location": "San Francisco / Online",
+      "type": "conference"
+    },
+    {
+      "slug": "enterprise-product-summit",
+      "title": "Enterprise Product Summit",
+      "description": "Niche conference for product managers working on enterprise-grade B2B products. Covers compliance, security reviews, multi-tenant architecture, and enterprise sales engineering.",
+      "url": "https://enterpriseproductsummit.com/",
+      "location": "New York / Virtual",
+      "type": "conference"
+    },
+    {
+      "slug": "intercom-whats-new",
+      "title": "Intercom — What's New Conference",
+      "description": "Customer communication and product-led growth conference. Covers conversational support, in-app messaging, product tours, and user engagement for B2B SaaS.",
+      "url": "https://www.intercom.com/events/whats-new",
+      "location": "San Francisco / Dublin",
+      "type": "conference"
+    },
+    {
+      "slug": "b2b-customer-discovery-training",
+      "title": "Reforge — Mastering B2B Customer Discovery",
+      "description": "In-depth training program on B2B discovery techniques. Covers stakeholder research, interview techniques, synthesis methods, and opportunity validation for enterprise products.",
+      "url": "https://www.reforge.com/courses/mastering-b2b-customer-discovery",
+      "provider": "Reforge",
+      "duration": "6 weeks",
+      "type": "training"
+    },
+    {
+      "slug": "product-led-growth-certification",
+      "title": "Product-Led Growth Certification",
+      "description": "Comprehensive certification covering PLG fundamentals. Includes modules on freemium strategy, trial design, viral loops, and PQL scoring with B2B case studies.",
+      "url": "https://productled.com/certification",
+      "provider": "ProductLed",
+      "duration": "Self-paced",
+      "type": "training"
+    },
+    {
+      "slug": "pricing-certification",
+      "title": "B2B SaaS Pricing Certification",
+      "description": "Structured program on value-based pricing, packaging strategy, and pricing experiments. Includes real B2B case studies from Dropbox, Figma, and Notion.",
+      "url": "https://www.priceintelligently.com/pricing-certification",
+      "provider": "Price Intelligently / ProfitWell",
+      "duration": "4 weeks",
+      "type": "training"
+    },
+    {
+      "slug": "svpg-product-masterclass",
+      "title": "SVPG Product Masterclass",
+      "description": "Marty Cagan and the SVPG team's intensive product management training. Covers product strategy, discovery, delivery, and team empowerment with strong B2B content.",
+      "url": "https://www.svpg.com/masterclass/",
+      "provider": "SVPG",
+      "duration": "8 weeks",
+      "type": "training"
+    },
+    {
+      "slug": "mindtheproduct-eship",
+      "title": "Mind the Product — Product Leadership Program",
+      "description": "Executive product management training for senior PMs and Heads of Product. Focus on product strategy, organizational design, and scaling B2B product organizations.",
+      "url": "https://www.mindtheproduct.com/product-leadership-program/",
+      "provider": "Mind the Product",
+      "duration": "12 weeks",
+      "type": "training"
+    },
+    {
+      "slug": "intercom-product-training",
+      "title": "Intercom — Product-Led Growth Training",
+      "description": "Free training on building PLG motions. Covers onboarding optimization, in-app messaging strategy, and conversion funnel analysis with hands-on exercises.",
+      "url": "https://www.intercom.com/training/product-led-growth",
+      "provider": "Intercom",
+      "duration": "Self-paced",
+      "type": "training"
+    },
+    {
+      "slug": "b2b-product-led-growth-checklist",
+      "title": "The B2B Product-Led Growth Maturity Model",
+      "author": "OpenView / Wes Bush",
+      "description": "A maturity framework for B2B companies adopting PLG. Covers four stages: awareness, activation, expansion, and advocacy with specific metrics and tactics per stage.",
+      "url": "https://productled.com/blog/b2b-plg-maturity-model",
+      "publication": "ProductLed Blog",
+      "type": "article"
+    },
+    {
+      "slug": "enterprise-pricing-packaging",
+      "title": "The Complete Guide to B2B SaaS Pricing and Packaging",
+      "author": "Kyle Poyar (OpenView)",
+      "description": "Comprehensive guide on usage-based pricing, tiered plans, per-seat vs consumption, and packaging strategy for B2B SaaS. Includes data from 300+ companies.",
+      "url": "https://openviewpartners.com/blog/b2b-saas-pricing-packaging-guide",
+      "publication": "OpenView",
+      "type": "article"
+    },
+    {
+      "slug": "b2b-customer-discovery-interviews",
+      "title": "How to Run B2B Customer Discovery Interviews That Don't Suck",
+      "author": "Alex Clayton",
+      "description": "Practical template and script for B2B discovery interviews. Covers identifying power users, finding the economic buyer, and questions that reveal real budgets.",
+      "url": "https://www.reforge.com/blog/b2b-customer-discovery",
+      "publication": "Reforge",
+      "type": "article"
+    },
+    {
+      "slug": "product-led-sales-alignment",
+      "title": "Product-Led Sales: How to Align Product and Sales Teams",
+      "author": "First Round Review",
+      "description": "How Atlassian, GitLab, and Datadog structure product-led sales motions. Covers PQL scoring, sales-assist signals, and when to hand off from product to sales.",
+      "url": "https://review.firstround.com/product-led-sales-how-to-align-product-and-sales-teams/",
+      "publication": "First Round Review",
+      "type": "article"
+    },
+    {
+      "slug": "b2b-roadmap-prioritization",
+      "title": "B2B Product Roadmap Prioritization for Enterprise Accounts",
+      "author": "Maggie Crowley (Drift/PagerDuty)",
+      "description": "How to handle multi-tenant feature requests, enterprise deal-driven roadmaps, and balancing top-down strategy with bottom-up customer needs. Includes ICE and RICE adaptations for B2B.",
+      "url": "https://www.mindtheproduct.com/b2b-roadmap-prioritization-enterprise-accounts/",
+      "publication": "Mind the Product",
+      "type": "article"
+    },
+    {
+      "slug": "api-product-management-guide",
+      "title": "The API Product Manager's Guide to Platform Strategy",
+      "author": "Kin Lane",
+      "description": "Guide to managing APIs as products in B2B platform companies. Covers developer portals, API versioning, deprecation strategies, and developer relations.",
+      "url": "https://apievangelist.com/2023/12/10/api-product-management-guide/",
+      "publication": "API Evangelist",
+      "type": "article"
+    },
+    {
+      "slug": "b2b-onboarding-proven-success",
+      "title": "Designing B2B Onboarding That Proves Value in 30 Days",
+      "author": "Lincoln Murphy / Sixteen Ventures",
+      "description": "Time-to-value framework for B2B SaaS. Covers adoption milestones, success plans, and how product can reduce time-to-first-value through in-app guidance.",
+      "url": "https://sixteenventures.com/b2b-onboarding-time-to-value",
+      "publication": "Sixteen Ventures",
+      "type": "article"
+    },
+    {
+      "slug": "churn-analysis-b2b",
+      "title": "B2B Churn Analysis: Causes, Metrics, and Prevention",
+      "author": "Christoph Janz / Point Nine Capital",
+      "description": "Deep analysis of why B2B companies churn. Covers logo churn vs. dollar churn, multi-threading risk, and build vs. buy triggers in enterprise procurement.",
+      "url": "https://www.pointninecap.com/blog/b2b-churn-analysis",
+      "publication": "Point Nine Capital",
+      "type": "article"
+    },
+    {
+      "slug": "competitive-differentiation-b2b",
+      "title": "B2B Competitive Differentiation Without Feature Parity",
+      "author": "April Dunford",
+      "description": "Positioning strategy for B2B products that can't out-feature incumbents. Covers market context, alternative-based positioning, and the value wedge framework.",
+      "url": "https://aprildunford.com/blog/b2b-differentiation-without-feature-parity",
+      "publication": "April Dunford",
+      "type": "article"
+    },
+    {
+      "slug": "buyer-persona-research-b2b",
+      "title": "B2B Buyer Persona Research: Building ICPs That Drive Product Decisions",
+      "author": "Michele Hansen",
+      "description": "Method for creating B2B ideal customer profiles based on qualitative research. Covers job-to-be-done interviews, persona segmentation, and persona-driven validation.",
+      "url": "https://www.decisionprinciples.com/blog/b2b-buyer-persona-research",
+      "publication": "Decision Principles",
+      "type": "article"
+    },
+    {
+      "slug": "lenny-rachbot-podcast",
+      "title": "Lenny's Podcast — B2B PLG with Rachbot Founder",
+      "description": "In-depth interview with Rachbot founder on building a product-led B2B sales tool. Covers pricing experiments, sales-assist triggers, and navigating enterprise procurement.",
+      "url": "https://www.lennyspodcast.com/",
+      "host": "Lenny Rachitsky",
+      "episode": "PLG Deep Dive",
+      "type": "podcast"
+    },
+    {
+      "slug": "product-strategy-with-svpg",
+      "title": "Product Thinking — Marty Cagan on B2B Product Strategy",
+      "description": "Marty Cagan discusses how B2B product strategy differs from B2C, the importance of empowered product teams in enterprise, and why most B2B product roadmaps fail.",
+      "url": "https://www.productthinkingpodcast.com/",
+      "host": "Melissa Perri & Micala Denault",
+      "episode": "Marty Cagan Interview",
+      "type": "podcast"
+    },
+    {
+      "slug": "b2b-product-chat",
+      "title": "B2B Product Chat — Enterprise SaaS Metrics",
+      "description": "Weekly podcast dedicated to B2B product management. Covers NDR deep dives, pricing case studies, sales alignment, and interviews with B2B product leaders from GitLab, Datadog, and Snowflake.",
+      "url": "https://www.b2bproductchat.com/",
+      "host": "Brian Lawley & Co.",
+      "episode": "Enterprise Metrics That Matter",
+      "type": "podcast"
+    },
+    {
+      "slug": "this-is-product-management",
+      "title": "This is Product Management — B2B Edition",
+      "description": "Interviews with product leaders from top B2B companies. Topics include product-led sales, API product management, developer experience, and enterprise customer success.",
+      "url": "https://www.thisisproductmanagement.com/",
+      "host": "Alpha UX",
+      "episode": "B2B Product Strategy",
+      "type": "podcast"
+    },
+    {
+      "slug": "plg-podcast",
+      "title": "The Product-Led Growth Podcast",
+      "description": "Dedicated to product-led growth strategies. B2B-heavy content including episodes on free trial optimization, PQL scoring algorithms, and expansion revenue strategies.",
+      "url": "https://productled.com/podcast",
+      "host": "Wes Bush / ProductLed",
+      "episode": "Various",
+      "type": "podcast"
+    },
+    {
+      "slug": "hidden-brain-b2b-decisions",
+      "title": "Hidden Brain — The Psychology of B2B Buying Decisions",
+      "description": "Exploration of the psychological biases and social dynamics behind enterprise purchasing decisions. Relevant for PMs designing B2B products that need to win internal champions.",
+      "url": "https://hiddenbrain.org/",
+      "host": "Shankar Vedantam",
+      "episode": "Decision Making Deep Dive",
+      "type": "podcast"
+    },
+    {
+      "slug": "category-pirates",
+      "title": "Category Pirates — Creating New B2B Markets",
+      "description": "Podcast about creating new market categories. B2B focus with episodes on category design, market creation, and how companies like Salesforce and Slack created new enterprise categories.",
+      "url": "https://www.categorypirates.com/",
+      "host": "Christopher Lochhead & Eddie Yoon",
+      "episode": "Various",
+      "type": "podcast"
+    },
+    {
+      "slug": "breakdown-b2b-pricing-saastr",
+      "title": "SaaStr Podcast — B2B Pricing Breakdowns",
+      "description": "Weekly deep dives into B2B SaaS pricing strategies. Real numbers from public companies, pricing model analysis, and lessons from pricing failures.",
+      "url": "https://www.saastr.com/podcast/",
+      "host": "Jason Lemkin",
+      "episode": "Pricing Breakdown Series",
+      "type": "podcast"
+    },
+    {
+      "slug": "acquired-b2b-platform",
+      "title": "Acquired — B2B Platform Deep Dives",
+      "description": "Deep-dive episodes on the history and strategy behind major B2B platforms including Salesforce, Workday, ServiceNow, and Atlassian. Essential listening for B2B PMs.",
+      "url": "https://www.acquired.fm/",
+      "host": "Ben Gilbert & David Rosenthal",
+      "episode": "Salesforce / Workday / Atlassian",
+      "type": "podcast"
+    },
+    {
+      "slug": "make-better-decisions-b2b",
+      "title": "The Product Experience — B2B Product Decisions",
+      "description": "Weekly product management podcast with B2B-focused episodes on feature prioritization, stakeholder management, enterprise UX, and product analytics in B2B contexts.",
+      "url": "https://www.mindtheproduct.com/the-product-experience/",
+      "host": "Randy Silver & Lily Smith",
+      "episode": "B2B Product Decisions",
+      "type": "podcast"
+    },
+    {
+      "slug": "b2b-pod-lead-strategy",
+      "title": "The Product-Led B2B Pricing Playbook",
+      "type": "prompt",
+      "body": "You are a B2B SaaS pricing strategist. Analyze the following product and suggest a pricing model (usage-based, tiered, per-seat, or hybrid), propose 3 tiers with features, and estimate packaging value. Product: [describe product]. Target market: [enterprise size + vertical]. Current pricing: [if any]."
+    },
+    {
+      "slug": "enterprise-stakeholder-map",
+      "title": "Enterprise Stakeholder Mapping",
+      "type": "prompt",
+      "body": "You are a B2B product strategist mapping decision-makers for an enterprise sale. List all potential stakeholders involved in a [product] purchase at a [company size] organization. For each: role, influence level (decision-maker/influencer/champion/detractor), primary concern, and what 'good' looks like to them. Then rank by power and interest."
+    },
+    {
+      "slug": "b2b-roadmap-communicator",
+      "title": "B2B Roadmap Communication Draft",
+      "type": "prompt",
+      "body": "You are drafting a B2B product roadmap update for enterprise customers. Write a quarterly roadmap communication for [product name] to be sent to [audience: executives/champions/end users]. Include: recent wins, upcoming features, deprecation plan, and how customer feedback shaped decisions. Tone: [confident/empathetic/technical]. Length: [brief/detailed]."
+    },
+    {
+      "slug": "opportunity-solution-tree",
+      "title": "Opportunity Solution Tree for B2B Pain Point",
+      "type": "prompt",
+      "body": "You are Teresa Torres' framework applied to a B2B problem. Build an opportunity solution tree for: [describe B2B pain point]. Start with the desired outcome, branch into opportunities (gaps in current experience), then solution ideas for each opportunity. Include assumptions to test and experiment ideas for the top 3 solutions."
+    },
+    {
+      "slug": "b2b-prioritization-framework",
+      "title": "B2B Feature Prioritization with Weighted Scoring",
+      "type": "prompt",
+      "body": "You are evaluating B2B feature requests using a weighted scoring framework. Score each of these [features] against: revenue impact (0-5), customer demand (0-5), engineering effort inverse (0-5), strategic fit (0-5), competitive urgency (0-5). Weight each dimension and calculate total. Recommend a priority order. Features: [list]."
+    },
+    {
+      "slug": "b2b-dogfooding-playbook",
+      "title": "Design a B2B Dogfooding Program",
+      "type": "prompt",
+      "body": "Design a dogfooding program for [product], a B2B SaaS tool. Include: participant selection criteria (roles, departments), onboarding flow, feedback collection mechanism, success metrics (time-to-value, NPS, usage frequency), duration, and criteria for 'graduation' to external beta. Output as a playbook document."
+    },
+    {
+      "slug": "b2b-churn-analysis",
+      "title": "B2B Churn Root Cause Analysis",
+      "type": "prompt",
+      "body": "You are analyzing B2B customer churn for [product]. Given the following data: [list churned accounts with: segment, usage metrics, support tickets, CSAT, contract value]. Identify top 3 churn patterns, for each: root cause, leading indicators, and product changes that could prevent it. Provide a prioritized action plan."
+    },
+    {
+      "slug": "b2b-plg-motion-design",
+      "title": "Design a Product-Led Growth Motion for B2B",
+      "type": "prompt",
+      "body": "You are designing a PLG motion for [product], a B2B SaaS aimed at [target segment]. Outline: (1) free tier features and limits, (2) activation milestone definitions, (3) PQL definition and scoring, (4) sales-assist triggers and handoff process, (5) conversion tactics (upsell prompts, trial expiration). Estimate conversion rate targets for each stage."
+    },
+    {
+      "slug": "b2b-api-product-spec",
+      "title": "B2B API Product Specification Template",
+      "type": "prompt",
+      "body": "Write a product specification for a new [API/feature] for [platform]. Include: (1) developer use case and persona, (2) endpoint design with request/response examples, (3) rate limiting and SLA commitment, (4) documentation requirements, (5) deprecation and versioning policy, (6) migration guide for existing users. Output as a product spec document."
+    },
+    {
+      "slug": "competitive-battle-card",
+      "title": "B2B Competitive Battle Card Generator",
+      "type": "prompt",
+      "body": "Create a competitive battle card for [product] vs [competitor]. Include: (1) positioning statement, (2) feature comparison table, (3) common objections and rebuttals, (4) pricing comparison, (5) ideal replacement scenarios, (6) customer proof points. Format as a one-pager for the sales team. Competitor weaknesses should be factual, not exaggerated."
+    },
+    {
+      "slug": "b2b-customer-discovery",
+      "title": "B2B Customer Discovery",
+      "description": "Conducting effective customer interviews and discovery sessions with B2B stakeholders. Includes gatekeeper navigation, multi-threaded discovery, and uncovering hidden pain points.",
+      "body": "Ability to plan and execute structured discovery conversations with multiple stakeholders in a B2B buying process. Includes stakeholder mapping, question design, active listening, and synthesis into opportunity areas. Key skill for validating product-market fit in enterprise contexts.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-pricing-strategy",
+      "title": "B2B Pricing Strategy",
+      "description": "Designing and iterating pricing models for B2B SaaS products. Covers willingness-to-pay research, packaging, tiering, usage-based vs per-seat models, and discount governance.",
+      "body": "Skill in determining optimal pricing and packaging for B2B products. Includes value-based pricing methodologies, competitive benchmarking, packaging design (features per tier), understanding elasticity, and managing pricing changes without churn.",
+      "type": "skill"
+    },
+    {
+      "slug": "enterprise-roadmapping",
+      "title": "Enterprise Roadmapping",
+      "description": "Creating and communicating multi-quarter product roadmaps that balance strategic vision with enterprise customer commitments. Includes theme-based vs feature-based roadmaps.",
+      "body": "The ability to build and maintain product roadmaps that satisfy both internal strategy and external enterprise account needs. Covers roadmap levels (strategic vs committed), managing deal-driven roadmap items, deprecation planning, and communicating trade-offs to executive stakeholders.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-stakeholder-management",
+      "title": "B2B Stakeholder Management",
+      "description": "Navigating complex stakeholder relationships across enterprise accounts. Includes managing multiple buyers, handling escalation, and building executive relationships.",
+      "body": "Skill in identifying and managing relationships with all parties in an enterprise buying process: economic buyers, technical evaluators, end users, procurement, and legal. Includes executive communication, escalation management, and building champion networks within accounts.",
+      "type": "skill"
+    },
+    {
+      "slug": "product-led-sales",
+      "title": "Product-Led Sales",
+      "description": "Designing product experiences that generate and qualify leads. Includes PQL design, freemium/free trial strategy, in-app upsell, and sales-assist trigger definition.",
+      "body": "Ability to design product-led growth motions that generate, qualify, and convert leads without traditional sales. Includes defining product-qualified leads (PQLs), designing self-serve onboarding, setting up trial-to-paid conversion paths, and managing sales-assist handoffs.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-metrics-analytics",
+      "title": "B2B Metrics & Analytics",
+      "description": "Selecting and tracking the right metrics for B2B SaaS products. Covers NDR, ARR, logo churn, expansion MRR, time-to-value, and cohort analysis.",
+      "body": "Skill in defining and monitoring key B2B SaaS metrics that drive product decisions. Includes understanding net dollar retention vs logo retention, expansion revenue drivers, cohort-based retention analysis, and building dashboards that differentiate between usage, engagement, and business metrics.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-partnership-ecosystems",
+      "title": "B2B Partnership & Ecosystem Strategy",
+      "description": "Building and managing ISV partnerships, technology integrations, and platform ecosystems. Includes API partnerships, marketplace strategy, and co-selling motions.",
+      "body": "Ability to identify, negotiate, and maintain strategic partnerships that extend a B2B product's reach. Includes building integration marketplaces, managing co-sell relationships, defining API partnership tiers, and measuring partner-sourced revenue.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-compliance-security",
+      "title": "B2B Compliance & Security Knowledge",
+      "description": "Understanding enterprise compliance requirements (SOC 2, GDPR, HIPAA) and translating them into product decisions. Includes security review support and vendor assessment navigation.",
+      "body": "Working knowledge of enterprise compliance frameworks that affect product design and go-to-market. Includes understanding SOC 2 Type II, GDPR, HIPAA, FedRAMP requirements and how they impact feature development, data architecture, and deployment options.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-platform-product-management",
+      "title": "Platform Product Management",
+      "description": "Managing internal platforms, APIs, and infrastructure as products for internal and external developers. Includes developer experience, versioning, and platform ROI.",
+      "body": "Skill in treating platforms, APIs, and internal tools as first-class products with their own user personas (developers), OKRs, and roadmaps. Includes API-first design, developer portal management, deprecation strategy, and measuring platform adoption and developer satisfaction.",
+      "type": "skill"
+    },
+    {
+      "slug": "b2b-continuous-discovery",
+      "title": "Continuous B2B Discovery",
+      "description": "Running ongoing product discovery in B2B contexts with long sales cycles and small user bases. Includes opportunity solution trees, assumption mapping, and low-fidelity prototyping for enterprise.",
+      "body": "Ability to maintain a continuous discovery cadence despite the challenges of B2B (fewer users, longer sales cycles, harder access to decision-makers). Includes adapting Teresa Torres' framework for B2B, using design sprints for enterprise validation, and balancing discovery with delivery in resource-constrained teams.",
+      "type": "skill"
+    },
+    {
+      "slug": "product-board",
+      "title": "Productboard",
+      "description": "Product management platform focused on B2B insight collection, prioritization, and roadmapping with customer portal. Strong integrations with Salesforce, Jira, and Zendesk.",
+      "url": "https://www.productboard.com/",
+      "category": "Roadmapping & Prioritization",
+      "type": "tool"
+    },
+    {
+      "slug": "amplitude",
+      "title": "Amplitude",
+      "description": "Product analytics platform for understanding B2B user behavior. Behavioral cohorts, funnel analysis, retention curves, and feature adoption tracking for enterprise products.",
+      "url": "https://amplitude.com/",
+      "category": "Analytics",
+      "type": "tool"
+    },
+    {
+      "slug": "pendo",
+      "title": "Pendo",
+      "description": "Product adoption and digital adoption platform. In-app guides, NPS surveys, and feature engagement analytics. Strong B2B enterprise feature set including multi-product views.",
+      "url": "https://www.pendo.io/",
+      "category": "Product Adoption & Analytics",
+      "type": "tool"
+    },
+    {
+      "slug": "stripe-billing",
+      "title": "Stripe Billing",
+      "description": "B2B subscription management and billing platform. Supports usage-based pricing, tiered plans, invoicing, and revenue recognition. Essential for any B2B SaaS product.",
+      "url": "https://stripe.com/billing",
+      "category": "Billing & Monetization",
+      "type": "tool"
+    },
+    {
+      "slug": "hotjar",
+      "title": "Hotjar",
+      "description": "Experience analytics tool with session recordings, heatmaps, and surveys. Useful for B2B user research and understanding how enterprise users interact with complex interfaces.",
+      "url": "https://www.hotjar.com/",
+      "category": "User Research & Analytics",
+      "type": "tool"
+    },
+    {
+      "slug": "launchdarkly",
+      "title": "LaunchDarkly",
+      "description": "Feature management platform for B2B products. Gradual rollouts, A/B testing, targeting by customer segment, and kill switches for enterprise reliability.",
+      "url": "https://launchdarkly.com/",
+      "category": "Feature Management & Experimentation",
+      "type": "tool"
+    },
+    {
+      "slug": "linear",
+      "title": "Linear",
+      "description": "Issue tracking and project management for product teams. Keyboard-first, fast, and developer-friendly. Strong API for automation and integrations with GitHub/GitLab.",
+      "url": "https://linear.app/",
+      "category": "Project Management",
+      "type": "tool"
+    },
+    {
+      "slug": "retool",
+      "title": "Retool",
+      "description": "Low-code platform for building internal B2B tools. Connect to any database or API to create admin panels, customer dashboards, and internal CRUD apps quickly.",
+      "url": "https://retool.com/",
+      "category": "Internal Tooling",
+      "type": "tool"
+    },
+    {
+      "slug": "canny",
+      "title": "Canny",
+      "description": "Customer feedback management platform for B2B. Collect, organize, and prioritize feature requests with public or private roadmaps. Integrates with Intercom, Zendesk, and Slack.",
+      "url": "https://canny.io/",
+      "category": "Customer Feedback & Roadmapping",
+      "type": "tool"
+    },
+    {
+      "slug": "segment",
+      "title": "Segment (Twilio Segment)",
+      "description": "Customer data platform for B2B. Collect, unify, and route customer data across analytics, marketing, and product tools. Essential for building a single view of the enterprise customer.",
+      "url": "https://segment.com/",
+      "category": "Customer Data Platform",
+      "type": "tool"
+    }
+  ]
+}

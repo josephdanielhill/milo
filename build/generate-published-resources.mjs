@@ -1,14 +1,20 @@
 #!/usr/bin/env node
-// Reads the resource files committed at the repository root and writes a
-// static manifest that the app bundles as its default, read-only "published"
-// library — so content merged to main shows up for everyone, not just
-// whoever has that folder connected locally.
+// Reads the resource files committed at the repository root and writes:
+//   1) app/generated/published-manifest.ts — the app's built-in library
+//   2) public/collections/{slug}.json — downloadable bundle files per forum collection
+//
+// The bundle files let Discover collections be served as static assets alongside
+// the app itself — no external hosting required.
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 
+// Collection JSON files at the repo root — each holds items of one resource type.
+// NOTE: Only 6 are typed as "collection" resources in storage.ts (book/video/conference/training/article/podcast).
+// prompts.json, skills.json, tools.json live alongside them for bundle generation but aren't
+// parsed by loadPublishedResources — the app handles prompt/skill/tool as markdown files.
 const collectionFileNames = [
   "books.json",
   "videos.json",
@@ -16,6 +22,13 @@ const collectionFileNames = [
   "training.json",
   "articles.json",
   "podcasts.json",
+];
+
+// Additional JSON files read only for bundle generation (not for the published manifest).
+const bundleOnlyFileNames = [
+  "prompts.json",
+  "skills.json",
+  "tools.json",
 ];
 
 const markdownFolders = ["prompts", "skills", "tools"];
@@ -49,20 +62,60 @@ async function collectMarkdownFiles(folder) {
   return files;
 }
 
+// Map from JSON filename to the resource type string.
+const typeFromFile = {
+  "books.json": "book",
+  "videos.json": "video",
+  "conferences.json": "conference",
+  "training.json": "training",
+  "articles.json": "article",
+  "podcasts.json": "podcast",
+  "prompts.json": "prompt",
+  "skills.json": "skill",
+  "tools.json": "tool",
+};
+
+async function readItemsForBundle(filename) {
+  const raw = await readIfExists(join(projectRoot, filename));
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    const type = typeFromFile[filename];
+    if (parsed.items && Array.isArray(parsed.items) && type) {
+      return parsed.items.map((item) => ({ ...item, type }));
+    }
+  } catch {
+    console.warn(`Could not parse ${filename} — skipping in bundle.`);
+  }
+  return [];
+}
+
 async function main() {
+  // ---- Step 1: Collect all collection JSON data (for published-manifest.ts) ----
   const collections = {};
   for (const filename of collectionFileNames) {
     const raw = await readIfExists(join(projectRoot, filename));
     if (raw !== null) collections[filename] = raw;
   }
 
+  // ---- Step 2: Collect markdown file data ----
   const files = [];
   for (const folder of markdownFolders) {
     files.push(...(await collectMarkdownFiles(folder)));
   }
 
+  // ---- Step 3: Read forum collections ----
   const forumRaw = await readIfExists(join(projectRoot, forumCollectionPath));
 
+  // ---- Step 4: Assemble all published items into one list (for bundle generation) ----
+  // Each item gets a `type` field injected based on which file it came from,
+  // since the source JSONs don't carry the type.
+  const allItems = [];
+  for (const filename of [...collectionFileNames, ...bundleOnlyFileNames]) {
+    allItems.push(...(await readItemsForBundle(filename)));
+  }
+
+  // ---- Step 5: Write published-manifest.ts ----
   const outDir = join(projectRoot, "app", "generated");
   await mkdir(outDir, { recursive: true });
 
@@ -77,6 +130,47 @@ ${forumRaw !== null ? `export const publishedForumCollections = ${forumRaw};` : 
 `;
 
   await writeFile(join(outDir, "published-manifest.ts"), contents);
+
+  // ---- Step 6: Generate bundle JSON files per forum collection ----
+  if (forumRaw !== null) {
+    let forumData;
+    try {
+      forumData = JSON.parse(forumRaw);
+    } catch {
+      console.error("Could not parse forum/collections.json — skipping bundle generation.");
+      process.exitCode = 1;
+      return;
+    }
+
+    if (!forumData.collections || !Array.isArray(forumData.collections)) {
+      console.warn("forum/collections.json has no collections array — skipping bundle generation.");
+      return;
+    }
+
+    const bundlesDir = join(projectRoot, "public", "collections");
+    await mkdir(bundlesDir, { recursive: true });
+
+    for (const collection of forumData.collections) {
+      const slug = collection.slug;
+      if (!slug) {
+        console.warn("Skipping unnamed collection in forum/collections.json");
+        continue;
+      }
+
+      // Build the bundle — currently all items go into every collection.
+      // When collections need distinct item sets, add a filter or
+      // explicit `itemSlugs` field to the forum collection definition.
+      const bundle = {
+        version: 1,
+        name: collection.name,
+        items: allItems,
+      };
+
+      const bundlePath = join(bundlesDir, `${slug}.json`);
+      await writeFile(bundlePath, JSON.stringify(bundle, null, 2) + "\n");
+      console.log(`Generated bundle: public/collections/${slug}.json (${allItems.length} items)`);
+    }
+  }
 }
 
 main().catch((error) => {
