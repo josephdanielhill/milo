@@ -9,6 +9,7 @@ const FAVOURITES_ROOT_DIR = ".milo";
 const FAVOURITES_SUBDIR = "favourites";
 const DISMISSED_SUBDIR = "dismissed";
 const SUBSCRIPTIONS_FILE = "subscriptions.json";
+const COLLECTION_HANDLE_KEY = "collection-library";
 
 type PermissionMode = "read" | "readwrite";
 type FileSystemPermissionDescriptor = { mode?: PermissionMode };
@@ -39,6 +40,39 @@ async function saveHandle(handle: DirectoryHandle) {
   await new Promise<void>((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, "readwrite");
     transaction.objectStore(STORE_NAME).put(handle, HANDLE_KEY);
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  db.close();
+}
+
+async function saveCollectionHandle(handle: DirectoryHandle) {
+  const db = await openDb();
+  await new Promise<void>((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).put(handle, COLLECTION_HANDLE_KEY);
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  db.close();
+}
+
+async function loadCollectionHandle() {
+  const db = await openDb();
+  const handle = await new Promise<DirectoryHandle | null>((resolve, reject) => {
+    const request = db.transaction(STORE_NAME).objectStore(STORE_NAME).get(COLLECTION_HANDLE_KEY);
+    request.onsuccess = () => resolve((request.result as DirectoryHandle) || null);
+    request.onerror = () => reject(request.error);
+  });
+  db.close();
+  return handle;
+}
+
+async function clearCollectionHandle() {
+  const db = await openDb();
+  await new Promise<void>((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).delete(COLLECTION_HANDLE_KEY);
     transaction.oncomplete = () => resolve();
     transaction.onerror = () => reject(transaction.error);
   });
@@ -406,9 +440,14 @@ type CollectionOp =
 
 export class LocalFolderStorage implements StorageProvider {
   private root: DirectoryHandle | null = null;
+  private collectionRoot: DirectoryHandle | null = null;
 
   get folderName() {
     return this.root?.name || null;
+  }
+
+  get collectionFolderName() {
+    return this.collectionRoot?.name || null;
   }
 
   async connect() {
@@ -445,6 +484,53 @@ export class LocalFolderStorage implements StorageProvider {
   async disconnect() {
     this.root = null;
     await clearHandle();
+  }
+
+  /**
+   * Collection drive: a second, read-only folder (typically a shared/synced folder like
+   * OneDrive) whose resources show up tagged as "collection" in the library, with an
+   * "Import to main drive" action available on them. Kept entirely separate from the
+   * main (readwrite) folder so it can't be accidentally edited.
+   */
+  async connectCollectionDrive() {
+    if (!supportsLocalFolders()) {
+      throw new Error("Direct folder access requires desktop Chrome or Edge.");
+    }
+    this.collectionRoot = await (window as unknown as PickerWindow).showDirectoryPicker({
+      mode: "read",
+    });
+    await saveCollectionHandle(this.collectionRoot);
+    return this.collectionRoot.name;
+  }
+
+  async reconnectCollectionDrive() {
+    const handle = await loadCollectionHandle();
+    if (!handle) return null;
+    this.collectionRoot = handle;
+    const permission = await handle.queryPermission({ mode: "read" });
+    return permission === "granted" ? handle.name : null;
+  }
+
+  async requestStoredCollectionPermission() {
+    if (!this.collectionRoot) this.collectionRoot = await loadCollectionHandle();
+    if (!this.collectionRoot) return null;
+    const permission = await this.collectionRoot.requestPermission({ mode: "read" });
+    return permission === "granted" ? this.collectionRoot.name : null;
+  }
+
+  async disconnectCollectionDrive() {
+    this.collectionRoot = null;
+    await clearCollectionHandle();
+  }
+
+  async listCollectionResources() {
+    if (!this.collectionRoot) return [];
+    const resources = await listResourcesFrom(this.collectionRoot, { createMissing: false });
+    // Everything on the collection drive is by definition a collection resource.
+    return resources.map((resource) => ({
+      ...resource,
+      meta: { ...resource.meta, driveType: "collection" as const },
+    }));
   }
 
   async listResources() {
