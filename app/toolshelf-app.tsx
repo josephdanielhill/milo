@@ -2251,16 +2251,16 @@ function AboutMilo({
   folderName: string | null;
   folderStatus: FolderStatus;
   connectFolder: (reconnect?: boolean) => void;
-  initialSection: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security";
+  initialSection: "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security";
 }) {
   const [section, setSection] = useState<
-    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security"
+    "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security"
   >(initialSection);
 
   const tabConfigs: Record<
-    "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security",
+    "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security",
     {
-      key: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security";
+      key: "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security";
       tabLabel: string;
       eyebrow: string;
       introTitle: string;
@@ -2344,6 +2344,31 @@ function AboutMilo({
           icon: Download,
           title: "Importing Files or URLs",
           copy: "Recipients can go to the 'Import' page, choose 'From a file' to upload the JSON bundle directly, or choose 'From a URL' and paste the hosted link to load the resources.",
+        },
+      ],
+    },
+    "collection-drive": {
+      key: "collection-drive",
+      tabLabel: "Collection Drive",
+      eyebrow: "Two Drives, One Library",
+      introTitle: "Your personal shelf meets a shared collection",
+      introParagraph:
+        "MILO lets you connect two drives at once: your personal folder for your own resources, and a separate collection drive &mdash; a shared read-only folder from your team or community. Resources from both drives appear together in your library, so you can browse the shared collection and decide what to bring into your personal shelf.",
+      pillars: [
+        {
+          icon: HardDrive,
+          title: "Personal Drive",
+          copy: "Your own folder where you save, edit, and organise your resources. Full read-write access &mdash; everything here is yours to shape and keep.",
+        },
+        {
+          icon: FolderOpen,
+          title: "Collection Drive",
+          copy: "A separate read-only folder shared by a group, team, or community. Anyone with access can browse its resources, but no one edits the originals by mistake. It stays in sync as the maintainer adds new content.",
+        },
+        {
+          icon: Download,
+          title: "Import to Personal",
+          copy: "Found a resource in the shared collection you want to keep? Import it into your personal drive with a single click. The original stays in the collection; your copy is yours to edit and customise.",
         },
       ],
     },
@@ -2442,7 +2467,7 @@ function AboutMilo({
 
       <div className="page about-page">
         <div className="segmented about-subnav" role="tablist" aria-label="About Milo sections">
-          {(["philosophy", "local-folder", "shared-folder", "loading", "subscription", "security"] as const).map(
+          {(["philosophy", "local-folder", "shared-folder", "collection-drive", "loading", "subscription", "security"] as const).map(
             (sec) => (
               <button
                 key={sec}
@@ -4566,7 +4591,7 @@ function filterResources(
 function parseRoute(path: string):
   | { kind: "home" }
   | { kind: "forum" }
-  | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "loading" | "subscription" | "security" }
+  | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
   | { kind: "favourites" }
@@ -4586,6 +4611,7 @@ function parseRoute(path: string):
     if (
       sec === "local-folder" ||
       sec === "shared-folder" ||
+      sec === "collection-drive" ||
       sec === "loading" ||
       sec === "subscription" ||
       sec === "security"
