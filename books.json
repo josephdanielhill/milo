@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "escaped-the-build-trap",
+      "title": "Escaping the Build Trap",
+      "author": "Melissa Perri",
+      "description": "The definitive book on product management strategy — how to shift from output-driven feature factories to outcome-driven product organizations. Essential B2B reading.",
+      "url": "https://www.oreilly.com/library/view/escaping-the-build-trap/9781491973783/",
+      "year": 2018,
+      "isbn": "978-1491973790"
+    },
+    {
+      "slug": "inspired",
+      "title": "INSPIRED: How to Create Tech Products Customers Love",
+      "author": "Marty Cagan",
+      "description": "The bible of modern product management. Covers everything from product vision to team structure, with strong B2B and enterprise product sections.",
+      "url": "https://www.svpg.com/inspired/",
+      "year": 2017,
+      "isbn": "978-1119387508"
+    },
+    {
+      "slug": "lean-startup",
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "description": "Foundational methodology for building products iteratively. Build-Measure-Learn loops, MVP thinking, and innovation accounting directly applicable to B2B SaaS.",
+      "url": "http://theleanstartup.com/",
+      "year": 2011,
+      "isbn": "978-0307887894"
+    },
+    {
+      "slug": "crossing-the-chasm",
+      "title": "Crossing the Chasm",
+      "author": "Geoffrey A. Moore",
+      "description": "The essential B2B technology adoption framework. Explains how to transition from early adopters to mainstream enterprise customers — a must-read for any B2B PM.",
+      "url": "https://www.harpercollins.com/products/crossing-the-chasm-geoffrey-a-moore",
+      "year": 1991,
+      "isbn": "978-0062351748"
+    },
+    {
+      "slug": "hacking-growth",
+      "title": "Hacking Growth",
+      "author": "Sean Ellis & Morgan Brown",
+      "description": "Growth hacking methodologies with concrete B2B examples. Covers PLG experiments, viral loops, and retention strategies for SaaS products.",
+      "url": "https://www.hackinggrowth.com/book",
+      "year": 2017,
+      "isbn": "978-0451497215"
+    },
+    {
+      "slug": "the-mom-test",
+      "title": "The Mom Test",
+      "author": "Rob Fitzpatrick",
+      "description": "Practical guide to customer conversations. Teaches how to avoid false positives in B2B customer discovery by asking questions that surface real pain points.",
+      "url": "https://www.momtestbook.com/",
+      "year": 2013,
+      "isbn": "978-1492180746"
+    },
+    {
+      "slug": "product-lead",
+      "title": "Product-Led Growth",
+      "author": "Wes Bush",
+      "description": "The playbook for building a B2B SaaS product that sells itself. Covers freemium models, free trials, product-qualified leads, and viral loops.",
+      "url": "https://productled.com/book",
+      "year": 2019,
+      "isbn": "978-1734534110"
+    },
+    {
+      "slug": "continuous-discovery-habits",
+      "title": "Continuous Discovery Habits",
+      "author": "Teresa Torres",
+      "description": "A structured framework for ongoing product discovery. Opportunity solution trees, interviewing techniques, and assumption mapping for B2B contexts.",
+      "url": "https://www.producttalk.org/continuous-discovery-habits/",
+      "year": 2021,
+      "isbn": "978-1736633304"
+    },
+    {
+      "slug": "strategic-monoliths-microservices",
+      "title": "Strategic Monoliths and Microservices",
+      "author": "Vaughn Vernon & Tomasz Jaskula",
+      "description": "Technical architecture book for PMs working with platform teams. Helps B2B PMs understand service decomposition and API strategy from a product perspective.",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/strategic-monoliths-and-microservices/P200000009547",
+      "year": 2021,
+      "isbn": "978-0137355459"
+    },
+    {
+      "slug": "sprint",
+      "title": "Sprint: How to Solve Big Problems",
+      "author": "Jake Knapp",
+      "description": "Google Ventures' 5-day process for solving critical business problems through prototyping and testing with customers. Highly effective for B2B enterprise product validation.",
+      "url": "https://www.thesprintbook.com/",
+      "year": 2016,
+      "isbn": "978-1501121746"
+    }
+  ]
+}

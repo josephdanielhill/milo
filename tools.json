@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "product-board",
+      "title": "Productboard",
+      "description": "Product management platform focused on B2B insight collection, prioritization, and roadmapping with customer portal. Strong integrations with Salesforce, Jira, and Zendesk.",
+      "url": "https://www.productboard.com/",
+      "category": "Roadmapping & Prioritization"
+    },
+    {
+      "slug": "amplitude",
+      "title": "Amplitude",
+      "description": "Product analytics platform for understanding B2B user behavior. Behavioral cohorts, funnel analysis, retention curves, and feature adoption tracking for enterprise products.",
+      "url": "https://amplitude.com/",
+      "category": "Analytics"
+    },
+    {
+      "slug": "pendo",
+      "title": "Pendo",
+      "description": "Product adoption and digital adoption platform. In-app guides, NPS surveys, and feature engagement analytics. Strong B2B enterprise feature set including multi-product views.",
+      "url": "https://www.pendo.io/",
+      "category": "Product Adoption & Analytics"
+    },
+    {
+      "slug": "stripe-billing",
+      "title": "Stripe Billing",
+      "description": "B2B subscription management and billing platform. Supports usage-based pricing, tiered plans, invoicing, and revenue recognition. Essential for any B2B SaaS product.",
+      "url": "https://stripe.com/billing",
+      "category": "Billing & Monetization"
+    },
+    {
+      "slug": "hotjar",
+      "title": "Hotjar",
+      "description": "Experience analytics tool with session recordings, heatmaps, and surveys. Useful for B2B user research and understanding how enterprise users interact with complex interfaces.",
+      "url": "https://www.hotjar.com/",
+      "category": "User Research & Analytics"
+    },
+    {
+      "slug": "launchdarkly",
+      "title": "LaunchDarkly",
+      "description": "Feature management platform for B2B products. Gradual rollouts, A/B testing, targeting by customer segment, and kill switches for enterprise reliability.",
+      "url": "https://launchdarkly.com/",
+      "category": "Feature Management & Experimentation"
+    },
+    {
+      "slug": "linear",
+      "title": "Linear",
+      "description": "Issue tracking and project management for product teams. Keyboard-first, fast, and developer-friendly. Strong API for automation and integrations with GitHub/GitLab.",
+      "url": "https://linear.app/",
+      "category": "Project Management"
+    },
+    {
+      "slug": "retool",
+      "title": "Retool",
+      "description": "Low-code platform for building internal B2B tools. Connect to any database or API to create admin panels, customer dashboards, and internal CRUD apps quickly.",
+      "url": "https://retool.com/",
+      "category": "Internal Tooling"
+    },
+    {
+      "slug": "canny",
+      "title": "Canny",
+      "description": "Customer feedback management platform for B2B. Collect, organize, and prioritize feature requests with public or private roadmaps. Integrates with Intercom, Zendesk, and Slack.",
+      "url": "https://canny.io/",
+      "category": "Customer Feedback & Roadmapping"
+    },
+    {
+      "slug": "segment",
+      "title": "Segment (Twilio Segment)",
+      "description": "Customer data platform for B2B. Collect, unify, and route customer data across analytics, marketing, and product tools. Essential for building a single view of the enterprise customer.",
+      "url": "https://segment.com/",
+      "category": "Customer Data Platform"
+    }
+  ]
+}

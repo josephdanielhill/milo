@@ -1,4 +1,75 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "slug": "saaStr-annual",
+      "title": "SaaStr Annual",
+      "description": "The largest B2B SaaS conference globally. Keynotes and workshops on PLG, enterprise sales, fundraising, and product strategy from founders and VCs.",
+      "url": "https://www.saastrannual.com/",
+      "location": "San Francisco / London"
+    },
+    {
+      "slug": "mind-the-product",
+      "title": "Mind the Product — ProductCon",
+      "description": "Major product management conference with strong B2B tracks. Covers product discovery, strategy, leadership, and AI in product. Workshops and networking.",
+      "url": "https://www.mindtheproduct.com/productcon/",
+      "location": "London / San Francisco / Singapore / New York"
+    },
+    {
+      "slug": "product-hunt-radio",
+      "title": "Product Hunt — GLITCH Conference",
+      "description": "Conference focused on product launches, growth, and community building. B2B track covers SaaS launches, developer products, and PLG distribution strategies.",
+      "url": "https://www.producthunt.com/gatherings/glitch",
+      "location": "Los Angeles / Virtual"
+    },
+    {
+      "slug": "business-of-software",
+      "title": "Business of Software Conference",
+      "description": "Long-running conference for B2B SaaS founders and product leaders. Focus on profitable growth, bootstrapping, pricing, and product strategy without VC dependency.",
+      "url": "https://businessofsoftware.org/",
+      "location": "Boston / Virtual"
+    },
+    {
+      "slug": "reforge-huddle",
+      "title": "Reforge Huddle",
+      "description": "Exclusive gathering for senior product and growth leaders. Deep dives on B2B retention, enterprise activation funnels, and product-led expansion. Application-based attendance.",
+      "url": "https://www.reforge.com/huddle",
+      "location": "San Francisco / Remote"
+    },
+    {
+      "slug": "product-school-pdma",
+      "title": "PDMA Annual Conference — Product Development & Management Association",
+      "description": "Academic and practitioner conference on product development. Strong B2B and industrial product track. Covers NPD processes, portfolio management, and innovation metrics.",
+      "url": "https://www.pdma.org/page/pdma_annual_conference",
+      "location": "Rotating US cities"
+    },
+    {
+      "slug": "b2b-saas-online-saastock",
+      "title": "SaaStock",
+      "description": "European B2B SaaS conference with focus on growth, metrics, and international expansion. Strong B2B community and investor presence.",
+      "url": "https://www.saastock.com/",
+      "location": "Dublin / Remote"
+    },
+    {
+      "slug": "product-led-summit",
+      "title": "Product-Led Summit",
+      "description": "The premier PLG conference. Sessions on product-qualified leads, freemium strategy, user onboarding, and expansion revenue. B2B SaaS focus.",
+      "url": "https://productled.com/summit",
+      "location": "San Francisco / Online"
+    },
+    {
+      "slug": "enterprise-product-summit",
+      "title": "Enterprise Product Summit",
+      "description": "Niche conference for product managers working on enterprise-grade B2B products. Covers compliance, security reviews, multi-tenant architecture, and enterprise sales engineering.",
+      "url": "https://enterpriseproductsummit.com/",
+      "location": "New York / Virtual"
+    },
+    {
+      "slug": "intercom-whats-new",
+      "title": "Intercom — What's New Conference",
+      "description": "Customer communication and product-led growth conference. Covers conversational support, in-app messaging, product tours, and user engagement for B2B SaaS.",
+      "url": "https://www.intercom.com/events/whats-new",
+      "location": "San Francisco / Dublin"
+    }
+  ]
 }

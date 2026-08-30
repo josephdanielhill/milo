@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "product-led-growth-strategy",
+      "title": "Product-Led Growth: The Definitive B2B SaaS Strategy",
+      "author": "Lenny's Podcast / Wes Bush",
+      "description": "Deep dive into how Slack, Calendly, and Zoom built PLG motions. Covers product-qualified leads, freemium pricing, and viral loops specific to B2B enterprise.",
+      "url": "https://www.lennyspodcast.com/",
+      "platform": "YouTube"
+    },
+    {
+      "slug": "marty-cagan-empowered",
+      "title": "Marty Cagan — EMPOWERED: Ordinary Teams, Extraordinary Products",
+      "author": "Marty Cagan (SVPG)",
+      "description": "Marty Cagan on how to build empowered product teams in large B2B organizations. Covers the shift from project to product, team topology, and leadership behaviors.",
+      "url": "https://www.youtube.com/watch?v=4C7Dut8BZqo",
+      "platform": "YouTube / SVPG"
+    },
+    {
+      "slug": "b2b-saas-pricing-madhavan",
+      "title": "B2B SaaS Pricing: Frameworks That Work",
+      "author": "Kumar Madhavan",
+      "description": "Walkthrough of usage-based, tiered, and per-seat pricing models. Includes case studies from Stripe, Twilio, and Snowflake on packaging and monetization strategy.",
+      "url": "https://www.youtube.com/watch?v=HpY_VwVl9qA",
+      "platform": "YouTube / SaaStr"
+    },
+    {
+      "slug": "jason-fried-shape-up",
+      "title": "Jason Fried — Shape Up: Stop Running in Circles",
+      "author": "Jason Fried (37signals / Basecamp)",
+      "description": "Basecamp's shape-up methodology explained by the founder. Six-week cycles, appetite-based scoping, and betting tables — highly applicable to B2B product teams.",
+      "url": "https://www.youtube.com/watch?v=u6h6KnLxRGE",
+      "platform": "YouTube"
+    },
+    {
+      "slug": "enterprise-sales-costa",
+      "title": "Enterprise Sales for Product Managers",
+      "author": "Shiven Ramji (ex-Microsoft)",
+      "description": "How B2B PMs should think about enterprise sales cycles, proof-of-concepts, RFPs, procurement, and stakeholder mapping. Real examples from Azure and Office 365.",
+      "url": "https://www.youtube.com/watch?v=4hB6mZg2zVk",
+      "platform": "YouTube / Mind the Product"
+    },
+    {
+      "slug": "teresa-torres-discovery",
+      "title": "Teresa Torres — Continuous Discovery at Scale",
+      "author": "Teresa Torres",
+      "description": "How to scale opportunity solution trees across multiple B2B product teams. Covers discovery cadence, cross-team alignment, and outcome-driven roadmaps.",
+      "url": "https://www.youtube.com/watch?v=2YlIY9E8F9g",
+      "platform": "YouTube / Product Talk"
+    },
+    {
+      "slug": "nps-vs-csat-b2b",
+      "title": "NPS vs CSAT for B2B SaaS: Which Metric Matters?",
+      "author": "Gainsight / Pulse Podcast",
+      "description": "Breakdown of when to use NPS vs CSAT in B2B contexts. Covers enterprise customer health scoring, churn prediction, and survey design for low-response-rate environments.",
+      "url": "https://www.youtube.com/watch?v=QjM6aBfFpVc",
+      "platform": "YouTube / Gainsight"
+    },
+    {
+      "slug": "b2b-product-strategy-hbr",
+      "title": "Building a B2B Product Strategy That Actually Works",
+      "author": "Harvard Business Review / Linda K. Gorchels",
+      "description": "Harvard Business Review on B2B product portfolio strategy. Covers platform plays, solution bundling, and managing multi-product roadmaps in enterprise settings.",
+      "url": "https://hbr.org/2021/03/building-a-b2b-product-strategy-that-actually-works",
+      "platform": "HBR"
+    },
+    {
+      "slug": "api-product-management-kinlane",
+      "title": "API Product Management for Platform Teams",
+      "author": "Kin Lane (Postman)",
+      "description": "Managing APIs as products in B2B platform organizations. Covers API design-first, developer experience, versioning strategy, and API monetization.",
+      "url": "https://www.youtube.com/watch?v=9f5z7GZ4p2E",
+      "platform": "YouTube / API Days"
+    },
+    {
+      "slug": "wong-dont-shave-yak",
+      "title": "Don't Shave That Yak! — Product & Engineering at Google",
+      "author": "David Wong (Google)",
+      "description": "Talk about how Google's B2B platform teams prioritize and communicate. Lessons on saying no to scope creep and keeping enterprise products focused.",
+      "url": "https://www.youtube.com/watch?v=4jJYqG0_7F0",
+      "platform": "YouTube / Google Talks"
+    },
+    {
+      "slug": "pricing-metrics-that-matter",
+      "title": "Pricing Metrics That Matter for B2B SaaS",
+      "author": "Kyle Poyar / OpenView",
+      "description": "Deep dive on net dollar retention (NDR), expansion MRR, time-to-value, and logo churn. Benchmarking data across hundreds of B2B SaaS companies.",
+      "url": "https://www.youtube.com/watch?v=h9zGq5Qr8jI",
+      "platform": "YouTube / SaaStr Annual"
+    }
+  ]
+}

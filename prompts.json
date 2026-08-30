@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "b2b-pod-lead-strategy",
+      "title": "The Product-Led B2B Pricing Playbook",
+      "type": "prompt",
+      "body": "You are a B2B SaaS pricing strategist. Analyze the following product and suggest a pricing model (usage-based, tiered, per-seat, or hybrid), propose 3 tiers with features, and estimate packaging value. Product: [describe product]. Target market: [enterprise size + vertical]. Current pricing: [if any]."
+    },
+    {
+      "slug": "enterprise-stakeholder-map",
+      "title": "Enterprise Stakeholder Mapping",
+      "type": "prompt",
+      "body": "You are a B2B product strategist mapping decision-makers for an enterprise sale. List all potential stakeholders involved in a [product] purchase at a [company size] organization. For each: role, influence level (decision-maker/influencer/champion/detractor), primary concern, and what 'good' looks like to them. Then rank by power and interest."
+    },
+    {
+      "slug": "b2b-roadmap-communicator",
+      "title": "B2B Roadmap Communication Draft",
+      "type": "prompt",
+      "body": "You are drafting a B2B product roadmap update for enterprise customers. Write a quarterly roadmap communication for [product name] to be sent to [audience: executives/champions/end users]. Include: recent wins, upcoming features, deprecation plan, and how customer feedback shaped decisions. Tone: [confident/empathetic/technical]. Length: [brief/detailed]."
+    },
+    {
+      "slug": "opportunity-solution-tree",
+      "title": "Opportunity Solution Tree for B2B Pain Point",
+      "type": "prompt",
+      "body": "You are Teresa Torres' framework applied to a B2B problem. Build an opportunity solution tree for: [describe B2B pain point]. Start with the desired outcome, branch into opportunities (gaps in current experience), then solution ideas for each opportunity. Include assumptions to test and experiment ideas for the top 3 solutions."
+    },
+    {
+      "slug": "b2b-prioritization-framework",
+      "title": "B2B Feature Prioritization with Weighted Scoring",
+      "type": "prompt",
+      "body": "You are evaluating B2B feature requests using a weighted scoring framework. Score each of these [features] against: revenue impact (0-5), customer demand (0-5), engineering effort inverse (0-5), strategic fit (0-5), competitive urgency (0-5). Weight each dimension and calculate total. Recommend a priority order. Features: [list]."
+    },
+    {
+      "slug": "b2b-dogfooding-playbook",
+      "title": "Design a B2B Dogfooding Program",
+      "type": "prompt",
+      "body": "Design a dogfooding program for [product], a B2B SaaS tool. Include: participant selection criteria (roles, departments), onboarding flow, feedback collection mechanism, success metrics (time-to-value, NPS, usage frequency), duration, and criteria for 'graduation' to external beta. Output as a playbook document."
+    },
+    {
+      "slug": "b2b-churn-analysis",
+      "title": "B2B Churn Root Cause Analysis",
+      "type": "prompt",
+      "body": "You are analyzing B2B customer churn for [product]. Given the following data: [list churned accounts with: segment, usage metrics, support tickets, CSAT, contract value]. Identify top 3 churn patterns, for each: root cause, leading indicators, and product changes that could prevent it. Provide a prioritized action plan."
+    },
+    {
+      "slug": "b2b-plg-motion-design",
+      "title": "Design a Product-Led Growth Motion for B2B",
+      "type": "prompt",
+      "body": "You are designing a PLG motion for [product], a B2B SaaS aimed at [target segment]. Outline: (1) free tier features and limits, (2) activation milestone definitions, (3) PQL definition and scoring, (4) sales-assist triggers and handoff process, (5) conversion tactics (upsell prompts, trial expiration). Estimate conversion rate targets for each stage."
+    },
+    {
+      "slug": "b2b-api-product-spec",
+      "title": "B2B API Product Specification Template",
+      "type": "prompt",
+      "body": "Write a product specification for a new [API/feature] for [platform]. Include: (1) developer use case and persona, (2) endpoint design with request/response examples, (3) rate limiting and SLA commitment, (4) documentation requirements, (5) deprecation and versioning policy, (6) migration guide for existing users. Output as a product spec document."
+    },
+    {
+      "slug": "competitive-battle-card",
+      "title": "B2B Competitive Battle Card Generator",
+      "type": "prompt",
+      "body": "Create a competitive battle card for [product] vs [competitor]. Include: (1) positioning statement, (2) feature comparison table, (3) common objections and rebuttals, (4) pricing comparison, (5) ideal replacement scenarios, (6) customer proof points. Format as a one-pager for the sales team. Competitor weaknesses should be factual, not exaggerated."
+    }
+  ]
+}
