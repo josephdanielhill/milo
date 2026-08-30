@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "b2b-customer-discovery-training",
+      "title": "Reforge — Mastering B2B Customer Discovery",
+      "description": "In-depth training program on B2B discovery techniques. Covers stakeholder research, interview techniques, synthesis methods, and opportunity validation for enterprise products.",
+      "url": "https://www.reforge.com/courses/mastering-b2b-customer-discovery",
+      "provider": "Reforge",
+      "duration": "6 weeks"
+    },
+    {
+      "slug": "product-led-growth-certification",
+      "title": "Product-Led Growth Certification",
+      "description": "Comprehensive certification covering PLG fundamentals. Includes modules on freemium strategy, trial design, viral loops, and PQL scoring with B2B case studies.",
+      "url": "https://productled.com/certification",
+      "provider": "ProductLed",
+      "duration": "Self-paced"
+    },
+    {
+      "slug": "pricing-certification",
+      "title": "B2B SaaS Pricing Certification",
+      "description": "Structured program on value-based pricing, packaging strategy, and pricing experiments. Includes real B2B case studies from Dropbox, Figma, and Notion.",
+      "url": "https://www.priceintelligently.com/pricing-certification",
+      "provider": "Price Intelligently / ProfitWell",
+      "duration": "4 weeks"
+    },
+    {
+      "slug": "svpg-product-masterclass",
+      "title": "SVPG Product Masterclass",
+      "description": "Marty Cagan and the SVPG team's intensive product management training. Covers product strategy, discovery, delivery, and team empowerment with strong B2B content.",
+      "url": "https://www.svpg.com/masterclass/",
+      "provider": "SVPG",
+      "duration": "8 weeks"
+    },
+    {
+      "slug": "mindtheproduct-eship",
+      "title": "Mind the Product — Product Leadership Program",
+      "description": "Executive product management training for senior PMs and Heads of Product. Focus on product strategy, organizational design, and scaling B2B product organizations.",
+      "url": "https://www.mindtheproduct.com/product-leadership-program/",
+      "provider": "Mind the Product",
+      "duration": "12 weeks"
+    },
+    {
+      "slug": "intercom-product-training",
+      "title": "Intercom — Product-Led Growth Training",
+      "description": "Free training on building PLG motions. Covers onboarding optimization, in-app messaging strategy, and conversion funnel analysis with hands-on exercises.",
+      "url": "https://www.intercom.com/training/product-led-growth",
+      "provider": "Intercom",
+      "duration": "Self-paced"
+    }
+  ]
+}

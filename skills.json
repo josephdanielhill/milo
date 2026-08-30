@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "b2b-customer-discovery",
+      "title": "B2B Customer Discovery",
+      "description": "Conducting effective customer interviews and discovery sessions with B2B stakeholders. Includes gatekeeper navigation, multi-threaded discovery, and uncovering hidden pain points.",
+      "body": "Ability to plan and execute structured discovery conversations with multiple stakeholders in a B2B buying process. Includes stakeholder mapping, question design, active listening, and synthesis into opportunity areas. Key skill for validating product-market fit in enterprise contexts."
+    },
+    {
+      "slug": "b2b-pricing-strategy",
+      "title": "B2B Pricing Strategy",
+      "description": "Designing and iterating pricing models for B2B SaaS products. Covers willingness-to-pay research, packaging, tiering, usage-based vs per-seat models, and discount governance.",
+      "body": "Skill in determining optimal pricing and packaging for B2B products. Includes value-based pricing methodologies, competitive benchmarking, packaging design (features per tier), understanding elasticity, and managing pricing changes without churn."
+    },
+    {
+      "slug": "enterprise-roadmapping",
+      "title": "Enterprise Roadmapping",
+      "description": "Creating and communicating multi-quarter product roadmaps that balance strategic vision with enterprise customer commitments. Includes theme-based vs feature-based roadmaps.",
+      "body": "The ability to build and maintain product roadmaps that satisfy both internal strategy and external enterprise account needs. Covers roadmap levels (strategic vs committed), managing deal-driven roadmap items, deprecation planning, and communicating trade-offs to executive stakeholders."
+    },
+    {
+      "slug": "b2b-stakeholder-management",
+      "title": "B2B Stakeholder Management",
+      "description": "Navigating complex stakeholder relationships across enterprise accounts. Includes managing multiple buyers, handling escalation, and building executive relationships.",
+      "body": "Skill in identifying and managing relationships with all parties in an enterprise buying process: economic buyers, technical evaluators, end users, procurement, and legal. Includes executive communication, escalation management, and building champion networks within accounts."
+    },
+    {
+      "slug": "product-led-sales",
+      "title": "Product-Led Sales",
+      "description": "Designing product experiences that generate and qualify leads. Includes PQL design, freemium/free trial strategy, in-app upsell, and sales-assist trigger definition.",
+      "body": "Ability to design product-led growth motions that generate, qualify, and convert leads without traditional sales. Includes defining product-qualified leads (PQLs), designing self-serve onboarding, setting up trial-to-paid conversion paths, and managing sales-assist handoffs."
+    },
+    {
+      "slug": "b2b-metrics-analytics",
+      "title": "B2B Metrics & Analytics",
+      "description": "Selecting and tracking the right metrics for B2B SaaS products. Covers NDR, ARR, logo churn, expansion MRR, time-to-value, and cohort analysis.",
+      "body": "Skill in defining and monitoring key B2B SaaS metrics that drive product decisions. Includes understanding net dollar retention vs logo retention, expansion revenue drivers, cohort-based retention analysis, and building dashboards that differentiate between usage, engagement, and business metrics."
+    },
+    {
+      "slug": "b2b-partnership-ecosystems",
+      "title": "B2B Partnership & Ecosystem Strategy",
+      "description": "Building and managing ISV partnerships, technology integrations, and platform ecosystems. Includes API partnerships, marketplace strategy, and co-selling motions.",
+      "body": "Ability to identify, negotiate, and maintain strategic partnerships that extend a B2B product's reach. Includes building integration marketplaces, managing co-sell relationships, defining API partnership tiers, and measuring partner-sourced revenue."
+    },
+    {
+      "slug": "b2b-compliance-security",
+      "title": "B2B Compliance & Security Knowledge",
+      "description": "Understanding enterprise compliance requirements (SOC 2, GDPR, HIPAA) and translating them into product decisions. Includes security review support and vendor assessment navigation.",
+      "body": "Working knowledge of enterprise compliance frameworks that affect product design and go-to-market. Includes understanding SOC 2 Type II, GDPR, HIPAA, FedRAMP requirements and how they impact feature development, data architecture, and deployment options."
+    },
+    {
+      "slug": "b2b-platform-product-management",
+      "title": "Platform Product Management",
+      "description": "Managing internal platforms, APIs, and infrastructure as products for internal and external developers. Includes developer experience, versioning, and platform ROI.",
+      "body": "Skill in treating platforms, APIs, and internal tools as first-class products with their own user personas (developers), OKRs, and roadmaps. Includes API-first design, developer portal management, deprecation strategy, and measuring platform adoption and developer satisfaction."
+    },
+    {
+      "slug": "b2b-continuous-discovery",
+      "title": "Continuous B2B Discovery",
+      "description": "Running ongoing product discovery in B2B contexts with long sales cycles and small user bases. Includes opportunity solution trees, assumption mapping, and low-fidelity prototyping for enterprise.",
+      "body": "Ability to maintain a continuous discovery cadence despite the challenges of B2B (fewer users, longer sales cycles, harder access to decision-makers). Includes adapting Teresa Torres' framework for B2B, using design sprints for enterprise validation, and balancing discovery with delivery in resource-constrained teams."
+    }
+  ]
+}

@@ -1,4 +1,85 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "slug": "lenny-rachbot-podcast",
+      "title": "Lenny's Podcast — B2B PLG with Rachbot Founder",
+      "description": "In-depth interview with Rachbot founder on building a product-led B2B sales tool. Covers pricing experiments, sales-assist triggers, and navigating enterprise procurement.",
+      "url": "https://www.lennyspodcast.com/",
+      "host": "Lenny Rachitsky",
+      "episode": "PLG Deep Dive"
+    },
+    {
+      "slug": "product-strategy-with-svpg",
+      "title": "Product Thinking — Marty Cagan on B2B Product Strategy",
+      "description": "Marty Cagan discusses how B2B product strategy differs from B2C, the importance of empowered product teams in enterprise, and why most B2B product roadmaps fail.",
+      "url": "https://www.productthinkingpodcast.com/",
+      "host": "Melissa Perri & Micala Denault",
+      "episode": "Marty Cagan Interview"
+    },
+    {
+      "slug": "b2b-product-chat",
+      "title": "B2B Product Chat — Enterprise SaaS Metrics",
+      "description": "Weekly podcast dedicated to B2B product management. Covers NDR deep dives, pricing case studies, sales alignment, and interviews with B2B product leaders from GitLab, Datadog, and Snowflake.",
+      "url": "https://www.b2bproductchat.com/",
+      "host": "Brian Lawley & Co.",
+      "episode": "Enterprise Metrics That Matter"
+    },
+    {
+      "slug": "this-is-product-management",
+      "title": "This is Product Management — B2B Edition",
+      "description": "Interviews with product leaders from top B2B companies. Topics include product-led sales, API product management, developer experience, and enterprise customer success.",
+      "url": "https://www.thisisproductmanagement.com/",
+      "host": "Alpha UX",
+      "episode": "B2B Product Strategy"
+    },
+    {
+      "slug": "plg-podcast",
+      "title": "The Product-Led Growth Podcast",
+      "description": "Dedicated to product-led growth strategies. B2B-heavy content including episodes on free trial optimization, PQL scoring algorithms, and expansion revenue strategies.",
+      "url": "https://productled.com/podcast",
+      "host": "Wes Bush / ProductLed",
+      "episode": "Various"
+    },
+    {
+      "slug": "hidden-brain-b2b-decisions",
+      "title": "Hidden Brain — The Psychology of B2B Buying Decisions",
+      "description": "Exploration of the psychological biases and social dynamics behind enterprise purchasing decisions. Relevant for PMs designing B2B products that need to win internal champions.",
+      "url": "https://hiddenbrain.org/",
+      "host": "Shankar Vedantam",
+      "episode": "Decision Making Deep Dive"
+    },
+    {
+      "slug": "category-pirates",
+      "title": "Category Pirates — Creating New B2B Markets",
+      "description": "Podcast about creating new market categories. B2B focus with episodes on category design, market creation, and how companies like Salesforce and Slack created new enterprise categories.",
+      "url": "https://www.categorypirates.com/",
+      "host": "Christopher Lochhead & Eddie Yoon",
+      "episode": "Various"
+    },
+    {
+      "slug": "breakdown-b2b-pricing-saastr",
+      "title": "SaaStr Podcast — B2B Pricing Breakdowns",
+      "description": "Weekly deep dives into B2B SaaS pricing strategies. Real numbers from public companies, pricing model analysis, and lessons from pricing failures.",
+      "url": "https://www.saastr.com/podcast/",
+      "host": "Jason Lemkin",
+      "episode": "Pricing Breakdown Series"
+    },
+    {
+      "slug": "acquired-b2b-platform",
+      "title": "Acquired — B2B Platform Deep Dives",
+      "description": "Deep-dive episodes on the history and strategy behind major B2B platforms including Salesforce, Workday, ServiceNow, and Atlassian. Essential listening for B2B PMs.",
+      "url": "https://www.acquired.fm/",
+      "host": "Ben Gilbert & David Rosenthal",
+      "episode": "Salesforce / Workday / Atlassian"
+    },
+    {
+      "slug": "make-better-decisions-b2b",
+      "title": "The Product Experience — B2B Product Decisions",
+      "description": "Weekly product management podcast with B2B-focused episodes on feature prioritization, stakeholder management, enterprise UX, and product analytics in B2B contexts.",
+      "url": "https://www.mindtheproduct.com/the-product-experience/",
+      "host": "Randy Silver & Lily Smith",
+      "episode": "B2B Product Decisions"
+    }
+  ]
 }

@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "b2b-product-led-growth-checklist",
+      "title": "The B2B Product-Led Growth Maturity Model",
+      "author": "OpenView / Wes Bush",
+      "description": "A maturity framework for B2B companies adopting PLG. Covers four stages: awareness, activation, expansion, and advocacy with specific metrics and tactics per stage.",
+      "url": "https://productled.com/blog/b2b-plg-maturity-model",
+      "publication": "ProductLed Blog"
+    },
+    {
+      "slug": "enterprise-pricing-packaging",
+      "title": "The Complete Guide to B2B SaaS Pricing and Packaging",
+      "author": "Kyle Poyar (OpenView)",
+      "description": "Comprehensive guide on usage-based pricing, tiered plans, per-seat vs consumption, and packaging strategy for B2B SaaS. Includes data from 300+ companies.",
+      "url": "https://openviewpartners.com/blog/b2b-saas-pricing-packaging-guide",
+      "publication": "OpenView"
+    },
+    {
+      "slug": "b2b-customer-discovery-interviews",
+      "title": "How to Run B2B Customer Discovery Interviews That Don't Suck",
+      "author": "Alex Clayton",
+      "description": "Practical template and script for B2B discovery interviews. Covers identifying power users, finding the economic buyer, and questions that reveal real budgets.",
+      "url": "https://www.reforge.com/blog/b2b-customer-discovery",
+      "publication": "Reforge"
+    },
+    {
+      "slug": "product-led-sales-alignment",
+      "title": "Product-Led Sales: How to Align Product and Sales Teams",
+      "author": "First Round Review",
+      "description": "How Atlassian, GitLab, and Datadog structure product-led sales motions. Covers PQL scoring, sales-assist signals, and when to hand off from product to sales.",
+      "url": "https://review.firstround.com/product-led-sales-how-to-align-product-and-sales-teams/",
+      "publication": "First Round Review"
+    },
+    {
+      "slug": "b2b-roadmap-prioritization",
+      "title": "B2B Product Roadmap Prioritization for Enterprise Accounts",
+      "author": "Maggie Crowley (Drift/PagerDuty)",
+      "description": "How to handle multi-tenant feature requests, enterprise deal-driven roadmaps, and balancing top-down strategy with bottom-up customer needs. Includes ICE and RICE adaptations for B2B.",
+      "url": "https://www.mindtheproduct.com/b2b-roadmap-prioritization-enterprise-accounts/",
+      "publication": "Mind the Product"
+    },
+    {
+      "slug": "api-product-management-guide",
+      "title": "The API Product Manager's Guide to Platform Strategy",
+      "author": "Kin Lane",
+      "description": "Guide to managing APIs as products in B2B platform companies. Covers developer portals, API versioning, deprecation strategies, and developer relations.",
+      "url": "https://apievangelist.com/2023/12/10/api-product-management-guide/",
+      "publication": "API Evangelist"
+    },
+    {
+      "slug": "b2b-onboarding-proven-success",
+      "title": "Designing B2B Onboarding That Proves Value in 30 Days",
+      "author": "Lincoln Murphy / Sixteen Ventures",
+      "description": "Time-to-value framework for B2B SaaS. Covers adoption milestones, success plans, and how product can reduce time-to-first-value through in-app guidance.",
+      "url": "https://sixteenventures.com/b2b-onboarding-time-to-value",
+      "publication": "Sixteen Ventures"
+    },
+    {
+      "slug": "churn-analysis-b2b",
+      "title": "B2B Churn Analysis: Causes, Metrics, and Prevention",
+      "author": "Christoph Janz / Point Nine Capital",
+      "description": "Deep analysis of why B2B companies churn. Covers logo churn vs. dollar churn, multi-threading risk, and build vs. buy triggers in enterprise procurement.",
+      "url": "https://www.pointninecap.com/blog/b2b-churn-analysis",
+      "publication": "Point Nine Capital"
+    },
+    {
+      "slug": "competitive-differentiation-b2b",
+      "title": "B2B Competitive Differentiation Without Feature Parity",
+      "author": "April Dunford",
+      "description": "Positioning strategy for B2B products that can't out-feature incumbents. Covers market context, alternative-based positioning, and the value wedge framework.",
+      "url": "https://aprildunford.com/blog/b2b-differentiation-without-feature-parity",
+      "publication": "April Dunford"
+    },
+    {
+      "slug": "buyer-persona-research-b2b",
+      "title": "B2B Buyer Persona Research: Building ICPs That Drive Product Decisions",
+      "author": "Michele Hansen",
+      "description": "Method for creating B2B ideal customer profiles based on qualitative research. Covers job-to-be-done interviews, persona segmentation, and persona-driven validation.",
+      "url": "https://www.decisionprinciples.com/blog/b2b-buyer-persona-research",
+      "publication": "Decision Principles"
+    }
+  ]
+}
