@@ -929,6 +929,18 @@ export default function ToolshelfApp({
         localResources={localResources}
         folderConnected={Boolean(folderName)}
         notify={notify}
+        onAdoptExport={async (
+          handle: Awaited<ReturnType<typeof pickExportDestination>>["handle"],
+          exported: ExportResult,
+        ) => {
+          if (exported.failed === 0) {
+            await storage.adoptExportDestination(handle);
+            setCollectionFolderName(handle.name);
+            setCollectionFolderStatus("connected");
+            setCollectionFolderMessage("");
+            setCollectionResources(await storage.listCollectionResources());
+          }
+        }}
       />
     );
   } else if (route.kind === "resource") {
@@ -973,6 +985,16 @@ export default function ToolshelfApp({
         onExport={async () => {
           const { handle, name } = await pickExportDestination();
           const exported = await exportResourcesToFolder(handle, [resource]);
+          // Register the picked destination as the connected collection drive so
+          // the exported resource persists and stays visible after a drive change
+          // (BLD-971 — exports vanished because the folder was never adopted).
+          if (exported.failed === 0) {
+            await storage.adoptExportDestination(handle);
+            setCollectionFolderName(name);
+            setCollectionFolderStatus("connected");
+            setCollectionFolderMessage("");
+            setCollectionResources(await storage.listCollectionResources());
+          }
           notify(
             exported.failed === 0
               ? `Exported “${resource.meta.title}” to “${name}” (${exported.added} added, ${exported.updated} updated, ${exported.skipped} already present).`
@@ -3375,10 +3397,15 @@ function ExportPage({
   localResources,
   folderConnected,
   notify,
+  onAdoptExport,
 }: {
   localResources: Resource[];
   folderConnected: boolean;
   notify: (message: string) => void;
+  onAdoptExport: (
+    handle: Awaited<ReturnType<typeof pickExportDestination>>["handle"],
+    exported: ExportResult,
+  ) => Promise<void>;
 }) {
   const [deselected, setDeselected] = useState<Set<string>>(new Set());
   const [query, setQuery] = useState("");
@@ -3430,6 +3457,9 @@ function ExportPage({
       }
       setExporting(true);
       const exported = await exportResourcesToFolder(handle, selected, "Milo export");
+      // BLD-971: adopt the destination as the connected collection drive so
+      // exported resources persist and remain visible after a drive change.
+      await onAdoptExport(handle, exported);
       if (exported.failed > 0) {
         const reasons = exported.results
           .filter((r) => r.status === "failed")

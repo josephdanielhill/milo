@@ -619,3 +619,22 @@ test("exportResourcesToFolder reports a per-item failure without aborting the re
   assert.equal(result.failed, 1); // the collection one failed
   assert.equal(result.results.find((r) => r.status === "failed").reason.includes("permission"), true);
 });
+
+// BLD-971 regression: after exporting into a picked destination, that destination
+// is adopted as the collection drive, so the exported resources are still visible
+// in the collection view after a main-drive change (they previously vanished).
+test("exported resources are discoverable via the collection drive the destination was adopted as", async () => {
+  const storage = new LocalFolderStorage();
+  const destination = new MockDirectoryHandle();
+  storage.collectionRoot = destination; // adoptExportDestination stores the handle here
+
+  await exportResourcesToFolder(destination, [
+    toResource(bookDraft()),
+  ]);
+
+  const collectionResources = await storage.listCollectionResources();
+  const slugs = collectionResources.map((r) => r.meta.slug).sort();
+  assert.deepEqual(slugs, ["test-book"]);
+  // Collection resources are tagged with the collection drive badge.
+  assert.ok(collectionResources.every((r) => r.meta.driveType === "collection"));
+});

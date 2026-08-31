@@ -527,6 +527,17 @@ export class LocalFolderStorage implements StorageProvider {
     await clearCollectionHandle();
   }
 
+  /**
+   * Adopt an export-destination handle as the connected collection drive so
+   * resources exported into it persist across sessions and stay visible in the
+   * collection view (BLD-971 — exports were vanishing after a drive change
+   * because the picked folder was never registered as the collection drive).
+   */
+  async adoptExportDestination(handle: DirectoryHandle) {
+    this.collectionRoot = handle;
+    await saveCollectionHandle(handle);
+  }
+
   async listCollectionResources() {
     if (!this.collectionRoot) return [];
     const resources = await listResourcesFrom(this.collectionRoot, { createMissing: false });
