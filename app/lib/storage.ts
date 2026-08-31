@@ -302,7 +302,11 @@ export async function fetchImportSource(url: string): Promise<ImportSource> {
   }
   let response: Response;
   try {
-    response = await fetch(url);
+    // Bypass the HTTP cache so a freshly deployed bundle is always fetched.
+    // GitHub Pages serves bundles with Cache-Control: max-age=600 (10 min), so
+    // without this a subscription refresh re-fetches the stale (possibly broken)
+    // cached copy even after the server data has been fixed.
+    response = await fetch(url, { cache: "no-store" });
   } catch {
     throw new Error(
       "Could not reach that URL. Check the address and that the host allows cross-origin requests (CORS).",
