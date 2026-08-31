@@ -47,6 +47,7 @@ test("supports application routes through the shared app shell", async () => {
     "/training",
     "/articles",
     "/podcasts",
+    "/export",
     "/create",
     "/about",
   ]) {

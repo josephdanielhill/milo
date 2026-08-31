@@ -876,6 +876,160 @@ export function downloadMarkdown(raw: string, filename: string) {
   downloadFile(raw, filename, "text/markdown;charset=utf-8");
 }
 
+// ── Export to Collection (BLD-971 / BLD-972 / BLD-973) ─────────────────────
+// Reverses the import path: a set of local resources is written into a
+// destination folder (a collection drive, typically a shared/synced folder)
+// using the same on-disk layout as the main library: prompt/skill/tool spawn
+// Markdown files under {plural}/, collection types merge into their JSON file.
+
+export type ExportStatus = "added" | "updated" | "skipped" | "failed";
+
+export interface ExportItemResult {
+  resource: Resource;
+  status: ExportStatus;
+  /** Human-readable reason for skip/failure (or the "already present" notice). */
+  reason?: string;
+}
+
+export interface ExportResult {
+  results: ExportItemResult[];
+  added: number;
+  updated: number;
+  skipped: number;
+  failed: number;
+}
+
+/** Compares two items purely by content (ignores fs metadata / ordering). */
+export function sameContent(a: ResourceDraft, b: ResourceDraft): boolean {
+  return (
+    a.slug === b.slug &&
+    a.type === b.type &&
+    a.title === b.title &&
+    a.body === b.body &&
+    a.summary === b.summary &&
+    a.author === b.author &&
+    JSON.stringify(a.tags ?? []) === JSON.stringify(b.tags ?? [])
+  );
+}
+
+/**
+ * Writes a set of resources into a destination folder (collection drive),
+ * deduping by slug at the write boundary. Idempotent: an item already present
+ * with identical content is skipped-with-notice; one present with different
+ * content is updated in place; a missing one is added. Mirrors the import
+ * semantics so exporting the same set twice is a no-op, not a duplicate.
+ *
+ * `name` (optional) is recorded into collection JSON files as the envelope
+ * `name`, matching the shape produced by buildBundle/parseCollectionItems.
+ */
+export async function exportResourcesToFolder(
+  root: DirectoryHandle,
+  resources: Resource[],
+  name?: string,
+): Promise<ExportResult> {
+  const results: ExportItemResult[] = [];
+
+  // Re-read each destination collection file fresh per batch so concurrent
+  // writers on a shared folder aren't clobbered (same principle as
+  // writeCollectionOp), then apply all inserts/replaces at once.
+  const collectionWrites = new Map<CollectionResourceType, ResourceDraft[]>();
+
+  for (const resource of resources) {
+    const draft: ResourceDraft = { ...resource.meta, body: resource.body };
+    try {
+      if (isCollectionType(draft.type)) {
+        const type = draft.type;
+        const current = await readCollectionFrom(root, type);
+        const existing = current.find((item) => item.meta.slug === draft.slug);
+
+        if (existing && sameContent({ ...existing.meta, body: existing.body }, draft)) {
+          results.push({ resource, status: "skipped", reason: "Already present, unchanged." });
+          continue;
+        }
+        // If already present but different, we need to know its index to replace.
+        let next = collectionWrites.get(type);
+        if (!next) {
+          next = current.map((item) => ({ ...item.meta, body: item.body }));
+          collectionWrites.set(type, next);
+        }
+        const idx = next.findIndex((item) => item.slug === draft.slug);
+        if (idx >= 0) {
+          next[idx] = draft;
+          results.push({ resource, status: "updated", reason: "Replaced existing copy." });
+        } else {
+          next.push(draft);
+          results.push({ resource, status: "added" });
+        }
+      } else {
+        // Markdown-backed resource → write {plural}/{slug}.md
+        const [folderName, fileName] = resourcePath(draft).split("/");
+        const folder = await root.getDirectoryHandle(folderName, { create: true }) as DirectoryHandle;
+        let handle: FileSystemFileHandle;
+        try {
+          handle = await folder.getFileHandle(fileName);
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "NotFoundError") {
+            handle = await folder.getFileHandle(fileName, { create: true });
+          } else {
+            throw error;
+          }
+        }
+        const file = await handle.getFile();
+        const existingRaw = await file.text();
+        const serialized = serializeResource(draft);
+        if (existingRaw.trim() === serialized.trim()) {
+          results.push({ resource, status: "skipped", reason: "Already present, unchanged." });
+          continue;
+        }
+        const writable = await handle.createWritable();
+        await writable.write(serialized);
+        await writable.close();
+        results.push(existingRaw.trim() ? { resource, status: "updated", reason: "Replaced existing copy." } : { resource, status: "added" });
+      }
+    } catch (error) {
+      results.push({
+        resource,
+        status: "failed",
+        reason: error instanceof Error ? error.message : "Could not write this resource.",
+      });
+    }
+  }
+
+  // Flush collection JSON files (each full re-written from its merged drafts).
+  for (const [type, items] of collectionWrites) {
+    const handle = await root.getFileHandle(collectionFile(type), { create: true });
+    const writable = await handle.createWritable();
+    await writable.write(`${JSON.stringify({ version: 1, ...(name ? { name } : {}), items }, null, 2)}\n`);
+    await writable.close();
+  }
+
+  return {
+    results,
+    added: results.filter((r) => r.status === "added").length,
+    updated: results.filter((r) => r.status === "updated").length,
+    skipped: results.filter((r) => r.status === "skipped").length,
+    failed: results.filter((r) => r.status === "failed").length,
+  };
+}
+
+/**
+ * Opens a directory picker (read-write) to choose the destination collection
+ * folder for an export, and returns the handle so the caller can write local
+ * resources into it via `exportResourcesToFolder`.
+ */
+export async function pickExportDestination(): Promise<{
+  handle: DirectoryHandle;
+  name: string;
+}> {
+  if (!supportsLocalFolders()) {
+    throw new Error("Direct folder access requires desktop Chrome or Edge.");
+  }
+  const handle = (await (window as unknown as PickerWindow).showDirectoryPicker({
+    mode: "readwrite",
+  })) as DirectoryHandle;
+  return { handle, name: handle.name };
+}
+
 export function downloadFile(raw: string, filename: string, mimeType: string) {
   const url = URL.createObjectURL(new Blob([raw], { type: mimeType }));
   const anchor = document.createElement("a");
