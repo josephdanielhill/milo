@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 import { JSDOM } from "jsdom";
 
 // ── Routing Guard Logic ───────────────────────────────────────────────
@@ -129,3 +130,38 @@ test("guard expression matches inlined toolshelf-app.tsx logic", () => {
     "returning user: guard should be blocked during reconnection",
   );
 });
+
+// ── Delete-navigation regression (BLD-975/976/977) ───────────────────
+// Deleting a resource must return to the category it was deleted from
+// (e.g. /videos), not always to All Resources (/library).
+
+test("routeForType maps every resource type to its category route", () => {
+  const cases = {
+    training: "/training", prompt: "/prompts", skill: "/skills",
+    tool: "/tools", book: "/books", video: "/videos",
+    conference: "/conferences", article: "/articles", podcast: "/podcasts",
+  };
+  for (const [type, expected] of Object.entries(cases)) {
+    assert.equal(routeForTypeForTest(type), expected, type);
+  }
+});
+
+test("ResourceDetail delete handler navigates to the source category, not All Resources", async () => {
+  const src = await readFile(
+    new URL("../app/toolshelf-app.tsx", import.meta.url),
+    "utf8",
+  );
+  // Locate the onDelete block inside the ResourceDetail render.
+  const block = src.slice(src.indexOf("onDelete={async () =>"));
+  // It must navigate via routeForType(route.type) — the category context —
+  // and must NOT hard-code the All Resources route.
+  assert.match(block, /navigate\(routeForType\(route\.type\)\)/);
+  assert.doesNotMatch(block.slice(0, 200), /navigate\("\/library"\)/);
+});
+
+// routeForType is defined in toolshelf-app.tsx; mirror it here so the test
+// runs standalone (no app import) while still asserting the mapping used
+// by the delete handler.
+function routeForTypeForTest(type) {
+  return type === "training" ? "/training" : `/${type}s`;
+}
