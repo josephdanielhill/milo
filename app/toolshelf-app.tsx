@@ -942,6 +942,9 @@ export default function ToolshelfApp({
       <ResourceDetail
         resource={resource}
         folderConnected={Boolean(folderName)}
+        inCollection={collectionResources.some(
+          (item) => resourceKey(item) === resourceKey(resource),
+        )}
         navigate={navigate}
         notify={notify}
         isFavourite={favourites.has(resourceKey(resource))}
@@ -966,6 +969,18 @@ export default function ToolshelfApp({
             `/resource/local/${created.meta.type}/${created.meta.slug}`,
           );
           notify(`Imported “${created.meta.title}” to main drive`);
+        }}
+        onExport={async () => {
+          const { handle, name } = await pickExportDestination();
+          const exported = await exportResourcesToFolder(handle, [resource]);
+          notify(
+            exported.failed === 0
+              ? `Exported “${resource.meta.title}” to “${name}” (${exported.added} added, ${exported.updated} updated, ${exported.skipped} already present).`
+              : `Couldn't export “${resource.meta.title}” — ${exported.results
+                  .filter((r) => r.status === "failed")
+                  .map((r) => r.reason)
+                  .join("; ")}`,
+          );
         }}
       />
     ) : (
@@ -4030,9 +4045,12 @@ function ResourceDetail({
   onToggleDismiss,
   onDelete,
   onImport,
+  onExport,
+  inCollection,
 }: {
   resource: Resource;
   folderConnected: boolean;
+  inCollection: boolean;
   navigate: (path: string) => void;
   notify: (message: string) => void;
   isFavourite: boolean;
@@ -4040,9 +4058,11 @@ function ResourceDetail({
   onToggleDismiss: () => void;
   onDelete: () => Promise<void>;
   onImport?: () => Promise<void>;
+  onExport?: () => Promise<void>;
 }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [exporting, setExporting] = useState(false);
   async function copy(value: string, message: string) {
     await navigator.clipboard.writeText(value);
     notify(message);
@@ -4177,6 +4197,31 @@ function ResourceDetail({
             >
               <Download size={16} />
               {importing ? "Importing..." : "Import to main drive"}
+            </button>
+          )}
+          {resource.source === "local" && !inCollection && (
+            <button
+              className="secondary-button"
+              disabled={exporting}
+              title={
+                exporting
+                  ? "Exporting..."
+                  : inCollection
+                    ? "This resource is already in the collection folder"
+                    : "Push a copy of this resource to a shared collection folder"
+              }
+              onClick={async () => {
+                if (!onExport) return;
+                setExporting(true);
+                try {
+                  await onExport();
+                } finally {
+                  setExporting(false);
+                }
+              }}
+            >
+              <HardDrive size={16} />
+              {exporting ? "Exporting..." : "Export to collection"}
             </button>
           )}
         </div>
