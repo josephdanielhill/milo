@@ -5,6 +5,7 @@ import {
   buildBundle,
   checkSubscription,
   collectionTypeForFile,
+  exportResourcesToFolder,
   parseBundleItems,
   parseCollectionItems,
 } from "../app/lib/storage.ts";
@@ -542,4 +543,79 @@ test("buildBundle output round-trips through parseBundleItems", () => {
     parsed.map((r) => r.meta.slug).sort(),
     ["test-book", "test-prompt"],
   );
+});
+
+// -- Export to Collection (BLD-971/972/973) -------------------------------
+
+function toResource(draft) {
+  return { meta: draft, body: draft.body, source: "local", path: "" };
+}
+
+test("exportResourcesToFolder writes markdown + collection resources into the destination", async () => {
+  const root = new MockDirectoryHandle();
+  const result = await exportResourcesToFolder(root, [
+    toResource(promptDraft()),
+    toResource(bookDraft()),
+  ]);
+  assert.equal(result.added, 2);
+  assert.equal(result.updated, 0);
+  assert.equal(result.skipped, 0);
+  assert.equal(result.failed, 0);
+
+  // Markdown-backed type → prompts/test-prompt.md
+  const md = root.dirs.get("prompts").files.get("test-prompt.md");
+  assert.match(md, /title: "Test Prompt"/);
+
+  // Collection type → books.json with items
+  const books = JSON.parse(root.files.get("books.json"));
+  assert.equal(books.items.length, 1);
+  assert.equal(books.items[0].slug, "test-book");
+});
+
+test("exportResourcesToFolder is idempotent: re-exporting identical items skips with-notice", async () => {
+  const root = new MockDirectoryHandle();
+  await exportResourcesToFolder(root, [toResource(bookDraft())]);
+  const second = await exportResourcesToFolder(root, [toResource(bookDraft())]);
+  assert.equal(second.added, 0);
+  assert.equal(second.skipped, 1);
+  assert.match(second.results[0].reason, /Already present, unchanged/);
+  // The file on disk is unchanged (still one item).
+  const books = JSON.parse(root.files.get("books.json"));
+  assert.equal(books.items.length, 1);
+});
+
+test("exportResourcesToFolder updates an existing item whose content changed", async () => {
+  const root = new MockDirectoryHandle();
+  await exportResourcesToFolder(root, [toResource(bookDraft())]);
+  const updated = await exportResourcesToFolder(root, [
+    toResource(bookDraft({ summary: "A brand-new summary." })),
+  ]);
+  assert.equal(updated.updated, 1);
+  assert.equal(updated.added, 0);
+  const books = JSON.parse(root.files.get("books.json"));
+  assert.equal(books.items.length, 1);
+  assert.equal(books.items[0].summary, "A brand-new summary.");
+});
+
+test("exportResourcesToFolder records the envelope name into collection files", async () => {
+  const root = new MockDirectoryHandle();
+  await exportResourcesToFolder(root, [toResource(bookDraft())], "Shared Shelf");
+  const books = JSON.parse(root.files.get("books.json"));
+  assert.equal(books.name, "Shared Shelf");
+});
+
+test("exportResourcesToFolder reports a per-item failure without aborting the rest", async () => {
+  const root = new MockDirectoryHandle();
+  // Break the books write by making books.json un-writable via a bad handle.
+  root.getFileHandle = async (name) => {
+    if (name === "books.json") throw new DOMException("permission denied", "NotAllowedError");
+    return new MockFileHandle(root, name);
+  };
+  const result = await exportResourcesToFolder(root, [
+    toResource(promptDraft()),
+    toResource(bookDraft()),
+  ]);
+  assert.equal(result.added, 1); // the markdown one wrote fine
+  assert.equal(result.failed, 1); // the collection one failed
+  assert.equal(result.results.find((r) => r.status === "failed").reason.includes("permission"), true);
 });

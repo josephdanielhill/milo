@@ -59,11 +59,14 @@ import {
   checkSubscription,
   downloadBundle,
   downloadMarkdown,
+  exportResourcesToFolder,
   fetchImportSource,
   LocalFolderStorage,
+  pickExportDestination,
   pickImportSource,
   readImportFile,
   supportsLocalFolders,
+  type ExportResult,
   type ImportSource,
 } from "./lib/storage";
 import type { Resource, ResourceDraft, ForumCollection, ResourceType, Subscription } from "./types";
@@ -920,6 +923,14 @@ export default function ToolshelfApp({
         preselectKey={route.preselectKey}
       />
     );
+  } else if (route.kind === "export") {
+    content = (
+      <ExportPage
+        localResources={localResources}
+        folderConnected={Boolean(folderName)}
+        notify={notify}
+      />
+    );
   } else if (route.kind === "resource") {
     const resource = resources.find(
       (item) =>
@@ -1360,6 +1371,12 @@ function Sidebar({
           <button className="text-button" onClick={() => navigate("/share")}>
             <Link2 size={14} />
             Share resources
+          </button>
+        )}
+        {folderName && localCount > 0 && (
+          <button className="text-button" onClick={() => navigate("/export")}>
+            <HardDrive size={14} />
+            Export to collection
           </button>
         )}
         <button
@@ -3339,6 +3356,178 @@ function SharePage({
   );
 }
 
+function ExportPage({
+  localResources,
+  folderConnected,
+  notify,
+}: {
+  localResources: Resource[];
+  folderConnected: boolean;
+  notify: (message: string) => void;
+}) {
+  const [deselected, setDeselected] = useState<Set<string>>(new Set());
+  const [query, setQuery] = useState("");
+  const [destinationName, setDestinationName] = useState("");
+  const [exporting, setExporting] = useState(false);
+  const [result, setResult] = useState<ExportResult | null>(null);
+  const [error, setError] = useState("");
+
+  const selected = useMemo(
+    () => localResources.filter((item) => !deselected.has(`${item.meta.type}:${item.meta.slug}`)),
+    [localResources, deselected],
+  );
+
+  const selectedCount = localResources.filter(
+    (item) => !deselected.has(`${item.meta.type}:${item.meta.slug}`),
+  ).length;
+
+  const visible = useMemo(() => filterResources(localResources, query, "all"), [localResources, query]);
+
+  function toggle(key: string) {
+    setDeselected((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
+
+  function selectAll() {
+    setDeselected(new Set());
+  }
+
+  function deselectAll() {
+    setDeselected(new Set(localResources.map((item) => `${item.meta.type}:${item.meta.slug}`)));
+  }
+
+  async function pickAndExport() {
+    if (!selected.length) return;
+    setResult(null);
+    setError("");
+    let handle: Awaited<ReturnType<typeof pickExportDestination>>["handle"] | null = null;
+    try {
+      if (!destinationName) {
+        const picked = await pickExportDestination();
+        handle = picked.handle;
+        setDestinationName(picked.name);
+      } else {
+        throw new Error("Unexpected state — destination missing.");
+      }
+      setExporting(true);
+      const exported = await exportResourcesToFolder(handle, selected, "Milo export");
+      if (exported.failed > 0) {
+        const reasons = exported.results
+          .filter((r) => r.status === "failed")
+          .map((r) => r.resource.meta.title)
+          .join(", ");
+        setError(`Exported ${exported.results.length - exported.failed}, but couldn't export: ${reasons}.`);
+      } else {
+        notify(
+          `Exported ${exported.added} added, ${exported.updated} updated, ${exported.skipped} already present.`,
+        );
+      }
+      setResult(exported);
+    } catch (err) {
+      if (!(err instanceof DOMException && err.name === "AbortError")) {
+        setError(err instanceof Error ? err.message : "Could not export to that folder.");
+      }
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  return (
+    <div className="page import-page">
+      <PageTop
+        eyebrow="Push to a collection"
+        title="Export to collection"
+        description="Pick resources from your folder and push them into a shared collection folder (for example a OneDrive, Google Drive, or Dropbox folder that your team syncs). Re-exporting the same set is safe — items already identical are skipped automatically."
+      />
+      {!folderConnected || localResources.length === 0 ? (
+        <p className="import-page__notice">Connect a folder with at least one resource first.</p>
+      ) : (
+        <>
+          <div className="share-page__toolbar">
+            <label className="share-page__search-field">
+              Search your resources
+              <span className="share-page__search-input">
+                <Search size={16} />
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search title, summary, author, or tag"
+                />
+              </span>
+            </label>
+          </div>
+          <div className="share-page__selection-row">
+            <span className="share-page__selection-count">
+              {selectedCount} of {localResources.length} selected
+            </span>
+            <div className="share-page__selection-actions">
+              <button type="button" className="text-button" onClick={selectAll} disabled={selectedCount === localResources.length}>
+                Select all
+              </button>
+              <button type="button" className="text-button" onClick={deselectAll} disabled={selectedCount === 0}>
+                Deselect all
+              </button>
+            </div>
+          </div>
+          {visible.length === 0 ? (
+            <p className="import-page__notice">No resources match your search.</p>
+          ) : (
+            <ul className="import-candidate-list">
+              {visible.map((item) => {
+                const key = `${item.meta.type}:${item.meta.slug}`;
+                return (
+                  <li key={key}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={!deselected.has(key)}
+                        onChange={() => toggle(key)}
+                      />
+                      <span className="type-pill">
+                        {typeIcon(item.meta.type, 14)} {typeLabels[item.meta.type]}
+                      </span>
+                      <strong>{item.meta.title}</strong>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          <div className="share-page__selection-actions">
+            <button
+              className="primary-button import-page__primary-action"
+              disabled={selectedCount === 0 || exporting}
+              onClick={pickAndExport}
+            >
+              <HardDrive size={16} />
+              {exporting
+                ? "Exporting…"
+                : destinationName
+                  ? `Export ${selectedCount} to “${destinationName}”`
+                  : `Export ${selectedCount} to a collection folder`}
+            </button>
+          </div>
+          {error && <p className="import-page__notice import-page__notice--error">{error}</p>}
+          {result && (
+            <div className="export-summary" role="status">
+              <p>
+                <strong>Done.</strong>{" "}
+                {result.added} added, {result.updated} updated, {result.skipped} skipped as already
+                present.
+                {result.failed > 0 && ` ${result.failed} failed.`}
+              </p>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 function SectionHeading({
   eyebrow,
   title,
@@ -4640,6 +4829,7 @@ function parseRoute(path: string):
   | { kind: "about"; section: "philosophy" | "local-folder" | "shared-folder" | "collection-drive" | "loading" | "subscription" | "security" }
   | { kind: "import"; focusSubscriptions?: boolean }
   | { kind: "share"; preselectKey?: string }
+  | { kind: "export" }
   | { kind: "favourites" }
   | { kind: "hidden" }
   | { kind: "library"; type: ResourceType | "all" }
@@ -4675,6 +4865,7 @@ function parseRoute(path: string):
     const params = new URLSearchParams(queryString);
     return { kind: "share", preselectKey: params.get("resource") || undefined };
   }
+  if (cleanPath === "/export") return { kind: "export" };
   if (cleanPath === "/favourites") return { kind: "favourites" };
   if (cleanPath === "/hidden") return { kind: "hidden" };
   if (cleanPath === "/library") return { kind: "library", type: "all" };
