@@ -3,727 +3,1510 @@
   "name": "B2B Product Manager",
   "items": [
     {
-      "slug": "escaped-the-build-trap",
-      "title": "Escaping the Build Trap",
-      "author": "Melissa Perri",
-      "description": "The definitive book on product management strategy — how to shift from output-driven feature factories to outcome-driven product organizations. Essential B2B reading.",
-      "url": "https://www.oreilly.com/library/view/escaping-the-build-trap/9781491973783/",
-      "year": 2018,
-      "isbn": "978-1491973790",
-      "type": "book"
-    },
-    {
-      "slug": "inspired",
-      "title": "INSPIRED: How to Create Tech Products Customers Love",
-      "author": "Marty Cagan",
-      "description": "The bible of modern product management. Covers everything from product vision to team structure, with strong B2B and enterprise product sections.",
-      "url": "https://www.svpg.com/inspired/",
-      "year": 2017,
-      "isbn": "978-1119387508",
-      "type": "book"
-    },
-    {
-      "slug": "lean-startup",
-      "title": "The Lean Startup",
-      "author": "Eric Ries",
-      "description": "Foundational methodology for building products iteratively. Build-Measure-Learn loops, MVP thinking, and innovation accounting directly applicable to B2B SaaS.",
-      "url": "http://theleanstartup.com/",
-      "year": 2011,
-      "isbn": "978-0307887894",
-      "type": "book"
-    },
-    {
-      "slug": "crossing-the-chasm",
-      "title": "Crossing the Chasm",
-      "author": "Geoffrey A. Moore",
-      "description": "The essential B2B technology adoption framework. Explains how to transition from early adopters to mainstream enterprise customers — a must-read for any B2B PM.",
-      "url": "https://www.harpercollins.com/products/crossing-the-chasm-geoffrey-a-moore",
-      "year": 1991,
-      "isbn": "978-0062351748",
-      "type": "book"
-    },
-    {
-      "slug": "hacking-growth",
-      "title": "Hacking Growth",
-      "author": "Sean Ellis & Morgan Brown",
-      "description": "Growth hacking methodologies with concrete B2B examples. Covers PLG experiments, viral loops, and retention strategies for SaaS products.",
-      "url": "https://www.hackinggrowth.com/book",
-      "year": 2017,
-      "isbn": "978-0451497215",
-      "type": "book"
-    },
-    {
-      "slug": "the-mom-test",
-      "title": "The Mom Test",
-      "author": "Rob Fitzpatrick",
-      "description": "Practical guide to customer conversations. Teaches how to avoid false positives in B2B customer discovery by asking questions that surface real pain points.",
-      "url": "https://www.momtestbook.com/",
-      "year": 2013,
-      "isbn": "978-1492180746",
-      "type": "book"
-    },
-    {
-      "slug": "product-lead",
-      "title": "Product-Led Growth",
-      "author": "Wes Bush",
-      "description": "The playbook for building a B2B SaaS product that sells itself. Covers freemium models, free trials, product-qualified leads, and viral loops.",
-      "url": "https://productled.com/book",
-      "year": 2019,
-      "isbn": "978-1734534110",
-      "type": "book"
-    },
-    {
-      "slug": "continuous-discovery-habits",
-      "title": "Continuous Discovery Habits",
-      "author": "Teresa Torres",
-      "description": "A structured framework for ongoing product discovery. Opportunity solution trees, interviewing techniques, and assumption mapping for B2B contexts.",
-      "url": "https://www.producttalk.org/continuous-discovery-habits/",
-      "year": 2021,
-      "isbn": "978-1736633304",
-      "type": "book"
-    },
-    {
-      "slug": "strategic-monoliths-microservices",
-      "title": "Strategic Monoliths and Microservices",
-      "author": "Vaughn Vernon & Tomasz Jaskula",
-      "description": "Technical architecture book for PMs working with platform teams. Helps B2B PMs understand service decomposition and API strategy from a product perspective.",
-      "url": "https://www.pearson.com/en-us/subject-catalog/p/strategic-monoliths-and-microservices/P200000009547",
-      "year": 2021,
-      "isbn": "978-0137355459",
-      "type": "book"
-    },
-    {
-      "slug": "sprint",
-      "title": "Sprint: How to Solve Big Problems",
-      "author": "Jake Knapp",
-      "description": "Google Ventures' 5-day process for solving critical business problems through prototyping and testing with customers. Highly effective for B2B enterprise product validation.",
-      "url": "https://www.thesprintbook.com/",
-      "year": 2016,
-      "isbn": "978-1501121746",
-      "type": "book"
-    },
-    {
-      "slug": "product-led-growth-strategy",
-      "title": "Product-Led Growth: The Definitive B2B SaaS Strategy",
-      "author": "Lenny's Podcast / Wes Bush",
-      "description": "Deep dive into how Slack, Calendly, and Zoom built PLG motions. Covers product-qualified leads, freemium pricing, and viral loops specific to B2B enterprise.",
-      "url": "https://www.lennyspodcast.com/",
-      "platform": "YouTube",
-      "type": "video"
-    },
-    {
-      "slug": "marty-cagan-empowered",
-      "title": "Marty Cagan — EMPOWERED: Ordinary Teams, Extraordinary Products",
-      "author": "Marty Cagan (SVPG)",
-      "description": "Marty Cagan on how to build empowered product teams in large B2B organizations. Covers the shift from project to product, team topology, and leadership behaviors.",
-      "url": "https://www.youtube.com/watch?v=4C7Dut8BZqo",
-      "platform": "YouTube / SVPG",
-      "type": "video"
-    },
-    {
-      "slug": "b2b-saas-pricing-madhavan",
-      "title": "B2B SaaS Pricing: Frameworks That Work",
-      "author": "Kumar Madhavan",
-      "description": "Walkthrough of usage-based, tiered, and per-seat pricing models. Includes case studies from Stripe, Twilio, and Snowflake on packaging and monetization strategy.",
-      "url": "https://www.youtube.com/watch?v=HpY_VwVl9qA",
-      "platform": "YouTube / SaaStr",
-      "type": "video"
-    },
-    {
-      "slug": "jason-fried-shape-up",
-      "title": "Jason Fried — Shape Up: Stop Running in Circles",
-      "author": "Jason Fried (37signals / Basecamp)",
-      "description": "Basecamp's shape-up methodology explained by the founder. Six-week cycles, appetite-based scoping, and betting tables — highly applicable to B2B product teams.",
-      "url": "https://www.youtube.com/watch?v=u6h6KnLxRGE",
-      "platform": "YouTube",
-      "type": "video"
-    },
-    {
-      "slug": "enterprise-sales-costa",
-      "title": "Enterprise Sales for Product Managers",
-      "author": "Shiven Ramji (ex-Microsoft)",
-      "description": "How B2B PMs should think about enterprise sales cycles, proof-of-concepts, RFPs, procurement, and stakeholder mapping. Real examples from Azure and Office 365.",
-      "url": "https://www.youtube.com/watch?v=4hB6mZg2zVk",
-      "platform": "YouTube / Mind the Product",
-      "type": "video"
-    },
-    {
-      "slug": "teresa-torres-discovery",
-      "title": "Teresa Torres — Continuous Discovery at Scale",
-      "author": "Teresa Torres",
-      "description": "How to scale opportunity solution trees across multiple B2B product teams. Covers discovery cadence, cross-team alignment, and outcome-driven roadmaps.",
-      "url": "https://www.youtube.com/watch?v=2YlIY9E8F9g",
-      "platform": "YouTube / Product Talk",
-      "type": "video"
-    },
-    {
-      "slug": "nps-vs-csat-b2b",
-      "title": "NPS vs CSAT for B2B SaaS: Which Metric Matters?",
-      "author": "Gainsight / Pulse Podcast",
-      "description": "Breakdown of when to use NPS vs CSAT in B2B contexts. Covers enterprise customer health scoring, churn prediction, and survey design for low-response-rate environments.",
-      "url": "https://www.youtube.com/watch?v=QjM6aBfFpVc",
-      "platform": "YouTube / Gainsight",
-      "type": "video"
-    },
-    {
-      "slug": "b2b-product-strategy-hbr",
-      "title": "Building a B2B Product Strategy That Actually Works",
-      "author": "Harvard Business Review / Linda K. Gorchels",
-      "description": "Harvard Business Review on B2B product portfolio strategy. Covers platform plays, solution bundling, and managing multi-product roadmaps in enterprise settings.",
-      "url": "https://hbr.org/2021/03/building-a-b2b-product-strategy-that-actually-works",
-      "platform": "HBR",
-      "type": "video"
-    },
-    {
-      "slug": "api-product-management-kinlane",
-      "title": "API Product Management for Platform Teams",
-      "author": "Kin Lane (Postman)",
-      "description": "Managing APIs as products in B2B platform organizations. Covers API design-first, developer experience, versioning strategy, and API monetization.",
-      "url": "https://www.youtube.com/watch?v=9f5z7GZ4p2E",
-      "platform": "YouTube / API Days",
-      "type": "video"
-    },
-    {
-      "slug": "wong-dont-shave-yak",
-      "title": "Don't Shave That Yak! — Product & Engineering at Google",
-      "author": "David Wong (Google)",
-      "description": "Talk about how Google's B2B platform teams prioritize and communicate. Lessons on saying no to scope creep and keeping enterprise products focused.",
-      "url": "https://www.youtube.com/watch?v=4jJYqG0_7F0",
-      "platform": "YouTube / Google Talks",
-      "type": "video"
-    },
-    {
-      "slug": "pricing-metrics-that-matter",
-      "title": "Pricing Metrics That Matter for B2B SaaS",
-      "author": "Kyle Poyar / OpenView",
-      "description": "Deep dive on net dollar retention (NDR), expansion MRR, time-to-value, and logo churn. Benchmarking data across hundreds of B2B SaaS companies.",
-      "url": "https://www.youtube.com/watch?v=h9zGq5Qr8jI",
-      "platform": "YouTube / SaaStr Annual",
-      "type": "video"
-    },
-    {
-      "slug": "saaStr-annual",
-      "title": "SaaStr Annual",
-      "description": "The largest B2B SaaS conference globally. Keynotes and workshops on PLG, enterprise sales, fundraising, and product strategy from founders and VCs.",
-      "url": "https://www.saastrannual.com/",
-      "location": "San Francisco / London",
-      "type": "conference"
-    },
-    {
-      "slug": "mind-the-product",
-      "title": "Mind the Product — ProductCon",
-      "description": "Major product management conference with strong B2B tracks. Covers product discovery, strategy, leadership, and AI in product. Workshops and networking.",
-      "url": "https://www.mindtheproduct.com/productcon/",
-      "location": "London / San Francisco / Singapore / New York",
-      "type": "conference"
-    },
-    {
-      "slug": "product-hunt-radio",
-      "title": "Product Hunt — GLITCH Conference",
-      "description": "Conference focused on product launches, growth, and community building. B2B track covers SaaS launches, developer products, and PLG distribution strategies.",
-      "url": "https://www.producthunt.com/gatherings/glitch",
-      "location": "Los Angeles / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "business-of-software",
-      "title": "Business of Software Conference",
-      "description": "Long-running conference for B2B SaaS founders and product leaders. Focus on profitable growth, bootstrapping, pricing, and product strategy without VC dependency.",
-      "url": "https://businessofsoftware.org/",
-      "location": "Boston / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "reforge-huddle",
-      "title": "Reforge Huddle",
-      "description": "Exclusive gathering for senior product and growth leaders. Deep dives on B2B retention, enterprise activation funnels, and product-led expansion. Application-based attendance.",
-      "url": "https://www.reforge.com/huddle",
-      "location": "San Francisco / Remote",
-      "type": "conference"
-    },
-    {
-      "slug": "product-school-pdma",
-      "title": "PDMA Annual Conference — Product Development & Management Association",
-      "description": "Academic and practitioner conference on product development. Strong B2B and industrial product track. Covers NPD processes, portfolio management, and innovation metrics.",
-      "url": "https://www.pdma.org/page/pdma_annual_conference",
-      "location": "Rotating US cities",
-      "type": "conference"
-    },
-    {
-      "slug": "b2b-saas-online-saastock",
-      "title": "SaaStock",
-      "description": "European B2B SaaS conference with focus on growth, metrics, and international expansion. Strong B2B community and investor presence.",
-      "url": "https://www.saastock.com/",
-      "location": "Dublin / Remote",
-      "type": "conference"
-    },
-    {
-      "slug": "product-led-summit",
-      "title": "Product-Led Summit",
-      "description": "The premier PLG conference. Sessions on product-qualified leads, freemium strategy, user onboarding, and expansion revenue. B2B SaaS focus.",
-      "url": "https://productled.com/summit",
-      "location": "San Francisco / Online",
-      "type": "conference"
-    },
-    {
-      "slug": "enterprise-product-summit",
-      "title": "Enterprise Product Summit",
-      "description": "Niche conference for product managers working on enterprise-grade B2B products. Covers compliance, security reviews, multi-tenant architecture, and enterprise sales engineering.",
-      "url": "https://enterpriseproductsummit.com/",
-      "location": "New York / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "intercom-whats-new",
-      "title": "Intercom — What's New Conference",
-      "description": "Customer communication and product-led growth conference. Covers conversational support, in-app messaging, product tours, and user engagement for B2B SaaS.",
-      "url": "https://www.intercom.com/events/whats-new",
-      "location": "San Francisco / Dublin",
-      "type": "conference"
-    },
-    {
-      "slug": "b2b-customer-discovery-training",
-      "title": "Reforge — Mastering B2B Customer Discovery",
-      "description": "In-depth training program on B2B discovery techniques. Covers stakeholder research, interview techniques, synthesis methods, and opportunity validation for enterprise products.",
-      "url": "https://www.reforge.com/courses/mastering-b2b-customer-discovery",
-      "provider": "Reforge",
-      "duration": "6 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "product-led-growth-certification",
-      "title": "Product-Led Growth Certification",
-      "description": "Comprehensive certification covering PLG fundamentals. Includes modules on freemium strategy, trial design, viral loops, and PQL scoring with B2B case studies.",
-      "url": "https://productled.com/certification",
-      "provider": "ProductLed",
-      "duration": "Self-paced",
-      "type": "training"
-    },
-    {
-      "slug": "pricing-certification",
-      "title": "B2B SaaS Pricing Certification",
-      "description": "Structured program on value-based pricing, packaging strategy, and pricing experiments. Includes real B2B case studies from Dropbox, Figma, and Notion.",
-      "url": "https://www.priceintelligently.com/pricing-certification",
-      "provider": "Price Intelligently / ProfitWell",
-      "duration": "4 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "svpg-product-masterclass",
-      "title": "SVPG Product Masterclass",
-      "description": "Marty Cagan and the SVPG team's intensive product management training. Covers product strategy, discovery, delivery, and team empowerment with strong B2B content.",
-      "url": "https://www.svpg.com/masterclass/",
-      "provider": "SVPG",
-      "duration": "8 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "mindtheproduct-eship",
-      "title": "Mind the Product — Product Leadership Program",
-      "description": "Executive product management training for senior PMs and Heads of Product. Focus on product strategy, organizational design, and scaling B2B product organizations.",
-      "url": "https://www.mindtheproduct.com/product-leadership-program/",
-      "provider": "Mind the Product",
-      "duration": "12 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "intercom-product-training",
-      "title": "Intercom — Product-Led Growth Training",
-      "description": "Free training on building PLG motions. Covers onboarding optimization, in-app messaging strategy, and conversion funnel analysis with hands-on exercises.",
-      "url": "https://www.intercom.com/training/product-led-growth",
-      "provider": "Intercom",
-      "duration": "Self-paced",
-      "type": "training"
-    },
-    {
-      "slug": "b2b-product-led-growth-checklist",
-      "title": "The B2B Product-Led Growth Maturity Model",
-      "author": "OpenView / Wes Bush",
-      "description": "A maturity framework for B2B companies adopting PLG. Covers four stages: awareness, activation, expansion, and advocacy with specific metrics and tactics per stage.",
-      "url": "https://productled.com/blog/b2b-plg-maturity-model",
-      "publication": "ProductLed Blog",
-      "type": "article"
-    },
-    {
-      "slug": "enterprise-pricing-packaging",
-      "title": "The Complete Guide to B2B SaaS Pricing and Packaging",
-      "author": "Kyle Poyar (OpenView)",
-      "description": "Comprehensive guide on usage-based pricing, tiered plans, per-seat vs consumption, and packaging strategy for B2B SaaS. Includes data from 300+ companies.",
-      "url": "https://openviewpartners.com/blog/b2b-saas-pricing-packaging-guide",
-      "publication": "OpenView",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-customer-discovery-interviews",
-      "title": "How to Run B2B Customer Discovery Interviews That Don't Suck",
-      "author": "Alex Clayton",
-      "description": "Practical template and script for B2B discovery interviews. Covers identifying power users, finding the economic buyer, and questions that reveal real budgets.",
-      "url": "https://www.reforge.com/blog/b2b-customer-discovery",
-      "publication": "Reforge",
-      "type": "article"
-    },
-    {
-      "slug": "product-led-sales-alignment",
-      "title": "Product-Led Sales: How to Align Product and Sales Teams",
-      "author": "First Round Review",
-      "description": "How Atlassian, GitLab, and Datadog structure product-led sales motions. Covers PQL scoring, sales-assist signals, and when to hand off from product to sales.",
-      "url": "https://review.firstround.com/product-led-sales-how-to-align-product-and-sales-teams/",
-      "publication": "First Round Review",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-roadmap-prioritization",
-      "title": "B2B Product Roadmap Prioritization for Enterprise Accounts",
-      "author": "Maggie Crowley (Drift/PagerDuty)",
-      "description": "How to handle multi-tenant feature requests, enterprise deal-driven roadmaps, and balancing top-down strategy with bottom-up customer needs. Includes ICE and RICE adaptations for B2B.",
-      "url": "https://www.mindtheproduct.com/b2b-roadmap-prioritization-enterprise-accounts/",
-      "publication": "Mind the Product",
-      "type": "article"
-    },
-    {
-      "slug": "api-product-management-guide",
-      "title": "The API Product Manager's Guide to Platform Strategy",
-      "author": "Kin Lane",
-      "description": "Guide to managing APIs as products in B2B platform companies. Covers developer portals, API versioning, deprecation strategies, and developer relations.",
-      "url": "https://apievangelist.com/2023/12/10/api-product-management-guide/",
-      "publication": "API Evangelist",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-onboarding-proven-success",
-      "title": "Designing B2B Onboarding That Proves Value in 30 Days",
-      "author": "Lincoln Murphy / Sixteen Ventures",
-      "description": "Time-to-value framework for B2B SaaS. Covers adoption milestones, success plans, and how product can reduce time-to-first-value through in-app guidance.",
-      "url": "https://sixteenventures.com/b2b-onboarding-time-to-value",
-      "publication": "Sixteen Ventures",
-      "type": "article"
-    },
-    {
-      "slug": "churn-analysis-b2b",
-      "title": "B2B Churn Analysis: Causes, Metrics, and Prevention",
-      "author": "Christoph Janz / Point Nine Capital",
-      "description": "Deep analysis of why B2B companies churn. Covers logo churn vs. dollar churn, multi-threading risk, and build vs. buy triggers in enterprise procurement.",
-      "url": "https://www.pointninecap.com/blog/b2b-churn-analysis",
-      "publication": "Point Nine Capital",
-      "type": "article"
-    },
-    {
-      "slug": "competitive-differentiation-b2b",
-      "title": "B2B Competitive Differentiation Without Feature Parity",
-      "author": "April Dunford",
-      "description": "Positioning strategy for B2B products that can't out-feature incumbents. Covers market context, alternative-based positioning, and the value wedge framework.",
-      "url": "https://aprildunford.com/blog/b2b-differentiation-without-feature-parity",
-      "publication": "April Dunford",
-      "type": "article"
-    },
-    {
-      "slug": "buyer-persona-research-b2b",
-      "title": "B2B Buyer Persona Research: Building ICPs That Drive Product Decisions",
-      "author": "Michele Hansen",
-      "description": "Method for creating B2B ideal customer profiles based on qualitative research. Covers job-to-be-done interviews, persona segmentation, and persona-driven validation.",
-      "url": "https://www.decisionprinciples.com/blog/b2b-buyer-persona-research",
-      "publication": "Decision Principles",
-      "type": "article"
-    },
-    {
-      "slug": "lenny-rachbot-podcast",
-      "title": "Lenny's Podcast — B2B PLG with Rachbot Founder",
-      "description": "In-depth interview with Rachbot founder on building a product-led B2B sales tool. Covers pricing experiments, sales-assist triggers, and navigating enterprise procurement.",
-      "url": "https://www.lennyspodcast.com/",
-      "host": "Lenny Rachitsky",
-      "episode": "PLG Deep Dive",
-      "type": "podcast"
-    },
-    {
-      "slug": "product-strategy-with-svpg",
-      "title": "Product Thinking — Marty Cagan on B2B Product Strategy",
-      "description": "Marty Cagan discusses how B2B product strategy differs from B2C, the importance of empowered product teams in enterprise, and why most B2B product roadmaps fail.",
-      "url": "https://www.productthinkingpodcast.com/",
-      "host": "Melissa Perri & Micala Denault",
-      "episode": "Marty Cagan Interview",
-      "type": "podcast"
-    },
-    {
-      "slug": "b2b-product-chat",
-      "title": "B2B Product Chat — Enterprise SaaS Metrics",
-      "description": "Weekly podcast dedicated to B2B product management. Covers NDR deep dives, pricing case studies, sales alignment, and interviews with B2B product leaders from GitLab, Datadog, and Snowflake.",
-      "url": "https://www.b2bproductchat.com/",
-      "host": "Brian Lawley & Co.",
-      "episode": "Enterprise Metrics That Matter",
-      "type": "podcast"
-    },
-    {
-      "slug": "this-is-product-management",
-      "title": "This is Product Management — B2B Edition",
-      "description": "Interviews with product leaders from top B2B companies. Topics include product-led sales, API product management, developer experience, and enterprise customer success.",
-      "url": "https://www.thisisproductmanagement.com/",
-      "host": "Alpha UX",
-      "episode": "B2B Product Strategy",
-      "type": "podcast"
-    },
-    {
-      "slug": "plg-podcast",
-      "title": "The Product-Led Growth Podcast",
-      "description": "Dedicated to product-led growth strategies. B2B-heavy content including episodes on free trial optimization, PQL scoring algorithms, and expansion revenue strategies.",
-      "url": "https://productled.com/podcast",
-      "host": "Wes Bush / ProductLed",
-      "episode": "Various",
-      "type": "podcast"
-    },
-    {
-      "slug": "hidden-brain-b2b-decisions",
-      "title": "Hidden Brain — The Psychology of B2B Buying Decisions",
-      "description": "Exploration of the psychological biases and social dynamics behind enterprise purchasing decisions. Relevant for PMs designing B2B products that need to win internal champions.",
-      "url": "https://hiddenbrain.org/",
-      "host": "Shankar Vedantam",
-      "episode": "Decision Making Deep Dive",
-      "type": "podcast"
-    },
-    {
-      "slug": "category-pirates",
-      "title": "Category Pirates — Creating New B2B Markets",
-      "description": "Podcast about creating new market categories. B2B focus with episodes on category design, market creation, and how companies like Salesforce and Slack created new enterprise categories.",
-      "url": "https://www.categorypirates.com/",
-      "host": "Christopher Lochhead & Eddie Yoon",
-      "episode": "Various",
-      "type": "podcast"
-    },
-    {
-      "slug": "breakdown-b2b-pricing-saastr",
-      "title": "SaaStr Podcast — B2B Pricing Breakdowns",
-      "description": "Weekly deep dives into B2B SaaS pricing strategies. Real numbers from public companies, pricing model analysis, and lessons from pricing failures.",
-      "url": "https://www.saastr.com/podcast/",
-      "host": "Jason Lemkin",
-      "episode": "Pricing Breakdown Series",
-      "type": "podcast"
-    },
-    {
-      "slug": "acquired-b2b-platform",
-      "title": "Acquired — B2B Platform Deep Dives",
-      "description": "Deep-dive episodes on the history and strategy behind major B2B platforms including Salesforce, Workday, ServiceNow, and Atlassian. Essential listening for B2B PMs.",
-      "url": "https://www.acquired.fm/",
-      "host": "Ben Gilbert & David Rosenthal",
-      "episode": "Salesforce / Workday / Atlassian",
-      "type": "podcast"
-    },
-    {
-      "slug": "make-better-decisions-b2b",
-      "title": "The Product Experience — B2B Product Decisions",
-      "description": "Weekly product management podcast with B2B-focused episodes on feature prioritization, stakeholder management, enterprise UX, and product analytics in B2B contexts.",
-      "url": "https://www.mindtheproduct.com/the-product-experience/",
-      "host": "Randy Silver & Lily Smith",
-      "episode": "B2B Product Decisions",
-      "type": "podcast"
-    },
-    {
-      "slug": "b2b-pod-lead-strategy",
-      "title": "The Product-Led B2B Pricing Playbook",
+      "title": "B2B Customer Discovery Interview",
+      "slug": "b2b-customer-discovery-interview",
       "type": "prompt",
-      "body": "You are a B2B SaaS pricing strategist. Analyze the following product and suggest a pricing model (usage-based, tiered, per-seat, or hybrid), propose 3 tiers with features, and estimate packaging value. Product: [describe product]. Target market: [enterprise size + vertical]. Current pricing: [if any]."
+      "summary": "A structured interview script to uncover B2B customer pains, workflows and decision criteria",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Customer Discovery",
+        "Interviews",
+        "Research"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse this prompt before starting a new B2B product initiative or feature to understand the prospect's current workflow, their frustrations, and what a successful solution looks like from their perspective.\n\n## Prompt\n\nYou are conducting a B2B customer discovery interview for a product manager. Interview me (playing the role of a potential B2B customer) one section at a time. Ask each question and wait for my answer before moving on. Keep your tone professional and inquisitive.\n\nSection 1: Current Workflow\n- Walk me through a typical day or week as it relates to [problem area].\n- What tools or systems do you currently use?\n- Who else in your organisation is involved in this process?\n\nSection 2: Pain Points\n- What frustrates you most about the current approach?\n- If you could wave a magic wand, what would change?\n- How much time or money is lost because of these frustrations?\n\nSection 3: Decision Criteria\n- What would a perfect solution look like for you?\n- Who else would need to approve such a solution?\n- What factors matter most: price, reliability, integrations, speed of implementation?\n\nSection 4: Prioritisation\n- How urgent is this problem on a scale of 1-10?\n- What would happen if nothing changed in the next 12 months?\n\nWhen complete, summarise the key findings in a structured format with: persona overview, pain points ranked by severity, decision criteria, urgency assessment, and recommended next steps."
     },
     {
-      "slug": "enterprise-stakeholder-map",
-      "title": "Enterprise Stakeholder Mapping",
+      "title": "B2B Pricing Strategy Workshop",
+      "slug": "b2b-pricing-strategy-workshop",
       "type": "prompt",
-      "body": "You are a B2B product strategist mapping decision-makers for an enterprise sale. List all potential stakeholders involved in a [product] purchase at a [company size] organization. For each: role, influence level (decision-maker/influencer/champion/detractor), primary concern, and what 'good' looks like to them. Then rank by power and interest."
+      "summary": "Guided framework to define and validate B2B pricing models including tiered, usage-based, and enterprise",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Pricing",
+        "Go-to-Market",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse this prompt when developing or revising a B2B pricing model. It walks through competitive analysis, value-based pricing, tier definition, and packaging strategy.\n\n## Prompt\n\nAct as a B2B pricing strategist. Guide me through developing a pricing model step by step.\n\nStep 1: Ask about the product \u2014 what does it do, who is the target buyer, and what is the primary value metric?\n\nStep 2: Competitive landscape \u2014 who are the top 3 competitors and how do they price? What gaps exist?\n\nStep 3: Value drivers \u2014 what specific outcomes does the product enable (e.g. time saved, revenue increased, risk reduced)? Quantify each.\n\nStep 4: Tier structure \u2014 define 3-4 tiers (e.g. Starter, Growth, Business, Enterprise). For each tier define: target customer size, features included, usage limits, and price point.\n\nStep 5: Packaging decisions \u2014 which features are tier-gated versus available across all tiers? What add-ons make sense?\n\nStep 6: Validation plan \u2014 how would you test these price points? Suggest a Van Westendorp or Gabor-Granger approach.\n\nProvide a final summary with tier table, recommended pricing, and a validation timeline."
     },
     {
-      "slug": "b2b-roadmap-communicator",
-      "title": "B2B Roadmap Communication Draft",
+      "title": "B2B Stakeholder Mapping",
+      "slug": "b2b-stakeholder-mapping",
       "type": "prompt",
-      "body": "You are drafting a B2B product roadmap update for enterprise customers. Write a quarterly roadmap communication for [product name] to be sent to [audience: executives/champions/end users]. Include: recent wins, upcoming features, deprecation plan, and how customer feedback shaped decisions. Tone: [confident/empathetic/technical]. Length: [brief/detailed]."
+      "summary": "Identify and map all stakeholders in a B2B buying decision, including champions, influencers, blockers, and economic buyers",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Stakeholder Management",
+        "Sales",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nB2B sales almost never involve a single decision maker. Use this prompt to map the full buying committee for a target account or segment.\n\n## Prompt\n\nAct as a B2B product manager helping me map stakeholders for a target account. Ask me questions one at a time.\n\nStart by asking about the target organisation: industry, size, and the department we're selling into.\n\nThen ask me to identify people filling each role:\n1. Economic Buyer \u2014 who controls the budget? What are their priorities (ROI, cost savings, strategic value)?\n2. Champion \u2014 who inside wants this to succeed? What's their motivation?\n3. User \u2014 who will actually use the product daily? What do they need vs what do they want?\n4. Technical Evaluator \u2014 who assesses security, compliance, integration? What are their criteria?\n5. Influencer \u2014 whose opinion carries weight but isn't a decision maker?\n6. Blocker \u2014 who might resist this change? What's their concern?\n\nFor each stakeholder, capture: name/role, priorities, concerns, power level (low/medium/high), and engagement strategy. Summarise as a power-interest grid with recommended actions per quadrant."
     },
     {
-      "slug": "opportunity-solution-tree",
-      "title": "Opportunity Solution Tree for B2B Pain Point",
+      "title": "B2B Product Requirements Document",
+      "slug": "b2b-prd-template",
       "type": "prompt",
-      "body": "You are Teresa Torres' framework applied to a B2B problem. Build an opportunity solution tree for: [describe B2B pain point]. Start with the desired outcome, branch into opportunities (gaps in current experience), then solution ideas for each opportunity. Include assumptions to test and experiment ideas for the top 3 solutions."
+      "summary": "Structured PRD template tailored for B2B products with enterprise considerations",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "PRD",
+        "Requirements",
+        "Documentation"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse this prompt to generate a structured PRD for a B2B feature or product, ensuring enterprise considerations like SSO, RBAC, audit logs, and SLA requirements are covered.\n\n## Prompt\n\nAct as a senior B2B product manager. Help me draft a Product Requirements Document by asking me questions one section at a time.\n\nSection 1: Problem & Opportunity\n- What business problem does this solve?\n- How is it currently being solved (or not)?\n- What's the market opportunity size?\n\nSection 2: Target Persona & Segment\n- Who is the primary buyer persona?\n- Who are the end users?\n- What company size/industry is this for?\n\nSection 3: Requirements\n- Functional requirements (list as user stories)\n- Non-functional requirements: SSO/SAML, RBAC, audit logging, data residency, SLA expectations, API rate limits\n- Integration requirements: which third-party systems must integrate with?\n- Security & compliance: SOC2, GDPR, HIPAA, ISO 27001?\n\nSection 4: Success Metrics\n- What leading indicators matter (adoption, activation)?\n- What lagging indicators (retention, expansion revenue)?\n\nGenerate a clean PRD document from the answers."
     },
     {
-      "slug": "b2b-prioritization-framework",
-      "title": "B2B Feature Prioritization with Weighted Scoring",
+      "title": "B2B Competitive Intelligence Brief",
+      "slug": "b2b-competitive-intelligence-brief",
       "type": "prompt",
-      "body": "You are evaluating B2B feature requests using a weighted scoring framework. Score each of these [features] against: revenue impact (0-5), customer demand (0-5), engineering effort inverse (0-5), strategic fit (0-5), competitive urgency (0-5). Weight each dimension and calculate total. Recommend a priority order. Features: [list]."
+      "summary": "Systematic framework to research and document competitor positioning, strengths, and weaknesses in a B2B market",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Competitive Analysis",
+        "Strategy",
+        "Research"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse this prompt when entering a new B2B market segment, facing a new competitor, or preparing for a product launch.\n\n## Prompt\n\nAct as a B2B competitive intelligence analyst. Guide me through building a competitive brief.\n\nStep 1: Ask which market segment and which competitors to analyse (direct, indirect, emerging).\n\nStep 2: For each competitor, gather:\n- Company overview: funding, revenue range, headcount, founding year\n- Product: core features, integrations, platform coverage\n- Pricing:\u516c\u5f00 tiers, enterprise pricing approach, contract terms\n- Positioning: tagline, target customer, key differentiators claimed\n- GTM: sales model (self-serve, inside sales, field sales), channel partners\n- Strengths (from customer reviews and analyst reports)\n- Weaknesses (from customer complaints, churn reasons)\n\nStep 3: Build a competitive positioning matrix with axes (e.g. price vs features, ease of use vs power).\n\nStep 4: Identify our strategic advantages and vulnerabilities.\n\nStep 5: Recommend: what to emphasise in sales comparisons, what to build next to widen the gap, and what competitive risks to monitor."
     },
     {
-      "slug": "b2b-dogfooding-playbook",
-      "title": "Design a B2B Dogfooding Program",
+      "title": "B2B Onboarding Flow Designer",
+      "slug": "b2b-onboarding-flow-designer",
       "type": "prompt",
-      "body": "Design a dogfooding program for [product], a B2B SaaS tool. Include: participant selection criteria (roles, departments), onboarding flow, feedback collection mechanism, success metrics (time-to-value, NPS, usage frequency), duration, and criteria for 'graduation' to external beta. Output as a playbook document."
+      "summary": "Design an onboarding experience that gets B2B users to their first value moment quickly",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Onboarding",
+        "User Experience",
+        "Activation"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nB2B products often have complex setup requirements that delay time-to-value. Use this prompt to design or improve your onboarding flow.\n\n## Prompt\n\nAct as a B2B product growth specialist. Help me design an onboarding flow by asking questions.\n\nStart by asking about the product and its core value proposition: what is the single most important action a new user must take to experience value?\n\nThen ask about:\n1. Setup complexity: does the product require SSO config, data import, team invitation, API keys?\n2. User roles: who sets up vs who uses? Is there an admin who configures and end users who consume?\n3. Current onboarding: what does the first session look like today? What's the drop-off rate?\n4. Time-to-value: how long from signup to first meaningful action?\n\nThen design:\n- Day 0: welcome + guided setup (minimal required steps)\n- Day 1: first value moment triggered\n- Week 1: habit loop established\n- Month 1: expansion triggers (invite team, upgrade)\n\nFor each phase, define: what the user does, what the product does, and what signals show success."
     },
     {
-      "slug": "b2b-churn-analysis",
+      "title": "B2B User Persona Generator",
+      "slug": "b2b-persona-generator",
+      "type": "prompt",
+      "summary": "Generate detailed B2B buyer and user personas from market research data",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Personas",
+        "Research",
+        "User Experience"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nGenerate detailed B2B personas for your target segments \u2014 both the economic buyer and the end user, who are often different people in B2B.\n\n## Prompt\n\nAct as a UX researcher specialised in B2B. Guide me through creating two distinct personas for my product.\n\nFirst, the Economic Buyer persona:\n- Job title and seniority level\n- Department and reporting structure\n- Goals: what business outcomes are they measured on?\n- Pain points: what keeps them up at night?\n- Decision criteria: what factors determine their vendor choice?\n- Objections: what would make them say no?\n- Information sources: where do they learn about solutions?\n\nSecond, the End User persona:\n- Daily workflow related to the product\n- Technical proficiency level\n- Goals: what makes their job easier?\n- Frustrations: what slows them down?\n- Influence level on purchase decision\n- Adoption barriers: what would prevent them from using the product?\n\nFinally, create a comparison highlighting where the two personas' goals align and where they conflict, and recommend messaging for each."
+    },
+    {
       "title": "B2B Churn Root Cause Analysis",
+      "slug": "b2b-churn-root-cause-analysis",
       "type": "prompt",
-      "body": "You are analyzing B2B customer churn for [product]. Given the following data: [list churned accounts with: segment, usage metrics, support tickets, CSAT, contract value]. Identify top 3 churn patterns, for each: root cause, leading indicators, and product changes that could prevent it. Provide a prioritized action plan."
+      "summary": "Systematic framework to investigate and diagnose why B2B customers churn",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Churn",
+        "Retention",
+        "Analytics"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse when churn rates are increasing or a significant customer has churned. This prompt walks through data gathering, hypothesis generation, and root cause identification.\n\n## Prompt\n\nAct as a B2B customer success analyst. Help me investigate churn by asking questions.\n\nPhase 1: Gather Data\n- What is the overall churn rate and how has it trended?\n- Which segments (by size, industry, plan) have highest churn?\n- What is the average time-to-churn?\n- What were the top 3 stated reasons in exit surveys?\n\nPhase 2: Analyse Usage Patterns\n- How did usage trend in the 90 days before churn?\n- Which features did the churned cohort use vs retained?\n- Was there a drop in login frequency, API calls, or team member activity?\n- Did the customer have a dedicated CSM? How many touchpoints?\n\nPhase 3: Interview Analysis\n- What themes emerge from churn interviews?\n- Are there common phrases like 'too expensive', 'not using it', 'switched to X'?\n\nPhase 4: Root Cause Summary\nClassify causes: Pricing, Product Gaps, Onboarding Failure, Support Quality, Competition, Internal Changes at Customer\n\nProvide an action plan: quick wins (next 30 days), medium-term fixes (next quarter), strategic changes (next 6 months)."
     },
     {
-      "slug": "b2b-plg-motion-design",
-      "title": "Design a Product-Led Growth Motion for B2B",
+      "title": "B2B API Product Specification",
+      "slug": "b2b-api-product-specification",
       "type": "prompt",
-      "body": "You are designing a PLG motion for [product], a B2B SaaS aimed at [target segment]. Outline: (1) free tier features and limits, (2) activation milestone definitions, (3) PQL definition and scoring, (4) sales-assist triggers and handoff process, (5) conversion tactics (upsell prompts, trial expiration). Estimate conversion rate targets for each stage."
+      "summary": "Structured prompt to design an API product for B2B consumption, including endpoints, authentication, and developer experience",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "API",
+        "Product Design",
+        "Developer Experience"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse when designing or scoping a public API for B2B customers, especially when the API is a product in its own right.\n\n## Prompt\n\nAct as an API product manager. Help me design a B2B API product.\n\nSection 1: API Context\n- What business capability does this API expose?\n- Who are the primary developers consuming this API?\n- Is this a public, partner-only, or internal API?\n\nSection 2: Auth & Security\n- Authentication method: API keys, OAuth 2.0, mutual TLS?\n- Rate limiting: requests per minute/hour/day?\n- Data privacy: what data can be returned? Any PII restrictions?\n\nSection 3: Endpoints\n- What are the core resources and their CRUD operations?\n- What are the expected request/response shapes?\n- Pagination, filtering, sorting approach?\n- Webhook events for async workflows?\n\nSection 4: Developer Experience\n- SDKs needed for which languages?\n- Documentation format: OpenAPI/Swagger?\n- Sandbox environment? Rate limits for testing?\n- SLAs: uptime guarantee, response time p99?\n- Versioning strategy: URL path vs header versioning?\n\nSection 5: Commercial Model\n- Is the API free, usage-based, or tiered?\n- How is usage metered and billed?\n- What support SLAs come with each tier?\n\nProvide a structured API product brief."
     },
     {
-      "slug": "b2b-api-product-spec",
-      "title": "B2B API Product Specification Template",
+      "title": "B2B Product Launch Checklist",
+      "slug": "b2b-product-launch-checklist",
       "type": "prompt",
-      "body": "Write a product specification for a new [API/feature] for [platform]. Include: (1) developer use case and persona, (2) endpoint design with request/response examples, (3) rate limiting and SLA commitment, (4) documentation requirements, (5) deprecation and versioning policy, (6) migration guide for existing users. Output as a product spec document."
+      "summary": "Comprehensive launch readiness checklist covering sales enablement, customer comms, support, and success metrics",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Launch",
+        "Go-to-Market",
+        "Product Launch"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## When to use this\n\nUse this structured prompt to build a complete B2B product launch plan covering all cross-functional dependencies.\n\n## Prompt\n\nAct as a B2B launch program manager. Guide me through building a launch checklist.\n\nStart by asking: what are we launching (new product, feature, pricing change, or sunset)?\n\nThen walk through each workstream:\n\nProduct Readiness\n- Is the feature complete and tested?\n- Are there known bugs with workarounds?\n- Is documentation written?\n- Is the API stable?\n\nSales Readiness\n- Have sales been trained?\n- Are battle cards updated?\n- Is there a pricing sheet and contract addendum?\n- Are demo environments ready?\n\nMarketing Readiness\n- Is there a landing page?\n- Are case studies or testimonials ready?\n- Is there an announcement blog post?\n- Has the PR/comms plan been approved?\n\nCustomer Readiness\n- Is there an in-app announcement?\n- Is there an email sequence for existing customers?\n- Are CSMs briefed on talking points?\n- Is there a migration guide (if replacing existing functionality)?\n\nSuccess Metrics\n- What are the launch KPIs?\n- What is the success criteria for week 1, month 1, quarter 1?\n- What is the rollback plan if metrics aren't met?\n\nGenerate a timeline with owners and deadlines for each item."
     },
     {
-      "slug": "competitive-battle-card",
-      "title": "B2B Competitive Battle Card Generator",
-      "type": "prompt",
-      "body": "Create a competitive battle card for [product] vs [competitor]. Include: (1) positioning statement, (2) feature comparison table, (3) common objections and rebuttals, (4) pricing comparison, (5) ideal replacement scenarios, (6) customer proof points. Format as a one-pager for the sales team. Competitor weaknesses should be factual, not exaggerated."
+      "title": "B2B Value Proposition Design",
+      "slug": "b2b-value-proposition-design",
+      "type": "skill",
+      "summary": "How to craft and test B2B value propositions that resonate with both economic buyers and end users",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Value Proposition",
+        "Positioning",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nCrafting a B2B value proposition is different from B2C because you must appeal to at least two audiences: the economic buyer (ROI, efficiency, risk reduction) and the end user (usability, time saved, reduced frustration). A strong B2B value proposition bridges both.\n\n## How to do it\n\n**1. Map the value chain**\nFor each stakeholder in the buying decision, identify:\n- What metric do they care about?\n- How does your product improve it?\n- How would they measure that improvement?\n\n**2. Build a dual value proposition**\n- Buyer message: \"Reduce customer onboarding time by 40% with automated workflows\"\n- User message: \"Set up custom onboarding sequences in minutes without engineering help\"\n\n**3. Quantify wherever possible**\n- Instead of \"improves efficiency\", say \"saves 12 hours per week per team member\"\n- Use customer case studies for proof points\n\n**4. Test with the \"So what?\" drill**\nFor every claimed benefit, ask \"So what?\" three times until you reach a fundamental job-to-be-done.\n\n**5. Create a value hypothesis and validate**\n- Run customer interviews testing the message\n- A/B test landing page copy\n- Measure conversion from trial to paid\n\n## When to use\n\n- When launching a new product or feature\n- When entering a new market segment\n- When repositioning a mature product\n- When sales teams report that prospects \"don't get it\""
     },
     {
-      "slug": "b2b-customer-discovery",
-      "title": "B2B Customer Discovery",
-      "description": "Conducting effective customer interviews and discovery sessions with B2B stakeholders. Includes gatekeeper navigation, multi-threaded discovery, and uncovering hidden pain points.",
-      "body": "Ability to plan and execute structured discovery conversations with multiple stakeholders in a B2B buying process. Includes stakeholder mapping, question design, active listening, and synthesis into opportunity areas. Key skill for validating product-market fit in enterprise contexts.",
-      "type": "skill"
+      "title": "B2B Customer Health Scoring",
+      "slug": "b2b-customer-health-scoring",
+      "type": "skill",
+      "summary": "Building and maintaining a customer health score system to predict churn and identify expansion opportunities",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Customer Health",
+        "Retention",
+        "Customer Success"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nA customer health score is a composite metric that indicates the likelihood of retention, expansion, or churn for each B2B account. It combines product usage data, support interactions, and business signals into a single score.\n\n## How to do it\n\n**1. Define signal categories**\n\nProduct signals (40-50% weight):\n- Login frequency trend (daily, weekly, monthly)\n- Feature adoption breadth (number of features used / total available)\n- Key action completion (did they reach the 'aha moment'?)\n- API call volume trend\n\nSupport signals (20-30% weight):\n- Ticket volume trend\n- Severity distribution\n- CSAT score from support interactions\n- Time to resolution\n\nBusiness signals (20-30% weight):\n- Payment timeliness\n- Contract length remaining\n- Executive sponsor changes\n- NPS score\n\n**2. Set thresholds**\nGreen (80-100): healthy, likely to expand\nYellow (50-79): at risk, requires proactive outreach\nRed (0-49): critical, intervention needed\n\n**3. Automate and alert**\n- Trigger alerts when a Green account drops to Yellow\n- Flag accounts that have been Red for 30+ days\n- Identify expansion candidates (high usage, approaching renewal)\n\n**4. Review cadence**\n- Automated daily scoring\n- Weekly review of accounts that changed colour\n- Monthly deep dive on Red accounts\n\n## When to use\n\n- When you have 50+ B2B accounts\n- When churn is above 5% annually\n- When CS team can't manually track every account"
     },
     {
-      "slug": "b2b-pricing-strategy",
-      "title": "B2B Pricing Strategy",
-      "description": "Designing and iterating pricing models for B2B SaaS products. Covers willingness-to-pay research, packaging, tiering, usage-based vs per-seat models, and discount governance.",
-      "body": "Skill in determining optimal pricing and packaging for B2B products. Includes value-based pricing methodologies, competitive benchmarking, packaging design (features per tier), understanding elasticity, and managing pricing changes without churn.",
-      "type": "skill"
+      "title": "B2B Sales Enablement Asset Creation",
+      "slug": "b2b-sales-enablement",
+      "type": "skill",
+      "summary": "Creating effective sales enablement materials that help sales teams communicate product value",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Sales Enablement",
+        "GTM",
+        "Collateral"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nSales enablement assets are materials that help your sales team effectively communicate your product's value, handle objections, and close deals. In B2B, this includes battle cards, pitch decks, comparison guides, and ROI calculators.\n\n## How to do it\n\n**1. Battle cards**\nFor each competitor, create a one-pager:\n- Their positioning vs ours\n- Key differentiation points (3-5)\n- Common objections and rebuttals\n- Where we lose (be honest) and how to handle it\n- Ideal win scenarios: when we always beat them\n\n**2. Pitch deck framework**\n- Problem: the status quo gap (quantified)\n- Solution: how we solve it (10 words or less)\n- How it works: 3-step visual explanation\n- Proof: customer logos, metrics, testimonials\n- Business case: ROI summary, TCO comparison\n- Next steps: trial, demo, POC offer\n\n**3. ROI calculator**\n- Build a simple spreadsheet model\n- Inputs: number of users, current time spent, hourly cost\n- Output: time saved, cost saved, productivity gain\n- Make it interactive so reps can customise per prospect\n\n**4. Competitive comparison guides**\n- Feature comparison matrix\n- Pricing comparison (apples-to-apples per seat/usage)\n- Integration ecosystem comparison\n- Security/compliance comparison (SOC2, GDPR, etc.)\n\n## When to refresh\n\n- After a product release\n- When a competitor changes pricing or positioning\n- Quarterly for active competitive landscapes"
     },
     {
-      "slug": "enterprise-roadmapping",
-      "title": "Enterprise Roadmapping",
-      "description": "Creating and communicating multi-quarter product roadmaps that balance strategic vision with enterprise customer commitments. Includes theme-based vs feature-based roadmaps.",
-      "body": "The ability to build and maintain product roadmaps that satisfy both internal strategy and external enterprise account needs. Covers roadmap levels (strategic vs committed), managing deal-driven roadmap items, deprecation planning, and communicating trade-offs to executive stakeholders.",
-      "type": "skill"
+      "title": "B2B Product Analytics & Metrics",
+      "slug": "b2b-product-analytics-metrics",
+      "type": "skill",
+      "summary": "Choosing and tracking the right B2B product metrics across acquisition, activation, retention, and revenue",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Analytics",
+        "Metrics",
+        "Data-Driven"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nB2B product analytics focuses on account-level metrics rather than individual user metrics, since a single account often has multiple users. Key frameworks include the B2B version of AARRR (Acquisition, Activation, Retention, Revenue, Referral) with account-level aggregation.\n\n## How to do it\n\n**Account-level AARRR**\n\nAcquisition:\n- Number of new accounts by channel\n- Cost per acquired account\n- Time from lead to signup\n\nActivation:\n- Percentage of accounts that reach their first value moment\n- Time to first value moment\n- Accounts that invite team members in first week\n\nRetention:\n- Net revenue retention (NRR)\n- Gross revenue retention (GRR)\n- Account-level DAU/WAU/MAU\n- Feature stickiness (% of accounts using feature weekly)\n\nRevenue:\n- ARR, ARPU, LTV\n- Expansion revenue from upsells/cross-sells\n- Logo churn rate\n- Contraction rate (downgrades)\n\nReferral:\n- Net Promoter Score (account-level)\n- Referral conversion rate\n\n**Implementation tips**\n- Instrument account_id on every event\n- Use a warehouse-native analytics tool (dbt + Cube, or product analytics with account support)\n- Build a weekly health dashboard for the product team\n- Set explicit targets at the start of each quarter\n\n## Common pitfalls\n\n- Looking at user metrics alone (misleading when one account has 100 users)\n- Not segmenting by account size (enterprise vs SMB behave differently)\n- Vanity metrics (total logins) instead of actionable metrics (active accounts)"
     },
     {
-      "slug": "b2b-stakeholder-management",
-      "title": "B2B Stakeholder Management",
-      "description": "Navigating complex stakeholder relationships across enterprise accounts. Includes managing multiple buyers, handling escalation, and building executive relationships.",
-      "body": "Skill in identifying and managing relationships with all parties in an enterprise buying process: economic buyers, technical evaluators, end users, procurement, and legal. Includes executive communication, escalation management, and building champion networks within accounts.",
-      "type": "skill"
+      "title": "B2B Customer Advisory Board Management",
+      "slug": "b2b-customer-advisory-board",
+      "type": "skill",
+      "summary": "How to establish and run a Customer Advisory Board to get strategic input from key customers",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Customer Advisory Board",
+        "Community",
+        "Product Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nA Customer Advisory Board (CAB) is a group of key customers who provide strategic input on product direction, market needs, and messaging. It's a B2B staple for building customer relationships and validating roadmap decisions.\n\n## How to do it\n\n**1. Recruitment**\n- Invite 8-12 customers who represent your ideal customer profile\n- Mix of champions and executive sponsors\n- Ensure diversity of industry, company size, and use case\n- Offer an incentive (annual meeting, executive access, early features)\n\n**2. Structure**\n- Term: 12-18 months with renewal option\n- Meetings: 2x per year (in-person or virtual)\n- Meeting format: strategy presentation, breakout discussion, product roadmap preview, feedback session\n- Confidentiality: require NDA for early roadmap access\n\n**3. Typical agenda**\n- Market trends & industry insights from members\n- Product roadmap preview and feedback\n- Specific topic deep-dive (pricing, packaging, competitive positioning)\n- Relationship building (dinner, networking)\n\n**4. Managing output**\n- Document every session with action items\n- Close the feedback loop: tell CAB members what changed because of their input\n- Track impact: count roadmap items influenced by CAB feedback\n\n**5. Avoiding pitfalls**\n- Don't let any single member dominate the agenda\n- Don't share confidential information about other customers\n- Don't treat it as a sales event \u2014 it's a strategy forum\n\n## When to start\n\n- When you have 20+ enterprise accounts\n- When you need market validation for a major product bet\n- When customer relationships need deepening beyond the quarterly business review"
     },
     {
-      "slug": "product-led-sales",
-      "title": "Product-Led Sales",
-      "description": "Designing product experiences that generate and qualify leads. Includes PQL design, freemium/free trial strategy, in-app upsell, and sales-assist trigger definition.",
-      "body": "Ability to design product-led growth motions that generate, qualify, and convert leads without traditional sales. Includes defining product-qualified leads (PQLs), designing self-serve onboarding, setting up trial-to-paid conversion paths, and managing sales-assist handoffs.",
-      "type": "skill"
+      "title": "B2B Enterprise Sales Negotiation",
+      "slug": "b2b-enterprise-sales-negotiation",
+      "type": "skill",
+      "summary": "Key principles for product managers supporting enterprise sales negotiations including proof of concepts, security reviews, and contracting",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Enterprise Sales",
+        "Negotiation",
+        "Contracts"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nB2B product managers often get pulled into enterprise sales cycles to support POCs, security reviews, and custom contracting. Understanding this process helps you accelerate deals and avoid over-committing the engineering team.\n\n## How to do it\n\n**1. Proof of Concept (POC) management**\n- Define success criteria before starting: what must be true for the POC to pass?\n- Set a fixed timeline (typically 2-6 weeks)\n- Assign a technical point of contact from the prospect's team\n- Weekly check-ins to track progress and address blockers\n- Document results with a POC report: what worked, what didn't, next steps\n\n**2. Security review support**\n- Prepare a security packet upfront: SOC2 report, penetration test results, data processing agreement, subprocessor list\n- Common B2B questions: encryption at rest and in transit, data residency, backup frequency, access controls\n- Create a self-service security questionnaire to reduce back-and-forth\n\n**3. Contract negotiation**\n- Know your deal desk: what discounts can you approve without escalation?\n- Understand contracting models: annual prepay vs monthly, committed vs consumption\n- Common B2B terms: uptime SLA (99.9%), support response times, data retention after cancellation, mutual indemnification\n- Work with legal to create standard contract templates with acceptable ranges\n\n**4. Avoiding scope creep**\n- Use a structured change order process for any custom work\n- Distinguish between 'configuration' (partners, no code) and 'customisation' (engineering work, fee)\n- Be present in late-stage meetings to catch last-minute feature requests masquerading as 'just a small thing'\n\n## When to get involved\n\n- When the deal is above a revenue threshold\n- When the prospect is a strategic account\n- When there are technical requirements that need product expertise\n- When sales is asking for custom features"
     },
     {
-      "slug": "b2b-metrics-analytics",
-      "title": "B2B Metrics & Analytics",
-      "description": "Selecting and tracking the right metrics for B2B SaaS products. Covers NDR, ARR, logo churn, expansion MRR, time-to-value, and cohort analysis.",
-      "body": "Skill in defining and monitoring key B2B SaaS metrics that drive product decisions. Includes understanding net dollar retention vs logo retention, expansion revenue drivers, cohort-based retention analysis, and building dashboards that differentiate between usage, engagement, and business metrics.",
-      "type": "skill"
+      "title": "B2B Pricing & Packaging Strategy",
+      "slug": "b2b-pricing-packaging-strategy",
+      "type": "skill",
+      "summary": "Frameworks for designing B2B pricing models and packaging features across tiers",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Pricing",
+        "Packaging",
+        "Monetization"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nB2B pricing is rarely a single number. It's a system of tiers, usage limits, and add-ons designed to capture value from different customer segments while leaving room for growth.\n\n## How to do it\n\n**1. Choose a pricing model**\n\nPer-seat pricing: simplest, most common. Works well when value scales linearly with users.\n- Example: $50/user/month, 5-user minimum\n\nUsage-based pricing: customer pays for what they consume.\n- Example: $0.10 per API call, $2 per processed document\n- Pros: aligns cost with value, low barrier to entry\n- Cons: revenue predictability is harder\n\nTiered + usage: base tier includes allocation, overage charged separately.\n- Example: $500/month for 10,000 API calls, $0.05 per additional call\n\nValue-based: priced on outcome delivered.\n- Example: percentage of identified savings, flat fee per workflow automated\n\n**2. Design your tiers**\n- Tier 1 (Starter): low price, essential features, self-serve\n- Tier 2 (Growth): moderate price, most features, some support\n- Tier 3 (Business): higher price, all features, dedicated support\n- Enterprise: custom pricing, SSO, audit logs, SLA, custom contract\n\n**3. Good-better-best pricing psychology**\n- The middle tier should be your best value \u2014 this is what most customers buy\n- The top tier makes the middle look reasonable\n- Feature gate strategically: must-have features in all tiers, nice-to-haves gated up\n\n**4. Pricing review cadence**\n- Quarterly: check competitors and market shifts\n- Annually: review pricing strategy and potentially raise prices for existing customers (with grandfathering option)"
     },
     {
-      "slug": "b2b-partnership-ecosystems",
-      "title": "B2B Partnership & Ecosystem Strategy",
-      "description": "Building and managing ISV partnerships, technology integrations, and platform ecosystems. Includes API partnerships, marketplace strategy, and co-selling motions.",
-      "body": "Ability to identify, negotiate, and maintain strategic partnerships that extend a B2B product's reach. Includes building integration marketplaces, managing co-sell relationships, defining API partnership tiers, and measuring partner-sourced revenue.",
-      "type": "skill"
+      "title": "B2B Go-to-Market Planning",
+      "slug": "b2b-gtm-planning",
+      "type": "skill",
+      "summary": "Building a B2B go-to-market plan including channel strategy, sales model, and launch sequencing",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "GTM",
+        "Go-to-Market",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nA B2B go-to-market (GTM) plan defines how you'll reach, acquire, and retain customers. It covers target segments, channel strategy, sales model, pricing, launch timeline, and success metrics.\n\n## How to do it\n\n**1. Define target segments**\n- Ideal Customer Profile (ICP): industry, company size, maturity, tech stack\n- Personas: buyer vs user, their priorities, where they spend time\n- Total Addressable Market (TAM): number of accounts \u00d7 average contract value\n\n**2. Choose sales model**\n- Self-serve: signup, trial, credit card \u2014 works for SMB, low ACV (<$5K)\n- Inside sales: inbound leads + outbound calls \u2014 works for mid-market ($5K-$50K)\n- Field sales: enterprise reps, relationship-driven \u2014 works for enterprise ($50K+)\n- Channel/partners: resellers, MSPs, integrations \u2014 extends reach\n\n**3. Channel strategy**\n- Direct: website, content marketing, paid ads, sales team\n- Indirect: partners, agencies, marketplaces, referrals\n- Pick primary and secondary channels based on cost per acquired account\n\n**4. Launch phases**\n- Beta: 5-10 design partners, high-touch, focused on product feedback\n- Early access: 50-100 accounts, monitored onboarding, case studies created\n- General availability: full marketing push, sales team trained, self-serve enabled\n- Scale: channel expansion, international, enterprise sales motion\n\n**5. Metrics to track**\n- CAC (customer acquisition cost) by channel\n- LTV/CAC ratio (target: 3x+)\n- Time to close by segment\n- Pipeline velocity\n- Win rate by source"
     },
     {
+      "title": "B2B Compliance & Security Readiness",
       "slug": "b2b-compliance-security",
-      "title": "B2B Compliance & Security Knowledge",
-      "description": "Understanding enterprise compliance requirements (SOC 2, GDPR, HIPAA) and translating them into product decisions. Includes security review support and vendor assessment navigation.",
-      "body": "Working knowledge of enterprise compliance frameworks that affect product design and go-to-market. Includes understanding SOC 2 Type II, GDPR, HIPAA, FedRAMP requirements and how they impact feature development, data architecture, and deployment options.",
-      "type": "skill"
+      "type": "skill",
+      "summary": "Understanding and preparing for B2B compliance requirements including SOC 2, GDPR, and enterprise security reviews",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Compliance",
+        "Security",
+        "Enterprise"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nEnterprise B2B buyers require proof of security and compliance before purchasing. SOC 2 Type II is the baseline, with HIPAA, ISO 27001, and GDPR being common asks depending on your market.\n\n## How to do it\n\n**1. SOC 2 readiness**\n- SOC 2 Type I: point-in-time audit (3-6 months prep)\n- SOC 2 Type II: controls operated over 6-12 months\n- Common trust principles: Security, Availability, Processing Integrity, Confidentiality, Privacy\n- Most B2B SaaS starts with Security + Confidentiality\n- Tools: Vanta, Drata, Secureframe automate evidence collection\n\n**2. GDPR compliance**\n- Data Processing Agreement (DPA) for EU customers\n- Data residency options (US, EU)\n- Data deletion and export API\n- Cookie consent and privacy policy\n- Data Protection Officer contact\n\n**3. Security review packet**\nCreate a reusable packet with:\n- SOC 2 report (latest)\n- Penetration test results (annual)\n- Vulnerability management policy\n- Incident response plan\n- Subprocessor list and DPA\n- Encryption: TLS 1.2+ in transit, AES-256 at rest\n- Access control: SSO/SAML, RBAC, MFA, session management\n- Backup frequency and disaster recovery plan\n\n**4. Building security into product**\n- Authentication: SSO/SAML is a table-stakes requirement for enterprise\n- Authorization: RBAC with ability to create custom roles\n- Audit logging: who did what, when, from where \u2014 retained minimum 90 days\n- Data retention: configurable retention period, bulk deletion API\n- API security: rate limiting, IP whitelisting, API key rotation\n\n## When to invest\n\n- SOC 2: when first enterprise customer asks for it (usually between 5-20 employees)\n- GDPR: when you have EU customers (or plan to)\n- HIPAA: only if selling to healthcare"
     },
     {
-      "slug": "b2b-platform-product-management",
-      "title": "Platform Product Management",
-      "description": "Managing internal platforms, APIs, and infrastructure as products for internal and external developers. Includes developer experience, versioning, and platform ROI.",
-      "body": "Skill in treating platforms, APIs, and internal tools as first-class products with their own user personas (developers), OKRs, and roadmaps. Includes API-first design, developer portal management, deprecation strategy, and measuring platform adoption and developer satisfaction.",
-      "type": "skill"
+      "title": "B2B Product-Led Growth Foundations",
+      "slug": "b2b-plg-foundations",
+      "type": "skill",
+      "summary": "Applying product-led growth principles in a B2B context with a free trial, self-serve onboarding, and virality",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Growth",
+        "Self-Serve"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nProduct-led growth (PLG) means the product itself drives acquisition, retention, and expansion \u2014 rather than a sales team. In B2B, PLG works best for products with low switching costs, clear individual value, and collaborative team features.\n\n## How to do it\n\n**1. Self-serve signup flow**\n- No sales call required to start using the product\n- Email or SSO signup, automatic workspace creation\n- Immediate access to core features (not a gated demo)\n- Time-to-value: under 5 minutes from signup to first success\n\n**2. Free tier or trial design**\n- Free tier: limited features or usage, no time limit\n- Time-limited trial: full features for 14-30 days\n- Usage-limited trial: free up to an action count, then upgrade\n- Best approach: free tier with generous limits, then paid beyond\n\n**3. Team virality**\n- Build collaboration into the core experience\n- Make it easy to invite teammates (and show value of having them)\n- Shared workspaces, collaborative documents, team dashboards\n- When teammates join, the original user's stickiness increases\n\n**4. Expansion triggers**\n- Usage approaching plan limits\n- Number of team members approaching plan cap\n- Feature discovery prompts: 'Want advanced analytics? Upgrade to Growth plan'\n- Time-based: send upgrade prompts after N days of active use\n\n**5. B2B PLG + sales hybrid**\n- PLG handles SMB and self-serve motion\n- Sales handles enterprise leads (triggered by domain-based routing or usage thresholds)\n- PQL (product-qualified lead): account hits activation milestone \u2192 sales outreach\n\n## Common mistakes\n\n- Making signup too complex (enterprise features up front)\n- Not having a clear 'aha moment' defined\n- Trying PLG with a product that requires heavy configuration or training\n- Ignoring account-level analytics (treating each user independently)"
     },
     {
-      "slug": "b2b-continuous-discovery",
-      "title": "Continuous B2B Discovery",
-      "description": "Running ongoing product discovery in B2B contexts with long sales cycles and small user bases. Includes opportunity solution trees, assumption mapping, and low-fidelity prototyping for enterprise.",
-      "body": "Ability to maintain a continuous discovery cadence despite the challenges of B2B (fewer users, longer sales cycles, harder access to decision-makers). Includes adapting Teresa Torres' framework for B2B, using design sprints for enterprise validation, and balancing discovery with delivery in resource-constrained teams.",
-      "type": "skill"
+      "title": "B2B Requirements Prioritisation",
+      "slug": "b2b-requirements-prioritisation",
+      "type": "skill",
+      "summary": "Frameworks for prioritising B2B feature requests across many stakeholders with conflicting needs",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Prioritisation",
+        "Roadmap",
+        "Decision Making"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "body": "## What it is\n\nIn B2B, you'll receive conflicting feature requests from sales (closing deals), support (retention), executives (strategy), and customers (their specific needs). A structured prioritisation framework helps you make defensible decisions.\n\n## How to do it\n\n**1. Opportunity scoring**\nFor each request, score 1-5 on:\n- Revenue impact: how much ACV or pipeline does this unlock?\n- Customer count: how many accounts need this?\n- Strategic alignment: does it support our product vision?\n- Engineering effort: how complex is it to build? (inverse score)\n- Risk: does not doing this cause churn?\n\n**2. RICE framework (B2B adapted)**\n- Reach: how many accounts per quarter?\n- Impact: revenue per account (low/medium/high with numeric multiplier)\n- Confidence: how sure are we of the estimates?\n- Effort: engineering person-weeks\n\n**3. ICE framework (for growth experiments)**\n- Impact on metric\n- Confidence it will work\n- Ease of implementation\n\n**4. Outcome-driven roadmap**\nInstead of feature backlog, define desired outcomes:\n- 'Increase 30-day activation rate from 40% to 60%'\n- 'Reduce time-to-first-value from 14 days to 3 days'\n- 'Improve NRR from 95% to 110%'\n\n**5. Saying no gracefully**\n- Explain the trade-off: 'We chose X over Y because it serves 3x more customers'\n- Use the roadmap as your 'no' document \u2014 if it's not on the roadmap, the answer is 'not now'\n- Offer alternatives: workaround, integration, partner solution\n- Keep a 'backlog' but be transparent that it's an ideas list, not a commitment"
     },
     {
-      "slug": "product-board",
-      "title": "Productboard",
-      "description": "Product management platform focused on B2B insight collection, prioritization, and roadmapping with customer portal. Strong integrations with Salesforce, Jira, and Zendesk.",
-      "url": "https://www.productboard.com/",
-      "category": "Roadmapping & Prioritization",
-      "type": "tool"
+      "title": "Gong Revenue Intelligence",
+      "slug": "gong-revenue-intelligence",
+      "type": "tool",
+      "summary": "AI-powered platform that captures and analyses customer calls to uncover buying signals, objections, and competitive intelligence",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Sales Intelligence",
+        "Customer Insights",
+        "AI"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.gong.io",
+      "body": "## What it helps with\n\nGong records, transcribes, and analyses sales calls, product demos, and customer meetings. For B2B product managers, it's a goldmine of unfiltered customer feedback \u2014 real objections, feature requests in context, competitive mentions, and how customers actually talk about your product.\n\n## Suggested workflow\n\n1. Ask sales to share access or set up automated deal-level sharing\n2. Search for key terms: your product name, competitor names, specific feature requests\n3. Filter by deal stage to understand how conversations change through the buying process\n4. Listen to calls where deals were lost to understand competitive positioning gaps\n5. Extract themes quarterly and feed into your product roadmap prioritisation"
     },
     {
-      "slug": "amplitude",
-      "title": "Amplitude",
-      "description": "Product analytics platform for understanding B2B user behavior. Behavioral cohorts, funnel analysis, retention curves, and feature adoption tracking for enterprise products.",
-      "url": "https://amplitude.com/",
-      "category": "Analytics",
-      "type": "tool"
+      "title": "Amplitude for B2B Product Analytics",
+      "slug": "amplitude-b2b-product-analytics",
+      "type": "tool",
+      "summary": "Product analytics platform with account-level analysis, behavioural cohorts, and experimentation for B2B products",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Analytics",
+        "Product Analytics",
+        "Experimentation"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://amplitude.com",
+      "body": "## What it helps with\n\nAmplitude helps B2B product teams understand how entire accounts (not just individual users) engage with their product. Key features: account-level charts, behavioural cohorts, funnel analysis, retention analysis, and A/B testing.\n\n## Suggested workflow\n\n1. Instrument account_id on every event from day one\n2. Define account-level 'active' status (e.g. 5+ users active in a week)\n3. Build activation funnels at account level: signup \u2192 setup \u2192 invite team \u2192 first value\n4. Create behavioural cohorts: accounts that use Feature A \u2192 do they retain better?\n5. Set up account health scoring using Amplitude's predictive features\n6. Run experiments on onboarding flow, pricing page, or feature discovery"
     },
     {
-      "slug": "pendo",
-      "title": "Pendo",
-      "description": "Product adoption and digital adoption platform. In-app guides, NPS surveys, and feature engagement analytics. Strong B2B enterprise feature set including multi-product views.",
-      "url": "https://www.pendo.io/",
-      "category": "Product Adoption & Analytics",
-      "type": "tool"
+      "title": "Intercom for B2B Customer Communication",
+      "slug": "intercom-b2b-customer-communication",
+      "type": "tool",
+      "summary": "Customer communication platform with in-app messaging, chatbots, product tours, and help centre for B2B SaaS",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Customer Communication",
+        "Support",
+        "Onboarding"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.intercom.com",
+      "body": "## What it helps with\n\nIntercom enables B2B product teams to communicate with customers inside the product through messages, product tours, and a help centre. Product managers use it to: onboard new accounts with guided tours, collect in-product feedback, send targeted announcements about new features, and identify accounts needing attention based on behaviour.\n\n## Suggested workflow\n\n1. Set up a welcome series for new accounts with a 3-step product tour\n2. Create targeted messages based on account plan type and usage behaviour\n3. Build a help centre with searchable documentation tied to product context\n4. Use in-app surveys for feature feedback and NPS\n5. Set up alerts for accounts showing signs of churn (no logins in 14 days)\n6. Analyse support ticket topics quarterly to identify product improvement opportunities"
     },
     {
-      "slug": "stripe-billing",
-      "title": "Stripe Billing",
-      "description": "B2B subscription management and billing platform. Supports usage-based pricing, tiered plans, invoicing, and revenue recognition. Essential for any B2B SaaS product.",
-      "url": "https://stripe.com/billing",
-      "category": "Billing & Monetization",
-      "type": "tool"
+      "title": "Mixpanel for Product Analytics",
+      "slug": "mixpanel-b2b-product-analytics",
+      "type": "tool",
+      "summary": "Product analytics with account-level insights, session replay, and feature adoption tracking for B2B products",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Analytics",
+        "Product Analytics",
+        "User Insights"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://mixpanel.com",
+      "body": "## What it helps with\n\nMixpanel tracks user and account behaviour across your product. For B2B PMs, its account-level reporting and session replay features help understand how teams adopt your product. Key strengths: flexible event tracking, powerful segmentation, data visualisation, and mobile SDK support.\n\n## Suggested workflow\n\n1. Instrument your product with Mixpanel SDK, tagging all key actions\n2. Define account-level metrics: accounts active, feature adoption per account, account retention\n3. Build funnels for critical flows: invite flow, setup wizard, first API call\n4. Use session replay to watch how real users (anonymised) navigate your product\n5. Create cohorts to compare behaviour of retained vs churned accounts\n6. Set up dashboards for weekly product health review"
     },
     {
-      "slug": "hotjar",
-      "title": "Hotjar",
-      "description": "Experience analytics tool with session recordings, heatmaps, and surveys. Useful for B2B user research and understanding how enterprise users interact with complex interfaces.",
-      "url": "https://www.hotjar.com/",
-      "category": "User Research & Analytics",
-      "type": "tool"
+      "title": "Salesforce for B2B CRM and Pipeline",
+      "slug": "salesforce-b2b-crm",
+      "type": "tool",
+      "summary": "Enterprise CRM for tracking B2B sales pipeline, account management, and product-influenced deal insights",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "CRM",
+        "Sales Pipeline",
+        "Enterprise"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.salesforce.com",
+      "body": "## What it helps with\n\nSalesforce is the ubiquitous B2B CRM. For product managers, it helps connect product decisions to revenue outcomes: which deals are being influenced by which features, what objections are closing or losing deals, and how product changes affect pipeline velocity.\n\n## Suggested workflow\n\n1. Ensure product feedback fields are added to Opportunity objects (feature interest, competitor mentioned, primary objection)\n2. Build a dashboard showing: deals won/lost by feature request, competitive win/loss rates, and average deal size by product area\n3. Integrate with product analytics (Amplitude/Mixpanel) to correlate product engagement with deal stage\n4. Work with sales ops to create automated alerts when a strategic deal hits an objection your product can address\n5. Quarterly: review lost deal reasons and feed into product roadmap \n6. Use Einstein Analytics for predictive insights on which accounts are likely to expand or churn based on product usage"
     },
     {
-      "slug": "launchdarkly",
-      "title": "LaunchDarkly",
-      "description": "Feature management platform for B2B products. Gradual rollouts, A/B testing, targeting by customer segment, and kill switches for enterprise reliability.",
-      "url": "https://launchdarkly.com/",
-      "category": "Feature Management & Experimentation",
-      "type": "tool"
+      "title": "FigJam for B2B Product Workshops",
+      "slug": "figjam-b2b-product-workshops",
+      "type": "tool",
+      "summary": "Collaborative whiteboarding tool for remote B2B product workshops including stakeholder mapping, opportunity sizing, and roadmap planning",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Workshops",
+        "Collaboration",
+        "Whiteboarding"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.figma.com/figjam",
+      "body": "## What it helps with\n\nFigJam (by Figma) is an online whiteboard tool perfect for B2B product management workshops: persona mapping sessions, opportunity solution trees, stakeholder influence mapping, and roadmap visualisation. Its template library includes many product management frameworks.\n\n## Suggested workflow\n\n1. Use the Personas template to build B2B buyer and user personas collaboratively\n2. Run opportunity solution tree workshops: start with desired outcome \u2192 explore opportunities \u2192 propose solutions \u2192 test assumptions\n3. Facilitate stakeholder mapping sessions with Sales, CS, and Support teams\n4. Visualise the buying journey: from awareness to signed contract to onboarded account\n5. Export workshop outcomes to product documentation or directly to your Linear/Notion backlog\n6. Share with remote teams asynchronously using timestamped comments"
     },
     {
-      "slug": "linear",
-      "title": "Linear",
-      "description": "Issue tracking and project management for product teams. Keyboard-first, fast, and developer-friendly. Strong API for automation and integrations with GitHub/GitLab.",
-      "url": "https://linear.app/",
-      "category": "Project Management",
-      "type": "tool"
+      "title": "Pendo for In-App Guidance and Analytics",
+      "slug": "pendo-b2b-product-experience",
+      "type": "tool",
+      "summary": "Product experience platform with in-app guides, feature adoption analytics, and feedback collection for B2B SaaS",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Product Experience",
+        "In-App Guidance",
+        "Analytics"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.pendo.io",
+      "body": "## What it helps with\n\nPendo helps B2B product teams understand feature adoption at account level and drive user behaviour through in-app guides, tooltips, and walkthroughs. For B2B PMs, its account-level analytics tie product usage directly to account health.\n\n## Suggested workflow\n\n1. Tag your UI elements to track feature usage per account\n2. Create a product adoption dashboard: feature usage trends, stickiness ratios, top accounts by engagement\n3. Build in-app guides for new feature launches: targeted tooltips that only appear for relevant accounts\n4. Use polls and NPS surveys to collect feedback inside the product\n5. Set up 'paths' analysis to see how accounts navigate onboarding vs power users\n6. Identify feature drop-off and create re-engagement campaigns"
     },
     {
-      "slug": "retool",
-      "title": "Retool",
-      "description": "Low-code platform for building internal B2B tools. Connect to any database or API to create admin panels, customer dashboards, and internal CRUD apps quickly.",
-      "url": "https://retool.com/",
-      "category": "Internal Tooling",
-      "type": "tool"
+      "title": "Canny for B2B Feature Requests",
+      "slug": "canny-b2b-feature-requests",
+      "type": "tool",
+      "summary": "Dedicated customer feedback board for collecting, prioritising, and communicating about B2B feature requests",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "Feature Requests",
+        "Feedback",
+        "Community"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://canny.io",
+      "body": "## What it helps with\n\nCanny provides a public or private feedback board where B2B customers can submit and vote on feature requests. It replaces the inbox flood of 'can you add X?' with a structured, transparent system that helps prioritisation.\n\n## Suggested workflow\n\n1. Set up a public portal (or private per-account boards for enterprise)\n2. Let customers submit ideas with categories and tags\n3. Enable voting (upvote, not a score \u2014 one vote per account to avoid gaming)\n4. Link each request to a Linear issue for traceability\n5. Use status labels: Under Review, Planned, In Progress, Shipped, Declined\n6. Close the loop: comment on every request explaining the decision rationale\n7. Review quarterly: top-voted requests become input for roadmap planning\n8. Integrate with Slack for internal notifications on high-impact requests"
     },
     {
-      "slug": "canny",
-      "title": "Canny",
-      "description": "Customer feedback management platform for B2B. Collect, organize, and prioritize feature requests with public or private roadmaps. Integrates with Intercom, Zendesk, and Slack.",
-      "url": "https://canny.io/",
-      "category": "Customer Feedback & Roadmapping",
-      "type": "tool"
+      "title": "Hotjar for B2B UX Research",
+      "slug": "hotjar-b2b-ux-research",
+      "type": "tool",
+      "summary": "Behaviour analytics platform with session recordings, heatmaps, and in-product surveys for B2B UX improvements",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "UX Research",
+        "Session Recording",
+        "Heatmaps"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.hotjar.com",
+      "body": "## What it helps with\n\nHotjar provides session recordings, heatmaps, and in-product surveys that help B2B product managers understand how users navigate complex enterprise workflows. It reveals where users get stuck, which UI elements get ignored, and what confuses new users during onboarding.\n\n## Suggested workflow\n\n1. Install the tracking snippet across your product\n2. Set up funnels to identify where users drop off in key B2B flows (e.g., integration setup, team invitation, billing configuration)\n3. Watch session recordings of: first-time users, users who triggered errors, and power users exploring advanced features\n4. Deploy exit-intent surveys to understand why visitors didn't convert\n5. Use heatmaps on pricing and documentation pages to see what questions users have\n6. Create feedback widgets on specific pages for contextual input\n7. Compile quarterly UX audit based on recording patterns and survey responses"
     },
     {
-      "slug": "segment",
-      "title": "Segment (Twilio Segment)",
-      "description": "Customer data platform for B2B. Collect, unify, and route customer data across analytics, marketing, and product tools. Essential for building a single view of the enterprise customer.",
-      "url": "https://segment.com/",
-      "category": "Customer Data Platform",
-      "type": "tool"
+      "title": "User Interviews for B2B Research",
+      "slug": "user-interviews-b2b-research",
+      "type": "tool",
+      "summary": "Platform for recruiting, scheduling, and managing B2B user research participants",
+      "author": "MILO Team",
+      "tags": [
+        "B2B",
+        "User Research",
+        "Recruiting",
+        "Interviews"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.userinterviews.com",
+      "body": "## What it helps with\n\nUser Interviews is a platform for recruiting research participants. For B2B product managers, it solves the hardest part of user research: finding qualified participants from your target market (by title, industry, company size, tech stack) and scheduling interviews without the back-and-forth.\n\n## Suggested workflow\n\n1. Define your screener criteria: job title, seniority, industry, company size, current tools used\n2. Create a research project with your target participant count and incentives\n3. Use the platform's panel or your own customer list to recruit\n4. Automate scheduling with calendar sync and reminders\n5. Conduct interviews (record via Zoom/Meet built-in)\n6. Use the tool's tagging and note features to capture key findings\n7. Export insights to your research repository (Dovetail, Condens, or Notion)"
+    },
+    {
+      "title": "Escaping the Build Trap",
+      "slug": "escaping-the-build-trap",
+      "type": "book",
+      "summary": "How effective product management creates organisations that ship the right things, with strong B2B product organisation examples",
+      "author": "MILO Team",
+      "creator": "Melissa Perri",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Product Strategy",
+        "Leadership"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/42611420-escaping-the-build-trap",
+      "body": "## Why it is worth reading\n\nMelissa Perri provides a comprehensive framework for building product-led organisations. For B2B PMs, the chapters on outcome vs output, product strategy, and structuring product teams are directly applicable. The case studies feature B2B companies navigating the transition from project-based to product-based thinking.\n\n## Best for\n\nB2B Product Managers at any level, especially those in organisations transitioning to product-led\n\n## Key takeaway\n\nStop measuring success by shipping features. Define business outcomes, build a product strategy that connects those outcomes to customer needs, and structure your teams to deliver value continuously."
+    },
+    {
+      "title": "Inspired: How to Create Products Customers Love",
+      "slug": "inspired-products-customers-love",
+      "type": "book",
+      "summary": "The definitive guide to product management with dedicated sections on B2B enterprise product discovery and delivery",
+      "author": "MILO Team",
+      "creator": "Marty Cagan",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Product Discovery",
+        "Product Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/35227863-inspired",
+      "body": "## Why it is worth reading\n\nMarty Cagan's book is widely considered the product management bible. The second half of the book specifically addresses B2B and enterprise product management, including chapters on sales-driven vs product-driven companies, managing stakeholders, and running product discovery with enterprise customers.\n\n## Best for\n\nAll product managers; essential reading for anyone working on B2B products\n\n## Key takeaway\n\nGreat products come from empowered product teams that combine deep customer empathy with business understanding and technology. Discovery (prototyping and testing) is just as important as delivery."
+    },
+    {
+      "title": "Crossing the Chasm",
+      "slug": "crossing-the-chasm",
+      "type": "book",
+      "summary": "Classic framework for taking B2B technology products from early adopters to mainstream market",
+      "author": "MILO Team",
+      "creator": "Geoffrey A. Moore",
+      "tags": [
+        "B2B",
+        "GTM",
+        "Product Strategy",
+        "Technology Adoption"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/61330.Crossing_the_Chasm",
+      "body": "## Why it is worth reading\n\nCrossing the Chasm remains the definitive playbook for B2B technology adoption. Moore's model of the technology adoption lifecycle \u2014 innovators, early adopters, early majority, late majority, laggards \u2014 and the 'chasm' between early adopters and early majority is essential reading for any B2B product manager launching a new product or entering a new market.\n\n## Best for\n\nB2B Product Managers launching new products or entering new segments\n\n## Key takeaway\n\nFocus on a single beachhead segment and build a 'whole product' solution before expanding. Don't try to serve everyone at once \u2014 you'll serve no one well."
+    },
+    {
+      "title": "The Mom Test",
+      "slug": "the-mom-test",
+      "type": "book",
+      "summary": "Practical guide to conducting honest customer conversations that reveal real needs, especially relevant for B2B discovery",
+      "author": "MILO Team",
+      "creator": "Rob Fitzpatrick",
+      "tags": [
+        "B2B",
+        "Customer Discovery",
+        "User Research",
+        "Interviews"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/52283963-the-mom-test",
+      "body": "## Why it is worth reading\n\nThe Mom Test is a short, practical book about how to avoid false positives in customer conversations. For B2B PMs, its lessons on asking about specific past behaviour (not hypothetical future intent), talking about money early, and avoiding 'compliments' that waste your time are invaluable when doing discovery with busy enterprise customers.\n\n## Best for\n\nProduct Managers, founders, and anyone conducting customer interviews\n\n## Key takeaway\n\nDon't ask if they'd buy your idea. Ask about their current workflow, what they've tried before, and whether they've spent money solving this problem. Real commitments (time, money, reputation) are the only signals that matter."
+    },
+    {
+      "title": "Good Strategy Bad Strategy",
+      "slug": "good-strategy-bad-strategy",
+      "type": "book",
+      "summary": "Framework for developing coherent strategy with focus on diagnosing challenges and creating coordinated action",
+      "author": "MILO Team",
+      "creator": "Richard Rumelt",
+      "tags": [
+        "B2B",
+        "Strategy",
+        "Product Strategy",
+        "Leadership"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/11721966-good-strategy-bad-strategy",
+      "body": "## Why it is worth reading\n\nRumelt provides a clear, actionable definition of what strategy actually is: a diagnosis of the challenge, a guiding policy, and coherent actions. For B2B PMs, this framework helps differentiate between genuine product strategy and vague aspirations like 'grow market share'.\n\n## Best for\n\nSenior Product Managers, Product Directors, and anyone responsible for product strategy\n\n## Key takeaway\n\nStrategy identifies the key challenge, sets a clear direction, and coordinates actions to overcome that challenge. Bad strategy is fluff: it fails to define the problem and confuses goals with strategy."
+    },
+    {
+      "title": "The Lean Startup",
+      "slug": "the-lean-startup",
+      "type": "book",
+      "summary": "Build-measure-learn methodology adapted for B2B with enterprise validation, pivots, and innovation accounting",
+      "author": "MILO Team",
+      "creator": "Eric Ries",
+      "tags": [
+        "B2B",
+        "Lean",
+        "Startup",
+        "Agile"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/10127019-the-lean-startup",
+      "body": "## Why it is worth reading\n\nWhile examples skew B2C, the core concepts \u2014 build-measure-learn, minimum viable product, innovation accounting, and pivot-or-persevere \u2014 are directly applicable to B2B. The key adaptation is that your MVP with enterprise customers might be a concierge service or a manual process that delivers value while you learn.\n\n## Best for\n\nProduct Managers working on new products, features, or entering new markets\n\n## Key takeaway\n\nValidate your riskiest assumptions first. Ship a minimal version that tests your hypothesis, measure customer behaviour, learn whether to pivot or persevere. Speed of learning is the competitive advantage."
+    },
+    {
+      "title": "Hacking Growth",
+      "slug": "hacking-growth",
+      "type": "book",
+      "summary": "Growth hacking frameworks applied to B2B with account-level acquisition, activation, and expansion tactics",
+      "author": "MILO Team",
+      "creator": "Sean Ellis & Morgan Brown",
+      "tags": [
+        "B2B",
+        "Growth",
+        "Product-Led Growth",
+        "Experimentation"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/35099722-hacking-growth",
+      "body": "## Why it is worth reading\n\nThe book provides a structured approach to growth: building a growth team, identifying growth levers, running experiments, and scaling what works. For B2B PMs, the chapters on activation loops and retention engines (rather than just acquisition) are particularly useful.\n\n## Best for\n\nProduct Managers working on growth, activation, or retention\n\n## Key takeaway\n\nGrowth is not a one-time campaign \u2014 it's a continuous process of experimentation built into how your team operates. Focus on the 'aha moment' that makes customers stick and build retention loops before scaling acquisition."
+    },
+    {
+      "title": "Competing Against Luck",
+      "slug": "competing-against-luck",
+      "type": "book",
+      "summary": "Jobs-to-be-done framework for understanding why customers hire and fire products, with B2B examples",
+      "author": "MILO Team",
+      "creator": "Clayton Christensen",
+      "tags": [
+        "B2B",
+        "JTBD",
+        "Innovation",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/40738064-competing-against-luck",
+      "body": "## Why it is worth reading\n\nChristensen's Jobs-to-be-Done theory is a powerful lens for B2B product management. Instead of focusing on demographics or features, ask: what 'job' does the customer hire your product to do? The B2B examples show how understanding the progress a customer wants to make (not just their functional need) leads to breakthrough products.\n\n## Best for\n\nProduct Managers looking for a customer-needs-first framework\n\n## Key takeaway\n\nCustomers don't buy products; they 'hire' them to make progress in a specific circumstance. Understanding the functional, emotional, and social dimensions of that job reveals opportunities competitors miss."
+    },
+    {
+      "title": "The Challenger Sale",
+      "slug": "the-challenger-sale",
+      "type": "book",
+      "summary": "Research-backed sales methodology for complex B2B deals that product managers should understand to align product and sales",
+      "author": "MILO Team",
+      "creator": "Matthew Dixon & Brent Adamson",
+      "tags": [
+        "B2B",
+        "Sales",
+        "GTM",
+        "Enterprise Sales"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/13031353-the-challenger-sale",
+      "body": "## Why it is worth reading\n\nCEB research found that the most effective B2B sales reps don't build relationships \u2014 they challenge the customer's thinking. For B2B PMs, understanding this helps you create sales enablement materials that teach, tailor, and take control of the conversation, rather than just listing features.\n\n## Best for\n\nB2B Product Managers working closely with sales teams\n\n## Key takeaway\n\nThe most effective B2B sales approach is to teach prospects something new about their business, tailor the message to their specific context, and take control of the sales conversation with commercial teaching."
+    },
+    {
+      "title": "Continuous Discovery Habits",
+      "slug": "continuous-discovery-habits",
+      "type": "book",
+      "summary": "Practical habits for running ongoing product discovery with B2B customers including opportunity trees and structured interviews",
+      "author": "MILO Team",
+      "creator": "Teresa Torres",
+      "tags": [
+        "B2B",
+        "Product Discovery",
+        "Customer Research",
+        "Agile"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.goodreads.com/book/show/58061921-continuous-discovery-habits",
+      "body": "## Why it is worth reading\n\nTeresa Torres provides a structured, weekly cadence for product discovery that works for B2B teams. The book covers opportunity solution trees, structured customer interviews, and how to integrate discovery with delivery. For B2B PMs with limited access to customers, the interviewing and synthesising methods are especially practical.\n\n## Best for\n\nProduct Managers who want a systematic approach to discovery\n\n## Key takeaway\n\nDiscovery is not a phase \u2014 it's a continuous habit. Map desired outcomes to opportunities to solutions, interview customers weekly (even 15-minute calls), and visualise your thinking with opportunity solution trees."
+    },
+    {
+      "title": "B2B Product Discovery with Enterprise Customers",
+      "slug": "b2b-enterprise-discovery-video",
+      "type": "video",
+      "summary": "How Teresa Torres adapts continuous discovery practices for long-cycle enterprise B2B sales environments",
+      "author": "MILO Team",
+      "creator": "Teresa Torres / Product Talk",
+      "tags": [
+        "B2B",
+        "Product Discovery",
+        "Enterprise",
+        "Customer Research"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=BCzLcLZ7tKc",
+      "body": "## Why it is worth watching\n\nTeresa Torres, author of Continuous Discovery Habits, addresses the specific challenge of doing discovery in B2B contexts where you have limited access to customers, long sales cycles, and multiple stakeholders per account.\n\n## Best for\n\nB2B Product Managers struggling to get regular customer access\n\n## Key takeaway\n\nYou don't need massive sample sizes \u2014 4-6 well-structured interviews per quarter with the right stakeholders can surface 90%+ of the critical insights. Focus on recent, specific behaviour, not opinions."
+    },
+    {
+      "title": "Why B2B Products Die: The Feature Fallacy",
+      "slug": "feature-fallacy-b2b-video",
+      "type": "video",
+      "summary": "Why adding more features hurts B2B products and what to do instead",
+      "author": "MILO Team",
+      "creator": "Marty Cagan / SVPG",
+      "tags": [
+        "B2B",
+        "Product Strategy",
+        "Feature Creep",
+        "Product Management"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=Uz2Q5q0tY9g",
+      "body": "## Why it is worth watching\n\nMarty Cagan explains why the 'feature team' model \u2014 where product managers just take orders from sales and stakeholders \u2014 leads to bloated, unloved B2B products. He makes the case for empowered product teams focused on outcomes.\n\n## Best for\n\nB2B Product Managers in sales-driven organisations\n\n## Key takeaway\n\nStop measuring your team by how many features they ship. Measure by business outcomes achieved. Empower your team to solve problems, not just implement stakeholder requests."
+    },
+    {
+      "title": "Shape Up: Building B2B Products in Six-Week Cycles",
+      "slug": "shape-up-b2b-video",
+      "type": "video",
+      "summary": "Ryan Singer explains how Basecamp's Shape Up methodology applies to B2B product development",
+      "author": "MILO Team",
+      "creator": "Ryan Singer / 37signals",
+      "tags": [
+        "B2B",
+        "Shape Up",
+        "Product Development",
+        "Methodology"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=uTNSr6C5GjM",
+      "body": "## Why it is worth watching\n\nRyan Singer walks through how Shape Up \u2014 a product development methodology from Basecamp \u2014 works for B2B products. He covers shaping, betting, and building in six-week cycles with a cool-down period.\n\n## Best for\n\nB2B Product Managers looking for an alternative to Scrum/Kanban\n\n## Key takeaway\n\nFixed time, variable scope. Define the 'appetite' (how much time to spend) and shape the problem to fit within it. If it won't fit, don't start \u2014 wait until a smaller version emerges."
+    },
+    {
+      "title": "B2B Product-Led Growth vs Sales-Led: When and How",
+      "slug": "plg-vs-sales-b2b-video",
+      "type": "video",
+      "summary": "OpenView Partners' analysis of when to choose product-led growth vs sales-led for B2B products",
+      "author": "MILO Team",
+      "creator": "Kyle Poyar / OpenView",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Product-Led Growth",
+        "GTM Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=rEf4e1MlWYk",
+      "body": "## Why it is worth watching\n\nKyle Poyar (formerly OpenView) breaks down the key differences between product-led and sales-led GTM motions, and importantly, how to combine them. He uses examples from Calendly, Canva, and Expensify to show how PLG works in practice.\n\n## Best for\n\nB2B Product Managers evaluating GTM strategy for their product\n\n## Key takeaway\n\nProduct-led and sales-led are not mutually exclusive. Many successful B2B companies start product-led for land and add sales-led for expand. Let the product qualify leads, then bring in sales for high-value deals."
+    },
+    {
+      "title": "From Zero to Enterprise: B2B SaaS Product Journey",
+      "slug": "zero-to-enterprise-b2b-video",
+      "type": "video",
+      "summary": "How to evolve your B2B product from SMB self-serve to enterprise-grade with SSO, RBAC, and compliance",
+      "author": "MILO Team",
+      "creator": "Elena Verna / Amplitude",
+      "tags": [
+        "B2B",
+        "Enterprise",
+        "SaaS",
+        "Product Evolution"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=BCzLcLZ7tKc",
+      "body": "## Why it is worth watching\n\nElena Verna (former SVP Growth at Amplitude, now at Dropbox) shares her framework for taking a B2B product upmarket. She covers when to add enterprise features, how to balance product-led with sales-led, and the metrics that matter at each stage.\n\n## Best for\n\nB2B Product Managers planning an upmarket move\n\n## Key takeaway\n\nDon't build enterprise features before you have enterprise demand. Let customers pay for what they need: start with self-serve, add a growth tier with premium features, then negotiate enterprise contracts with custom requirements."
+    },
+    {
+      "title": "B2B SaaS Metrics that Matter",
+      "slug": "b2b-saas-metrics-video",
+      "type": "video",
+      "summary": "David Skok's classic presentation on SaaS metrics with emphasis on B2B unit economics",
+      "author": "MILO Team",
+      "creator": "David Skok / Matrix Partners",
+      "tags": [
+        "B2B",
+        "SaaS Metrics",
+        "Unit Economics",
+        "VC"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=4R0I0Yy6eJk",
+      "body": "## Why it is worth watching\n\nDavid Skok's 'SaaS Metrics 2.0' presentation is a masterclass in B2B SaaS unit economics. He explains CAC, LTV, churn, and payback period with clear examples and shows how these metrics interact to determine whether a business is healthy or dying.\n\n## Best for\n\nB2B Product Managers who want to understand the business side of product decisions\n\n## Key takeaway\n\nThe three levers of B2B SaaS success: reduce churn, increase customer acquisition, and improve unit economics. All product decisions should ultimately improve at least one of these."
+    },
+    {
+      "title": "How to Build an Enterprise B2B Product Team",
+      "slug": "build-enterprise-product-team-video",
+      "type": "video",
+      "summary": "Insights on structuring product teams for enterprise B2B including managing stakeholders and sales relationships",
+      "author": "MILO Team",
+      "creator": "Leah Tharin / Product Coalition",
+      "tags": [
+        "B2B",
+        "Team Structure",
+        "Enterprise",
+        "Product Leadership"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=W4dI6xLxFt0",
+      "body": "## Why it is worth watching\n\nLeah Tharin, an experienced B2B product leader, discusses the unique challenges of building and running product teams in enterprise B2B environments. She covers stakeholder management, balancing customer requests with strategy, and hiring for B2B PM roles.\n\n## Best for\n\nB2B Product Managers aspiring to leadership roles or building product organisations\n\n## Key takeaway\n\nIn B2B, the product team must deeply understand the sales motion, the implementation process, and the customer success lifecycle \u2014 because the product experience spans the entire customer journey, not just the UI."
+    },
+    {
+      "title": "The Art of the B2B Product Roadmap",
+      "slug": "b2b-product-roadmap-video",
+      "type": "video",
+      "summary": "How to create and communicate product roadmaps in B2B environments with multiple stakeholders",
+      "author": "MILO Team",
+      "creator": "Janna Bastow / ProdPad",
+      "tags": [
+        "B2B",
+        "Roadmap",
+        "Communication",
+        "Stakeholder Management"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=Oo0gA5n7pLc",
+      "body": "## Why it is worth watching\n\nJanna Bastow (co-founder of ProdPad and Mind the Product) explains how to build B2B product roadmaps that balance transparency with strategic flexibility. She covers the now-next-later framework and how to handle the 'where is my feature?' question from enterprise customers.\n\n## Best for\n\nB2B Product Managers who struggle with roadmap communication\n\n## Key takeaway\n\nA roadmap is a strategic communication tool, not a delivery schedule. Use outcome-based themes (not feature lists) and the now-next-later framework to show direction without over-committing."
+    },
+    {
+      "title": "Pricing B2B SaaS: Psychology and Strategy",
+      "slug": "pricing-b2b-saas-video",
+      "type": "video",
+      "summary": "Deep dive on B2B SaaS pricing psychology, tier design, and packaging strategy",
+      "author": "MILO Team",
+      "creator": "Patrick Campbell / ProfitWell (now Paddle)",
+      "tags": [
+        "B2B",
+        "Pricing",
+        "Monetization",
+        "Psychology"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.youtube.com/watch?v=W4dI6xLxFt0",
+      "body": "## Why it is worth watching\n\nPatrick Campbell, founder of ProfitWell (now Paddle), presents a data-driven approach to B2B pricing based on thousands of SaaS pricing analyses. He covers value metrics, tier structure, anchoring, decoy effects, and how to raise prices without losing customers.\n\n## Best for\n\nB2B Product Managers who influence pricing decisions\n\n## Key takeaway\n\nYour pricing model is a product decision. The right value metric aligns what customers pay with the value they receive. Test pricing changes with statistical rigour \u2014 your intuition about price elasticity is almost certainly wrong."
+    },
+    {
+      "title": "SaaStr Annual",
+      "slug": "saastr-annual-conference",
+      "type": "conference",
+      "summary": "The largest conference for B2B SaaS founders, executives, and product leaders covering growth, fundraising, and operations",
+      "author": "MILO Team",
+      "creator": "SaaStr / Jason Lemkin",
+      "tags": [
+        "B2B",
+        "SaaS",
+        "Growth",
+        "Networking"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.saastrannual.com",
+      "eventDate": "2027-02-10",
+      "location": "San Francisco, CA, USA",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nSaaStr Annual is a massive B2B SaaS conference with 10,000+ attendees. It covers the full stack: product, sales, marketing, fundraising, and customer success. For B2B product managers, the product-specific tracks and peer networking are invaluable.\n\n## Best for\n\nB2B Product Managers looking to network, learn from peers, and stay current on SaaS best practices\n\n## What to expect\n\nExpect hundreds of sessions across multiple tracks, keynote talks from top B2B SaaS leaders (CEO roundtables), product management focused workshops, and extensive networking opportunities."
+    },
+    {
+      "title": "Mind the Product",
+      "slug": "mind-the-product-conference",
+      "type": "conference",
+      "summary": "Leading product management conference with strong B2B content including enterprise product discovery and strategy tracks",
+      "author": "MILO Team",
+      "creator": "Mind the Product / Pendo",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Product Discovery",
+        "Leadership"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.mindtheproduct.com/conferences",
+      "eventDate": "2026-10-15",
+      "location": "London, UK (also SF, Singapore)",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nMind the Product is one of the premier product management conferences globally. Their programming usually includes strong B2B-specific talks covering product discovery in enterprise contexts, outcome-driven roadmaps, and scaling product organisations.\n\n## Best for\n\nB2B Product Managers at all levels who want to invest in their craft\n\n## What to expect\n\nA mix of keynote talks, breakout sessions, and workshops. Topics range from tactical (writing good user stories for B2B) to strategic (building product orgs). Excellent networking with 1500+ product professionals."
+    },
+    {
+      "title": "ProductWorld",
+      "slug": "productworld-conference",
+      "type": "conference",
+      "summary": "Product management conference with dedicated enterprise/B2B track focusing on strategy, AI in product, and leadership",
+      "author": "MILO Team",
+      "creator": "Product World / Product School",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Enterprise",
+        "AI"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productworld.co",
+      "eventDate": "2027-03-22",
+      "location": "San Francisco, CA, USA (also virtual)",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nProductWorld brings together product leaders from major B2B companies. The enterprise track covers B2B-specific topics: product-led sales, enterprise stakeholder management, and navigating complex buyer journeys.\n\n## Best for\n\nB2B Product Managers interested in product strategy, AI-powered products, and leadership\n\n## What to expect\n\nKeynotes from CPOs at major B2B companies, hands-on workshops on product strategy and AI integration, enterprise track with dedicated B2B content, and certification credit for Product School alumni."
+    },
+    {
+      "title": "Pulse (by Gainsight)",
+      "slug": "pulse-gainsight-conference",
+      "type": "conference",
+      "summary": "Customer success and product-led growth conference essential for B2B product managers focused on retention and expansion",
+      "author": "MILO Team",
+      "creator": "Gainsight",
+      "tags": [
+        "B2B",
+        "Customer Success",
+        "PLG",
+        "Retention"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.gainsight.com/pulse",
+      "eventDate": "2027-05-04",
+      "location": "San Diego, CA, USA",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nPulse is Gainsight's customer success conference but has become increasingly product-focused as the lines between product and CS blur in B2B. Sessions cover: product-led growth strategies, customer health scoring, NRR expansion tactics, and the product-CS feedback loop.\n\n## Best for\n\nB2B Product Managers working on retention, growth, and customer success alignment\n\n\n## What to expect\n\nCase studies from companies like Zoom, Box, and Salesforce on how they drive growth through customer success, product-CS alignment workshops, and networking with customer success leaders."
+    },
+    {
+      "title": "Config (by Figma)",
+      "slug": "config-figma-conference",
+      "type": "conference",
+      "summary": "Figma's annual design conference with strong product management content including design systems and collaboration tools for B2B",
+      "author": "MILO Team",
+      "creator": "Figma",
+      "tags": [
+        "B2B",
+        "Design",
+        "Collaboration",
+        "Product Design"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://config.figma.com",
+      "eventDate": "2027-06-15",
+      "location": "San Francisco, CA, USA (also virtual)",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nWhile Config is Figma's design conference, it has become increasingly relevant for B2B product managers. Topics include: design systems at scale (especially relevant for B2B products with complex UIs), collaborative product development, and AI in product design.\n\n## Best for\n\nB2B Product Managers working closely with design teams or on design-rich products\n\n## What to expect\n\nProduct design showcases from major B2B companies, workshops on design systems and prototyping, sessions on how AI is changing product design workflows, and access to Figma's product team for roadmap discussions."
+    },
+    {
+      "title": "ProductCon",
+      "slug": "productcon-conference",
+      "type": "conference",
+      "summary": "Multi-city product management conference with workshops on B2B strategy, discovery, and execution",
+      "author": "MILO Team",
+      "creator": "Product School",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Workshops",
+        "Networking"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productschool.com/productcon",
+      "eventDate": "2026-12-08",
+      "location": "San Francisco, CA, USA (also NYC, London, virtual)",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nProductCon is a day-long product management conference held in multiple cities worldwide. It features hands-on workshops and talks from product leaders at companies like Google, Meta, Airbnb, and Stripe \u2014 many with B2B-specific case studies.\n\n## Best for\n\nB2B Product Managers looking for practical, actionable takeaways\n\n## What to expect\n\nFull-day conference with keynotes, breakout sessions, and workshops. Topics vary by location but typically include: product strategy, discovery techniques, stakeholder management, and career growth for PMs."
+    },
+    {
+      "title": "Enterprise Sales & B2B Product Summit",
+      "slug": "enterprise-sales-b2b-summit",
+      "type": "conference",
+      "summary": "Focused event bridging B2B product management and enterprise sales for product-led growth",
+      "author": "MILO Team",
+      "creator": "Product-Led Alliance",
+      "tags": [
+        "B2B",
+        "Enterprise Sales",
+        "PLG",
+        "GTM"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productled.com/summit",
+      "eventDate": "2027-04-12",
+      "location": "Virtual + New York, NY, USA",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nThe Product-Led Summit by ProductLed focuses specifically on combining product-led growth with enterprise sales motions. Sessions cover: hybrid go-to-market strategies, pricing for PLG + enterprise, and product-qualified lead (PQL) frameworks.\n\n## Best for\n\nB2B Product Managers building or transitioning to a product-led GTM model\n\n## What to expect\n\nCase studies from PLG-first B2B companies (Calendly, Webflow, Notion), practical workshops on PLG implementation, and deep dives into how to layer enterprise sales on top of self-serve."
+    },
+    {
+      "title": "Rise of the Product-Led Enterprise",
+      "slug": "rise-product-led-enterprise-conference",
+      "type": "conference",
+      "summary": "Conference dedicated to B2B enterprise product-led growth with sessions on pricing, onboarding, and team structures",
+      "author": "MILO Team",
+      "creator": "OpenView Partners",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Enterprise",
+        "SaaS"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://openviewpartners.com/rise",
+      "eventDate": "2027-09-20",
+      "location": "Boston, MA, USA",
+      "attended": "no",
+      "body": "## Why it is worth attending\n\nOpenView's annual product-led growth event brings together B2B founders, product leaders, and investors. The content is heavily focused on product-led growth in enterprise contexts: how to land with self-serve and expand with sales.\n\n## Best for\n\nB2B Product Managers and leaders at growth-stage companies\n\n## What to expect\n\nData-driven keynotes on PLG benchmarks (from OpenView's extensive research), breakout sessions on pricing, product analytics, and growth experiments, and networking with 300+ product leaders."
+    },
+    {
+      "title": "B2B Product-Led Certification (ProductLed)",
+      "slug": "productled-certification",
+      "type": "training",
+      "summary": "Comprehensive certification course on applying product-led growth principles in B2B SaaS companies",
+      "author": "MILO Team",
+      "creator": "ProductLed / Wes Bush",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Growth",
+        "Certification"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productled.com/certification",
+      "body": "## Why it is worth taking\n\nThis certification course by Wes Bush (author of Product-Led Growth) provides a structured, step-by-step framework for implementing PLG in B2B SaaS. It covers: identifying your 'aha moment', building a self-serve funnel, and creating expansion loops.\n\n## Best for\n\nB2B Product Managers new to PLG or building a PLG motion from scratch\n\n## Key takeaway\n\nA structured, module-based course with templates, worksheets, and real-world examples. The certification demonstrates you can apply PLG frameworks to a live product."
+    },
+    {
+      "title": "Enterprise Design Thinking Practitioner (IBM)",
+      "slug": "ibm-enterprise-design-thinking",
+      "type": "training",
+      "summary": "IBM's enterprise-focused design thinking certification adapted for complex B2B product development",
+      "author": "MILO Team",
+      "creator": "IBM",
+      "tags": [
+        "B2B",
+        "Design Thinking",
+        "Enterprise",
+        "Certification"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.ibm.com/design/thinking/page/courses/practitioner",
+      "body": "## Why it is worth taking\n\nUnlike generic design thinking, IBM's version is built specifically for enterprise contexts. It addresses the complexity of B2B: multiple stakeholders per project, long feedback cycles, and the need to align with broader business strategy.\n\n## Best for\n\nB2B Product Managers working on complex products with multiple stakeholder groups\n\n## Key takeaway\n\nThe course teaches a 'loop' model (Observe-Reflect-Make) rather than a linear process, and introduces 'sponsor users' \u2014 a concept for getting direct access to real customers inside enterprise organisations."
+    },
+    {
+      "title": "Product-Led Growth Certificate (Product School)",
+      "slug": "product-school-plg",
+      "type": "training",
+      "summary": "Product School's certification covering PLG strategies specifically for B2B SaaS products",
+      "author": "MILO Team",
+      "creator": "Product School",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Product Management",
+        "Certification"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productschool.com/product-led-growth-certification",
+      "body": "## Why it is worth taking\n\nProduct School is one of the leading product management education providers. Their PLG certification covers how to apply product-led growth strategies to B2B products, including: building a viral loop, monetising free users, and creating a growth team.\n\n## Best for\n\nB2B Product Managers looking to add a recognised certification and learn a structured PLG framework\n\n## Key takeaway\n\nA practical, hands-on course taught by experienced product leaders with real B2B case studies. You'll build an actual PLG strategy for a product during the course."
+    },
+    {
+      "title": "Reforge: Product Strategy for B2B",
+      "slug": "reforge-b2b-product-strategy",
+      "type": "training",
+      "summary": "Reforge's advanced program on B2B product strategy including tiered pricing, enterprise feature prioritisation, and PLG motion design",
+      "author": "MILO Team",
+      "creator": "Reforge",
+      "tags": [
+        "B2B",
+        "Product Strategy",
+        "Advanced",
+        "Reforge"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.reforge.com/programs/product-strategy",
+      "body": "## Why it is worth taking\n\nReforge's programs are advanced, cohort-based, and taught by experienced product leaders. The product strategy program covers B2B-specific topics: how to choose your target segment, build a tiered pricing model, manage enterprise stakeholder relationships, and evolve your product from SMB to enterprise.\n\n## Best for\n\nSenior B2B Product Managers, Heads of Product, and CPOs\n\n## Key takeaway\n\nReforge programs are not for beginners. They assume you have 5+ years of experience and focus on frameworks you can apply immediately. The peer cohort is as valuable as the content itself."
+    },
+    {
+      "title": "How to Sell Enterprise B2B SaaS (SaaStr Course)",
+      "slug": "saastr-enterprise-sales-course",
+      "type": "training",
+      "summary": "SaaStr's practical course on enterprise sales fundamentals for B2B product and sales teams",
+      "author": "MILO Team",
+      "creator": "SaaStr / Jason Lemkin",
+      "tags": [
+        "B2B",
+        "Enterprise Sales",
+        "SaaS",
+        "GTM"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.saastr.com/courses",
+      "body": "## Why it is worth taking\n\nSaaStr's courses provide practical, battle-tested advice from Jason Lemkin and other B2B SaaS veterans. The enterprise sales course covers: how to build an enterprise sales team, how to price enterprise deals, how to handle POCs, and how to avoid common enterprise pitfalls.\n\n## Best for\n\nB2B Product Managers who work closely with enterprise sales\n\n## Key takeaway\n\nEnterprise sales requires a different playbook than SMB. Longer cycles, more stakeholders, and higher expectations. The course provides a structured playbook for navigating enterprise deals."
+    },
+    {
+      "title": "The Secrets of B2B Product Management (LinkedIn Learning)",
+      "slug": "linkedin-learning-b2b-pm",
+      "type": "training",
+      "summary": "LinkedIn Learning course covering the fundamentals of B2B product management including stakeholder analysis and roadmap communication",
+      "author": "MILO Team",
+      "creator": "Leah Tharin / LinkedIn Learning",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Fundamentals",
+        "LinkedIn Learning"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.linkedin.com/learning",
+      "body": "## Why it is worth taking\n\nThis course by Leah Tharin provides a comprehensive introduction to B2B product management. It covers: the key differences between B2B and B2C product management, how to work with enterprise stakeholders, how to build a B2B roadmap, and how to run discovery in B2B contexts.\n\n## Best for\n\nNew or aspiring B2B Product Managers, or B2C PMs transitioning to B2B\n\n## Key takeaway\n\nThe course provides a solid foundation in B2B PM fundamentals with practical frameworks and templates you can apply immediately. Short modules make it easy to fit into a busy schedule."
+    },
+    {
+      "title": "The B2B Product Manager's Dilemma: Balancing Revenue and Vision",
+      "slug": "b2b-pm-dilemma-article",
+      "type": "article",
+      "summary": "Analysis of how B2B PMs navigate the tension between short-term revenue-driven requests and long-term product vision",
+      "author": "MILO Team",
+      "creator": "Leah Tharin",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Strategy",
+        "Revenue"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productcoalition.com/the-b2b-product-managers-dilemma-balancing-revenue-and-vision",
+      "body": "## Why it is worth reading\n\nThis article articulates a tension every B2B PM faces: the sales team wants specific features to close deals, but those requests may not align with the product vision. Leah Tharin provides a framework for navigating this tension without alienating sales or abandoning strategy.\n\n## Best for\n\nB2B Product Managers struggling with sales-driven feature requests\n\n## Key takeaway\n\nCreate a structured process for evaluating revenue-driven requests: does this feature unlock new segments, increase ACV, or prevent churn? If yes, it belongs on the roadmap alongside vision-driven work."
+    },
+    {
+      "title": "B2B Customer Onboarding: The First 90 Days",
+      "slug": "b2b-customer-onboarding-article",
+      "type": "article",
+      "summary": "Research-backed guide to designing effective B2B customer onboarding programs that reduce time-to-value and churn",
+      "author": "MILO Team",
+      "creator": "Gainsight / Pulse Blog",
+      "tags": [
+        "B2B",
+        "Onboarding",
+        "Customer Success",
+        "Retention"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.gainsight.com/blog/b2b-customer-onboarding-best-practices",
+      "body": "## Why it is worth reading\n\nThis article (from Gainsight's customer success expertise) covers how to design a B2B onboarding program that gets customers to value quickly. It covers: pre-onboarding preparation, Day 1 activities, the 30-60-90 day framework, and success criteria at each milestone.\n\n## Best for\n\nB2B Product Managers looking to improve activation rates\n\n## Key takeaway\n\nB2B onboarding should be milestone-based, not time-based. Define what 'value' looks like for each customer segment and build onboarding steps that lead directly to that value \u2014 not generic feature walkthroughs."
+    },
+    {
+      "title": "The B2B PLG Playbook: From Signup to Enterprise Deal",
+      "slug": "b2b-plg-playbook-article",
+      "type": "article",
+      "summary": "Step-by-step guide on building a hybrid product-led and sales-led growth motion for B2B SaaS",
+      "author": "MILO Team",
+      "creator": "Kyle Poyar / OpenView",
+      "tags": [
+        "B2B",
+        "PLG",
+        "GTM Strategy",
+        "Growth"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://openviewpartners.com/blog/product-led-growth-playbook",
+      "body": "## Why it is worth reading\n\nKyle Poyar's article provides a detailed playbook for combining product-led and sales-led growth in B2B. It covers: when to add a sales team to a PLG motion, how to define product-qualified leads (PQLs), and how to hand off from product to sales without friction.\n\n## Best for\n\nB2B Product Managers at PLG-first startups adding enterprise sales motion\n\n## Key takeaway\n\nThe handoff from self-serve to sales is critical. Define clear PQL criteria (usage milestones, team size, feature adoption) so sales only touches leads that are ready for a conversation. Don't let sales interrupt self-serve users."
+    },
+    {
+      "title": "How to Run Effective B2B Product Discovery",
+      "slug": "b2b-product-discovery-article",
+      "type": "article",
+      "summary": "Practical guide to adapting product discovery for B2B contexts with limited customer access",
+      "author": "MILO Team",
+      "creator": "Teresa Torres / Product Talk",
+      "tags": [
+        "B2B",
+        "Product Discovery",
+        "Research",
+        "Customer Interviews"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.producttalk.org/blog",
+      "body": "## Why it is worth reading\n\nTeresa Torres's blog is a treasure trove of practical discovery advice. This article specifically addresses B2B challenges: few customers, long sales cycles, and multiple stakeholders. She covers how to get access to customers, what to ask, and how to synthesise findings.\n\n## Best for\n\nB2B Product Managers who want a systematic discovery practice\n\n## Key takeaway\n\nRun opportunity solution trees to map your thinking, interview customers weekly (even 15 minutes), and focus on recent, specific behaviour \u2014 not opinions or hypotheticals."
+    },
+    {
+      "title": "B2B SaaS Pricing: Value Metrics that Scale",
+      "slug": "b2b-saas-pricing-value-metrics-article",
+      "type": "article",
+      "summary": "How to choose value metrics for B2B pricing that grow with customer success",
+      "author": "MILO Team",
+      "creator": "Patrick Campbell / ProfitWell (Paddle)",
+      "tags": [
+        "B2B",
+        "Pricing",
+        "Value Metrics",
+        "Monetization"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.paddle.com/blog/saas-pricing-metrics",
+      "body": "## Why it is worth reading\n\nThis article by Patrick Campbell (ProfitWell) explains how to choose a value metric for B2B SaaS pricing \u2014 the unit that determines how much a customer pays. Examples: per seat, per API call, per document processed, per workflow. The right value metric aligns your revenue with the value customers receive.\n\n## Best for\n\nB2B Product Managers designing or revising pricing models\n\n## Key takeaway\n\nThe best value metrics are: aligned with the value customers perceive, able to grow with the customer (no artificial ceilings), and simple to understand and communicate. Avoid per-seat pricing if the value doesn't scale with user count."
+    },
+    {
+      "title": "Product Thinking in B2B vs B2C",
+      "slug": "b2b-vs-b2c-product-thinking-article",
+      "type": "article",
+      "summary": "Comparison of product management approaches in B2B and B2C contexts highlighting key differences",
+      "author": "MILO Team",
+      "creator": "Marty Cagan / SVPG Blog",
+      "tags": [
+        "B2B",
+        "B2C",
+        "Product Management",
+        "Fundamentals"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.svpg.com/product-thinking-in-b2b-vs-b2c",
+      "body": "## Why it is worth reading\n\nMarty Cagan contrasts B2B and B2C product management. Key B2B differences: longer sales cycles, multiple buyer personas per account, higher switching costs, the need for sales and support alignment, and the importance of customer success.\n\n## Best for\n\nB2C PMs transitioning to B2B or B2B PMs looking to validate their approach\n\n## Key takeaway\n\nB2B product management is not harder or easier than B2C \u2014 it's different. The core principles (outcome over output, empowered teams, continuous discovery) apply in both contexts, but the tactics differ significantly."
+    },
+    {
+      "title": "B2B Product-Led Growth (by Wes Bush)",
+      "slug": "product-led-growth-podcast",
+      "type": "podcast",
+      "summary": "Wes Bush's podcast dedicated to B2B product-led growth strategies, case studies, and interviews with PLG leaders",
+      "author": "MILO Team",
+      "creator": "Wes Bush / ProductLed",
+      "tags": [
+        "B2B",
+        "PLG",
+        "Growth",
+        "Podcast"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productled.com/podcast",
+      "body": "## Why it is worth subscribing to\n\nWes Bush hosts practical, interview-based episodes with B2B founders and product leaders who have successfully implemented PLG. Topics include: building virality into B2B products, freemium vs free trial decisions, and product-qualified lead strategies.\n\n## Best for\n\nB2B Product Managers implementing or refining PLG strategies\n\n## Key takeaway\n\nEach episode includes actionable takeaways you can apply to your product. The case studies cover companies at different stages, from early-stage startups to enterprise-scale PLG."
+    },
+    {
+      "title": "SaaStr Podcast",
+      "slug": "saastr-podcast",
+      "type": "podcast",
+      "summary": "Jason Lemkin's long-running podcast interviewing B2B SaaS founders, CEOs, and product leaders about growth and strategy",
+      "author": "MILO Team",
+      "creator": "SaaStr / Jason Lemkin",
+      "tags": [
+        "B2B",
+        "SaaS",
+        "Growth",
+        "Leadership"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.saastr.com/podcast",
+      "body": "## Why it is worth subscribing to\n\nThe SaaStr Podcast features candid interviews with B2B SaaS founders and executives. Episodes cover: fundraising, scaling sales, product strategy, and building culture. The 'Office Hours' format allows listeners to submit questions.\n\n## Best for\n\nB2B Product Managers who want to understand the business side of their product decisions\n\n## Key takeaway\n\nJason Lemkin's straight-talking style provides unfiltered insights into what works (and doesn't) in B2B SaaS. The podcast covers the full business lifecycle from seed to IPO."
+    },
+    {
+      "title": "Product Coalition Podcast",
+      "slug": "product-coalition-podcast",
+      "type": "podcast",
+      "summary": "Product management podcast with regular B2B-focused episodes on stakeholder management, roadmapping, and product discovery",
+      "author": "MILO Team",
+      "creator": "Product Coalition",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Product Discovery",
+        "Interviews"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productcoalition.com/podcast",
+      "body": "## Why it is worth subscribing to\n\nThe Product Coalition podcast interviews product leaders from top companies. Many episodes focus on B2B product management: how to manage enterprise stakeholders, how to build B2B roadmaps, and how to run discovery with corporate customers.\n\n## Best for\n\nB2B Product Managers looking for practical, experience-based advice\n\n## Key takeaway\n\nThe podcast brings diverse perspectives from PMs at different companies and stages. The B2B-specific episodes provide frameworks you can adapt to your context."
+    },
+    {
+      "title": "Product Thinking (by Product School)",
+      "slug": "product-thinking-podcast",
+      "type": "podcast",
+      "summary": "Product School's podcast covering product strategy, growth, and innovation with frequent B2B SaaS product deep dives",
+      "author": "MILO Team",
+      "creator": "Product School",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Strategy",
+        "Product School"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productschool.com/podcast",
+      "body": "## Why it is worth subscribing to\n\nHosted by Carlos Gonzalez de Villaumbrosia (Product School CEO), this podcast interviews product leaders from companies like Salesforce, Slack, and HubSpot. Episodes cover B2B-specific challenges and product management career development.\n\n## Best for\n\nB2B Product Managers at all levels who want to learn from experienced leaders\n\n## Key takeaway\n\nThe podcast offers both tactical advice (how to run a B2B discovery interview) and strategic perspectives (how to build a product org for enterprise)."
+    },
+    {
+      "title": "Masters of Scale with Reid Hoffman",
+      "slug": "masters-of-scale-podcast",
+      "type": "podcast",
+      "summary": "Reid Hoffman's podcast on scaling companies with frequent B2B-focused episodes including enterprise sales and platform strategy",
+      "author": "MILO Team",
+      "creator": "Reid Hoffman / WaitWhat",
+      "tags": [
+        "B2B",
+        "Scaling",
+        "Leadership",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://mastersofscale.com",
+      "body": "## Why it is worth subscribing to\n\nWhile not exclusively B2B, Masters of Scale features many B2B founders sharing their scaling stories. Relevant episodes cover enterprise sales (how Salesforce conquered the enterprise), platform strategy (Slack, Shopify), and building company culture at scale.\n\n## Best for\n\nB2B Product Managers interested in the broader business context of product decisions\n\n## Key takeaway\n\nReid Hoffman's 'thesis + antithesis' format deconstructs the conventional wisdom about scaling. The B2B episodes provide context for how product decisions interact with sales, marketing, and organisational design."
+    },
+    {
+      "title": "The Product Experience (Mind the Product)",
+      "slug": "product-experience-podcast",
+      "type": "podcast",
+      "summary": "Weekly product management podcast covering B2B product strategy, discovery, and career growth",
+      "author": "MILO Team",
+      "creator": "Mind the Product",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Career",
+        "Community"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.mindtheproduct.com/product-experience-podcast",
+      "body": "## Why it is worth subscribing to\n\nMind the Product's weekly podcast features interviews with product leaders from around the world. Many episodes address B2B-specific topics: how to manage the tension between customer requests and product strategy, how to communicate with enterprise stakeholders, and how to find product-market fit in B2B.\n\n## Best for\n\nB2B Product Managers looking for a steady stream of product management content\n\n## Key takeaway\n\nThe podcast benefits from Mind the Product's large community \u2014 guests come from diverse backgrounds and company sizes, providing a broad perspective on B2B product management."
+    },
+    {
+      "title": "This is Product Management",
+      "slug": "this-is-product-management-podcast",
+      "type": "podcast",
+      "summary": "Podcast by Product Collective covering the full spectrum of product management with many B2B episodes",
+      "author": "MILO Team",
+      "creator": "Product Collective / Alpha",
+      "tags": [
+        "B2B",
+        "Product Management",
+        "Research",
+        "Strategy"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.thisisproductmanagement.com",
+      "body": "## Why it is worth subscribing to\n\nThis podcast covers product management topics across industries and company stages. It regularly features B2B product leaders discussing: building B2B products, enterprise customer development, and product-led growth in B2B contexts.\n\n## Best for\n\nB2B Product Managers who want a broad, balanced perspective on product management\n\n## Key takeaway\n\nThe 'fake product teardown' episodes are particularly useful \u2014 they analyse real B2B product decisions and discuss what worked and what didn't."
+    },
+    {
+      "title": "How I Built This (B2B Episodes)",
+      "slug": "how-i-built-this-podcast",
+      "type": "podcast",
+      "summary": "Guy Raz's interview series featuring B2B founders sharing their product-building journeys (Salesforce, HubSpot, Slack, Shopify episodes)",
+      "author": "MILO Team",
+      "creator": "Guy Raz / NPR",
+      "tags": [
+        "B2B",
+        "Founder Stories",
+        "Entrepreneurship",
+        "SaaS"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.npr.org/podcasts/510313/how-i-built-this",
+      "body": "## Why it is worth subscribing to\n\nHow I Built This features founders sharing the real stories behind building their companies. Must-listen B2B episodes include: Marc Benioff (Salesforce), Brian Halligan (HubSpot), Stewart Butterfield (Slack), and Tobi Lutke (Shopify). These stories reveal the product decisions that shaped billion-dollar B2B companies.\n\n## Best for\n\nB2B Product Managers seeking inspiration and context around how iconic B2B products were built\n\n## Key takeaway\n\nThe most successful B2B products often started as solutions to the founders' own problems. Understanding the origin stories provides perspective on product-market fit, timing, and the importance of listening to early customers."
+    },
+    {
+      "title": "B2B Growth Show (by Sweet Fish Media)",
+      "slug": "b2b-growth-show-podcast",
+      "type": "podcast",
+      "summary": "Daily B2B marketing and growth podcast with episodes on product marketing, sales alignment, and demand generation",
+      "author": "MILO Team",
+      "creator": "Sweet Fish Media",
+      "tags": [
+        "B2B",
+        "Growth",
+        "Marketing",
+        "Sales"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://www.b2bgrowthshow.com",
+      "body": "## Why it is worth subscribing to\n\nThe B2B Growth Show produces daily episodes (10-15 minutes) covering B2B marketing, sales, and product growth. For B2B PMs, episodes on product marketing alignment, demand generation strategies, and account-based marketing provide valuable context for product decisions.\n\n## Best for\n\nB2B Product Managers who want to understand the marketing and sales side of the business\n\n## Key takeaway\n\nThe daily format means topics are current and relevant. The focus on actionable tactics rather than high-level theory makes it easy to apply insights immediately."
+    },
+    {
+      "title": "Product Stories Podcast",
+      "slug": "product-stories-podcast",
+      "type": "podcast",
+      "summary": "Podcast interviewing product leaders about real product decisions with strong B2B representation",
+      "author": "MILO Team",
+      "creator": "Product Stories",
+      "tags": [
+        "B2B",
+        "Product Decisions",
+        "Interviews",
+        "Stories"
+      ],
+      "createdAt": "2026-08-29",
+      "updatedAt": "2026-08-29",
+      "toolUrl": "https://productstories.podcastpage.io",
+      "body": "## Why it is worth subscribing to\n\nProduct Stories features in-depth interviews with product leaders about specific product decisions: what they considered, how they decided, and what happened. Many guests are from B2B companies (Intercom, Canva, Atlassian, Zapier) and share candid lessons.\n\n## Best for\n\nB2B Product Managers who learn best from real-world case studies\n\n## Key takeaway\n\nThe show's strength is the depth of each episode \u2014 guests walk through a single product decision in detail, showing the trade-offs and thought process rather than just the outcome."
+    },
+    {
+      "title": "B2B Product Camp (Virtual)",
+      "slug": "b2b-product-camp",
+      "type": "conference",
+      "summary": "Free virtual unconference for B2B product managers. Community-run sessions on pricing experiments, enterprise discovery, and stakeholder alignment.",
+      "url": "https://b2bproductcamp.com/"
+    },
+    {
+      "title": "PLG Europe Conference",
+      "slug": "plg-europe-conference",
+      "type": "conference",
+      "summary": "European conference focused on product-led growth in B2B SaaS. Sessions on freemium strategy, trial conversion optimization, and PLG metrics benchmarks.",
+      "url": "https://productled.com/europe"
+    },
+    {
+      "title": "Product-Led Summit Europe",
+      "slug": "product-led-summit-europe",
+      "type": "conference",
+      "summary": "European edition of the Product-Led Summit. Covers B2B PLG strategies, local market considerations, and GDPR-compliant growth tactics.",
+      "url": "https://productled.com/summit/europe"
+    },
+    {
+      "title": "April Dunford \u2014 Positioning for Enterprise Markets",
+      "slug": "april-dunford-enterprise-positioning",
+      "type": "video",
+      "summary": "Positioning expert April Dunford on how to position B2B products for enterprise buyers. Covers market context, alternative-based positioning, and value wedges.",
+      "url": "https://www.youtube.com/watch?v=8fYwPqVX5Dk",
+      "author": "April Dunford"
+    },
+    {
+      "title": "Intercom \u2014 Conversational Support in Enterprise SaaS",
+      "slug": "intercom-enterprise-conversational",
+      "type": "video",
+      "summary": "How Intercom built conversational support for enterprise customers. Covers multi-channel support, AI assistants, and self-serve deflection in B2B settings.",
+      "url": "https://www.youtube.com/watch?v=3PqWpQ4cMvI",
+      "author": "Intercom"
+    },
+    {
+      "title": "B2B Product Pricing: Packaging for Enterprise Growth",
+      "slug": "b2b-pricing-packaging-article",
+      "type": "article",
+      "summary": "Deep dive on B2B pricing packaging strategy. Covers tier design, feature gating, usage-based vs per-seat tradeoffs, and how to avoid cannibalizing revenue.",
+      "url": "https://www.priceintelligently.com/blog/b2b-pricing-packaging",
+      "author": "Patrick Campbell / ProfitWell"
+    },
+    {
+      "title": "The B2B Product Discovery Gap",
+      "slug": "b2b-discovery-gap-article",
+      "type": "article",
+      "summary": "Why traditional discovery methods fail in B2B and how to adapt. Covers multi-stakeholder validation, proxy user research, and low-N interviewing techniques.",
+      "url": "https://producttalk.org/2023/06/b2b-discovery-gap/",
+      "author": "Teresa Torres"
+    },
+    {
+      "title": "Enterprise Product Adoption Metrics that Actually Predict Retention",
+      "slug": "enterprise-adoption-metrics",
+      "type": "article",
+      "summary": "Beyond DAU/MAU: the metrics that matter for B2B products. Covers team activation rates, feature adoption by department, and time-to-value benchmarks.",
+      "url": "https://amplitude.com/blog/b2b-retention-metrics",
+      "author": "Amplitude Blog"
+    },
+    {
+      "title": "Building a Product Intelligence Stack for B2B SaaS",
+      "slug": "b2b-pi-stack-article",
+      "type": "article",
+      "summary": "How to build a product intelligence stack for B2B. Covers tool selection, event taxonomy, data warehousing, and building a single customer view across accounts.",
+      "url": "https://segment.com/blog/product-intelligence-stack-b2b/",
+      "author": "Twilio Segment"
+    },
+    {
+      "title": "B2B Product-Led Onboarding Certification (Pendo)",
+      "slug": "pendo-onboarding-cert",
+      "type": "training",
+      "summary": "Free certification covering B2B onboarding best practices. Covers user segmentation, in-app guidance design, adoption analytics, and NPS survey implementation.",
+      "url": "https://www.pendo.io/resources/certification/",
+      "author": "Pendo"
+    },
+    {
+      "title": "Enterprise API Product Management Course (Postman)",
+      "slug": "postman-api-product-course",
+      "type": "training",
+      "summary": "Free course on managing APIs as products. Covers API-first design, developer portal management, API versioning, and developer metrics for platform teams.",
+      "url": "https://www.postman.com/api-product-management-course/",
+      "author": "Postman"
+    },
+    {
+      "title": "B2B Continuous Discovery Workshop (Product Talk)",
+      "slug": "b2b-discovery-workshop",
+      "type": "training",
+      "summary": "Hands-on workshop on running continuous discovery in B2B contexts. Covers adapting opportunity solution trees for enterprise, stakeholder management, and discovery cadence.",
+      "url": "https://www.producttalk.org/workshops/",
+      "author": "Teresa Torres / Product Talk"
     }
-  ]
+  ],
+  "itemCount": 92
 }

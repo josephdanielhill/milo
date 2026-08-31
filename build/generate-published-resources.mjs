@@ -150,6 +150,8 @@ ${forumRaw !== null ? `export const publishedForumCollections = ${forumRaw};` : 
     const bundlesDir = join(projectRoot, "public", "collections");
     await mkdir(bundlesDir, { recursive: true });
 
+    const curatedBundlesDir = join(projectRoot, "forum", "bundles");
+
     for (const collection of forumData.collections) {
       const slug = collection.slug;
       if (!slug) {
@@ -157,16 +159,30 @@ ${forumRaw !== null ? `export const publishedForumCollections = ${forumRaw};` : 
         continue;
       }
 
-      // Build the bundle — currently all items go into every collection.
-      // When collections need distinct item sets, add a filter or
-      // explicit `itemSlugs` field to the forum collection definition.
+      const bundlePath = join(bundlesDir, `${slug}.json`);
+
+      // A hand-curated bundle file (forum/bundles/<slug>.json) is the source
+      // of truth when present — copy it verbatim so GitHub Pages serves the
+      // same curated content as the Cloudflare Workers build. Only fall back
+      // to assembling from the root resource files when no curated bundle
+      // exists (e.g. a brand-new collection added before its bundle is ready).
+      const curatedPath = join(curatedBundlesDir, `${slug}.json`);
+      const curatedRaw = await readIfExists(curatedPath);
+      if (curatedRaw !== null) {
+        await writeFile(bundlePath, curatedRaw);
+        const curated = JSON.parse(curatedRaw);
+        console.log(
+          `Generated bundle: public/collections/${slug}.json from forum/bundles (${(curated.items ?? []).length} items)`,
+        );
+        continue;
+      }
+
+      // No curated bundle — assemble every published item into the collection.
       const bundle = {
         version: 1,
         name: collection.name,
         items: allItems,
       };
-
-      const bundlePath = join(bundlesDir, `${slug}.json`);
       await writeFile(bundlePath, JSON.stringify(bundle, null, 2) + "\n");
       console.log(`Generated bundle: public/collections/${slug}.json (${allItems.length} items)`);
     }

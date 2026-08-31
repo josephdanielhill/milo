@@ -1,729 +1,453 @@
 {
   "version": 1,
   "name": "Joseph's Backpack",
+  "itemCount": 28,
   "items": [
     {
-      "slug": "escaped-the-build-trap",
-      "title": "Escaping the Build Trap",
-      "author": "Melissa Perri",
-      "description": "The definitive book on product management strategy — how to shift from output-driven feature factories to outcome-driven product organizations. Essential B2B reading.",
-      "url": "https://www.oreilly.com/library/view/escaping-the-build-trap/9781491973783/",
-      "year": 2018,
-      "isbn": "978-1491973790",
-      "type": "book"
+      "title": "Quit NOW Before AI Makes The Choice For You, This Is a Superpower! | Seth Godin",
+      "slug": "quit-now-before-ai-makes-the-choice-for-you-this-is-a-superpower-seth-go",
+      "type": "video",
+      "summary": "An interview with Seth Godin about choices in life and how to understand them and to really be focused ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Mindset"
+      ],
+      "createdAt": "2026-08-18",
+      "updatedAt": "2026-08-19",
+      "body": "## Why it is worth watching\n\nExplain what makes this video useful for product managers.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nGreat to understand:\n- Sunken cost fallacy\n- Being able to focus better",
+      "toolUrl": "https://youtu.be/g7AxxkywiFI?si=sMP1Wzbnm5Y55PGg",
+      "creator": "Diary of a CEO"
     },
     {
-      "slug": "inspired",
-      "title": "INSPIRED: How to Create Tech Products Customers Love",
-      "author": "Marty Cagan",
-      "description": "The bible of modern product management. Covers everything from product vision to team structure, with strong B2B and enterprise product sections.",
-      "url": "https://www.svpg.com/inspired/",
-      "year": 2017,
-      "isbn": "978-1119387508",
-      "type": "book"
+      "title": "Time Reflection for Miro",
+      "slug": "time-reflection-for-miro",
+      "type": "tool",
+      "summary": "Exercise to get a high flight level view on your day to day to help you get visibility to make decisions",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Time Management"
+      ],
+      "createdAt": "2026-07-31",
+      "updatedAt": "2026-07-31",
+      "toolUrl": "https://miro.com/miroverse/time-reflection-template/?social=copy-link",
+      "body": "## What it helps with\n\nThis interactive Miro template guides you through categorising your time into meaningful segments - whether it's deep work, meetings, personal care, family time, or other activities that matter to you. The visual nature of plotting these categories across a 24-hour period makes it immediately apparent how you're investing your time. Unlike traditional time tracking tools, this template creates an immediate visceral impact - you can literally see how your day fills up, making it impossible to ignore imbalances or overcrowding.\n\n## Suggested workflow\n\n1. Open the tool.\n2. Follow the instructions"
     },
     {
-      "slug": "lean-startup",
-      "title": "The Lean Startup",
-      "author": "Eric Ries",
-      "description": "Foundational methodology for building products iteratively. Build-Measure-Learn loops, MVP thinking, and innovation accounting directly applicable to B2B SaaS.",
-      "url": "http://theleanstartup.com/",
-      "year": 2011,
-      "isbn": "978-0307887894",
-      "type": "book"
-    },
-    {
-      "slug": "crossing-the-chasm",
-      "title": "Crossing the Chasm",
-      "author": "Geoffrey A. Moore",
-      "description": "The essential B2B technology adoption framework. Explains how to transition from early adopters to mainstream enterprise customers — a must-read for any B2B PM.",
-      "url": "https://www.harpercollins.com/products/crossing-the-chasm-geoffrey-a-moore",
-      "year": 1991,
-      "isbn": "978-0062351748",
-      "type": "book"
-    },
-    {
-      "slug": "hacking-growth",
-      "title": "Hacking Growth",
-      "author": "Sean Ellis & Morgan Brown",
-      "description": "Growth hacking methodologies with concrete B2B examples. Covers PLG experiments, viral loops, and retention strategies for SaaS products.",
-      "url": "https://www.hackinggrowth.com/book",
-      "year": 2017,
-      "isbn": "978-0451497215",
-      "type": "book"
-    },
-    {
-      "slug": "the-mom-test",
-      "title": "The Mom Test",
-      "author": "Rob Fitzpatrick",
-      "description": "Practical guide to customer conversations. Teaches how to avoid false positives in B2B customer discovery by asking questions that surface real pain points.",
-      "url": "https://www.momtestbook.com/",
-      "year": 2013,
-      "isbn": "978-1492180746",
-      "type": "book"
-    },
-    {
-      "slug": "product-lead",
-      "title": "Product-Led Growth",
-      "author": "Wes Bush",
-      "description": "The playbook for building a B2B SaaS product that sells itself. Covers freemium models, free trials, product-qualified leads, and viral loops.",
-      "url": "https://productled.com/book",
-      "year": 2019,
-      "isbn": "978-1734534110",
-      "type": "book"
-    },
-    {
-      "slug": "continuous-discovery-habits",
-      "title": "Continuous Discovery Habits",
-      "author": "Teresa Torres",
-      "description": "A structured framework for ongoing product discovery. Opportunity solution trees, interviewing techniques, and assumption mapping for B2B contexts.",
-      "url": "https://www.producttalk.org/continuous-discovery-habits/",
-      "year": 2021,
-      "isbn": "978-1736633304",
-      "type": "book"
-    },
-    {
-      "slug": "strategic-monoliths-microservices",
-      "title": "Strategic Monoliths and Microservices",
-      "author": "Vaughn Vernon & Tomasz Jaskula",
-      "description": "Technical architecture book for PMs working with platform teams. Helps B2B PMs understand service decomposition and API strategy from a product perspective.",
-      "url": "https://www.pearson.com/en-us/subject-catalog/p/strategic-monoliths-and-microservices/P200000009547",
-      "year": 2021,
-      "isbn": "978-0137355459",
-      "type": "book"
-    },
-    {
-      "slug": "sprint",
-      "title": "Sprint: How to Solve Big Problems",
-      "author": "Jake Knapp",
-      "description": "Google Ventures' 5-day process for solving critical business problems through prototyping and testing with customers. Highly effective for B2B enterprise product validation.",
-      "url": "https://www.thesprintbook.com/",
-      "year": 2016,
-      "isbn": "978-1501121746",
-      "type": "book"
-    },
-    {
-      "slug": "product-led-growth-strategy",
-      "title": "Product-Led Growth: The Definitive B2B SaaS Strategy",
-      "author": "Lenny's Podcast / Wes Bush",
-      "description": "Deep dive into how Slack, Calendly, and Zoom built PLG motions. Covers product-qualified leads, freemium pricing, and viral loops specific to B2B enterprise.",
-      "url": "https://www.lennyspodcast.com/",
-      "platform": "YouTube",
-      "type": "video"
-    },
-    {
-      "slug": "marty-cagan-empowered",
-      "title": "Marty Cagan — EMPOWERED: Ordinary Teams, Extraordinary Products",
-      "author": "Marty Cagan (SVPG)",
-      "description": "Marty Cagan on how to build empowered product teams in large B2B organizations. Covers the shift from project to product, team topology, and leadership behaviors.",
-      "url": "https://www.youtube.com/watch?v=4C7Dut8BZqo",
-      "platform": "YouTube / SVPG",
-      "type": "video"
-    },
-    {
-      "slug": "b2b-saas-pricing-madhavan",
-      "title": "B2B SaaS Pricing: Frameworks That Work",
-      "author": "Kumar Madhavan",
-      "description": "Walkthrough of usage-based, tiered, and per-seat pricing models. Includes case studies from Stripe, Twilio, and Snowflake on packaging and monetization strategy.",
-      "url": "https://www.youtube.com/watch?v=HpY_VwVl9qA",
-      "platform": "YouTube / SaaStr",
-      "type": "video"
-    },
-    {
-      "slug": "jason-fried-shape-up",
-      "title": "Jason Fried — Shape Up: Stop Running in Circles",
-      "author": "Jason Fried (37signals / Basecamp)",
-      "description": "Basecamp's shape-up methodology explained by the founder. Six-week cycles, appetite-based scoping, and betting tables — highly applicable to B2B product teams.",
-      "url": "https://www.youtube.com/watch?v=u6h6KnLxRGE",
-      "platform": "YouTube",
-      "type": "video"
-    },
-    {
-      "slug": "enterprise-sales-costa",
-      "title": "Enterprise Sales for Product Managers",
-      "author": "Shiven Ramji (ex-Microsoft)",
-      "description": "How B2B PMs should think about enterprise sales cycles, proof-of-concepts, RFPs, procurement, and stakeholder mapping. Real examples from Azure and Office 365.",
-      "url": "https://www.youtube.com/watch?v=4hB6mZg2zVk",
-      "platform": "YouTube / Mind the Product",
-      "type": "video"
-    },
-    {
-      "slug": "teresa-torres-discovery",
-      "title": "Teresa Torres — Continuous Discovery at Scale",
-      "author": "Teresa Torres",
-      "description": "How to scale opportunity solution trees across multiple B2B product teams. Covers discovery cadence, cross-team alignment, and outcome-driven roadmaps.",
-      "url": "https://www.youtube.com/watch?v=2YlIY9E8F9g",
-      "platform": "YouTube / Product Talk",
-      "type": "video"
-    },
-    {
-      "slug": "nps-vs-csat-b2b",
-      "title": "NPS vs CSAT for B2B SaaS: Which Metric Matters?",
-      "author": "Gainsight / Pulse Podcast",
-      "description": "Breakdown of when to use NPS vs CSAT in B2B contexts. Covers enterprise customer health scoring, churn prediction, and survey design for low-response-rate environments.",
-      "url": "https://www.youtube.com/watch?v=QjM6aBfFpVc",
-      "platform": "YouTube / Gainsight",
-      "type": "video"
-    },
-    {
-      "slug": "b2b-product-strategy-hbr",
-      "title": "Building a B2B Product Strategy That Actually Works",
-      "author": "Harvard Business Review / Linda K. Gorchels",
-      "description": "Harvard Business Review on B2B product portfolio strategy. Covers platform plays, solution bundling, and managing multi-product roadmaps in enterprise settings.",
-      "url": "https://hbr.org/2021/03/building-a-b2b-product-strategy-that-actually-works",
-      "platform": "HBR",
-      "type": "video"
-    },
-    {
-      "slug": "api-product-management-kinlane",
-      "title": "API Product Management for Platform Teams",
-      "author": "Kin Lane (Postman)",
-      "description": "Managing APIs as products in B2B platform organizations. Covers API design-first, developer experience, versioning strategy, and API monetization.",
-      "url": "https://www.youtube.com/watch?v=9f5z7GZ4p2E",
-      "platform": "YouTube / API Days",
-      "type": "video"
-    },
-    {
-      "slug": "wong-dont-shave-yak",
-      "title": "Don't Shave That Yak! — Product & Engineering at Google",
-      "author": "David Wong (Google)",
-      "description": "Talk about how Google's B2B platform teams prioritize and communicate. Lessons on saying no to scope creep and keeping enterprise products focused.",
-      "url": "https://www.youtube.com/watch?v=4jJYqG0_7F0",
-      "platform": "YouTube / Google Talks",
-      "type": "video"
-    },
-    {
-      "slug": "pricing-metrics-that-matter",
-      "title": "Pricing Metrics That Matter for B2B SaaS",
-      "author": "Kyle Poyar / OpenView",
-      "description": "Deep dive on net dollar retention (NDR), expansion MRR, time-to-value, and logo churn. Benchmarking data across hundreds of B2B SaaS companies.",
-      "url": "https://www.youtube.com/watch?v=h9zGq5Qr8jI",
-      "platform": "YouTube / SaaStr Annual",
-      "type": "video"
-    },
-    {
-      "slug": "saaStr-annual",
-      "title": "SaaStr Annual",
-      "description": "The largest B2B SaaS conference globally. Keynotes and workshops on PLG, enterprise sales, fundraising, and product strategy from founders and VCs.",
-      "url": "https://www.saastrannual.com/",
-      "location": "San Francisco / London",
-      "type": "conference"
-    },
-    {
-      "slug": "mind-the-product",
-      "title": "Mind the Product — ProductCon",
-      "description": "Major product management conference with strong B2B tracks. Covers product discovery, strategy, leadership, and AI in product. Workshops and networking.",
-      "url": "https://www.mindtheproduct.com/productcon/",
-      "location": "London / San Francisco / Singapore / New York",
-      "type": "conference"
-    },
-    {
-      "slug": "product-hunt-radio",
-      "title": "Product Hunt — GLITCH Conference",
-      "description": "Conference focused on product launches, growth, and community building. B2B track covers SaaS launches, developer products, and PLG distribution strategies.",
-      "url": "https://www.producthunt.com/gatherings/glitch",
-      "location": "Los Angeles / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "business-of-software",
-      "title": "Business of Software Conference",
-      "description": "Long-running conference for B2B SaaS founders and product leaders. Focus on profitable growth, bootstrapping, pricing, and product strategy without VC dependency.",
-      "url": "https://businessofsoftware.org/",
-      "location": "Boston / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "reforge-huddle",
-      "title": "Reforge Huddle",
-      "description": "Exclusive gathering for senior product and growth leaders. Deep dives on B2B retention, enterprise activation funnels, and product-led expansion. Application-based attendance.",
-      "url": "https://www.reforge.com/huddle",
-      "location": "San Francisco / Remote",
-      "type": "conference"
-    },
-    {
-      "slug": "product-school-pdma",
-      "title": "PDMA Annual Conference — Product Development & Management Association",
-      "description": "Academic and practitioner conference on product development. Strong B2B and industrial product track. Covers NPD processes, portfolio management, and innovation metrics.",
-      "url": "https://www.pdma.org/page/pdma_annual_conference",
-      "location": "Rotating US cities",
-      "type": "conference"
-    },
-    {
-      "slug": "b2b-saas-online-saastock",
-      "title": "SaaStock",
-      "description": "European B2B SaaS conference with focus on growth, metrics, and international expansion. Strong B2B community and investor presence.",
-      "url": "https://www.saastock.com/",
-      "location": "Dublin / Remote",
-      "type": "conference"
-    },
-    {
-      "slug": "product-led-summit",
-      "title": "Product-Led Summit",
-      "description": "The premier PLG conference. Sessions on product-qualified leads, freemium strategy, user onboarding, and expansion revenue. B2B SaaS focus.",
-      "url": "https://productled.com/summit",
-      "location": "San Francisco / Online",
-      "type": "conference"
-    },
-    {
-      "slug": "enterprise-product-summit",
-      "title": "Enterprise Product Summit",
-      "description": "Niche conference for product managers working on enterprise-grade B2B products. Covers compliance, security reviews, multi-tenant architecture, and enterprise sales engineering.",
-      "url": "https://enterpriseproductsummit.com/",
-      "location": "New York / Virtual",
-      "type": "conference"
-    },
-    {
-      "slug": "intercom-whats-new",
-      "title": "Intercom — What's New Conference",
-      "description": "Customer communication and product-led growth conference. Covers conversational support, in-app messaging, product tours, and user engagement for B2B SaaS.",
-      "url": "https://www.intercom.com/events/whats-new",
-      "location": "San Francisco / Dublin",
-      "type": "conference"
-    },
-    {
-      "slug": "b2b-customer-discovery-training",
-      "title": "Reforge — Mastering B2B Customer Discovery",
-      "description": "In-depth training program on B2B discovery techniques. Covers stakeholder research, interview techniques, synthesis methods, and opportunity validation for enterprise products.",
-      "url": "https://www.reforge.com/courses/mastering-b2b-customer-discovery",
-      "provider": "Reforge",
-      "duration": "6 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "product-led-growth-certification",
-      "title": "Product-Led Growth Certification",
-      "description": "Comprehensive certification covering PLG fundamentals. Includes modules on freemium strategy, trial design, viral loops, and PQL scoring with B2B case studies.",
-      "url": "https://productled.com/certification",
-      "provider": "ProductLed",
-      "duration": "Self-paced",
-      "type": "training"
-    },
-    {
-      "slug": "pricing-certification",
-      "title": "B2B SaaS Pricing Certification",
-      "description": "Structured program on value-based pricing, packaging strategy, and pricing experiments. Includes real B2B case studies from Dropbox, Figma, and Notion.",
-      "url": "https://www.priceintelligently.com/pricing-certification",
-      "provider": "Price Intelligently / ProfitWell",
-      "duration": "4 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "svpg-product-masterclass",
-      "title": "SVPG Product Masterclass",
-      "description": "Marty Cagan and the SVPG team's intensive product management training. Covers product strategy, discovery, delivery, and team empowerment with strong B2B content.",
-      "url": "https://www.svpg.com/masterclass/",
-      "provider": "SVPG",
-      "duration": "8 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "mindtheproduct-eship",
-      "title": "Mind the Product — Product Leadership Program",
-      "description": "Executive product management training for senior PMs and Heads of Product. Focus on product strategy, organizational design, and scaling B2B product organizations.",
-      "url": "https://www.mindtheproduct.com/product-leadership-program/",
-      "provider": "Mind the Product",
-      "duration": "12 weeks",
-      "type": "training"
-    },
-    {
-      "slug": "intercom-product-training",
-      "title": "Intercom — Product-Led Growth Training",
-      "description": "Free training on building PLG motions. Covers onboarding optimization, in-app messaging strategy, and conversion funnel analysis with hands-on exercises.",
-      "url": "https://www.intercom.com/training/product-led-growth",
-      "provider": "Intercom",
-      "duration": "Self-paced",
-      "type": "training"
-    },
-    {
-      "slug": "b2b-product-led-growth-checklist",
-      "title": "The B2B Product-Led Growth Maturity Model",
-      "author": "OpenView / Wes Bush",
-      "description": "A maturity framework for B2B companies adopting PLG. Covers four stages: awareness, activation, expansion, and advocacy with specific metrics and tactics per stage.",
-      "url": "https://productled.com/blog/b2b-plg-maturity-model",
-      "publication": "ProductLed Blog",
-      "type": "article"
-    },
-    {
-      "slug": "enterprise-pricing-packaging",
-      "title": "The Complete Guide to B2B SaaS Pricing and Packaging",
-      "author": "Kyle Poyar (OpenView)",
-      "description": "Comprehensive guide on usage-based pricing, tiered plans, per-seat vs consumption, and packaging strategy for B2B SaaS. Includes data from 300+ companies.",
-      "url": "https://openviewpartners.com/blog/b2b-saas-pricing-packaging-guide",
-      "publication": "OpenView",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-customer-discovery-interviews",
-      "title": "How to Run B2B Customer Discovery Interviews That Don't Suck",
-      "author": "Alex Clayton",
-      "description": "Practical template and script for B2B discovery interviews. Covers identifying power users, finding the economic buyer, and questions that reveal real budgets.",
-      "url": "https://www.reforge.com/blog/b2b-customer-discovery",
-      "publication": "Reforge",
-      "type": "article"
-    },
-    {
-      "slug": "product-led-sales-alignment",
-      "title": "Product-Led Sales: How to Align Product and Sales Teams",
-      "author": "First Round Review",
-      "description": "How Atlassian, GitLab, and Datadog structure product-led sales motions. Covers PQL scoring, sales-assist signals, and when to hand off from product to sales.",
-      "url": "https://review.firstround.com/product-led-sales-how-to-align-product-and-sales-teams/",
-      "publication": "First Round Review",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-roadmap-prioritization",
-      "title": "B2B Product Roadmap Prioritization for Enterprise Accounts",
-      "author": "Maggie Crowley (Drift/PagerDuty)",
-      "description": "How to handle multi-tenant feature requests, enterprise deal-driven roadmaps, and balancing top-down strategy with bottom-up customer needs. Includes ICE and RICE adaptations for B2B.",
-      "url": "https://www.mindtheproduct.com/b2b-roadmap-prioritization-enterprise-accounts/",
-      "publication": "Mind the Product",
-      "type": "article"
-    },
-    {
-      "slug": "api-product-management-guide",
-      "title": "The API Product Manager's Guide to Platform Strategy",
-      "author": "Kin Lane",
-      "description": "Guide to managing APIs as products in B2B platform companies. Covers developer portals, API versioning, deprecation strategies, and developer relations.",
-      "url": "https://apievangelist.com/2023/12/10/api-product-management-guide/",
-      "publication": "API Evangelist",
-      "type": "article"
-    },
-    {
-      "slug": "b2b-onboarding-proven-success",
-      "title": "Designing B2B Onboarding That Proves Value in 30 Days",
-      "author": "Lincoln Murphy / Sixteen Ventures",
-      "description": "Time-to-value framework for B2B SaaS. Covers adoption milestones, success plans, and how product can reduce time-to-first-value through in-app guidance.",
-      "url": "https://sixteenventures.com/b2b-onboarding-time-to-value",
-      "publication": "Sixteen Ventures",
-      "type": "article"
-    },
-    {
-      "slug": "churn-analysis-b2b",
-      "title": "B2B Churn Analysis: Causes, Metrics, and Prevention",
-      "author": "Christoph Janz / Point Nine Capital",
-      "description": "Deep analysis of why B2B companies churn. Covers logo churn vs. dollar churn, multi-threading risk, and build vs. buy triggers in enterprise procurement.",
-      "url": "https://www.pointninecap.com/blog/b2b-churn-analysis",
-      "publication": "Point Nine Capital",
-      "type": "article"
-    },
-    {
-      "slug": "competitive-differentiation-b2b",
-      "title": "B2B Competitive Differentiation Without Feature Parity",
-      "author": "April Dunford",
-      "description": "Positioning strategy for B2B products that can't out-feature incumbents. Covers market context, alternative-based positioning, and the value wedge framework.",
-      "url": "https://aprildunford.com/blog/b2b-differentiation-without-feature-parity",
-      "publication": "April Dunford",
-      "type": "article"
-    },
-    {
-      "slug": "buyer-persona-research-b2b",
-      "title": "B2B Buyer Persona Research: Building ICPs That Drive Product Decisions",
-      "author": "Michele Hansen",
-      "description": "Method for creating B2B ideal customer profiles based on qualitative research. Covers job-to-be-done interviews, persona segmentation, and persona-driven validation.",
-      "url": "https://www.decisionprinciples.com/blog/b2b-buyer-persona-research",
-      "publication": "Decision Principles",
-      "type": "article"
-    },
-    {
-      "slug": "lenny-rachbot-podcast",
-      "title": "Lenny's Podcast — B2B PLG with Rachbot Founder",
-      "description": "In-depth interview with Rachbot founder on building a product-led B2B sales tool. Covers pricing experiments, sales-assist triggers, and navigating enterprise procurement.",
-      "url": "https://www.lennyspodcast.com/",
-      "host": "Lenny Rachitsky",
-      "episode": "PLG Deep Dive",
-      "type": "podcast"
-    },
-    {
-      "slug": "product-strategy-with-svpg",
-      "title": "Product Thinking — Marty Cagan on B2B Product Strategy",
-      "description": "Marty Cagan discusses how B2B product strategy differs from B2C, the importance of empowered product teams in enterprise, and why most B2B product roadmaps fail.",
-      "url": "https://www.productthinkingpodcast.com/",
-      "host": "Melissa Perri & Micala Denault",
-      "episode": "Marty Cagan Interview",
-      "type": "podcast"
-    },
-    {
-      "slug": "b2b-product-chat",
-      "title": "B2B Product Chat — Enterprise SaaS Metrics",
-      "description": "Weekly podcast dedicated to B2B product management. Covers NDR deep dives, pricing case studies, sales alignment, and interviews with B2B product leaders from GitLab, Datadog, and Snowflake.",
-      "url": "https://www.b2bproductchat.com/",
-      "host": "Brian Lawley & Co.",
-      "episode": "Enterprise Metrics That Matter",
-      "type": "podcast"
-    },
-    {
-      "slug": "this-is-product-management",
-      "title": "This is Product Management — B2B Edition",
-      "description": "Interviews with product leaders from top B2B companies. Topics include product-led sales, API product management, developer experience, and enterprise customer success.",
-      "url": "https://www.thisisproductmanagement.com/",
-      "host": "Alpha UX",
-      "episode": "B2B Product Strategy",
-      "type": "podcast"
-    },
-    {
-      "slug": "plg-podcast",
-      "title": "The Product-Led Growth Podcast",
-      "description": "Dedicated to product-led growth strategies. B2B-heavy content including episodes on free trial optimization, PQL scoring algorithms, and expansion revenue strategies.",
-      "url": "https://productled.com/podcast",
-      "host": "Wes Bush / ProductLed",
-      "episode": "Various",
-      "type": "podcast"
-    },
-    {
-      "slug": "hidden-brain-b2b-decisions",
-      "title": "Hidden Brain — The Psychology of B2B Buying Decisions",
-      "description": "Exploration of the psychological biases and social dynamics behind enterprise purchasing decisions. Relevant for PMs designing B2B products that need to win internal champions.",
-      "url": "https://hiddenbrain.org/",
-      "host": "Shankar Vedantam",
-      "episode": "Decision Making Deep Dive",
-      "type": "podcast"
-    },
-    {
-      "slug": "category-pirates",
-      "title": "Category Pirates — Creating New B2B Markets",
-      "description": "Podcast about creating new market categories. B2B focus with episodes on category design, market creation, and how companies like Salesforce and Slack created new enterprise categories.",
-      "url": "https://www.categorypirates.com/",
-      "host": "Christopher Lochhead & Eddie Yoon",
-      "episode": "Various",
-      "type": "podcast"
-    },
-    {
-      "slug": "breakdown-b2b-pricing-saastr",
-      "title": "SaaStr Podcast — B2B Pricing Breakdowns",
-      "description": "Weekly deep dives into B2B SaaS pricing strategies. Real numbers from public companies, pricing model analysis, and lessons from pricing failures.",
-      "url": "https://www.saastr.com/podcast/",
-      "host": "Jason Lemkin",
-      "episode": "Pricing Breakdown Series",
-      "type": "podcast"
-    },
-    {
-      "slug": "acquired-b2b-platform",
-      "title": "Acquired — B2B Platform Deep Dives",
-      "description": "Deep-dive episodes on the history and strategy behind major B2B platforms including Salesforce, Workday, ServiceNow, and Atlassian. Essential listening for B2B PMs.",
-      "url": "https://www.acquired.fm/",
-      "host": "Ben Gilbert & David Rosenthal",
-      "episode": "Salesforce / Workday / Atlassian",
-      "type": "podcast"
-    },
-    {
-      "slug": "make-better-decisions-b2b",
-      "title": "The Product Experience — B2B Product Decisions",
-      "description": "Weekly product management podcast with B2B-focused episodes on feature prioritization, stakeholder management, enterprise UX, and product analytics in B2B contexts.",
-      "url": "https://www.mindtheproduct.com/the-product-experience/",
-      "host": "Randy Silver & Lily Smith",
-      "episode": "B2B Product Decisions",
-      "type": "podcast"
-    },
-    {
-      "slug": "b2b-pod-lead-strategy",
-      "title": "The Product-Led B2B Pricing Playbook",
+      "title": "Job Reflection",
+      "slug": "job-reflection",
       "type": "prompt",
-      "body": "You are a B2B SaaS pricing strategist. Analyze the following product and suggest a pricing model (usage-based, tiered, per-seat, or hybrid), propose 3 tiers with features, and estimate packaging value. Product: [describe product]. Target market: [enterprise size + vertical]. Current pricing: [if any]."
+      "summary": "A simple exercise to gain impulses about how you are doing currently at work",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Feedback"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## When to use this\n\nThe simple prompt guides you through some questions based on helping you reflect your work over a defined period of time, after the reflection a JSON is created which you can use to create a report on how your work is going or use https://reflectify.squarecircletriangle.co/ to paste in to get a pre-filled report\n\n## Prompt\n\nYou are guiding me through a structured reflection on my current job. Interview me one question at a time and wait for my answer before moving to the next question. Keep your tone warm and encouraging, and keep questions concise.\n\nStep 1: Ask what language I'd like to use for this reflection (e.g. English, German, Spanish, French). From that point on, ask every question in that language, and write every piece of prose in your final JSON output - headline, summary, analyses, quotes, conclusion, etc. - in that language too. Keep the JSON keys themselves in English exactly as specified below, regardless of the chosen language.\nStep 2: Ask how many months I want this reflection to cover (e.g. 3, 6, 12).\nStep 3: Ask my job title.\n\nThen run a guided interview covering, roughly in this order:\n1. Achievements & wins - what am I proud of in this period?\n2. Regrets or missed opportunities - what would I do differently?\n3. Challenges I faced and how I handled them\n4. Skills I grew - ask me to name 4-6 skills and rate my growth in each from 0-100\n5. Relationships & collaboration - who did I work well with, any friction worth noting?\n6. Energy & wellbeing - how has my energy/burnout trended? Ask for a 0-100 score and a short note\n7. Goals for the next period\n\nAsk thoughtful follow-up questions where it helps, but keep the whole interview reasonably tight - no more than a few questions per topic.\n\nWhen the interview is complete, respond with ONLY a single JSON code block (no other text before or after) that exactly matches this schema:\n\n{\n  \"jobTitle\": \"string\",\n  \"periodMonths\": number,\n  \"overallScore\": number, // 0-100, your holistic assessment of how the period went\n  \"headline\": \"string\", // one punchy sentence summing up the period\n  \"summary\": \"string\", // 2-4 sentence summary\n  \"achievements\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"achievementsAnalysis\": \"string\", // 2-3 sentences analyzing the pattern across my achievements - what they reveal about me\n  \"regrets\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"regretsAnalysis\": \"string\", // 2-3 sentences analyzing the pattern across my regrets\n  \"skills\": [{ \"name\": \"string\", \"level\": number }], // 0-100\n  \"skillsAnalysis\": \"string\", // 2-3 sentences on what my skill growth (or stagnation) suggests\n  \"timeline\": [{ \"label\": \"string\", \"detail\": \"string\" }], // chronological milestones across the period\n  \"quotes\": [\"string\"], // 2-4 short first-person quotes pulled from my answers, verbatim where possible\n  \"goals\": [{ \"title\": \"string\", \"detail\": \"string\" }],\n  \"goalsAnalysis\": \"string\", // 2-3 sentences on whether these goals address what came up in the interview\n  \"wellbeing\": { \"score\": number, \"note\": \"string\" }, // optional, include if we discussed it\n  \"sentiment\": {\n    \"label\": \"string\", // one or two words, e.g. \"Mostly positive\", \"Mixed\", \"Strained\"\n    \"score\": number, // -100 (very negative) to 100 (very positive), your read of my overall tone across all answers\n    \"note\": \"string\" // one sentence on what drives that read\n  },\n  \"conclusion\": \"string\" // 2-3 sentence closing reflection tying the period together and pointing forward\n}\n\nBase every analysis field on genuine patterns in my actual answers, not generic advice. Before writing the final JSON, review each analysis field (achievementsAnalysis, regretsAnalysis, skillsAnalysis, goalsAnalysis, sentiment.note, conclusion) and confirm it references a specific detail from my answers rather than a generic observation that could apply to anyone; rewrite any field that fails this check.\n\nSave that JSON as a .json file (for example reflection.json) so I can upload it to my reflection report tool."
     },
     {
-      "slug": "enterprise-stakeholder-map",
-      "title": "Enterprise Stakeholder Mapping",
-      "type": "prompt",
-      "body": "You are a B2B product strategist mapping decision-makers for an enterprise sale. List all potential stakeholders involved in a [product] purchase at a [company size] organization. For each: role, influence level (decision-maker/influencer/champion/detractor), primary concern, and what 'good' looks like to them. Then rank by power and interest."
+      "title": "Retrospective Builder for Miro",
+      "slug": "retrospective-builder-for-miro",
+      "type": "tool",
+      "summary": "Simple Miro Template for Quickly building Retrospectives",
+      "author": "Joseph Hill",
+      "tags": [
+        "Retrrospective",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/retrospective-builder/",
+      "body": "## What it helps with\n\nThe simple to use Miro template enables you to build out the stages of a retrospective with various pre-defined panels, so that you in a matter of minutes can piece together an effective retrospective\n\n## Suggested workflow\n\n1. Open the tool.\n2. Click on Use Template\n3. Go through each stage of the Retrospective and add the panels which match your needs\n4. Share the link with your team\n5. Execute the retrospective"
     },
     {
-      "slug": "b2b-roadmap-communicator",
-      "title": "B2B Roadmap Communication Draft",
-      "type": "prompt",
-      "body": "You are drafting a B2B product roadmap update for enterprise customers. Write a quarterly roadmap communication for [product name] to be sent to [audience: executives/champions/end users]. Include: recent wins, upcoming features, deprecation plan, and how customer feedback shaped decisions. Tone: [confident/empathetic/technical]. Length: [brief/detailed]."
+      "title": "Breadboarding for Miro",
+      "slug": "breadboarding-for-miro",
+      "type": "tool",
+      "summary": "Breadboarding is a overly simple way to look at your product offering and find gaps and issues",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Design",
+        "Product Management",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/breadboarding/?social=copy-link",
+      "body": "## What it helps with\n\nBreadboarding is a very simple process where you map all the user interactions on each screen and may the outcome. The approach is inspired my electrical breadboards, which are used to test out circuit designs before building them. \n\nYou will find gaps and UX improvements along the way of breadboarding your product or feature\n\n## Suggested workflow\n\n1. Open the tool.\n2. Follow the instructions in the template"
     },
     {
-      "slug": "opportunity-solution-tree",
-      "title": "Opportunity Solution Tree for B2B Pain Point",
-      "type": "prompt",
-      "body": "You are Teresa Torres' framework applied to a B2B problem. Build an opportunity solution tree for: [describe B2B pain point]. Start with the desired outcome, branch into opportunities (gaps in current experience), then solution ideas for each opportunity. Include assumptions to test and experiment ideas for the top 3 solutions."
+      "title": "Self Impressions & Reflections",
+      "slug": "self-impressions-reflections",
+      "type": "tool",
+      "summary": "A simple method to engage in 1:1 feedback in a productive and effective manner",
+      "author": "Joseph Hill",
+      "tags": [
+        "Self Reflection",
+        "Impressions",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Self+Impressions+%26+Reflections",
+      "body": "## What it helps with\n\nOne interesting activity which should be done once every couple of years is the Self Reflection & Impressions activity. It is an intimate, honest and transparent approach to getting to know a fellow team member better and to have an understanding about them as a person.\n\nNOTE: Please do not force people to do this, but it should be something both parties are open to\n\n## Suggested workflow\n\n1. Find someone who wants to participate 2. Print 4x this page (One for you evaluate yourself One for you to evaluate the other person One for them to evaluate themselves One for them to evaluate you)\n2. Engage in a meeting and both evaluate yourselves 4. Evaluate each other (allow around 5 minutes)\n3. Decide which person should go first\n4. Discuss when you both have conflicting ranges\n5. Switch person and repeat"
     },
     {
-      "slug": "b2b-prioritization-framework",
-      "title": "B2B Feature Prioritization with Weighted Scoring",
-      "type": "prompt",
-      "body": "You are evaluating B2B feature requests using a weighted scoring framework. Score each of these [features] against: revenue impact (0-5), customer demand (0-5), engineering effort inverse (0-5), strategic fit (0-5), competitive urgency (0-5). Weight each dimension and calculate total. Recommend a priority order. Features: [list]."
+      "title": "Rapid LDJ for Miro",
+      "slug": "rapid-ldj",
+      "type": "tool",
+      "summary": "Simple yet effective approach to minimise big discussions and have an outcome at the end of a session",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Decision Making",
+        "Miro"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "toolUrl": "https://miro.com/templates/rapid-ldj-template/",
+      "body": "## What it helps with\n\nThe Miro template creates a simple tool called Lightning Decision Jam which can be applied and utilised across a number of different contexts and is very helpful to reduce large group discussions which usually do not result in an outcome. \n\nI have used this in a 30min session in a previous company to define a backend teams full year roadmap\n\n## Suggested workflow\n\n1. Open the tool.\n2. Click on utilise the template\n3. Follow the moderation guide on the template"
     },
     {
-      "slug": "b2b-dogfooding-playbook",
-      "title": "Design a B2B Dogfooding Program",
-      "type": "prompt",
-      "body": "Design a dogfooding program for [product], a B2B SaaS tool. Include: participant selection criteria (roles, departments), onboarding flow, feedback collection mechanism, success metrics (time-to-value, NPS, usage frequency), duration, and criteria for 'graduation' to external beta. Output as a playbook document."
+      "title": "Mindset: The New Psychology of Success",
+      "slug": "mindset-the-new-psychology-of-success",
+      "type": "book",
+      "summary": "Understanding the two different mindsets and how to work with them",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book nicely explains how people fit into one of two mindsets and helps you to reflect what mindset you are and provides you the insight into how to work and handle people of the different mindsets\n\n## Best for\n\nAnyone in a leadership role\n\n## Key takeaway\n\nTBD",
+      "creator": "Carol S. Dweck",
+      "toolUrl": "https://www.goodreads.com/book/show/40745.Mindset"
     },
     {
-      "slug": "b2b-churn-analysis",
-      "title": "B2B Churn Root Cause Analysis",
-      "type": "prompt",
-      "body": "You are analyzing B2B customer churn for [product]. Given the following data: [list churned accounts with: segment, usage metrics, support tickets, CSAT, contract value]. Identify top 3 churn patterns, for each: root cause, leading indicators, and product changes that could prevent it. Provide a prioritized action plan."
+      "title": "Rethinking Agile",
+      "slug": "rethinking-agile",
+      "type": "book",
+      "summary": "Understanding how flight levels inform visibility and expectations ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Agile",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really helped me to understand the different flight levels in an organisation, how to connect the details to the high-level and really helped me to understand how to communicate as you can define which flight level someone is at. The book's design is really easy reading and serves as a nice pick up reference book. I would recommend for anyone managing a team or process as it enables you to gain different perspectives\n\n## Best for\n\nProduct Management and Leadership Roles\n\n## Key takeaway\n\nWhen you understanding different perspectives relating to different flight levels, you gain a better understanding on HOW and WHAT you can communicate with WHO and how to structure your working mode and practices for the different flight levels",
+      "creator": "Klaus Leopold",
+      "toolUrl": "https://www.goodreads.com/book/show/43291865-rethinking-agile"
     },
     {
-      "slug": "b2b-plg-motion-design",
-      "title": "Design a Product-Led Growth Motion for B2B",
-      "type": "prompt",
-      "body": "You are designing a PLG motion for [product], a B2B SaaS aimed at [target segment]. Outline: (1) free tier features and limits, (2) activation milestone definitions, (3) PQL definition and scoring, (4) sales-assist triggers and handoff process, (5) conversion tactics (upsell prompts, trial expiration). Estimate conversion rate targets for each stage."
+      "title": "Make Time",
+      "slug": "make-time",
+      "type": "book",
+      "summary": "Providing various tools and advice to find an improved pathway to your own time management ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nFrom the creators of the book \"Sprint\", Make Time is a really nice handbook for having ideas on how you can improve your day-to-day handling of topics and is full of practical advice and tips for making time in the day for the things you want to focus on.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nIt provides practical advice and tips you can easily apply to improve your productivity",
+      "toolUrl": "https://www.goodreads.com/book/show/37880811-make-time",
+      "creator": "Jake Knapp & John Zeratsky"
     },
     {
-      "slug": "b2b-api-product-spec",
-      "title": "B2B API Product Specification Template",
-      "type": "prompt",
-      "body": "Write a product specification for a new [API/feature] for [platform]. Include: (1) developer use case and persona, (2) endpoint design with request/response examples, (3) rate limiting and SLA commitment, (4) documentation requirements, (5) deprecation and versioning policy, (6) migration guide for existing users. Output as a product spec document."
+      "title": "Start with Why",
+      "slug": "start-with-why",
+      "type": "book",
+      "summary": "Understanding a purpose drives forward momentum ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book gave a really compelling case why starting with the WHY is important and what value it can bring in a lot of perspectives. Simon, uses Apple a lot as an organisation which has a WHY and how it keeps them grounded and focused.\n\n## Best for\n\nProduct Managers and Business Owners\n\n## Key takeaway\n\nUnderstanding the core of the purpose of the business and / or product provides the foundation for success, this is a step that many people and teams do not do.",
+      "creator": "Simon Sinek",
+      "toolUrl": "https://www.goodreads.com/book/show/7108725-start-with-why"
     },
     {
-      "slug": "competitive-battle-card",
-      "title": "B2B Competitive Battle Card Generator",
-      "type": "prompt",
-      "body": "Create a competitive battle card for [product] vs [competitor]. Include: (1) positioning statement, (2) feature comparison table, (3) common objections and rebuttals, (4) pricing comparison, (5) ideal replacement scenarios, (6) customer proof points. Format as a one-pager for the sales team. Competitor weaknesses should be factual, not exaggerated."
+      "title": "Deep Work",
+      "slug": "deep-work",
+      "type": "book",
+      "summary": "Rules for Focused Success in a Distracted World",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Focus"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really provided another insight and perspective on how to bring focus into play and what can be done to really master the focus approach.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nHow being focused is the key to mastery",
+      "toolUrl": "https://www.goodreads.com/book/show/25744928-deep-work",
+      "creator": "Cal Newport"
     },
     {
-      "slug": "b2b-customer-discovery",
-      "title": "B2B Customer Discovery",
-      "description": "Conducting effective customer interviews and discovery sessions with B2B stakeholders. Includes gatekeeper navigation, multi-threaded discovery, and uncovering hidden pain points.",
-      "body": "Ability to plan and execute structured discovery conversations with multiple stakeholders in a B2B buying process. Includes stakeholder mapping, question design, active listening, and synthesis into opportunity areas. Key skill for validating product-market fit in enterprise contexts.",
-      "type": "skill"
+      "title": "Ego is the Enemy",
+      "slug": "ego-is-the-enemy",
+      "type": "book",
+      "summary": "How to be aware of ego and to also leverage it ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book focuses on our ego and how it can impede us and also how we can leverage it to bring greater self improvement. The book is really insightful and gives you a number of examples of various situations which you can relate to.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nHelps to provides the understanding and tooling to be able to work with ego",
+      "toolUrl": "https://www.goodreads.com/book/show/27036528-ego-is-the-enemy",
+      "creator": "Ryan Holiday"
     },
     {
-      "slug": "b2b-pricing-strategy",
-      "title": "B2B Pricing Strategy",
-      "description": "Designing and iterating pricing models for B2B SaaS products. Covers willingness-to-pay research, packaging, tiering, usage-based vs per-seat models, and discount governance.",
-      "body": "Skill in determining optimal pricing and packaging for B2B products. Includes value-based pricing methodologies, competitive benchmarking, packaging design (features per tier), understanding elasticity, and managing pricing changes without churn.",
-      "type": "skill"
+      "title": "Manage Your Day-to-Day",
+      "slug": "manage-your-day-to-day",
+      "type": "book",
+      "summary": "Build Your Routine, Find Your Focus, and Sharpen Your Creative Mind",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book and the two others mentioned above are books that really opened by eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Similar to the book \"Getting Things Done\" this book inspired me on how to manage my time and be more effective.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nPractical insights and guides that help you to take control of your day",
+      "creator": "Jocelyn K. Glei",
+      "toolUrl": "https://www.goodreads.com/book/show/17606014-manage-your-day-to-day"
     },
     {
-      "slug": "enterprise-roadmapping",
-      "title": "Enterprise Roadmapping",
-      "description": "Creating and communicating multi-quarter product roadmaps that balance strategic vision with enterprise customer commitments. Includes theme-based vs feature-based roadmaps.",
-      "body": "The ability to build and maintain product roadmaps that satisfy both internal strategy and external enterprise account needs. Covers roadmap levels (strategic vs committed), managing deal-driven roadmap items, deprecation planning, and communicating trade-offs to executive stakeholders.",
-      "type": "skill"
+      "title": "Make Your Mark",
+      "slug": "make-your-mark",
+      "type": "book",
+      "summary": "A creative's guide to building a business with impact",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Business Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really opened by eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Make Your Mark focuses on the value generation you can have and how to leverage that.\n\n## Best for\n\nProduct Management\n\n## Key takeaway\n\nHow to leverage your value generation",
+      "creator": "Jocelyn K. Glei",
+      "toolUrl": "https://www.goodreads.com/book/show/22119095-make-your-mark"
     },
     {
-      "slug": "b2b-stakeholder-management",
-      "title": "B2B Stakeholder Management",
-      "description": "Navigating complex stakeholder relationships across enterprise accounts. Includes managing multiple buyers, handling escalation, and building executive relationships.",
-      "body": "Skill in identifying and managing relationships with all parties in an enterprise buying process: economic buyers, technical evaluators, end users, procurement, and legal. Includes executive communication, escalation management, and building champion networks within accounts.",
-      "type": "skill"
+      "title": "Maximize Your Potential",
+      "slug": "maximize-your-potential",
+      "type": "book",
+      "summary": "Grow Your Expertise, Take Bold Risks & Build an Incredible Career",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book really opened my eyes and enabled me to grow. It's really hard to identify what specifically changed my mindset, but they really had a positive impact. Maximize Your Potential really shows how you can create new opportunities, build positive relationships and take bold risks.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\ntbd",
+      "creator": "Jocelyn K. Glei  ",
+      "toolUrl": "https://www.goodreads.com/book/show/17944645-maximize-your-potential"
     },
     {
-      "slug": "product-led-sales",
-      "title": "Product-Led Sales",
-      "description": "Designing product experiences that generate and qualify leads. Includes PQL design, freemium/free trial strategy, in-app upsell, and sales-assist trigger definition.",
-      "body": "Ability to design product-led growth motions that generate, qualify, and convert leads without traditional sales. Includes defining product-qualified leads (PQLs), designing self-serve onboarding, setting up trial-to-paid conversion paths, and managing sales-assist handoffs.",
-      "type": "skill"
+      "title": "Getting Things Done",
+      "slug": "getting-things-done",
+      "type": "book",
+      "summary": "The Art of Stress-Free Productivity",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe book inspired me! so much that I never actually finished it. I got so much energy and it gave me appetite to just start on improving how I manage myself. I believe the book gives you a great foundation to grow on when it comes to Personal Task Management and is the foundation a lot of Task Managers re built from.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nThe book give you a foundational starting point to be able to get yourself in order and then develop your own approach",
+      "toolUrl": "https://www.goodreads.com/book/show/1633.Getting_Things_Done",
+      "creator": "David Allen"
     },
     {
-      "slug": "b2b-metrics-analytics",
-      "title": "B2B Metrics & Analytics",
-      "description": "Selecting and tracking the right metrics for B2B SaaS products. Covers NDR, ARR, logo churn, expansion MRR, time-to-value, and cohort analysis.",
-      "body": "Skill in defining and monitoring key B2B SaaS metrics that drive product decisions. Includes understanding net dollar retention vs logo retention, expansion revenue drivers, cohort-based retention analysis, and building dashboards that differentiate between usage, engagement, and business metrics.",
-      "type": "skill"
+      "title": "Why leaders eat last",
+      "slug": "why-leaders-eat-last",
+      "type": "video",
+      "summary": "Powerful understanding about leadership and the human element ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Leadership",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nI watch this at least once a year to keep me grounded and really helps to understand the human aspect of leadership and how to empower people to unlock their potential.\n\n## Best for\n\nAnyone who considers themselves a leader\n\n## Key takeaway\n\nLeadership is a powerful tool which once understand can empower anyone to achieve their best",
+      "toolUrl": "https://youtube.com/watch?v=ReRcHdeUG9Y&feature=youtu.be",
+      "creator": "Simon Sinek"
     },
     {
-      "slug": "b2b-partnership-ecosystems",
-      "title": "B2B Partnership & Ecosystem Strategy",
-      "description": "Building and managing ISV partnerships, technology integrations, and platform ecosystems. Includes API partnerships, marketplace strategy, and co-selling motions.",
-      "body": "Ability to identify, negotiate, and maintain strategic partnerships that extend a B2B product's reach. Includes building integration marketplaces, managing co-sell relationships, defining API partnership tiers, and measuring partner-sourced revenue.",
-      "type": "skill"
+      "title": " Rituals of modern product teams",
+      "slug": "rituals-of-modern-product-teams",
+      "type": "video",
+      "summary": "Insights into how modern product teams use various rituals to drive success",
+      "author": "Joseph Hill",
+      "tags": [
+        "Rituals",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video dives into how various tech companies employ rituals as part of their operating system to drive their success. The insights show that there is no one perfect solution and that the rituals are driving the culture of the organisation\n\n## Best for\n\nProduct Managers\n\n## Key takeaway\n\nImpulses for implementing some new rituals or evaluating existing ones",
+      "toolUrl": "https://www.youtube.com/watch?v=veG6_hcrShE",
+      "creator": "Figma Config 2023"
     },
     {
-      "slug": "b2b-compliance-security",
-      "title": "B2B Compliance & Security Knowledge",
-      "description": "Understanding enterprise compliance requirements (SOC 2, GDPR, HIPAA) and translating them into product decisions. Includes security review support and vendor assessment navigation.",
-      "body": "Working knowledge of enterprise compliance frameworks that affect product design and go-to-market. Includes understanding SOC 2 Type II, GDPR, HIPAA, FedRAMP requirements and how they impact feature development, data architecture, and deployment options.",
-      "type": "skill"
+      "title": "The resource utilization trap",
+      "slug": "the-resource-utilization-trap",
+      "type": "video",
+      "summary": "How being 100% utilised is not productive at all ",
+      "author": "Joseph Hill",
+      "tags": [],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video shows in a very simple way why being 100% utilised is a myth and actually is less productive than being less utilised.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nWIP Limits are a key factor for driving the team and process to be effective",
+      "toolUrl": "https://www.youtube.com/watch?v=CostXs2p6r0",
+      "creator": "Henrik Kniberg"
     },
     {
-      "slug": "b2b-platform-product-management",
-      "title": "Platform Product Management",
-      "description": "Managing internal platforms, APIs, and infrastructure as products for internal and external developers. Includes developer experience, versioning, and platform ROI.",
-      "body": "Skill in treating platforms, APIs, and internal tools as first-class products with their own user personas (developers), OKRs, and roadmaps. Includes API-first design, developer portal management, deprecation strategy, and measuring platform adoption and developer satisfaction.",
-      "type": "skill"
+      "title": " Pentagon Wars - Bradley Fighting Vehicle Evolution",
+      "slug": "pentagon-wars-bradley-fighting-vehicle-evolution",
+      "type": "video",
+      "summary": "Example of the effects of feature creep in a funny way",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Management",
+        "Strategy"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nThe video is a clip from the movie \"Pentagon Wars\" and is a funny story of how an armored troop career evolved overtime based on stakeholder feedback to be a vehicle which was good at nothing and shows feature creep\n\n## Best for\n\nProduct Management & Business Owners\n\n## Key takeaway\n\nDon't delegate feature and product decisions to a committee, understand the need and pains and keep the focus.",
+      "toolUrl": "https://www.youtube.com/watch?v=aXQ2lO3ieBA",
+      "creator": "Pentagon Wars Movie Clip"
     },
     {
-      "slug": "b2b-continuous-discovery",
-      "title": "Continuous B2B Discovery",
-      "description": "Running ongoing product discovery in B2B contexts with long sales cycles and small user bases. Includes opportunity solution trees, assumption mapping, and low-fidelity prototyping for enterprise.",
-      "body": "Ability to maintain a continuous discovery cadence despite the challenges of B2B (fewer users, longer sales cycles, harder access to decision-makers). Includes adapting Teresa Torres' framework for B2B, using design sprints for enterprise validation, and balancing discovery with delivery in resource-constrained teams.",
-      "type": "skill"
+      "title": " Imposter Syndrome",
+      "slug": "imposter-syndrome",
+      "type": "video",
+      "summary": "A video on Imposter Syndrome from a first hand perspective from one of the founders of Atlassian",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Imposter Syndrome"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nMike Cannon-Brookes who is one of the founders of Atlassian, explains his first hand experience with Imposter Syndrome and how its normalised and actually is a benefit\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nImposter Syndrome is normal",
+      "toolUrl": "https://www.youtube.com/watch?v=zNBmHXS3A6I",
+      "creator": "Mike Cannon-Brookes at TEDxSydney"
     },
     {
-      "slug": "product-board",
-      "title": "Productboard",
-      "description": "Product management platform focused on B2B insight collection, prioritization, and roadmapping with customer portal. Strong integrations with Salesforce, Jira, and Zendesk.",
-      "url": "https://www.productboard.com/",
-      "category": "Roadmapping & Prioritization",
-      "type": "tool"
+      "title": "Start Shipping with Shape Up",
+      "slug": "start-shipping-with-shape-up",
+      "type": "video",
+      "summary": "A look into the Shape Up process and Breadboarding",
+      "author": "Joseph Hill",
+      "tags": [
+        "Product Design",
+        "UX",
+        "Product Management"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nRyan Singer the person behind the methodology called Shape Up (https://basecamp.com/shapeup) gave a short talk to introduce Shape Up and also a glimpse into breadboarding\n\n## Best for\n\nProduct Design & Product Management\n\n## Key takeaway\n\nHow a simple breadboarding process can highlight some fundamental product issues",
+      "toolUrl": "https://www.youtube.com/watch?v=PU30bHF-rlI",
+      "creator": "Ryan Singer at Y Oslo"
     },
     {
-      "slug": "amplitude",
-      "title": "Amplitude",
-      "description": "Product analytics platform for understanding B2B user behavior. Behavioral cohorts, funnel analysis, retention curves, and feature adoption tracking for enterprise products.",
-      "url": "https://amplitude.com/",
-      "category": "Analytics",
-      "type": "tool"
+      "title": "Fat and Lazy",
+      "slug": "fat-and-lazy",
+      "type": "video",
+      "summary": "Stepping back and looking at how you spend the day give you insights on how to improve focus ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Time Management",
+        "Productivity"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nCasey shows how his typical 24hr day looks like, where he makes conscious decisions to reduce time in some areas to get focus in others.\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nStepping back and analyzing your day will show you have a lot of under utilised time",
+      "toolUrl": "https://www.youtube.com/watch?v=ZexvTZ1sV8U",
+      "creator": "Casey Neistat"
     },
     {
-      "slug": "pendo",
-      "title": "Pendo",
-      "description": "Product adoption and digital adoption platform. In-app guides, NPS surveys, and feature engagement analytics. Strong B2B enterprise feature set including multi-product views.",
-      "url": "https://www.pendo.io/",
-      "category": "Product Adoption & Analytics",
-      "type": "tool"
+      "title": "Leading through uncertainty",
+      "slug": "leading-through-uncertainty",
+      "type": "video",
+      "summary": "Haraldur Thorleifsson gives his personal take of navigating uncertainty ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership",
+        "Inspiring"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth watching\n\nHaraldur Thorleifsson gives you his first hand experiences of how he managed uncertainty and how you can do anything when you put your mind to it! A truly inspirational video which will make you cry\n\n## Best for\n\nEveryone\n\n## Key takeaway\n\nAnything is possible when you put your mind to it",
+      "toolUrl": "https://www.youtube.com/watch?v=w_yWIJfwZXo",
+      "creator": "Figma Config 2023"
     },
     {
-      "slug": "stripe-billing",
-      "title": "Stripe Billing",
-      "description": "B2B subscription management and billing platform. Supports usage-based pricing, tiered plans, invoicing, and revenue recognition. Essential for any B2B SaaS product.",
-      "url": "https://stripe.com/billing",
-      "category": "Billing & Monetization",
-      "type": "tool"
+      "title": "Future Product Days",
+      "slug": "future-product-days",
+      "type": "conference",
+      "summary": "Future Product Days is a three-day conference in Copenhagen for professionals working in digital product design, UX, engineering, leadership and AI. ",
+      "author": "Joseph Hill",
+      "tags": [
+        "ProductManagement",
+        "UXDesign",
+        "DigitalInnovation",
+        "AI",
+        "ProductLeadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth attending\n\nFuture Product Days is worth attending for Product Managers who want to stay ahead of developments in product strategy, UX, technology and AI. The conference offers practical insights from experienced industry leaders, hands-on workshops and opportunities to learn how other organisations approach product challenges. It is also a valuable place to expand your professional network, exchange ideas with peers and return with new methods that can be applied directly to your products and teams.\n\n## Best for\n\nBest suited to Product Managers, Product Owners, UX and design professionals, engineering leaders and product executives working on digital products. It will be especially valuable for those looking to strengthen their product strategy, explore practical uses of AI, improve cross-functional collaboration and learn from peers facing similar challenges.\n\n## What to expect\n\nExpect a mix of inspiring talks, practical workshops and discussions covering product strategy, UX, leadership, engineering and AI. The most valuable takeaway is likely to be a clearer understanding of how strong product teams turn customer needs, emerging technology and business goals into better product decisions.",
+      "attended": "no",
+      "creator": "Femna",
+      "toolUrl": "https://www.futureproductdays.com/",
+      "eventDate": "2026-09-22",
+      "location": "Copenhagen, Denmark"
     },
     {
-      "slug": "hotjar",
-      "title": "Hotjar",
-      "description": "Experience analytics tool with session recordings, heatmaps, and surveys. Useful for B2B user research and understanding how enterprise users interact with complex interfaces.",
-      "url": "https://www.hotjar.com/",
-      "category": "User Research & Analytics",
-      "type": "tool"
+      "title": "The Bottle Analogy",
+      "slug": "the-bottle-analogy",
+      "type": "article",
+      "summary": "Understand how to present your thoughts and opinions to a mixed level group",
+      "author": "Joseph Hill",
+      "tags": [
+        "Personal Development",
+        "Leadership"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe simple approach explains how to enable better group discussions around topics, in a group of mixed level thinkers. Once you understand the concept, you can easily apply it to a number of aspects of your daily work.\n\n## Best for\n\nAnyone who needs to get value from group think or wants to drive a direction forward with bringing people along with them\n\n## Key takeaway\n\nUnderstanding that humans when presented with a concrete idea or concept can better articulate their thoughts, opinions and ideas instead of a blank piece of paper where everything is possible and discussions go all in different directions.",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Bottle+Analogy",
+      "creator": "Joseph Hill"
     },
     {
-      "slug": "launchdarkly",
-      "title": "LaunchDarkly",
-      "description": "Feature management platform for B2B products. Gradual rollouts, A/B testing, targeting by customer segment, and kill switches for enterprise reliability.",
-      "url": "https://launchdarkly.com/",
-      "category": "Feature Management & Experimentation",
-      "type": "tool"
-    },
-    {
-      "slug": "linear",
-      "title": "Linear",
-      "description": "Issue tracking and project management for product teams. Keyboard-first, fast, and developer-friendly. Strong API for automation and integrations with GitHub/GitLab.",
-      "url": "https://linear.app/",
-      "category": "Project Management",
-      "type": "tool"
-    },
-    {
-      "slug": "retool",
-      "title": "Retool",
-      "description": "Low-code platform for building internal B2B tools. Connect to any database or API to create admin panels, customer dashboards, and internal CRUD apps quickly.",
-      "url": "https://retool.com/",
-      "category": "Internal Tooling",
-      "type": "tool"
-    },
-    {
-      "slug": "canny",
-      "title": "Canny",
-      "description": "Customer feedback management platform for B2B. Collect, organize, and prioritize feature requests with public or private roadmaps. Integrates with Intercom, Zendesk, and Slack.",
-      "url": "https://canny.io/",
-      "category": "Customer Feedback & Roadmapping",
-      "type": "tool"
-    },
-    {
-      "slug": "segment",
-      "title": "Segment (Twilio Segment)",
-      "description": "Customer data platform for B2B. Collect, unify, and route customer data across analytics, marketing, and product tools. Essential for building a single view of the enterprise customer.",
-      "url": "https://segment.com/",
-      "category": "Customer Data Platform",
-      "type": "tool"
+      "title": "Indexes for Metrics ",
+      "slug": "indexes-for-metrics",
+      "type": "article",
+      "summary": "Using indexes to develop high level health metrics which can be used to drive goal orientated development ",
+      "author": "Joseph Hill",
+      "tags": [
+        "Metrics",
+        "Personal Development"
+      ],
+      "createdAt": "2026-07-30",
+      "updatedAt": "2026-07-30",
+      "body": "## Why it is worth reading\n\nThe article explains on how simplifying complicated metrics into simple 0 - 100 indexes enables all experience levels and perspectives to clearly see WHERE we are right now and opens the door to define WHAT is the standard we want to push for, and then measure it again after a period of time to see if we improved the metric or not\n\n## Best for\n\nProduct Management and Leadership to bring higher level metrics and understanding across a broad and mixed knowledge group\n\n## Key takeaway\n\nSimplifying and grouping metrics into multiple 0 - 100 health metrics brings a lot of value and enables positive discussions into WHERE we want to get to",
+      "toolUrl": "https://scrapbook.josephhill.co/3+-+Areas/scrapbook/Recipes/pages/Indexes+",
+      "creator": "Joseph Hill"
     }
   ]
 }
