@@ -913,7 +913,7 @@ export default function ToolshelfApp({
         onDelete={async () => {
           await storage.deleteResource(resource.path);
           setLocalResources(await storage.listResources());
-          navigate("/library");
+          navigate(routeForType(route.type));
           notify("Resource deleted");
         }}
         onImport={async () => {
