@@ -146,17 +146,33 @@ test("routeForType maps every resource type to its category route", () => {
   }
 });
 
-test("ResourceDetail delete handler navigates to the source category, not All Resources", async () => {
+test("ResourceDetail delete handler navigates to the source category via the resolver", async () => {
   const src = await readFile(
     new URL("../app/toolshelf-app.tsx", import.meta.url),
     "utf8",
   );
   // Locate the onDelete block inside the ResourceDetail render.
   const block = src.slice(src.indexOf("onDelete={async () =>"));
-  // It must navigate via routeForType(route.type) — the category context —
-  // and must NOT hard-code the All Resources route.
-  assert.match(block, /navigate\(routeForType\(route\.type\)\)/);
+  // It must navigate via the shared resolver — the single source of truth for
+  // post-action landing routes — and must NOT hard-code the All Resources route.
+  assert.match(block, /navigate\(resourceReturnRoute\(route\)\)/);
   assert.doesNotMatch(block.slice(0, 200), /navigate\("\/library"\)/);
+});
+
+test("post-action navigation uses the resolver, not hard-coded library routes", async () => {
+  const src = await readFile(
+    new URL("../app/toolshelf-app.tsx", import.meta.url),
+    "utf8",
+  );
+  // The resolver is the single source of truth for landing after resource
+  // actions. Any navigate() inside a state-changing handler block should route
+  // through it rather than embedding a literal destination.
+  assert.match(src, /function resourceReturnRoute\(/);
+  // The delete handler must reference the resolver.
+  assert.match(
+    src.slice(src.indexOf("onDelete={async () =>")),
+    /resourceReturnRoute\(route\)/,
+  );
 });
 
 // routeForType is defined in toolshelf-app.tsx; mirror it here so the test

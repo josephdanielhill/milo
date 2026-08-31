@@ -201,6 +201,25 @@ function routeForType(type: ResourceType) {
   return type === "training" ? "/training" : `/${type}s`;
 }
 
+/**
+ * Resolve the landing route after a state-changing action performed from a
+ * resource context (delete, import, etc). Derives the destination from the
+ * route the user is currently on so the action returns them to the category
+ * they came from, rather than dumping them at a hard-coded page.
+ *
+ * This is the single source of truth for post-action navigation — new
+ * handlers should call this instead of hard-coding a target route.
+ */
+function resourceReturnRoute(route: {
+  kind: "resource" | "edit" | "create";
+  type: ResourceType;
+}): string {
+  // Stay in the category the resource belongs to (routeForType handles the
+  // plural route form). Never fall back to a literal; if the route is typed,
+  // routeForType always yields a valid category route.
+  return routeForType(route.type);
+}
+
 function pluralTypeLabel(type: ResourceType) {
   return type === "training" ? "Training" : `${typeLabels[type]}s`;
 }
@@ -913,7 +932,7 @@ export default function ToolshelfApp({
         onDelete={async () => {
           await storage.deleteResource(resource.path);
           setLocalResources(await storage.listResources());
-          navigate(routeForType(route.type));
+          navigate(resourceReturnRoute(route));
           notify("Resource deleted");
         }}
         onImport={async () => {
