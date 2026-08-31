@@ -808,7 +808,12 @@ export default function ToolshelfApp({
             return;
           }
           try {
-            await storage.addSubscription(collection.bundleUrl, collection.name);
+            // collection.bundleUrl is a relative path (e.g. /collections/slug.json).
+            // Resolve it against the current origin so the stored subscription is
+            // an absolute http(s) URL — fetchImportSource rejects relative URLs,
+            // which would make Refresh never import the collection's resources.
+            const absoluteUrl = new URL(collection.bundleUrl, window.location.origin).href;
+            await storage.addSubscription(absoluteUrl, collection.name);
             notify(`Subscribed to “${collection.name}”. Refresh to import its resources.`);
           } catch (error) {
             notify(error instanceof Error ? error.message : "Could not subscribe to this collection.");
