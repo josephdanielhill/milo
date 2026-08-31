@@ -4203,13 +4203,7 @@ function ResourceDetail({
             <button
               className="secondary-button"
               disabled={exporting}
-              title={
-                exporting
-                  ? "Exporting..."
-                  : inCollection
-                    ? "This resource is already in the collection folder"
-                    : "Push a copy of this resource to a shared collection folder"
-              }
+              title={exporting ? "Exporting..." : "Push a copy of this resource to a shared collection folder"}
               onClick={async () => {
                 if (!onExport) return;
                 setExporting(true);
