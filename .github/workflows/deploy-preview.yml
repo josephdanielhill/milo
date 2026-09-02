@@ -25,6 +25,7 @@ on:
       - 'feature/*'
       - 'fix/*'
       - 'feat/*'
+  workflow_dispatch:
 
 concurrency:
   group: cf-preview-${{ github.ref }}
